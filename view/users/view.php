@@ -1,0 +1,35 @@
+<?php
+// file: view/users/show.php
+require_once (__DIR__ . "/../../core/ViewManager.php");
+$view = ViewManager::getInstance ();
+// $view->setLayout("welcome");
+$user = $view->getVariable ( "user" );
+$view->setVariable ( "title", "View User" );
+?>
+
+
+<div id="container" class="container">
+  <div id="background_title">
+    <h4 id="view_title"><?= i18n("User Information") ?></h4>
+  </div>
+  <div class="row justify-content-center">
+    <div id="card" class="card" style="width: 18rem;">
+      <img class="card-img-top" src="multimedia/images/users/profile.png" alt="Card image cap">
+      <div id="card_body" class="card-body">
+        <h5 class="card-title"><?= $user->getName() ?> <?= $user->getSurname() ?></h5>
+        <p class="card-text"><?= i18n("User of type admin") ?></p>
+      </div>
+      <ul id="background_table"  class="list-group list-group-flush">
+        <li id="table_color" class="list-group-item"><?= i18n("Dni:") ?> <?= $user->getDni() ?></li>
+        <li id="table_color" class="list-group-item"><?= i18n("Birthdate:") ?> <?= $user->getBirthdate() ?></li>
+        <li id="table_color" class="list-group-item"><?= i18n("Email:") ?> <?= $user->getUsername() ?></li>
+        <li id="table_color" class="list-group-item"><?= i18n("Telephone:") ?> <?= $user->getTelephone() ?></li>
+        <li id="table_color" class="list-group-item">
+          <a href="#" class="card-link">Modify</a>
+          <a href="#" class="card-link">Delete</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

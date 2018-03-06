@@ -78,7 +78,7 @@ $currentuser = $view->getVariable("currentusername");
 		        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
 		          <a id="texto_menu" class="dropdown-item" href="index.php?controller=courses&amp;action=show"><?= i18n("Courses") ?></a>
 		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Calendar") ?></a>
-		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Assistance") ?></a>
+		          <!-- <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Assistance") ?></a> -->
 							<a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Reservations") ?></a>
 		        </div>
 		      </li>

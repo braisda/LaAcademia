@@ -9,7 +9,7 @@ $errors = $view->getVariable ( "errors" );
 
 <div class="container" id="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Add User") ?></h4>
+    <h4 id="view_title"><?= i18n("Modify User") ?></h4>
   </div>
   <form action="index.php?controller=users&amp;action=update" method="POST">
     <input type="hidden" name="id_user" value="<?= $user->getId_user() ?>">

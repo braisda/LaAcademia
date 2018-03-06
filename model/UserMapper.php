@@ -29,10 +29,6 @@ class UserMapper {
 	* @throws PDOException if a database error occurs
 	* @return void
 	*/
-	/*public function save($user) {
-		$stmt = $this->db->prepare("INSERT INTO users values (?,?)");
-		$stmt->execute(array($user->getUsername(), $user->getPasswd()));
-	}*/
 
 	/**
 	* Checks if a given username is already in the database
@@ -100,13 +96,29 @@ class UserMapper {
 	/**
 	* Checks if the user is an athlete user
 	*/
-	public function isAthlete() {
+	public function isPupil() {
 		$user = $_SESSION ["currentuser"];
 		$stmt = $this->db->prepare ( "SELECT * FROM users WHERE email=?" );
 		$stmt->execute (array($user));
 		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
 
-		if ($array ["is_athlete"] == 1) {
+		if ($array ["is_pupil"] == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	* Checks if the user is an athlete user
+	*/
+	public function isCompetitor() {
+		$user = $_SESSION ["currentuser"];
+		$stmt = $this->db->prepare ( "SELECT * FROM users WHERE email=?" );
+		$stmt->execute (array($user));
+		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
+
+		if ($array ["is_competitor"] == 1) {
 			return true;
 		} else {
 			return false;
@@ -136,7 +148,6 @@ class UserMapper {
 		$users_db = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 
 		$users = array ();
-		// var_dump($users_db);
 
 		foreach ( $users_db as $user ) {
 			array_push ( $users, new User ( $user ["email"], $user ["id_user"], $user ["name"],

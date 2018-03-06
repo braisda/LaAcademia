@@ -8,9 +8,12 @@ $errors = $view->getVariable ( "errors" );
 ?>
 
 <div class="container" id="container">
+
   <div id="background_title">
+
     <h4 id="view_title"><?= i18n("Add User") ?></h4>
   </div>
+
   <form action="index.php?controller=users&amp;action=add" method="POST">
     <div id="background_table" class="form-row">
       <div class="form-group col-md-6">
@@ -46,7 +49,7 @@ $errors = $view->getVariable ( "errors" );
         <label for="repeatpassword"><?=i18n("Repeat Password")?></label>
         <input type="password" class="form-control" id="repeatpassword" name="repeatpassword" placeholder="<?=i18n("Repeat Password")?>">
       </div>
-      <div id="a" class="form-group col-md-2">
+      <div class="form-group col-md-2">
         <div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input" id="isAdministrator" name="isAdministrator" value="1">
           <label class="custom-control-label" for="isAdministrator"><?=i18n("Administrator")?></label>
@@ -70,7 +73,7 @@ $errors = $view->getVariable ( "errors" );
         <input type="file" id="inputZip">
       </div>   -->
     </div>
-
+    <br/>
     <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Add")?></button>
   </form>
 </div>

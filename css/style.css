@@ -83,6 +83,13 @@
 	padding-bottom: 25px;
 }
 
+
+.btn-primary {
+	color: #fff;
+	background-color: #3b6043;
+	border-color: #3c3a37;
+}
+
 #container {
 	padding-top: 25px;
 }
@@ -98,14 +105,31 @@
 #background_table {
 	background: rgba(255, 255, 255, 0.73);
   color: black;
-	border-radius: 4px;
+	border-radius: 2px;
 }
 
-#table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword {
+
+
+#table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd {
 	background: rgba(5, 53, 21, 0.73);
 	color:white;
 	border-color: #3c3a37;
 }
+
+
+
+.input {
+	background: rgba(5, 53, 21, 0.73);
+	color:white;
+	border-color: #3c3a37;
+}
+
+/* Change Placeholder Color */
+.form-control::-webkit-input-placeholder { color: white; }  /* WebKit, Blink, Edge */
+.form-control:-moz-placeholder { color: white; }  /* Mozilla Firefox 4 to 18 */
+.form-control::-moz-placeholder { color: white; }  /* Mozilla Firefox 19+ */
+.form-control:-ms-input-placeholder { color: white; }  /* Internet Explorer 10-11 */
+.form-control::-ms-input-placeholder { color: white; }  /* Microsoft Edge */
 
 #view_title {
 	text-align: center;

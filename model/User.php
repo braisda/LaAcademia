@@ -6,14 +6,14 @@ require_once(__DIR__."/../core/ValidationException.php");
 /**
 * Class User
 *
-* Represents a User in the blog
+* Represents a User in the academy
 *
 * @author lipido <lipido@gmail.com>
 */
 class User {
 
 	/**
-	* The id of this post
+	* The id of this user
 	* @var string
 	*/
 	private $id_user;
@@ -42,7 +42,6 @@ class User {
 
 	/**
 	* The password of the user
-	* @var string
 	*/
 	private $password;
 
@@ -84,8 +83,19 @@ class User {
 	/**
 	* The constructor
 	*
-	* @param string $username The name of the user
-	* @param string $passwd The password of the user
+	* @param $username The email of the user
+	* @param $id_user The id of the user
+	* @param $name The name of the user
+	* @param $surname The surname of the user
+	* @param $dni The dni of the user
+	* @param $password The password of the user
+	* @param $telephone The telephone of the user
+	* @param $birthdate The birthdate of the user
+	* @param $is_active The state of the user
+	* @param $is_administrator The type of the user
+	* @param $is_trainer The type of the user
+	* @param $is_pupil The type of the user
+	* @param $is_competitor The type of the user
 	*/
 	public function __construct($username=NULL, $id_user=NULL, $name=NULL, $surname=NULL,
 															$dni=NULL, $password=NULL, $telephone=NULL, $birthdate=NULL,
@@ -107,30 +117,21 @@ class User {
 	}
 
 	/**
-	* Gets the username of this user
-	*
-	* @return string The username of this user
-	*/
-	public function getUsername() {
-		return $this->username;
-	}
-
-	/**
 	* Gets the id of this user
 	*
-	* @return string The id of this post
+	* @return string The id of this user
 	*/
 	public function getId_user() {
 		return $this->id_user;
 	}
 
 	/**
-	* Gets the title of this post
+	* Gets the username of this user
 	*
-	* @return string The title of this post
+	* @return string The username of this user
 	*/
-	public function getTitulo() {
-		return $this->titulo;
+	public function getUsername() {
+		return $this->username;
 	}
 
 	/**
@@ -142,7 +143,7 @@ class User {
 	public function setUsername($username) {
 		$this->username = $username;
 	}
-
+	
 	/**
 	* Gets the name of this user
 	*

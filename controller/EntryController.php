@@ -35,8 +35,9 @@ class EntryController extends BaseController {
 			$this->userMapper = new UserMapper();
 
 			$_SESSION["admin"] = $this->userMapper->isAdmin();
-			$_SESSION["entrenador"] = $this->userMapper->isTrainer();
-			$_SESSION["deportista"] = $this->userMapper->isAthlete();
+			$_SESSION["trainer"] = $this->userMapper->isTrainer();
+			$_SESSION["pupil"] = $this->userMapper->isPupil();
+			$_SESSION["competitor"] = $this->userMapper->isCompetitor();
 
 			$this->view->render("entry","home");
 		}else{

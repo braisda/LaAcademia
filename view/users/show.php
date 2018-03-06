@@ -12,7 +12,7 @@ $view->setVariable ("title", "Show Users");
   </div>
   <div class="row justify-content-around">
 
-    <div id="background_table" class="col-3">
+    <div id="background_table" class="col-4">
       <h4 id="table_title" ><?= i18n("Administrators") ?></h4>
       <div class="table-responsive">
             <table id="table_color" class="table table-sm table-dark">
@@ -48,7 +48,7 @@ $view->setVariable ("title", "Show Users");
 
 
 
-    <div id="background_table" class="col-3">
+    <div id="background_table" class="col-4">
       <h4 id="table_title" ><?= i18n("Trainers") ?></h4>
       <div class="table-responsive">
       <table id="table_color" class="table table-sm table-dark">
@@ -86,7 +86,7 @@ $view->setVariable ("title", "Show Users");
 
 
 
-    <div id="background_table" class="col-3">
+    <div id="background_table" class="col-4">
       <h4 id="table_title" ><?= i18n("Athletes") ?></h4>
       <div class="table-responsive">
       <table id="table_color" class="table table-sm table-dark">

@@ -7,6 +7,12 @@ $view->setVariable ( "title", "Add Course" );
 $errors = $view->getVariable ( "errors" );
 ?>
 
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
+  <li class="breadcrumb-item"><a href="index.php?controller=courses&amp;action=show"><?= i18n("Courses List") ?></a></li>
+  <li class="breadcrumb-item active"><?= i18n("Add Course") ?></li>
+</ol>
+
 <div class="container" id="container">
   <div id="background_title">
     <h4 id="view_title"><?= i18n("Add Course") ?></h4>
@@ -66,7 +72,7 @@ $errors = $view->getVariable ( "errors" );
         <input type="file" id="inputZip">
       </div>   -->
     </div>
-
+    <br/>
     <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Add")?></button>
   </form>
 </div>

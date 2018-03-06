@@ -7,6 +7,12 @@ $view->setVariable ( "title", "Add User" );
 $errors = $view->getVariable ( "errors" );
 ?>
 
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
+  <li class="breadcrumb-item"><a href="index.php?controller=users&amp;action=show"><?= i18n("Users List") ?></a></li>
+  <li class="breadcrumb-item active"><?= i18n("Add User") ?></li>
+</ol>
+
 <div class="container" id="container">
 
   <div id="background_title">

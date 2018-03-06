@@ -7,6 +7,11 @@ $user = $view->getVariable ( "user" );
 $view->setVariable ( "title", "View User" );
 ?>
 
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
+  <li class="breadcrumb-item"><a href="index.php?controller=users&amp;action=show"><?= i18n("Users List") ?></a></li>
+  <li class="breadcrumb-item active"><?= i18n("View User") ?></li>
+</ol>
 
 <div id="container" class="container">
   <div id="background_title">

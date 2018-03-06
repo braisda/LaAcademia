@@ -7,6 +7,10 @@ $users = $view->getVariable ( "users" );
 $view->setVariable ( "title", "Show Users" );
 ?>
 
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
+  <li class="breadcrumb-item active"><?= i18n("Competitors List") ?></li>
+</ol>
 
 <div id="container" class="container">
   <div id="background_title">

@@ -6,6 +6,11 @@ $courses = $view->getVariable("courses");
 $view->setVariable ("title", "Show Courses");
 ?>
 
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
+  <li class="breadcrumb-item active"><?= i18n("Courses List") ?></li>
+</ol>
+
 <div id="container" class="container">
   <div id="background_title">
     <h4 id="view_title"><?= i18n("Courses List") ?><a href="index.php?controller=courses&amp;action=add"> Añadir</img></a></h4>

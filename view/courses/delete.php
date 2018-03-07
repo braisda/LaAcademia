@@ -13,17 +13,15 @@ $view->setVariable ( "title", "Delete Course" );
   <li class="breadcrumb-item active"><?= i18n("Delete Course") ?></li>
 </ol>
 
-
-
-  <div id="container" class="container">
-    <div id="background_title">
-      <h4 id="view_title"><?= i18n("Course Information") ?></h4>
-    </div>
-    <div class="row justify-content-center">
-      <?= $course->getDescription() ?>
-    </div>
-    <form action="index.php?controller=courses&amp;action=delete" method="POST">
-      <input type="hidden" name="id_course" value="<?= $course->getId_course() ?>">
-      <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Delete")?></button>
-    </form>
+<div id="container" class="container">
+  <div id="background_title">
+    <h4 id="view_title"><?= i18n("Course Information") ?></h4>
   </div>
+  <div class="row justify-content-center">
+    <?= $course->getDescription() ?>
+  </div>
+  <form action="index.php?controller=courses&amp;action=delete" method="POST">
+    <input type="hidden" name="id_course" value="<?= $course->getId_course() ?>">
+    <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Delete")?></button>
+  </form>
+</div>

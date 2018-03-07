@@ -80,27 +80,35 @@ class CourseMapper {
 												 $course->getEnd_time()));
 		return $this->db->lastInsertId();
 	}
-/*
-	public function update($user) {
-		$stmt = $this->db->prepare("UPDATE users set name = ?, surname = ?, dni = ?, email = ?, password = ?,
-																								 telephone = ?, birthdate = ?, is_administrator = ?,
-																								 is_trainer = ?, is_pupil = ?, is_competitor = ? WHERE id_user = ?");
 
-		$stmt->execute(array($user->getName(), $user->getSurname(), $user->getDni(),
-												 $user->getUsername(), md5($user->getPassword()), $user->getTelephone(),
-												 $user->getBirthdate(), $user->getIs_administrator(),
-												 $user->getIs_trainer(), $user->getIs_pupil(),
-												 $user->getIs_competitor(), $user->getId_user()));
+//UPDATE `courses` SET `name` = 'Cacaa', `type` = 'Adults', `description` = 'Pruebass', `capacity` = '9', `days` = 'Tuesday', `start_time` = '10:00:00', `end_time` = '12:00:00'
+//WHERE `courses`.`id_course` = 11;
+
+
+	public function update($course) {
+		$stmt = $this->db->prepare("UPDATE courses
+																set name = ?, type = ?, description = ?,
+																		capacity = ?, days = ?, start_time = ?,
+																		end_time = ?
+																WHERE id_course = ?");
+
+		$days = "";
+    for($i=0; $i<count($course->getDays()); $i++){
+      $days = $days.$course->getDays()[$i].",";
+    }
+    $size = strlen($days);
+    $days = substr($days, 0, $size-1); echo $days;
+
+		$stmt->execute(array($course->getName(), $course->getType(),
+												 $course->getDescription(), $course->getCapacity(), $days,
+												 $course->getStart_time(), $course->getEnd_time(),
+												 $course->getId_course()));
 		return $this->db->lastInsertId();
 	}
-*/
+
 	public function delete($course) {
 		//Borrado físico
 		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");
 		$stmt->execute(array($course->getId_course()));
 	}
-
-
-
-
 }

@@ -10,9 +10,9 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
 /**
-* Class UsersController
+* Class CoursesController
 *
-* Controller to login, logout and user registration
+* Controller to courses CRUD
 *
 * @author lipido <lipido@gmail.com>
 */
@@ -52,7 +52,7 @@ class CoursesController extends BaseController {
 
 	public function view(){
 		if (!isset($_GET["id_course"])) {
-			throw new Exception("id_course user is mandatory");
+			throw new Exception("id_course is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -61,17 +61,17 @@ class CoursesController extends BaseController {
 
 		$id_course = $_GET["id_course"];
 
-		// find the User object in the database
+		// find the Course object in the database
 		$course = $this->courseMapper->view($id_course);
 
 		if ($course == NULL) {
-			throw new Exception("no such user with id_course: ".$id_course);
+			throw new Exception("no such course with id_course: ".$id_course);
 		}
 
-		// put the user object to the view
+		// put the course object to the view
 		$this->view->setVariable("course", $course);
 
-		// render the view (/view/users/view.php)
+		// render the view (/view/courses/view.php)
 		$this->view->render("courses", "view");
 	}
 
@@ -82,25 +82,24 @@ class CoursesController extends BaseController {
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an user requires be admin");
+			throw new Exception("You aren't an admin. Adding an course requires be admin");
 		}
 
 		$course = new Course();
 
-		if(isset($_POST["submit"])) { // reaching via HTTP user...
+		if(isset($_POST["submit"])) { // reaching via HTTP course...
 
-			// populate the user object with data form the form
+			// populate the course object with data form the form
 			$course->setName($_POST["name"]);
 			$course->setType($_POST["type"]);
 			$course->setDescription($_POST["description"]);
 			$course->setCapacity($_POST["capacity"]);
-
 			$course->setDays($_POST["days"]);
 			$course->setStart_time($_POST["start_time"]);
 			$course->setEnd_time($_POST["end_time"]);
 
 			try {
-				// validate user object
+				// validate course object
 				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
 
 				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
@@ -122,15 +121,15 @@ class CoursesController extends BaseController {
 			}
 		}
 
-		// Put the user object visible to the view
+		// Put the course object visible to the view
 		$this->view->setVariable("course", $course);
-		// render the view (/view/users/add.php)
+		// render the view (/view/courses/add.php)
 		$this->view->render("courses", "add");
-	}/*
+	}
 
 	public function update(){
-		if (!isset($_REQUEST["id_user"])) {
-			throw new Exception("A id user is mandatory");
+		if (!isset($_REQUEST["id_course"])) {
+			throw new Exception("A id_course is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -141,46 +140,23 @@ class CoursesController extends BaseController {
 			throw new Exception("You aren't an admin. Adding an user requires be admin");
 		}
 
-		$id_user = $_REQUEST["id_user"];
-		$user = $this->userMapper->getUser($id_user);
+		$id_course = $_REQUEST["id_course"];
+		$course = $this->courseMapper->view($id_course);
 
-		if ($user == NULL) {
-			throw new Exception("no such user with id_user: ".$id_user);
+		if ($course == NULL) {
+			throw new Exception("no such course with id_course: ".$id_course);
 		}
 
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
-			// populate the user object with data form the form
-			$user->setName($_POST["name"]);
-			$user->setSurname($_POST["surname"]);
-			$user->setDni($_POST["dni"]);
-			$user->setUsername($_POST["username"]);
-			$user->setPassword($_POST["password"]);
-			$user->setPassword($_POST["repeatpassword"]);
-
-			$user->setTelephone($_POST["telephone"]);
-			$user->setBirthdate($_POST["birthdate"]);
-
-			if(isset($_POST["isAdministrator"]) && $_POST["isAdministrator"] == "1"){
-				$user->setIs_administrator(1);
-			}else{
-				$user->setIs_administrator(NULL);
-			}
-			if(isset($_POST["isTrainer"]) && $_POST["isTrainer"] == "1"){
-				$user->setIs_trainer(1);
-			}else{
-				$user->setIs_trainer(NULL);
-			}
-			if(isset($_POST["isPupil"]) && $_POST["isPupil"] == "1"){
-				$user->setIs_pupil(1);
-			}else{
-				$user->setIs_pupil(NULL);
-			}
-			if(isset($_POST["isCompetitor"]) && $_POST["isCompetitor"] == "1"){
-				$user->setIs_competitor(1);
-			}else{
-				$user->setIs_competitor(NULL);
-			}
+			// populate the course object with data form the form
+			$course->setName($_POST["name"]);
+			$course->setType($_POST["type"]);
+			$course->setDescription($_POST["description"]);
+			$course->setCapacity($_POST["capacity"]);
+			$course->setDays($_POST["days"]);
+			$course->setStart_time($_POST["start_time"]);
+			$course->setEnd_time($_POST["end_time"]);
 
 			try {
 				// validate user object
@@ -190,12 +166,12 @@ class CoursesController extends BaseController {
 				//	$this->userMapper->update($user);
 				//}else{
 					//save the user object into the database
-					$this->userMapper->update($user);
+					$this->courseMapper->update($course);
 				//}
 
-				$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user ->getName()));
+				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully updated."),$course ->getName()));
 
-				$this->view->redirect("users", "show");
+				$this->view->redirect("courses", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -206,10 +182,10 @@ class CoursesController extends BaseController {
 		}
 
 		// Put the user object visible to the view
-		$this->view->setVariable("user", $user);
+		$this->view->setVariable("course", $course);
 		// render the view (/view/users/add.php)
-		$this->view->render("users", "update");
-	}*/
+		$this->view->render("courses", "update");
+	}
 
 
 	public function delete() {
@@ -246,7 +222,7 @@ class CoursesController extends BaseController {
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully deleted."),$course->getName()));
+				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully deleted."), $course->getName()));
 
 				// perform the redirection. More or less:
 				// header("Location: index.php?controller=posts&action=index")

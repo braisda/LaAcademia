@@ -28,7 +28,7 @@ $errors = $view->getVariable ( "errors" );
         <label for="type"><?=i18n("Type")?></label>
         <select name="type" class="form-control" id="select">
           <option value="children"><?=i18n("Children")?></option>
-          <option value="adult"><?=i18n("Adult")?></option>
+          <option value="adults"><?=i18n("Adults")?></option>
         </select>
       </div>
 

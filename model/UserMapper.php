@@ -206,15 +206,6 @@ class UserMapper {
 	}
 
 	public function sendTotrash($user) {
-		//Borrado físico
-		/*$stmt = $this->db->prepare ( "DELETE from USUARIO WHERE DNI=?" );
-		$stmt->execute ( array (
-				$user->getUsername ()
-		) );
-		$stmt2 = $this->db->prepare ( "DELETE from TLF_USUARIO WHERE DNI=?" );
-		$stmt2->execute ( array (
-				$user->getUsername ()
-		) );*/
 		//Borrado lógico
 		$stmt = $this->db->prepare("UPDATE users set is_active=? where id_user=?");
 		$stmt->execute(array(0,	$user->getId_user()));

@@ -11,7 +11,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 /**
 * Class UsersController
 *
-* Controller to login, logout and user registration
+* Controller to login, logout and user CRUD
 *
 * @author lipido <lipido@gmail.com>
 */

@@ -46,9 +46,9 @@ class CourseMapper {
 		return $courses;
 	}
 
-	public function view($id_user) {
+	public function view($id_course) {
 		$stmt = $this->db->prepare("SELECT * FROM courses WHERE id_course=?");
-		$stmt->execute(array($id_user));
+		$stmt->execute(array($id_course));
 
 		$course = $stmt->fetch ( PDO::FETCH_ASSOC );
 
@@ -93,19 +93,12 @@ class CourseMapper {
 												 $user->getIs_competitor(), $user->getId_user()));
 		return $this->db->lastInsertId();
 	}
-
-	public function sendTotrash($user) {
+*/
+	public function delete($course) {
 		//Borrado físico
-		$stmt = $this->db->prepare ( "DELETE from USUARIO WHERE DNI=?" );
-		$stmt->execute ( array (
-				$user->getUsername ()
-		) );
-		$stmt2 = $this->db->prepare ( "DELETE from TLF_USUARIO WHERE DNI=?" );
-		$stmt2->execute ( array (
-				$user->getUsername ()
-		) );
-
-	}*/
+		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");
+		$stmt->execute(array($course->getId_course()));
+	}
 
 
 

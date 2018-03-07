@@ -209,13 +209,13 @@ class CoursesController extends BaseController {
 		$this->view->setVariable("user", $user);
 		// render the view (/view/users/add.php)
 		$this->view->render("users", "update");
-	}
+	}*/
 
 
 	public function delete() {
 
-		if (!isset($_REQUEST["id_user"])) {
-			throw new Exception("A user id_user is mandatory");
+		if (!isset($_REQUEST["id_course"])) {
+			throw new Exception("A id_course is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -223,35 +223,35 @@ class CoursesController extends BaseController {
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an user requires be admin");
+			throw new Exception("You aren't an admin. Adding a course requires be admin");
 		}
 
 		// Get the User object from the database
-		$id_user = $_REQUEST["id_user"];
-		$user = $this->userMapper->getUser($id_user);
+		$id_course = $_REQUEST["id_course"];
+		$course = $this->courseMapper->view($id_course);
 
-		// Does the nota exist?
-		if ($user == NULL) {
-			throw new Exception("no such user with id_user: ".$id_user);
+		// Does the course exist?
+		if ($course == NULL) {
+			throw new Exception("no such user with id_user: ".$id_course);
 		}
 
 		if (isset($_POST["submit"])) {
 
 			try {
 				// Delete the Post object from the database
-				$this->userMapper->sendTotrash($user);
+				$this->courseMapper->delete($course);
 
 				// POST-REDIRECT-GET
 				// Everything OK, we will redirect the user to the list of posts
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("User \"%s\" successfully deleted."),$user->getName()));
+				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully deleted."),$course->getName()));
 
 				// perform the redirection. More or less:
 				// header("Location: index.php?controller=posts&action=index")
 				// die();
-				$this->view->redirect("users", "show");
+				$this->view->redirect("courses", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -262,9 +262,9 @@ class CoursesController extends BaseController {
 		}
 
 		// Put the user object visible to the view
-		$this->view->setVariable("user", $user);
+		$this->view->setVariable("course", $course);
 		// render the view (/view/users/add.php)
-		$this->view->render("users", "delete");
+		$this->view->render("courses", "delete");
 
-	}*/
+	}
 }

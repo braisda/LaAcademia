@@ -1,10 +1,10 @@
 <?php
-// file: view/users/show.php
+// file: view/users/delete.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
 // $view->setLayout("welcome");
 $user = $view->getVariable ( "user" );
-$view->setVariable ( "title", "View User" );
+$view->setVariable ( "title", "Delete User" );
 ?>
 
 <ol class="breadcrumb">

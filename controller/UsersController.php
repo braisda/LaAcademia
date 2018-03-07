@@ -345,7 +345,7 @@ class UsersController extends BaseController {
 	public function delete() {
 
 		if (!isset($_REQUEST["id_user"])) {
-			throw new Exception("A user id_user is mandatory");
+			throw new Exception("A id_user is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -360,7 +360,7 @@ class UsersController extends BaseController {
 		$id_user = $_REQUEST["id_user"];
 		$user = $this->userMapper->getUser($id_user);
 
-		// Does the nota exist?
+		// Does the user exist?
 		if ($user == NULL) {
 			throw new Exception("no such user with id_user: ".$id_user);
 		}
@@ -368,7 +368,7 @@ class UsersController extends BaseController {
 		if (isset($_POST["submit"])) {
 
 			try {
-				// Delete the Post object from the database
+				// Delete the User object from the database
 				$this->userMapper->sendTotrash($user);
 
 				// POST-REDIRECT-GET
@@ -379,7 +379,7 @@ class UsersController extends BaseController {
 				$this->view->setFlash(sprintf(i18n("User \"%s\" successfully deleted."),$user->getName()));
 
 				// perform the redirection. More or less:
-				// header("Location: index.php?controller=posts&action=index")
+				// header("Location: index.php?controller=users&action=index")
 				// die();
 				$this->view->redirect("users", "show");
 

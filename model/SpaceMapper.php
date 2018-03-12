@@ -43,23 +43,22 @@ class SpaceMapper {
 
 		return $spaces;
 	}
-/*
-	public function view($id_course) {
-		$stmt = $this->db->prepare("SELECT * FROM courses WHERE id_course=?");
-		$stmt->execute(array($id_course));
 
-		$course = $stmt->fetch ( PDO::FETCH_ASSOC );
+	public function view($id_space) {
+		$stmt = $this->db->prepare("SELECT * FROM spaces WHERE id_space=?");
+		$stmt->execute(array($id_space));
 
-		if ($course != null) {
-			return new Course($course ["id_course"], $course ["name"], $course ["type"], $course ["description"],
-												$course ["capacity"], $course ["days"], $course ["start_time"],
-												$course ["end_time"]);
+		$space = $stmt->fetch ( PDO::FETCH_ASSOC );
+
+		if ($space != null) {
+			return new Space($space ["id_space"], $space ["name"],
+                       $space ["capacity"], $space ["image"]);
 		} else {
 			return NULL;
 		}
 	}
-
-	public function add($course) {
+/*
+	public function add($space) {
 		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time)
 																values (?,?,?,?,?,?,?)");
 

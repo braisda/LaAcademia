@@ -3,7 +3,7 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $spaces = $view->getVariable("spaces");
-$view->setVariable ("title", "Show Courses");
+$view->setVariable ("title", "Show Spaces");
 ?>
 
 <ol class="breadcrumb">
@@ -31,19 +31,17 @@ $view->setVariable ("title", "Show Courses");
               </thead>
               <tbody>
                 <?php $n=1; foreach ($spaces as $space): ?>
-
         						<tr>
                       <td><?= $n++ ?></td>
         							<td><?= $space->getName() ?></td>
         							<td><?= $space->getCapacity() ?></td>
                       <td>
-                        <a href="index.php?controller=courses&amp;action=view&amp;id_course=<?= $space->getId_space() ?>">V</img></a>
-                        <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $space->getId_space() ?>">M</img></a>
-                        <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $space->getId_space() ?>">E</img></a>
+                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>">V</img></a>
+                        <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>">M</img></a>
+                        <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>">E</img></a>
                       </td>
         						</tr>
         				<?php endforeach; ?>
-
               </tbody>
             </table>
         </div>

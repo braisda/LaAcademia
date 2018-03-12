@@ -1,8 +1,7 @@
 <?php
-// file: view/users/show.php
+// file: view/courses/view.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
-// $view->setLayout("welcome");
 $course = $view->getVariable ( "course" );
 $view->setVariable ( "title", "View Course" );
 ?>

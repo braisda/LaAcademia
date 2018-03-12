@@ -176,6 +176,12 @@ li.breadcrumb-item>a {
 	background-color: transparent;
 }
 
+#card_spaces {
+	border: 0px;
+	background-color: transparent;
+	width: 70%
+}
+
 #card_body {
 	color: white;
 	background: #212529;

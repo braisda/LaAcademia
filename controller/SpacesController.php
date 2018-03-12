@@ -48,37 +48,35 @@ class SpacesController extends BaseController {
 		$this->view->render("spaces", "show");
 	}
 
-/*
-
 	public function view(){
-		if (!isset($_GET["id_course"])) {
-			throw new Exception("id_course is mandatory");
+		if (!isset($_GET["id_space"])) {
+			throw new Exception("id_space is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. View Courses requires login");
+			throw new Exception("Not in session. View Spaces requires login");
 		}
 
-		$id_course = $_GET["id_course"];
+		$id_space= $_GET["id_space"];
 
-		// find the Course object in the database
-		$course = $this->courseMapper->view($id_course);
+		// find the Space object in the database
+		$space = $this->spaceMapper->view($id_space);
 
-		if ($course == NULL) {
-			throw new Exception("no such course with id_course: ".$id_course);
+		if ($space == NULL) {
+			throw new Exception("no such space with id_space: ".$id_space);
 		}
 
-		// put the course object to the view
-		$this->view->setVariable("course", $course);
+		// put the space object to the view
+		$this->view->setVariable("space", $space);
 
-		// render the view (/view/courses/view.php)
-		$this->view->render("courses", "view");
+		// render the view (/view/spaces/view.php)
+		$this->view->render("spaces", "view");
 	}
-
+/*
 	public function add(){
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding courses requires login");
+			throw new Exception("Not in session. Adding spaces requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){

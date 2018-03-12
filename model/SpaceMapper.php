@@ -1,16 +1,16 @@
 <?php
-// file: model/CourseMapper.php
+// file: model/SpaceMapper.php
 
 require_once(__DIR__."/../core/PDOConnection.php");
 
 /**
-* Class CourseMapper
+* Class SpaceMapper
 *
-* Database interface for Course entities
+* Database interface for Space entities
 *
 * @author lipido <lipido@gmail.com>
 */
-class CourseMapper {
+class SpaceMapper {
 
 	/**
 	* Reference to the PDO connection
@@ -23,29 +23,27 @@ class CourseMapper {
 	}
 
 	/**
-	* Saves a Course into the database
+	* Saves a Space into the database
 	*
-	* @param Course $course The course to be saved
+	* @param Space $space The space to be saved
 	* @throws PDOException if a database error occurs
 	* @return void
 	*/
 
 	public function show() {
-		$stmt = $this->db->query ( "SELECT * FROM courses ORDER BY name" );
+		$stmt = $this->db->query ( "SELECT * FROM spaces ORDER BY name" );
 
-		$courses_db = $stmt->fetchAll ( PDO::FETCH_ASSOC );
+		$spaces_db = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 
-		$courses = array ();
+		$spaces = array();
 
-		foreach ($courses_db as $course) {
-			array_push ($courses, new Course($course ["id_course"], $course ["name"], $course ["type"], $course ["description"],
-																			$course ["capacity"], $course ["days"], $course ["start_time"],
-																			$course ["end_time"]));
+		foreach ($spaces_db as $space) {
+			array_push ($spaces, new Space($space ["id_space"], $space ["name"], $space["capacity"], $space["image"]));
 		}
 
-		return $courses;
+		return $spaces;
 	}
-
+/*
 	public function view($id_course) {
 		$stmt = $this->db->prepare("SELECT * FROM courses WHERE id_course=?");
 		$stmt->execute(array($id_course));
@@ -103,5 +101,5 @@ class CourseMapper {
 		//Borrado físico
 		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");
 		$stmt->execute(array($course->getId_course()));
-	}
+	}*/
 }

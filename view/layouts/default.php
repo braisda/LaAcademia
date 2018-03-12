@@ -68,7 +68,7 @@ $currentuser = $view->getVariable("currentusername");
 		      </li>
 
 					<li class="nav-item">
-		        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("Spaces") ?></a>
+		        <a id="texto_menu" class="nav-link" href="index.php?controller=spaces&amp;action=show"><?= i18n("Spaces") ?></a>
 		      </li>
 
 					<li class="nav-item dropdown">

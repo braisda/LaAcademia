@@ -107,6 +107,11 @@ li.breadcrumb-item>a {
 }
 
 .breadcrumb-item.active {
+    color: rgba(255, 255, 255, 0.85)!important;
+		font-weight: bold;
+}
+
+.breadcrumb-item.active {
 	color: rgba(0, 0, 0, 0.85);
 }
 

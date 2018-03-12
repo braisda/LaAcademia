@@ -1,5 +1,5 @@
 <?php
-// file: model/User.php
+// file: model/Course.php
 
 require_once(__DIR__."/../core/ValidationException.php");
 
@@ -19,7 +19,7 @@ class Course {
 	private $id_course;
 
 	/**
-	* The user name of the course
+	* The name of the course
 	* @var string
 	*/
 	private $name;
@@ -57,7 +57,7 @@ class Course {
 	/**
 	* The constructor
 	*
-	* @param $id_course The name of the user
+	* @param $id_course The name of the course
 	* @param $name The name of the course
   * @param $type The type of the course
   * @param $description The description of the course
@@ -89,7 +89,7 @@ class Course {
 	}
 
 	/**
-	* Gets the name of this user
+	* Gets the name of this course
 	*
 	* @return string The name of this course
 	*/
@@ -153,8 +153,9 @@ class Course {
 	public function getCapacity() {
 		return $this->capacity;
 	}
+
 	/**
-	* Sets the capacity of this user
+	* Sets the capacity of this space
 	*
 	* @param string $capacity The capacity of this course
 	* @return void
@@ -171,6 +172,7 @@ class Course {
 	public function getDays() {
 		return $this->days;
 	}
+
 	/**
 	* Sets the days when the course is taught
 	*
@@ -189,6 +191,7 @@ class Course {
 	public function getStart_time() {
 		return $this->start_time;
 	}
+
 	/**
 	* Sets the start time of this user
 	*
@@ -207,6 +210,7 @@ class Course {
 	public function getEnd_time() {
 		return $this->end_time;
 	}
+
 	/**
 	* Sets the end time of this course
 	*

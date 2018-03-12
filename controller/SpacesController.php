@@ -3,52 +3,52 @@
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../core/I18n.php");
 
-require_once(__DIR__."/../model/Course.php");
-require_once(__DIR__."/../model/CourseMapper.php");
+require_once(__DIR__."/../model/Space.php");
+require_once(__DIR__."/../model/SpaceMapper.php");
 require_once(__DIR__."/../model/UserMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
 /**
-* Class CoursesController
+* Class SpacesController
 *
-* Controller to courses CRUD
+* Controller to spaces CRUD
 *
 * @author lipido <lipido@gmail.com>
 */
-class CoursesController extends BaseController {
+class SpacesController extends BaseController {
 
 	/**
-	* Reference to the CourseMapper to interact
+	* Reference to the SpaceMapper to interact
 	* with the database
 	*
-	* @var CourseMapper
+	* @var spaceMapper
 	*/
-	private $courseMapper;
+	private $spaceMapper;
   private $userMapper;
 
 	public function __construct() {
 		parent::__construct();
 
-		$this->courseMapper = new CourseMapper();
+		$this->spaceMapper = new SpaceMapper();
     $this->userMapper = new UserMapper();
 	}
 
 	public function show(){
 		if(!isset($this->currentUser)){
-			throw new Exception("Not in session. Show courses requires login");
+			throw new Exception("Not in session. Show spaces requires login");
 		}
 
-		$courses = $this->courseMapper->show();
+		$spaces = $this->spaceMapper->show();
 
 		// put the courses object to the view
-		$this->view->setVariable("courses", $courses);
+		$this->view->setVariable("spaces", $spaces);
 
 		// render the view (/view/courses/show.php)
-		$this->view->render("courses", "show");
+		$this->view->render("spaces", "show");
 	}
 
-
+/*
 
 	public function view(){
 		if (!isset($_GET["id_course"])) {
@@ -242,5 +242,5 @@ class CoursesController extends BaseController {
 		// render the view (/view/users/add.php)
 		$this->view->render("courses", "delete");
 
-	}
+	}*/
 }

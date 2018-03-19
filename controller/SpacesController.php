@@ -122,7 +122,7 @@ class SpacesController extends BaseController {
 		// render the view (/view/spaces/add.php)
 		$this->view->render("spaces", "add");
 	}
-/*
+
 	public function update(){
 		if (!isset($_REQUEST["id_space"])) {
 			throw new Exception("A id_space is mandatory");
@@ -136,23 +136,24 @@ class SpacesController extends BaseController {
 			throw new Exception("You aren't an admin. Adding an user requires be admin");
 		}
 
-		$id_course = $_REQUEST["id_course"];
-		$course = $this->courseMapper->view($id_course);
+		$id_space = $_REQUEST["id_space"];
+		$space = $this->spaceMapper->view($id_space);
 
-		if ($course == NULL) {
-			throw new Exception("no such course with id_course: ".$id_course);
+		if ($space == NULL) {
+			throw new Exception("no such space with id_space: ".$id_space);
 		}
 
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
-			// populate the course object with data form the form
-			$course->setName($_POST["name"]);
-			$course->setType($_POST["type"]);
-			$course->setDescription($_POST["description"]);
-			$course->setCapacity($_POST["capacity"]);
-			$course->setDays($_POST["days"]);
-			$course->setStart_time($_POST["start_time"]);
-			$course->setEnd_time($_POST["end_time"]);
+			// populate the space object with data form the form
+			$space->setName($_POST["name"]);
+			$space->setCapacity($_POST["capacity"]);
+			$directory = 'multimedia/images/';
+			if($_FILES['image']['name'] != NULL){
+				$space->setImage($directory.$_FILES['image']['name']);
+				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$_FILES['image']['name']);
+			}
+
 
 			try {
 				// validate user object
@@ -162,12 +163,12 @@ class SpacesController extends BaseController {
 				//	$this->userMapper->update($user);
 				//}else{
 					//save the user object into the database
-					$this->courseMapper->update($course);
+					$this->spaceMapper->update($space);
 				//}
 
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully updated."),$course ->getName()));
+				$this->view->setFlash(sprintf(i18n("Space \"%s\" successfully updated."),$space ->getName()));
 
-				$this->view->redirect("courses", "show");
+				$this->view->redirect("spaces", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -178,12 +179,12 @@ class SpacesController extends BaseController {
 		}
 
 		// Put the user object visible to the view
-		$this->view->setVariable("course", $course);
+		$this->view->setVariable("space", $space);
 		// render the view (/view/users/add.php)
-		$this->view->render("courses", "update");
+		$this->view->render("spaces", "update");
 	}
 
-
+/*
 	public function delete() {
 
 		if (!isset($_REQUEST["id_course"])) {

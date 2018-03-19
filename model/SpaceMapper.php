@@ -65,28 +65,16 @@ class SpaceMapper {
 		$stmt->execute(array($space->getName(), $space->getCapacity(), $space->getImage()));
 		return $this->db->lastInsertId();
 	}
-/*
+
 	public function update($space) {
 		$stmt = $this->db->prepare("UPDATE spaces
-																set name = ?, type = ?, description = ?,
-																		capacity = ?, days = ?, start_time = ?,
-																		end_time = ?
+																set name = ?, capacity = ?, image = ?
 																WHERE id_space = ?");
 
-		$days = "";
-    for($i=0; $i<count($space->getDays()); $i++){
-      $days = $days.$space->getDays()[$i].",";
-    }
-    $size = strlen($days);
-    $days = substr($days, 0, $size-1); echo $days;
-
-		$stmt->execute(array($course->getName(), $course->getType(),
-												 $course->getDescription(), $course->getCapacity(), $days,
-												 $course->getStart_time(), $course->getEnd_time(),
-												 $course->getId_course()));
+		$stmt->execute(array($space->getName(), $space->getCapacity(), $space->getImage(), $space->getId_space()));
 		return $this->db->lastInsertId();
 	}
-
+/*
 	public function delete($course) {
 		//Borrado físico
 		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");

@@ -1,10 +1,10 @@
 <?php
 // file: view/spaces/add.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
-$view = ViewManager::getInstance ();
-$space = $view->getVariable ( "space" );
-$view->setVariable ( "title", "Add Space" );
-$errors = $view->getVariable ( "errors" );
+$view = ViewManager::getInstance();
+$space = $view->getVariable("space");
+$view->setVariable("title", "Add Space");
+$errors = $view->getVariable("errors");
 ?>
 
 <ol class="breadcrumb">
@@ -32,7 +32,7 @@ $errors = $view->getVariable ( "errors" );
       </div>
 
       <div class="form-group col-md-2">
-        <label for="inputZip">Foto</label>
+        <label for="inputZip"><?=i18n("Image")?></label>
         <input type="file" id="image" name="image">
       </div>
     </div>

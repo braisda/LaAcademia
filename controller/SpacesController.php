@@ -90,7 +90,9 @@ class SpacesController extends BaseController {
 			// populate the space object with data form the form
 			$space->setName($_POST["name"]);
 			$space->setCapacity($_POST["capacity"]);
-			$space->setImage("multimedia/images/".$_POST["image"]);
+			$directory = 'multimedia/images/';
+			$space->setImage($directory.$_FILES['image']['name']);
+			move_uploaded_file($_FILES['image']['tmp_name'],$directory.$_FILES['image']['name']);
 
 			try {
 				// validate space object

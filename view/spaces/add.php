@@ -2,14 +2,14 @@
 // file: view/spaces/add.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
-$user = $view->getVariable ( "user" );
-$view->setVariable ( "title", "Add User" );
+$space = $view->getVariable ( "space" );
+$view->setVariable ( "title", "Add Space" );
 $errors = $view->getVariable ( "errors" );
 ?>
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
-  <li class="breadcrumb-item"><a href="index.php?controller=users&amp;action=show"><?= i18n("Users List") ?></a></li>
+  <li class="breadcrumb-item"><a href="index.php?controller=spaces&amp;action=show"><?= i18n("Spaces List") ?></a></li>
   <li class="breadcrumb-item active"><?= i18n("Add Space") ?></li>
 </ol>
 
@@ -20,7 +20,7 @@ $errors = $view->getVariable ( "errors" );
     <h4 id="view_title"><?= i18n("Add Space") ?></h4>
   </div>
 
-  <form action="index.php?controller=spaces&amp;action=add" method="POST">
+  <form enctype="multipart/form-data" action="index.php?controller=spaces&amp;action=add" method="POST">
     <div id="background_table" class="form-row">
       <div class="form-group col-md-6">
         <label for="name"><?=i18n("Name")?></label>

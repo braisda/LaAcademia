@@ -41,10 +41,10 @@ class SpacesController extends BaseController {
 
 		$spaces = $this->spaceMapper->show();
 
-		// put the courses object to the view
+		// put the spaces object to the view
 		$this->view->setVariable("spaces", $spaces);
 
-		// render the view (/view/courses/show.php)
+		// render the view (/view/spaces/show.php)
 		$this->view->render("spaces", "show");
 	}
 
@@ -184,47 +184,46 @@ class SpacesController extends BaseController {
 		$this->view->render("spaces", "update");
 	}
 
-/*
 	public function delete() {
 
-		if (!isset($_REQUEST["id_course"])) {
-			throw new Exception("A id_course is mandatory");
+		if (!isset($_REQUEST["id_space"])) {
+			throw new Exception("A id_space is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding users requires login");
+			throw new Exception("Not in session. Adding spaces requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding a course requires be admin");
+			throw new Exception("You aren't an admin. Adding a space requires be admin");
 		}
 
 		// Get the User object from the database
-		$id_course = $_REQUEST["id_course"];
-		$course = $this->courseMapper->view($id_course);
+		$id_space = $_REQUEST["id_space"];
+		$space = $this->spaceMapper->view($id_space);
 
-		// Does the course exist?
-		if ($course == NULL) {
-			throw new Exception("no such user with id_user: ".$id_course);
+		// Does the space exist?
+		if ($space == NULL) {
+			throw new Exception("no such user with id_user: ".$id_space);
 		}
 
 		if (isset($_POST["submit"])) {
 
 			try {
 				// Delete the Post object from the database
-				$this->courseMapper->delete($course);
+				$this->spaceMapper->delete($space);
 
 				// POST-REDIRECT-GET
 				// Everything OK, we will redirect the user to the list of posts
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully deleted."), $course->getName()));
+				$this->view->setFlash(sprintf(i18n("Space \"%s\" successfully deleted."), $space->getName()));
 
 				// perform the redirection. More or less:
 				// header("Location: index.php?controller=posts&action=index")
 				// die();
-				$this->view->redirect("courses", "show");
+				$this->view->redirect("spaces", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -235,9 +234,9 @@ class SpacesController extends BaseController {
 		}
 
 		// Put the user object visible to the view
-		$this->view->setVariable("course", $course);
+		$this->view->setVariable("space", $space);
 		// render the view (/view/users/add.php)
-		$this->view->render("courses", "delete");
+		$this->view->render("spaces", "delete");
 
-	}*/
+	}
 }

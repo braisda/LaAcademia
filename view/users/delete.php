@@ -29,13 +29,13 @@ $view->setVariable ( "title", "Delete User" );
         <li id="table_color" class="list-group-item"><?= i18n("Birthdate:") ?> <?= $user->getBirthdate() ?></li>
         <li id="table_color" class="list-group-item"><?= i18n("Email:") ?> <?= $user->getUsername() ?></li>
         <li id="table_color" class="list-group-item"><?= i18n("Telephone:") ?> <?= $user->getTelephone() ?></li>
-        <li id="table_color" class="list-group-item">
-          <form action="index.php?controller=users&amp;action=delete" method="POST">
-            <input type="hidden" name="id_user" value="<?= $user->getId_user() ?>">
-            <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Delete")?></button>
-          </form>
-        </li>
       </ul>
+    </br>
+
+    <form action="index.php?controller=users&amp;action=delete" method="POST">
+      <input type="hidden" name="id_user" value="<?= $user->getId_user() ?>">
+      <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Delete")?></button>
+    </form>
 
     </div>
   </div>

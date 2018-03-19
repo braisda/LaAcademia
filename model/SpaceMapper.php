@@ -74,10 +74,10 @@ class SpaceMapper {
 		$stmt->execute(array($space->getName(), $space->getCapacity(), $space->getImage(), $space->getId_space()));
 		return $this->db->lastInsertId();
 	}
-/*
-	public function delete($course) {
+
+	public function delete($space) {
 		//Borrado físico
-		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");
-		$stmt->execute(array($course->getId_course()));
-	}*/
+		$stmt = $this->db->prepare("DELETE FROM spaces WHERE id_space=?");
+		$stmt->execute(array($space->getId_space()));
+	}
 }

@@ -195,7 +195,7 @@ class CoursesController extends BaseController {
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding users requires login");
+			throw new Exception("Not in session. Adding courses requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){

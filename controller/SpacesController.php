@@ -72,7 +72,7 @@ class SpacesController extends BaseController {
 		// render the view (/view/spaces/view.php)
 		$this->view->render("spaces", "view");
 	}
-/*
+
 	public function add(){
 
 		if (!isset($this->currentUser)) {
@@ -80,36 +80,32 @@ class SpacesController extends BaseController {
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an course requires be admin");
+			throw new Exception("You aren't an admin. Adding an space requires be admin");
 		}
 
-		$course = new Course();
+		$space = new Space();
 
-		if(isset($_POST["submit"])) { // reaching via HTTP course...
+		if(isset($_POST["submit"])) { // reaching via HTTP space...
 
-			// populate the course object with data form the form
-			$course->setName($_POST["name"]);
-			$course->setType($_POST["type"]);
-			$course->setDescription($_POST["description"]);
-			$course->setCapacity($_POST["capacity"]);
-			$course->setDays($_POST["days"]);
-			$course->setStart_time($_POST["start_time"]);
-			$course->setEnd_time($_POST["end_time"]);
+			// populate the space object with data form the form
+			$space->setName($_POST["name"]);
+			$space->setCapacity($_POST["capacity"]);
+			$space->setImage("multimedia/images/".$_POST["image"]);
 
 			try {
-				// validate course object
+				// validate space object
 				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
 
 				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
 				//	$this->userMapper->update($user);
 				//}else{
 					//save the user object into the database
-					$this->courseMapper->add($course);
+					$this->spaceMapper->add($space);
 				//}
 
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully added."),$course ->getName()));
+				$this->view->setFlash(sprintf(i18n("Space \"%s\" successfully added."),$space ->getName()));
 
-				$this->view->redirect("courses", "show");
+				$this->view->redirect("spaces", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -119,15 +115,15 @@ class SpacesController extends BaseController {
 			}
 		}
 
-		// Put the course object visible to the view
-		$this->view->setVariable("course", $course);
-		// render the view (/view/courses/add.php)
-		$this->view->render("courses", "add");
+		// Put the space object visible to the view
+		$this->view->setVariable("space", $space);
+		// render the view (/view/spaces/add.php)
+		$this->view->render("spaces", "add");
 	}
-
+/*
 	public function update(){
-		if (!isset($_REQUEST["id_course"])) {
-			throw new Exception("A id_course is mandatory");
+		if (!isset($_REQUEST["id_space"])) {
+			throw new Exception("A id_space is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {

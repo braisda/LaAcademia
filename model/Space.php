@@ -25,9 +25,14 @@ class Space {
 	private $name;
 
   /**
-	* The capacity of the course
+	* The capacity of the space
 	*/
 	private $capacity;
+
+	/**
+	* The image of the space
+	*/
+	private $image;
 
 	/**
 	* The constructor
@@ -60,6 +65,16 @@ class Space {
 	*/
 	public function getName() {
 		return $this->name;
+	}
+
+	/**
+	* Sets the name of this space
+	*
+	* @param string $name The name of this space
+	* @return void
+	*/
+	public function setName($name) {
+		$this->name = $name;
 	}
 
   /**

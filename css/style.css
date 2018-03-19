@@ -187,6 +187,14 @@ li.breadcrumb-item>a {
 	background: #212529;
 }
 
+#card_body_spaces {
+	color: white;
+	background: #212529;
+	padding-bottom: 6px
+}
+
+
+
 
 /* end MAIN */
 

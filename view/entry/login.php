@@ -10,7 +10,7 @@ $errors = $view->getVariable("errors");
 
 <div class="container" id="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Logg In") ?></h4>
+    <h4 id="view_title"><?= i18n("Log In") ?></h4>
   </div>
   <form action="index.php?controller=users&amp;action=login" method="POST">
     <div id="background_table" class="form-row">

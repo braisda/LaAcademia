@@ -20,8 +20,8 @@ $view->setVariable ( "title", "View Space" );
   <div class="row justify-content-center">
     <div id="card_spaces" class="card mb-3">
       <img class="card-img-top" src="<?= $space->getImage() ?>" alt="Card image cap">
-      <div id="card_body" class="card-body">
-        <h6 class="card-title"><?= $space->getName() ?></h6>
+      <div id="card_body_spaces" class="card-body">
+        <h5 class="card-title"><?= $space->getName() ?></h5>
       </div>
       <ul id="background_table"  class="list-group list-group-flush">
         <li id="table_color" class="list-group-item"><?= i18n("Capacidad:") ?> <?= $space->getCapacity() ?></li>

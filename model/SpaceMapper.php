@@ -57,34 +57,25 @@ class SpaceMapper {
 			return NULL;
 		}
 	}
-/*
+
 	public function add($space) {
-		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time)
-																values (?,?,?,?,?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO spaces(name, capacity, image)
+																values (?,?,?)");
 
-    $days = "";
-    for($i=0; $i<count($course->getDays()); $i++){
-      $days = $days.$course->getDays()[$i].",";
-    }
-    $size = strlen($days);
-    $days = substr($days, 0, $size-1);
-
-		$stmt->execute(array($course->getName(), $course->getType(), $course->getDescription(),
-												 $course->getCapacity(), $days, $course->getStart_time(),
-												 $course->getEnd_time()));
+		$stmt->execute(array($space->getName(), $space->getCapacity(), $space->getImage()));
 		return $this->db->lastInsertId();
 	}
-
-	public function update($course) {
-		$stmt = $this->db->prepare("UPDATE courses
+/*
+	public function update($space) {
+		$stmt = $this->db->prepare("UPDATE spaces
 																set name = ?, type = ?, description = ?,
 																		capacity = ?, days = ?, start_time = ?,
 																		end_time = ?
-																WHERE id_course = ?");
+																WHERE id_space = ?");
 
 		$days = "";
-    for($i=0; $i<count($course->getDays()); $i++){
-      $days = $days.$course->getDays()[$i].",";
+    for($i=0; $i<count($space->getDays()); $i++){
+      $days = $days.$space->getDays()[$i].",";
     }
     $size = strlen($days);
     $days = substr($days, 0, $size-1); echo $days;

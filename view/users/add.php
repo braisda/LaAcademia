@@ -20,7 +20,7 @@ $errors = $view->getVariable ( "errors" );
     <h4 id="view_title"><?= i18n("Add User") ?></h4>
   </div>
 
-  <form action="index.php?controller=users&amp;action=add" method="POST">
+  <form enctype="multipart/form-data" action="index.php?controller=users&amp;action=add" method="POST">
     <div id="background_table" class="form-row">
       <div class="form-group col-md-6">
         <label for="name"><?=i18n("Name")?></label>
@@ -74,10 +74,10 @@ $errors = $view->getVariable ( "errors" );
         </div>
       </div>
 
-      <!--   <div class="form-group col-md-2">
-        <label for="inputZip">Foto</label>
-        <input type="file" id="inputZip">
-      </div>   -->
+      <div class="form-group col-md-2">
+        <label for="inputZip"><?=i18n("Image")?></label>
+        <input type="file" id="image" name="image">
+      </div>
     </div>
     <br/>
     <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Add")?></button>

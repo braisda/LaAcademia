@@ -56,6 +56,11 @@ class User {
 	private $birthdate;
 
 	/**
+	* The image of the user
+	*/
+	private $image;
+
+	/**
 	* The state of the user
 	*/
 	private $is_active;
@@ -91,6 +96,7 @@ class User {
 	* @param $password The password of the user
 	* @param $telephone The telephone of the user
 	* @param $birthdate The birthdate of the user
+	* @param $image The birthdate of the user
 	* @param $is_active The state of the user
 	* @param $is_administrator The type of the user
 	* @param $is_trainer The type of the user
@@ -99,8 +105,8 @@ class User {
 	*/
 	public function __construct($username=NULL, $id_user=NULL, $name=NULL, $surname=NULL,
 															$dni=NULL, $password=NULL, $telephone=NULL, $birthdate=NULL,
-															$is_active=NULL, $is_administrator=NULL, $is_trainer=NULL, $is_pupil=NULL,
-															$is_competitor=NULL) {
+															$image=NULL, $is_active=NULL, $is_administrator=NULL, $is_trainer=NULL,
+															$is_pupil=NULL, $is_competitor=NULL) {
 		$this->username = $username;
 		$this->id_user =$id_user;
 		$this->name = $name;
@@ -109,6 +115,7 @@ class User {
 		$this->password = $password;
 		$this->telephone = $telephone;
 		$this->birthdate = $birthdate;
+		$this->image = $image;
 		$this->is_active = $is_active;
 		$this->is_administrator = $is_administrator;
 		$this->is_trainer = $is_trainer;
@@ -143,7 +150,7 @@ class User {
 	public function setUsername($username) {
 		$this->username = $username;
 	}
-	
+
 	/**
 	* Gets the name of this user
 	*
@@ -240,19 +247,37 @@ class User {
 	/**
 	* Gets the birthdate of this user
 	*
-	* @return string The telephone of this user
+	* @return string The birthdate of this user
 	*/
 	public function getBirthdate() {
 		return $this->birthdate;
 	}
 	/**
-	* Sets the telephone of this user
+	* Sets the birthdate of this user
 	*
 	* @param string $birthdate The birthdate of this user
 	* @return void
 	*/
 	public function setBirthdate($birthdate) {
 		$this->birthdate = $birthdate;
+	}
+
+	/**
+	* Gets the image of this user
+	*
+	* @return string The image of this user
+	*/
+	public function getImage() {
+		return $this->image;
+	}
+	/**
+	* Sets the image of this user
+	*
+	* @param string $image The image of this user
+	* @return void
+	*/
+	public function setImage($image) {
+		$this->image = $image;
 	}
 
 	/**

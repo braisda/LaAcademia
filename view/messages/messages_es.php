@@ -116,7 +116,7 @@ array(
 	"Add Space" => "Añadir Espacio",
 	"Update Space" => "Modificar Espacio",
 	"Delete Space" => "Eliminar Espacio",
-	"" => "",
+	"Delete Course" => "Eliminar Curso",
 	"" => "",
 	"" => "",
 	"" => "",

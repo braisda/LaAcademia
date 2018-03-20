@@ -164,7 +164,7 @@ class UsersController extends BaseController {
 
 	public function view(){
 		if (!isset($_GET["id_user"])) {
-			throw new Exception("id_user user is mandatory");
+			throw new Exception("id user is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -181,7 +181,7 @@ class UsersController extends BaseController {
 		$user = $this->userMapper->getUser($id_user);
 
 		if ($user == NULL) {
-			throw new Exception("no such user with id_user: ".$id_user);
+			throw new Exception("no such user with id: ".$id_user);
 		}
 
 		// put the user object to the view
@@ -215,6 +215,10 @@ class UsersController extends BaseController {
 
 			$user->setTelephone($_POST["telephone"]);
 			$user->setBirthdate($_POST["birthdate"]);
+
+			$directory = 'multimedia/images/users/';
+			$user->setImage($directory.$_FILES['image']['name']);
+			move_uploaded_file($_FILES['image']['tmp_name'],$directory.$_FILES['image']['name']);
 
 			if(isset($_POST["isAdministrator"]) && $_POST["isAdministrator"] == "1"){
 				$user->setIs_administrator(1);
@@ -275,7 +279,7 @@ class UsersController extends BaseController {
 		$user = $this->userMapper->getUser($id_user);
 
 		if ($user == NULL) {
-			throw new Exception("no such user with id_user: ".$id_user);
+			throw new Exception("no such user with id: ".$id_user);
 		}
 
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
@@ -290,6 +294,11 @@ class UsersController extends BaseController {
 
 			$user->setTelephone($_POST["telephone"]);
 			$user->setBirthdate($_POST["birthdate"]);
+			$directory = 'multimedia/images/users/';
+			if($_FILES['image']['name'] != NULL){
+				$user->setImage($directory.$_FILES['image']['name']);
+				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$_FILES['image']['name']);
+			}
 
 			if(isset($_POST["isAdministrator"]) && $_POST["isAdministrator"] == "1"){
 				$user->setIs_administrator(1);
@@ -345,7 +354,7 @@ class UsersController extends BaseController {
 	public function delete() {
 
 		if (!isset($_REQUEST["id_user"])) {
-			throw new Exception("A id_user is mandatory");
+			throw new Exception("A id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -362,7 +371,7 @@ class UsersController extends BaseController {
 
 		// Does the user exist?
 		if ($user == NULL) {
-			throw new Exception("no such user with id_user: ".$id_user);
+			throw new Exception("no such user with id: ".$id_user);
 		}
 
 		if (isset($_POST["submit"])) {

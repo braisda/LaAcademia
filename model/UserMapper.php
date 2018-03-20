@@ -152,9 +152,9 @@ class UserMapper {
 		foreach ( $users_db as $user ) {
 			array_push ( $users, new User ( $user ["email"], $user ["id_user"], $user ["name"],
 																			$user ["surname"], $user ["dni"], $user ["password"],
-																			$user ["telephone"], $user ["birthdate"], $user ["is_active"],
-																			$user ["is_administrator"], $user ["is_trainer"], $user ["is_pupil"],
-																			$user ["is_competitor"]));
+																			$user ["telephone"], $user ["birthdate"], $user ["image"],
+																			$user ["is_active"], $user ["is_administrator"], $user ["is_trainer"],
+																			$user ["is_pupil"], $user ["is_competitor"]));
 		}
 
 		return $users;
@@ -169,7 +169,7 @@ class UserMapper {
 		if ($user != null) {
 			return new User($user ["email"], $user ["id_user"], $user ["name"],
 											$user ["surname"], $user ["dni"], $user ["password"],
-											$user ["telephone"], $user ["birthdate"],
+											$user ["telephone"], $user ["birthdate"], $user ["image"],
 											$user ["is_active"], $user ["is_administrator"],
 											$user ["is_trainer"], $user ["is_pupil"],
 											$user ["is_competitor"]);
@@ -180,13 +180,13 @@ class UserMapper {
 
 	public function add($user) {
 		$stmt = $this->db->prepare("INSERT INTO users(name, surname, dni, email, password, telephone,
-																									birthdate, is_administrator, is_trainer,
+																									birthdate, image, is_administrator, is_trainer,
 																									is_pupil, is_competitor)
-																values (?,?,?,?,?,?,?,?,?,?,?)");
+																values (?,?,?,?,?,?,?,?,?,?,?,?)");
 
 		$stmt->execute(array($user->getName(), $user->getSurname(), $user->getDni(),
 												 $user->getUsername (), md5($user->getPassword()),
-												 $user->getTelephone(), $user->getBirthdate(),
+												 $user->getTelephone(), $user->getBirthdate(), $user->getImage(),
 												 $user->getIs_administrator(), $user->getIs_trainer(),
 												 $user->getIs_pupil(), $user->getIs_competitor()));
 		return $this->db->lastInsertId();
@@ -194,12 +194,12 @@ class UserMapper {
 
 	public function update($user) {
 		$stmt = $this->db->prepare("UPDATE users set name = ?, surname = ?, dni = ?, email = ?, password = ?,
-																								 telephone = ?, birthdate = ?, is_administrator = ?,
+																								 telephone = ?, birthdate = ?, image = ?, is_administrator = ?,
 																								 is_trainer = ?, is_pupil = ?, is_competitor = ? WHERE id_user = ?");
 
 		$stmt->execute(array($user->getName(), $user->getSurname(), $user->getDni(),
 												 $user->getUsername(), md5($user->getPassword()), $user->getTelephone(),
-												 $user->getBirthdate(), $user->getIs_administrator(),
+												 $user->getBirthdate(), $user->getImage(), $user->getIs_administrator(),
 												 $user->getIs_trainer(), $user->getIs_pupil(),
 												 $user->getIs_competitor(), $user->getId_user()));
 		return $this->db->lastInsertId();

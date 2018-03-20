@@ -15,7 +15,7 @@ $view->setVariable ( "title", "Delete Course" );
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Course Information") ?></h4>
+    <h4 id="view_title"><?= i18n("Delete Course") ?></h4>
   </div>
   <div class="row justify-content-center">
     <?= $course->getDescription() ?>

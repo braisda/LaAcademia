@@ -26,8 +26,8 @@ $view->setVariable ( "title", "View Space" );
       <ul id="background_table"  class="list-group list-group-flush">
         <li id="table_color" class="list-group-item"><?= i18n("Capacidad:") ?> <?= $space->getCapacity() ?></li>
         <li id="table_color" class="list-group-item">
-          <a href="#" class="card-link">Modify</a>
-          <a href="#" class="card-link">Delete</a>
+          <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>" class="card-link"><?= i18n("Modify") ?></a>
+          <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>" class="card-link"><?= i18n("Delete") ?></a>
         </li>
       </ul>
     </div>

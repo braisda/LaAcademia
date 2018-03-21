@@ -366,11 +366,11 @@ class User {
 	* @param string $is_competitor The type of this user
 	* @return void
 	*/
-	public function setIs_competitor($is_competitor, $imageType) {
+	public function setIs_competitor($is_competitor) {
 		$this->is_competitor = $is_competitor;
 	}
 
-	public function validateUserInsertion($repitedpassword, $imageType){
+	public function validateUserInsertion($password, $repitedpassword, $imageType, $checkPassword){
 		$errors = array();
 		$expression = '/^[9|6|7][0-9]{8}$/';
 
@@ -394,12 +394,14 @@ class User {
 		 	$errors["dni"] = "DNI incorrect";
 		}
 
-		if (strlen($this->getPassword()) < 5) {
-			$errors["password"] = "Password must be at least 5 characters length";
-		}
+		if($checkPassword){
+			if (strlen($password) < 5) {
+				$errors["password"] = "Password must be at least 5 characters length";
+			}
 
-		if($repitedpassword != $this->getPassword()){
-			$errors["password"] = "Passwords do not match";
+			if($repitedpassword != $password){
+				$errors["password"] = "Passwords do not match";
+			}
 		}
 
 		if(strlen($this->getTelephone()) != 9){

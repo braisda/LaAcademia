@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-03-2018 a las 18:14:42
+-- Tiempo de generación: 21-03-2018 a las 12:28:02
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.10
 
@@ -70,8 +70,7 @@ CREATE TABLE `courses` (
 INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `days`, `start_time`, `end_time`) VALUES
 (1, 'Iniciación', 'Children', 'Curso iniciación infantil', 10, 'Monday,Wednesday', '09:00:00', '11:00:00'),
 (2, 'Iniciación', 'Adults', 'Curso iniciación adultos', 10, 'Tuesday,Thursday', '10:00:00', '12:00:00'),
-(5, 'Avanzado', 'Children', 'Curso avanzado infantil', 5, 'Thursday,Friday', '10:00:00', '12:00:00'),
-(11, 'Prueba', 'Children', 'Descrip de prueba', 12, 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday', '07:00:00', '11:00:00');
+(3, 'Avanzado', 'Children', 'Curso avanzado infantil', 5, 'Thursday,Friday', '10:00:00', '12:00:00');
 
 -- --------------------------------------------------------
 
@@ -258,13 +257,13 @@ CREATE TABLE `spaces` (
 --
 
 INSERT INTO `spaces` (`id_space`, `name`, `capacity`, `image`) VALUES
-(1, 'Pista 1', 350, 'asd/im.jpg'),
-(2, 'Pista 2', 120, 'asd/im.jpg'),
-(3, 'Cafetería', 90, 'asd/im.jpg'),
-(4, 'Vestuario 1', 20, 'asd/im.jpg'),
-(5, 'Vestuario 2', 15, 'asd/im.jpg'),
-(6, 'Salón de Actos', 400, 'asd/im.jpg'),
-(7, 'Oficina 1', 30, 'asd/im.jpg');
+(1, 'Pista 1', 350, 'multimedia/images/pista1.jpg'),
+(2, 'Pista 2', 120, 'multimedia/images/pista2.jpg'),
+(3, 'Cafetería', 90, 'multimedia/images/cafeteria.jpg'),
+(4, 'Vestuario 1', 20, 'multimedia/images/vestuario.jpg'),
+(5, 'Vestuario 2', 15, 'multimedia/images/vestuario2.jpg'),
+(6, 'Salón de Actos', 400, 'multimedia/images/salon.jpg'),
+(7, 'Oficina 1', 30, 'multimedia/images/oficina.png');
 
 -- --------------------------------------------------------
 
@@ -332,15 +331,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `name`, `surname`, `dni`, `email`, `password`, `telephone`, `birthdate`, `image`, `is_active`, `is_administrator`, `is_trainer`, `is_pupil`, `is_competitor`) VALUES
-(1, 'Brais', 'Domínguez Álvarez', '34273074S', 'braisda@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 662485513, '1991-06-10', '', 1, 1, NULL, NULL, NULL),
-(2, 'Francisco', 'Expósito Martínez', '34766251A', 'panocadas@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 666555444, '1984-02-06', '', 1, NULL, 1, NULL, NULL),
-(3, 'Fátima', 'Rodríguez Souto', '40157844C', 'fatima@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 698659991, '2000-12-13', '', 1, NULL, 1, NULL, NULL),
-(4, 'Laura', 'Méndez Ferreiro', '34695755P', 'laura@gmail.com', '74d996a70f40c654f73f9b56c63fc28a', 699422322, '1996-09-15', '', 1, NULL, NULL, 1, NULL),
-(5, 'Jaime', 'Vila López', '34352201S', 'Jaime@gmail.com', '74d996a70f40c654f73f9b56c63fc28a', 632521141, '1977-02-25', '', 1, NULL, NULL, 1, NULL),
-(6, 'Raúl', 'Gil Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', '', 1, NULL, NULL, NULL, 1),
-(7, 'Alba', 'Torres Quiroga', '53228407H', 'alba@gmail.com', '85e820b214862278ef667ae4bb1d8608', 600912231, '1988-07-17', '', 1, NULL, NULL, NULL, 1),
-(8, 'Manuel', 'Alvarez Lopez', '34343434A', 'eliminado@gmail.com', '1cb9be124af365d28a4530dea809240d', 659863111, '1970-01-30', '', 0, 1, NULL, NULL, NULL),
-(9, 'Javier', 'Rodeiro Iglesias', '34343434A', 'jrodeiro@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 666666666, '1980-10-28', '', 1, 1, NULL, NULL, NULL);
+(1, 'Brais', 'Domínguez Álvarez', '34273074S', 'braisda@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 662485513, '1991-06-10', 'multimedia/images/users/Foto Perfil2.PNG', 1, 1, NULL, NULL, NULL),
+(2, 'Francisco', 'Expósito Martínez', '34766251A', 'panocadas@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 666555444, '1984-02-06', 'multimedia/images/users/francisco.jpg', 1, NULL, 1, NULL, NULL),
+(3, 'Fátima', 'Rodríguez Souto', '40157844C', 'fatima@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 698659991, '2000-12-13', 'multimedia/images/users/fatima.jpg', 1, NULL, 1, NULL, NULL),
+(4, 'Laura', 'Méndez Ferreiro', '34695755P', 'laura@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 699422322, '1996-09-15', 'multimedia/images/users/laura.jpg', 1, NULL, NULL, 1, NULL),
+(5, 'Jaime', 'Vila López', '34352201S', 'jaime@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 632521141, '1977-02-25', 'multimedia/images/users/jaime.jpg', 1, NULL, NULL, 1, NULL),
+(6, 'Raúl', 'Gil Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(7, 'Alba', 'Torres Quiroga', '53228407H', 'alba@gmail.com', '85e820b214862278ef667ae4bb1d8608', 600912231, '1988-07-17', 'multimedia/images/users/alba.png', 1, NULL, NULL, NULL, 1),
+(8, 'Manuel', 'Alvarez Lopez', '34343434A', 'eliminado@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 659863111, '1970-01-30', 'multimedia/images/users/profile.png', 0, 1, NULL, NULL, NULL),
+(9, 'Javier', 'Rodeiro Iglesias', '34343434A', 'jrodeiro@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 666666666, '1980-10-28', 'multimedia/images/users/profile.png', 1, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -529,7 +528,7 @@ ALTER TABLE `workouts`
 -- AUTO_INCREMENT de la tabla `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id_course` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_course` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `draws`
@@ -589,7 +588,7 @@ ALTER TABLE `rounds`
 -- AUTO_INCREMENT de la tabla `spaces`
 --
 ALTER TABLE `spaces`
-  MODIFY `id_space` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_space` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `tournaments`

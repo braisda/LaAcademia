@@ -164,7 +164,7 @@ class UsersController extends BaseController {
 
 	public function view(){
 		if (!isset($_GET["id_user"])) {
-			throw new Exception("id user is mandatory");
+			throw new Exception("id_user user is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -210,15 +210,18 @@ class UsersController extends BaseController {
 			$user->setSurname($_POST["surname"]);
 			$user->setDni($_POST["dni"]);
 			$user->setUsername($_POST["username"]);
-			$user->setPassword($_POST["password"]);
-			$user->setPassword($_POST["repeatpassword"]);
+			if($_POST["password"] == $_POST["repeatpassword"]){
+				$user->setPassword($_POST["password"]);
+			}
 
 			$user->setTelephone($_POST["telephone"]);
 			$user->setBirthdate($_POST["birthdate"]);
 
 			$directory = 'multimedia/images/users/';
+			$imageType = $_FILES['image']['type'];
+			$imageName = $_FILES['image']['name'];
 			$user->setImage($directory.$_FILES['image']['name']);
-			move_uploaded_file($_FILES['image']['tmp_name'],$directory.$_FILES['image']['name']);
+			move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
 
 			if(isset($_POST["isAdministrator"]) && $_POST["isAdministrator"] == "1"){
 				$user->setIs_administrator(1);
@@ -235,7 +238,7 @@ class UsersController extends BaseController {
 
 			try {
 				// validate user object
-				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
+				$user->validateUserInsertion($_POST["repeatpassword"], $imageType); // if it fails, ValidationException
 
 				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
 				//	$this->userMapper->update($user);
@@ -244,7 +247,7 @@ class UsersController extends BaseController {
 					$this->userMapper->add($user);
 				//}
 
-				$this->view->setFlash(sprintf(i18n("user \"%s\" successfully added."),$user ->getName()));
+				$this->view->setFlash(sprintf(i18n("User \"%s\" successfully added."),$user ->getName()));
 
 				$this->view->redirect("users", "show");
 
@@ -289,9 +292,11 @@ class UsersController extends BaseController {
 			$user->setSurname($_POST["surname"]);
 			$user->setDni($_POST["dni"]);
 			$user->setUsername($_POST["username"]);
-			$user->setPassword($_POST["password"]);
-			$user->setPassword($_POST["repeatpassword"]);
-
+			if($_POST["password"] != "" && $_POST["repeatpassword"] != ""){
+				if($_POST["password"] == $_POST["repeatpassword"]){
+					$user->setPassword($_POST["password"]);
+				}
+			}
 			$user->setTelephone($_POST["telephone"]);
 			$user->setBirthdate($_POST["birthdate"]);
 			$directory = 'multimedia/images/users/';
@@ -354,7 +359,7 @@ class UsersController extends BaseController {
 	public function delete() {
 
 		if (!isset($_REQUEST["id_user"])) {
-			throw new Exception("A id is mandatory");
+			throw new Exception("A id_user is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {

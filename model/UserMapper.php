@@ -198,7 +198,7 @@ class UserMapper {
 																								 is_trainer = ?, is_pupil = ?, is_competitor = ? WHERE id_user = ?");
 
 		$stmt->execute(array($user->getName(), $user->getSurname(), $user->getDni(),
-												 $user->getUsername(), md5($user->getPassword()), $user->getTelephone(),
+												 $user->getUsername(), $user->getPassword(), $user->getTelephone(),
 												 $user->getBirthdate(), $user->getImage(), $user->getIs_administrator(),
 												 $user->getIs_trainer(), $user->getIs_pupil(),
 												 $user->getIs_competitor(), $user->getId_user()));

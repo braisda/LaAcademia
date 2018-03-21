@@ -55,40 +55,22 @@ $errors = $view->getVariable ( "errors" );
       </div>
       <div id="a" class="form-group col-md-2">
         <div class="custom-control custom-checkbox">
-          <?php if($user->getIs_administrator() == 1){ ?>
-            <input type="checkbox" class="custom-control-input" id="isAdministrator" name="isAdministrator" value="1" checked="checked">
-          <?php }else{ ?>
-            <input type="checkbox" class="custom-control-input" id="isAdministrator" name="isAdministrator" value="1">
-          <?php }?>
-          <label class="custom-control-label" for="isAdministrator"><?=i18n("Administrator")?></label>
+            <input type="checkbox" class="custom-control-input" id="isAdministrator" name="isAdministrator" value="1" <?php if($user->getIs_administrator() == 1){ ?>checked="checked" <?php } ?>/>
+            <label class="custom-control-label" for="isAdministrator"><?=i18n("Administrator")?></label>
         </div>
         <div class="custom-control custom-checkbox">
-          <?php if($user->getIs_trainer() == 1){ ?>
-            <input type="checkbox" class="custom-control-input" id="isTrainer" name="isTrainer" value="1" checked="checked">
-          <?php }else{ ?>
-            <input type="checkbox" class="custom-control-input" id="isTrainer" name="isTrainer" value="1">
-          <?php }?>
-          <label class="custom-control-label" for="isTrainer"><?=i18n("Trainer")?></label>
+            <input type="checkbox" class="custom-control-input" id="isTrainer" name="isTrainer" value="1" <?php if($user->getIs_trainer() == 1){ ?>checked="checked" <?php } ?>/>
+            <label class="custom-control-label" for="isTrainer"><?=i18n("Trainer")?></label>
         </div>
         <div class="custom-control custom-checkbox">
-          <?php if($user->getIs_pupil() == 1){ ?>
-            <input type="checkbox" class="custom-control-input" id="isPupil" name="isPupil" value="1" checked="checked">
-          <?php }else{ ?>
-            <input type="checkbox" class="custom-control-input" id="isPupil" name="isPupil" value="1">
-          <?php }?>
-          <label class="custom-control-label" for="isPupil"><?=i18n("Pupil")?></label>
-
+            <input type="checkbox" class="custom-control-input" id="isPupil" name="isPupil" value="1" <?php if($user->getIs_pupil() == 1){ ?>checked="checked" <?php } ?>/>
+            <label class="custom-control-label" for="isPupil"><?=i18n("Pupil")?></label>
         </div>
         <div class="custom-control custom-checkbox">
-          <?php if($user->getIs_competitor() == 1){ ?>
-            <input type="checkbox" class="custom-control-input" id="isCompetitor" name="isCompetitor" value="1" checked="checked">
-          <?php }else{ ?>
-            <input type="checkbox" class="custom-control-input" id="isCompetitor" name="isCompetitor" value="1">
-          <?php }?>
-          <label class="custom-control-label" for="isCompetitor"><?=i18n("Competitor")?></label>
+            <input type="checkbox" class="custom-control-input" id="isCompetitor" name="isCompetitor" value="1" <?php if($user->getIs_competitor() == 1){ ?>checked="checked" <?php } ?>/>
+            <label class="custom-control-label" for="isCompetitor"><?=i18n("Competitor")?></label>
         </div>
       </div>
-
       <div class="form-group col-md-2">
         <label for="inputZip"><?=i18n("Image")?></label>
         <input type="file" id="image" name="image">

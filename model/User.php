@@ -366,46 +366,87 @@ class User {
 	* @param string $is_competitor The type of this user
 	* @return void
 	*/
-	public function setIs_competitor($is_competitor) {
+	public function setIs_competitor($is_competitor, $imageType) {
 		$this->is_competitor = $is_competitor;
 	}
 
-	public function validateUserInsertion($pass_rep){
+	public function validateUserInsertion($repitedpassword, $imageType){
 		$errors = array();
-		$expresion = '/^[9|6|7][0-9]{8}$/';
-		if (strlen($this->username) < 8 ) {
-			$errors["DNI"] = "DNI must be at least 8 characters length";
-		}
+		$expression = '/^[9|6|7][0-9]{8}$/';
 
-		if(!$this->validar_username($this->username) || $this->getUsername()==NULL){
-			$errors["DNI"] = "DNI incorrect";
-		}
-		if (strlen($this->pass) < 5) {
-			$errors["passwd"] = "Password must be at least 5 characters length";
-		}
-		if($pass_rep != $this->pass){
-			$errors["passwd"] = "Passwords do not match";
-		}
-		if(strlen($this->tlf) != 9){
-			$errors["tlf"] = "The phone number must have 9 numbers";
-		}
-		if(!preg_match($expresion, $this->tlf)){
-			$errors["tlf"] = "The phone number is wrong";
-		}
-		if(!$this->is_valid_email($this->email)){
+		if(!$this->validate_email($this->getUsername())){
 			$errors["email"] = "The email is wrong";
 		}
-		if($this->getName()==NULL){
+
+		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
 		}
-		if($this->getSurname()==NULL){
+
+		if($this->getSurname() == NULL){
 			$errors["surname"] = "The surname is wrong";
 		}
-		if($this->getDateBorn()==NULL){
-			$errors["dateborn"] = "The date born is wrong";
+
+		if (strlen($this->getDni()) < 9 ) {
+			$errors["dni"] = "DNI must be at least 9 characters length";
 		}
-		if (sizeof($errors)>0){
-			throw new ValidationException($errors, "user is not valid");
+
+	 	if(!$this->validate_dni($this->getDni()) || $this->getDni() == NULL){
+		 	$errors["dni"] = "DNI incorrect";
+		}
+
+		if (strlen($this->getPassword()) < 5) {
+			$errors["password"] = "Password must be at least 5 characters length";
+		}
+
+		if($repitedpassword != $this->getPassword()){
+			$errors["password"] = "Passwords do not match";
+		}
+
+		if(strlen($this->getTelephone()) != 9){
+			$errors["telephone"] = "The phone number must have 9 numbers";
+		}
+
+		if(!preg_match($expression, $this->getTelephone())){
+			$errors["telephone"] = "The phone number is wrong";
+		}
+
+		if($this->getBirthdate() == NULL){
+			$errors["birthdate"] = "The date born is wrong";
+		}
+
+		// if (($imageType != "image/gif")	|| ($imageType != "image/jpeg")
+		// || ($imageType != "image/jpg") || ($imageType != "image/png")){
+		// 	$errors["imagetype"] = "The image is not valid";
+		// }
+
+		if ($this->getImage() == NULL){
+			$errors["imagetype"] = "Not image selected";
+		}
+
+		if($this->getIs_administrator() == NULL and $this->getIs_trainer() == NULL and
+		$this->getIs_pupil() == NULL and $this->getIs_competitor() == NULL){
+			$errors["type"] = "The user must have a type";
+		}
+		if (sizeof($errors) > 0){
+			throw new ValidationException($errors, "User is not valid");
+		}
+	}
+
+	public function validate_pass($str){
+		return (false !== strpos($str, "@") && false !== strpos($str, "."));
+	}
+
+	public function validate_email($str){
+		return (false !== strpos($str, "@") && false !== strpos($str, "."));
+	}
+
+	public function validate_dni($email){
+		$letter = substr($email, -1);
+		$numbers = substr($email, 0, -1);
+		if ( substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 ){
+			return true;
+		}else{
+			return false;
 		}
 	}
 }

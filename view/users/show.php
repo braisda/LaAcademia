@@ -12,6 +12,14 @@ $view->setVariable ("title", "Show Users");
 </ol>
 
 <div id="container" class="container">
+
+  <?php $alert = "" ?>
+  <?php if($alert =($view->popFlash())){ ?>
+      <div class="alert alert-success" role="alert">
+        <?= $alert ?>
+      </div>
+  <?php } ?>
+
   <div id="background_title">
     <h4 id="view_title"><?= i18n("Users List") ?><a href="index.php?controller=users&amp;action=add"> Añadir</img></a></h4>
   </div>

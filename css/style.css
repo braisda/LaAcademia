@@ -190,10 +190,12 @@ li.breadcrumb-item>a {
 #card_body_spaces {
 	color: white;
 	background: #212529;
-	padding-bottom: 6px
+	padding-bottom: 6px;
 }
 
-
+#flash{
+	color:white;
+}
 
 
 /* end MAIN */

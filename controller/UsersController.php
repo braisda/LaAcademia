@@ -240,17 +240,28 @@ class UsersController extends BaseController {
 				// validate user object
 				$user->validateUserInsertion($_POST["repeatpassword"], $imageType); // if it fails, ValidationException
 
-				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
-				//	$this->userMapper->update($user);
-				//}else{
+				// check if user exists in the database
+				if(!$this->userMapper->usernameExists($_POST["username"])){
+
 					//save the user object into the database
 					$this->userMapper->add($user);
-				//}
 
-				$this->view->setFlash(sprintf(i18n("User \"%s\" successfully added."),$user ->getName()));
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("User \"%s\" successfully added."),$user ->getName()));
 
-				$this->view->redirect("users", "show");
-
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=users&action=show")
+					// die();
+					$this->view->redirect("users", "show");
+				} else {
+					$errors = array();
+					$errors["email"] = "Username already exists";
+					$this->view->setVariable("errors", $errors);
+				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();
@@ -383,7 +394,7 @@ class UsersController extends BaseController {
 
 			try {
 				// Delete the User object from the database
-				$this->userMapper->sendTotrash($user);
+				$this->userMapper->delete($user);
 
 				// POST-REDIRECT-GET
 				// Everything OK, we will redirect the user to the list of posts

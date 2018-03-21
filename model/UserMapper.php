@@ -37,7 +37,7 @@ class UserMapper {
 	* @return boolean true if the username exists, false otherwise
 	*/
 	public function usernameExists($username) {
-		$stmt = $this->db->prepare("SELECT count(username) FROM users where username=?");
+		$stmt = $this->db->prepare("SELECT count(email) FROM users where email=?");
 		$stmt->execute(array($username));
 
 		if ($stmt->fetchColumn() > 0) {
@@ -205,7 +205,7 @@ class UserMapper {
 		return $this->db->lastInsertId();
 	}
 
-	public function sendTotrash($user) {
+	public function delete($user) {
 		//Borrado lógico
 		$stmt = $this->db->prepare("UPDATE users set is_active=? where id_user=?");
 		$stmt->execute(array(0,	$user->getId_user()));

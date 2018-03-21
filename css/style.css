@@ -193,8 +193,8 @@ li.breadcrumb-item>a {
 	padding-bottom: 6px;
 }
 
-#flash{
-	color:white;
+.alert {
+	border-radius: 0;
 }
 
 

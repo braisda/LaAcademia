@@ -370,7 +370,7 @@ class User {
 		$this->is_competitor = $is_competitor;
 	}
 
-	public function validateUserInsertion($password, $repitedpassword, $imageType, $checkPassword){
+	public function validateUserInsertion($password, $repitedpassword, $imageName, $imageType, $checkPassword, $checkImage){
 		$errors = array();
 		$expression = '/^[9|6|7][0-9]{8}$/';
 
@@ -420,9 +420,10 @@ class User {
 		// || ($imageType != "image/jpg") || ($imageType != "image/png")){
 		// 	$errors["imagetype"] = "The image is not valid";
 		// }
-
-		if ($this->getImage() == NULL){
-			$errors["imagetype"] = "Not image selected";
+		if($checkImage){
+			if ($imageName == NULL){
+				$errors["imagetype"] = "Not image selected";
+			}
 		}
 
 		if($this->getIs_administrator() == NULL and $this->getIs_trainer() == NULL and

@@ -235,7 +235,7 @@ class UsersController extends BaseController {
 
 			try {
 				// validate user object
-				$user->validateUserInsertion($_POST["password"], $_POST["repeatpassword"], $imageType, false); // if it fails, ValidationException
+				$user->validateUserInsertion($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, true, true); // if it fails, ValidationException
 
 				// check if user exists in the database
 				if(!$this->userMapper->usernameExists($_POST["username"])){
@@ -300,11 +300,6 @@ class UsersController extends BaseController {
 			$user->setSurname($_POST["surname"]);
 			$user->setDni($_POST["dni"]);
 			$user->setUsername($_POST["username"]);
-			$p = $_POST["password"];
-			$rp = $_POST["repeatpassword"];
-			echo "p: ".$p;
-			echo "p: ".$rp;
-			echo "encrypt: ".md5($p);
 			if(isset($_POST["password"]) && $_POST["password"] != ""){
 				$user->setPassword(md5($_POST["password"]));
 				$checkPassword = true;
@@ -321,6 +316,9 @@ class UsersController extends BaseController {
 			if($_FILES['image']['name'] != NULL){
 				$user->setImage($directory.$_FILES['image']['name']);
 				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
+				$checkImage = true;
+			}else{
+				$checkImage = false;
 			}
 
 			if(isset($_POST["isAdministrator"]) && $_POST["isAdministrator"] == "1"){
@@ -346,7 +344,7 @@ class UsersController extends BaseController {
 
 			try {
 				// validate user object
-				$user->validateUserInsertion($p, $rp, $imageType, $checkPassword); // if it fails, ValidationException
+				$user->validateUserInsertion($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, $checkPassword, $checkImage); // if it fails, ValidationException
 
 				// check if user exists in the database
 				//if(!$this->userMapper->usernameExists($_POST["username"])){

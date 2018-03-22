@@ -45,22 +45,29 @@ class EventMapper {
 
 		return $events;
 	}
-/*
-	public function view($id_course) {
-		$stmt = $this->db->prepare("SELECT * FROM courses WHERE id_course=?");
-		$stmt->execute(array($id_course));
 
-		$course = $stmt->fetch ( PDO::FETCH_ASSOC );
+	public function view($id_event) {
+		$stmt = $this->db->prepare("SELECT * FROM events WHERE id_event=?");
+		$stmt->execute(array($id_event));
 
-		if ($course != null) {
-			return new Course($course ["id_course"], $course ["name"], $course ["type"], $course ["description"],
-												$course ["capacity"], $course ["days"], $course ["start_time"],
-												$course ["end_time"]);
+		$event = $stmt->fetch ( PDO::FETCH_ASSOC );
+
+    $stmt2 = $this->db->prepare("SELECT name FROM spaces WHERE id_space=?");
+    $stmt2->execute(array($event ["id_space"]));
+
+    $space = $stmt2->fetch ( PDO::FETCH_ASSOC );
+
+    $space_name = $space ["name"];
+
+		if ($event != null) {
+			return new Event($event ["id_event"], $event ["name"], $event ["description"],
+											 $event ["price"], $event ["capacity"], $event ["date"], $event ["time"],
+											 $event ["id_space"], $space_name);
 		} else {
 			return NULL;
 		}
 	}
-
+/*
 	public function add($course) {
 		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time)
 																values (?,?,?,?,?,?,?)");

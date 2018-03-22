@@ -197,6 +197,19 @@ li.breadcrumb-item>a {
 	border-radius: 0;
 }
 
+#card_event {
+	border: 0px;
+	background-color: transparent;
+	width: 50%
+}
+
+#event_decription {
+	background: rgba(5, 53, 21, 0.73);
+	color:white;
+	border-color: #3c3a37;
+	font-style: italic;
+}
+
 
 /* end MAIN */
 

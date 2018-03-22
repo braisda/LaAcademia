@@ -48,41 +48,39 @@ class EventsController extends BaseController {
 		$this->view->render("events", "show");
 	}
 
-
-/*
 	public function view(){
 		if (!isset($_GET["id_event"])) {
-			throw new Exception("id_course is mandatory");
+			throw new Exception("Event id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. View Courses requires login");
+			throw new Exception("Not in session. View Events requires login");
 		}
 
-		$id_course = $_GET["id_course"];
+		$id_event = $_GET["id_event"];
 
-		// find the Course object in the database
-		$course = $this->courseMapper->view($id_course);
+		// find the Event object in the database
+		$event = $this->eventMapper->view($id_event);
 
-		if ($course == NULL) {
-			throw new Exception("no such course with id_course: ".$id_course);
+		if ($event == NULL) {
+			throw new Exception("No such event with id: ".$id_event);
 		}
 
-		// put the course object to the view
-		$this->view->setVariable("course", $course);
+		// put the event object to the view
+		$this->view->setVariable("event", $event);
 
-		// render the view (/view/courses/view.php)
-		$this->view->render("courses", "view");
+		// render the view (/view/events/view.php)
+		$this->view->render("events", "view");
 	}
-
+/*
 	public function add(){
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding courses requires login");
+			throw new Exception("Not in session. Adding events requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an course requires be admin");
+			throw new Exception("You aren't an admin. Adding an event requires be admin");
 		}
 
 		$course = new Course();

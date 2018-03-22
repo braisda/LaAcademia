@@ -30,9 +30,9 @@ class Event {
 	private $description;
 
   /**
-	* The prize of the event
+	* The price of the event
 	*/
-	private $prize;
+	private $price;
 
 	/**
 	* The capacity of the event
@@ -48,11 +48,16 @@ class Event {
 	* The time of the event
 	*/
 	private $time;
+
 	/**
 	* The space of the event
 	*/
 	private $id_space;
 
+  /**
+  * The space of the event
+  */
+  private $name_space;
 
 	/**
 	* The constructor
@@ -60,23 +65,25 @@ class Event {
 	* @param $id_event The name of the event
 	* @param $name The name of the event
   * @param $description The description of the event
-  * @param $prize The prize of the event
+  * @param $price The price of the event
   * @param $capacity The capacity of the event
   * @param $date The date of the event
   * @param $time The time of the event
   * @param $id_space The space of the event
+  * @param $name_space The name of the event's space
 	*/
 	public function __construct($id_event=NULL, $name=NULL, $description=NULL,
-															$prize=NULL, $capacity=NULL, $date=NULL,
-                              $time=NULL, $id_space=NULL) {
+															$price=NULL, $capacity=NULL, $date=NULL,
+                              $time=NULL, $id_space=NULL, $name_space=NULL) {
 		$this->id_event = $id_event;
 		$this->name = $name;
 		$this->description = $description;
-		$this->prize = $prize;
+		$this->price = $price;
 		$this->capacity = $capacity;
 		$this->date = $date;
 		$this->time = $time;
 		$this->id_space = $id_space;
+    $this->name_space = $name_space;
 	}
 
 	/**
@@ -127,22 +134,22 @@ class Event {
 	}
 
   /**
-  * Gets the prize of this event
+  * Gets the price of this event
   *
-  * @return string The prize of this event
+  * @return string The price of this event
   */
-  public function getPrize() {
-  	return $this->prize;
+  public function getprice() {
+  	return $this->price;
   }
 
   /**
-  * Sets the prize of this event
+  * Sets the price of this event
   *
-  * @param string $prize The prize of this event
+  * @param string $price The price of this event
   * @return void
   */
-  public function setPrize($prize) {
-  	$this->prize = $prize;
+  public function setprice($price) {
+  	$this->price = $price;
   }
 
 	/**
@@ -203,7 +210,7 @@ class Event {
 	}
 
 	/**
-	* Gets the time of this event
+	* Gets the id of the event's space
 	*
 	* @return string The id of the event's space
 	*/
@@ -219,5 +226,14 @@ class Event {
 	*/
 	public function setEnd_time($id_space) {
 		$this->id_space = $id_space;
+	}
+
+  /**
+	* Gets the name of the event's space
+	*
+	* @return string The name of the event's space
+	*/
+	public function getName_space() {
+		return $this->name_space;
 	}
 }

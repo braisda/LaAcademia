@@ -83,7 +83,7 @@ $currentuser = $view->getVariable("currentusername");
 		        </div>
 		      </li>
 
-					<li class="nav-item dropdown">
+					<!--<li class="nav-item dropdown">
 		        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		          <?= i18n("Instruction") ?>
 		        </a>
@@ -91,18 +91,18 @@ $currentuser = $view->getVariable("currentusername");
 		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Workouts") ?></a>
 		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Exercises") ?></a>
 		        </div>
+		      </li>-->
+
+					<li class="nav-item">
+		        <a id="texto_menu" class="nav-link" href="index.php?controller=events&amp;action=show"><?= i18n("Events") ?></a>
 		      </li>
 
 					<li class="nav-item">
-		        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("Events") ?></a>
+		        <a id="texto_menu" class="nav-link" href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments") ?></a>
 		      </li>
 
 					<li class="nav-item">
-		        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("Tournaments") ?></a>
-		      </li>
-
-					<li class="nav-item">
-		        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("Notifications") ?></a>
+		        <a id="texto_menu" class="nav-link" href="index.php?controller=notifications&amp;action=show"><?= i18n("Notifications") ?></a>
 		      </li>
 
 		    </ul>
@@ -111,7 +111,7 @@ $currentuser = $view->getVariable("currentusername");
 	</header>
 
 	<main id = "main">
-		
+
 
 		<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>
 	</main>

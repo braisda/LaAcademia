@@ -117,9 +117,9 @@ class Course {
 	}
 
 	/**
-	* Sets the surname of this user
+	* Sets the type of this user
 	*
-	* @param string $type The surname of this user
+	* @param string $type The type of this user
 	* @return void
 	*/
 	public function setType($type) {

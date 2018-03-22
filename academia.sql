@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-03-2018 a las 12:28:02
+-- Tiempo de generación: 22-03-2018 a las 19:29:32
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.10
 
@@ -21,9 +21,10 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `academia`
 --
-DROP DATABASE IF EXISTS `academia`;
-CREATE DATABASE IF NOT EXISTS `academia` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE `academia`;
+create database if not exists academia;
+use academia;
+
+grant all privileges on academia.* to academia@localhost identified by "academiapass";
 -- --------------------------------------------------------
 
 --
@@ -33,17 +34,6 @@ USE `academia`;
 CREATE TABLE `attends` (
   `id_event` int(4) NOT NULL,
   `id_athlete` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `consists`
---
-
-CREATE TABLE `consists` (
-  `id_course` int(4) NOT NULL,
-  `id_workout` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -60,17 +50,19 @@ CREATE TABLE `courses` (
   `capacity` int(4) NOT NULL,
   `days` set('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday') COLLATE utf8_spanish_ci NOT NULL,
   `start_time` time NOT NULL,
-  `end_time` time NOT NULL
+  `end_time` time NOT NULL,
+  `id_space` int(4) NOT NULL,
+  `id_trainer` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `courses`
 --
 
-INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `days`, `start_time`, `end_time`) VALUES
-(1, 'Iniciación', 'Children', 'Curso iniciación infantil', 10, 'Monday,Wednesday', '09:00:00', '11:00:00'),
-(2, 'Iniciación', 'Adults', 'Curso iniciación adultos', 10, 'Tuesday,Thursday', '10:00:00', '12:00:00'),
-(3, 'Avanzado', 'Children', 'Curso avanzado infantil', 5, 'Thursday,Friday', '10:00:00', '12:00:00');
+INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `days`, `start_time`, `end_time`, `id_space`, `id_trainer`) VALUES
+(1, 'Iniciación', 'Children', 'Curso iniciación infantil', 10, 'Monday,Tuesday', '08:00:00', '10:00:00', 1, 2),
+(2, 'Iniciación', 'Adults', 'Curso iniciación adultos', 10, 'Wednesday,Thursday', '08:00:00', '10:00:00', 1, 2),
+(3, 'Avanzado', 'Children', 'Curso avanzado infantil', 5, 'Friday,Saturday', '10:00:00', '12:00:00', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -92,36 +84,22 @@ CREATE TABLE `draws` (
 
 CREATE TABLE `events` (
   `id_event` int(1) NOT NULL,
-  `name` int(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `description` text COLLATE utf8_spanish_ci NOT NULL,
   `price` int(4) NOT NULL,
-  `gauging` int(4) NOT NULL
+  `capacity` int(4) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `id_space` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `exercises`
+-- Volcado de datos para la tabla `events`
 --
 
-CREATE TABLE `exercises` (
-  `id_exercise` int(4) NOT NULL,
-  `name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `description` text COLLATE utf8_spanish_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `video` varchar(255) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `has`
---
-
-CREATE TABLE `has` (
-  `id_workout` int(4) NOT NULL,
-  `id_exercise` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+INSERT INTO `events` (`id_event`, `name`, `description`, `price`, `capacity`, `date`, `time`, `id_space`) VALUES
+(1, 'Conferencia Psicología Deportiva', 'Conferencia \"Psicología Deportiva (Dirigida a Padres y Entrenadores)\" a cargo de D. Carlos Méndez Gil, psicólogo de la Real Federación Española de Tenis.', 10, 400, '2018-06-15', '11:00:00', 6),
+(2, 'Cena Navidad', 'Cena navideña para miembros del club y familiares', 20, 90, '2018-06-30', '22:00:00', 3);
 
 -- --------------------------------------------------------
 
@@ -231,17 +209,6 @@ CREATE TABLE `rounds` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `runs`
---
-
-CREATE TABLE `runs` (
-  `id_trainer` int(4) NOT NULL,
-  `id_event` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `spaces`
 --
 
@@ -268,17 +235,6 @@ INSERT INTO `spaces` (`id_space`, `name`, `capacity`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `teaches`
---
-
-CREATE TABLE `teaches` (
-  `id_trainer` int(4) NOT NULL,
-  `id_course` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tournaments`
 --
 
@@ -288,19 +244,6 @@ CREATE TABLE `tournaments` (
   `description` text COLLATE utf8_spanish_ci NOT NULL,
   `start_date` time NOT NULL,
   `end_date` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `trains`
---
-
-CREATE TABLE `trains` (
-  `id_pupil` int(4) NOT NULL,
-  `id_course` int(4) NOT NULL,
-  `date` date NOT NULL,
-  `time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -341,31 +284,6 @@ INSERT INTO `users` (`id_user`, `name`, `surname`, `dni`, `email`, `password`, `
 (8, 'Manuel', 'Alvarez Lopez', '34343434A', 'eliminado@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 659863111, '1970-01-30', 'multimedia/images/users/profile.png', 0, 1, NULL, NULL, NULL),
 (9, 'Javier', 'Rodeiro Iglesias', '34343434A', 'jrodeiro@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 666666666, '1980-10-28', 'multimedia/images/users/profile.png', 1, 1, NULL, NULL, NULL);
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `uses`
---
-
-CREATE TABLE `uses` (
-  `id_course` int(4) NOT NULL,
-  `id_space` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `workouts`
---
-
-CREATE TABLE `workouts` (
-  `id_workout` int(4) NOT NULL,
-  `name` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `description` text COLLATE utf8_spanish_ci NOT NULL,
-  `repetitions` int(3) NOT NULL,
-  `time` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
 --
 -- Índices para tablas volcadas
 --
@@ -378,17 +296,12 @@ ALTER TABLE `attends`
   ADD KEY `id_athlete` (`id_athlete`);
 
 --
--- Indices de la tabla `consists`
---
-ALTER TABLE `consists`
-  ADD PRIMARY KEY (`id_course`,`id_workout`),
-  ADD KEY `id_workout` (`id_workout`);
-
---
 -- Indices de la tabla `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`id_course`);
+  ADD PRIMARY KEY (`id_course`),
+  ADD KEY `id_trainer` (`id_trainer`),
+  ADD KEY `id_space` (`id_space`);
 
 --
 -- Indices de la tabla `draws`
@@ -401,20 +314,8 @@ ALTER TABLE `draws`
 -- Indices de la tabla `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`id_event`);
-
---
--- Indices de la tabla `exercises`
---
-ALTER TABLE `exercises`
-  ADD PRIMARY KEY (`id_exercise`);
-
---
--- Indices de la tabla `has`
---
-ALTER TABLE `has`
-  ADD PRIMARY KEY (`id_workout`,`id_exercise`),
-  ADD KEY `id_exercise` (`id_exercise`);
+  ADD PRIMARY KEY (`id_event`),
+  ADD KEY `id_space` (`id_space`);
 
 --
 -- Indices de la tabla `inscriptions`
@@ -469,24 +370,10 @@ ALTER TABLE `rounds`
   ADD KEY `id_draw` (`id_draw`);
 
 --
--- Indices de la tabla `runs`
---
-ALTER TABLE `runs`
-  ADD PRIMARY KEY (`id_trainer`,`id_event`),
-  ADD KEY `id_event` (`id_event`);
-
---
 -- Indices de la tabla `spaces`
 --
 ALTER TABLE `spaces`
   ADD PRIMARY KEY (`id_space`);
-
---
--- Indices de la tabla `teaches`
---
-ALTER TABLE `teaches`
-  ADD PRIMARY KEY (`id_trainer`,`id_course`),
-  ADD KEY `id_course` (`id_course`);
 
 --
 -- Indices de la tabla `tournaments`
@@ -495,30 +382,10 @@ ALTER TABLE `tournaments`
   ADD PRIMARY KEY (`id_tournament`);
 
 --
--- Indices de la tabla `trains`
---
-ALTER TABLE `trains`
-  ADD PRIMARY KEY (`id_pupil`,`id_course`),
-  ADD KEY `id_course` (`id_course`);
-
---
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`);
-
---
--- Indices de la tabla `uses`
---
-ALTER TABLE `uses`
-  ADD PRIMARY KEY (`id_course`,`id_space`),
-  ADD KEY `id_space` (`id_space`);
-
---
--- Indices de la tabla `workouts`
---
-ALTER TABLE `workouts`
-  ADD PRIMARY KEY (`id_workout`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -528,7 +395,7 @@ ALTER TABLE `workouts`
 -- AUTO_INCREMENT de la tabla `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id_course` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_course` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `draws`
@@ -540,13 +407,7 @@ ALTER TABLE `draws`
 -- AUTO_INCREMENT de la tabla `events`
 --
 ALTER TABLE `events`
-  MODIFY `id_event` int(1) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `exercises`
---
-ALTER TABLE `exercises`
-  MODIFY `id_exercise` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_event` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `inscriptions`
@@ -603,12 +464,6 @@ ALTER TABLE `users`
   MODIFY `id_user` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT de la tabla `workouts`
---
-ALTER TABLE `workouts`
-  MODIFY `id_workout` int(4) NOT NULL AUTO_INCREMENT;
-
---
 -- Restricciones para tablas volcadas
 --
 
@@ -620,11 +475,11 @@ ALTER TABLE `attends`
   ADD CONSTRAINT `attends_ibfk_2` FOREIGN KEY (`id_athlete`) REFERENCES `users` (`id_user`);
 
 --
--- Filtros para la tabla `consists`
+-- Filtros para la tabla `courses`
 --
-ALTER TABLE `consists`
-  ADD CONSTRAINT `consists_ibfk_1` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id_course`),
-  ADD CONSTRAINT `consists_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workouts` (`id_workout`);
+ALTER TABLE `courses`
+  ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`id_trainer`) REFERENCES `users` (`id_user`),
+  ADD CONSTRAINT `courses_ibfk_2` FOREIGN KEY (`id_space`) REFERENCES `spaces` (`id_space`);
 
 --
 -- Filtros para la tabla `draws`
@@ -633,11 +488,10 @@ ALTER TABLE `draws`
   ADD CONSTRAINT `draws_ibfk_1` FOREIGN KEY (`id_tournament`) REFERENCES `tournaments` (`id_tournament`);
 
 --
--- Filtros para la tabla `has`
+-- Filtros para la tabla `events`
 --
-ALTER TABLE `has`
-  ADD CONSTRAINT `has_ibfk_1` FOREIGN KEY (`id_exercise`) REFERENCES `exercises` (`id_exercise`),
-  ADD CONSTRAINT `has_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workouts` (`id_workout`);
+ALTER TABLE `events`
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`id_space`) REFERENCES `spaces` (`id_space`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `inscriptions`
@@ -670,8 +524,8 @@ ALTER TABLE `receives`
 -- Filtros para la tabla `reservations`
 --
 ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id_course`),
-  ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`id_pupil`) REFERENCES `users` (`id_user`);
+  ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`id_pupil`) REFERENCES `users` (`id_user`),
+  ADD CONSTRAINT `reservations_ibfk_3` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id_course`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `results`
@@ -684,34 +538,6 @@ ALTER TABLE `results`
 --
 ALTER TABLE `rounds`
   ADD CONSTRAINT `rounds_ibfk_1` FOREIGN KEY (`id_draw`) REFERENCES `draws` (`id_draw`);
-
---
--- Filtros para la tabla `runs`
---
-ALTER TABLE `runs`
-  ADD CONSTRAINT `runs_ibfk_1` FOREIGN KEY (`id_event`) REFERENCES `events` (`id_event`),
-  ADD CONSTRAINT `runs_ibfk_2` FOREIGN KEY (`id_trainer`) REFERENCES `users` (`id_user`);
-
---
--- Filtros para la tabla `teaches`
---
-ALTER TABLE `teaches`
-  ADD CONSTRAINT `teaches_ibfk_1` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id_course`),
-  ADD CONSTRAINT `teaches_ibfk_2` FOREIGN KEY (`id_trainer`) REFERENCES `users` (`id_user`);
-
---
--- Filtros para la tabla `trains`
---
-ALTER TABLE `trains`
-  ADD CONSTRAINT `trains_ibfk_1` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id_course`),
-  ADD CONSTRAINT `trains_ibfk_2` FOREIGN KEY (`id_pupil`) REFERENCES `users` (`id_user`);
-
---
--- Filtros para la tabla `uses`
---
-ALTER TABLE `uses`
-  ADD CONSTRAINT `uses_ibfk_1` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id_course`),
-  ADD CONSTRAINT `uses_ibfk_2` FOREIGN KEY (`id_space`) REFERENCES `spaces` (`id_space`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

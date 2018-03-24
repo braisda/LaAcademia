@@ -224,7 +224,7 @@ class Event {
 	* @param string $id_space The id of the event's space
 	* @return void
 	*/
-	public function setEnd_time($id_space) {
+	public function setId_space($id_space) {
 		$this->id_space = $id_space;
 	}
 

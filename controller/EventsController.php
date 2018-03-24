@@ -72,7 +72,7 @@ class EventsController extends BaseController {
 		// render the view (/view/events/view.php)
 		$this->view->render("events", "view");
 	}
-/*
+
 	public function add(){
 
 		if (!isset($this->currentUser)) {
@@ -83,33 +83,33 @@ class EventsController extends BaseController {
 			throw new Exception("You aren't an admin. Adding an event requires be admin");
 		}
 
-		$course = new Course();
+		$event = new event();
 
-		if(isset($_POST["submit"])) { // reaching via HTTP course...
+		if(isset($_POST["submit"])) { // reaching via HTTP event...
 
-			// populate the course object with data form the form
-			$course->setName($_POST["name"]);
-			$course->setType($_POST["type"]);
-			$course->setDescription($_POST["description"]);
-			$course->setCapacity($_POST["capacity"]);
-			$course->setDays($_POST["days"]);
-			$course->setStart_time($_POST["start_time"]);
-			$course->setEnd_time($_POST["end_time"]);
+			// populate the event object with data form the form
+			$event->setName($_POST["name"]);
+			$event->setDescription($_POST["description"]);
+			$event->setCapacity($_POST["capacity"]);
+			$event->setDate($_POST["date"]);
+			$event->setTime($_POST["time"]);
+			$event->setId_space($_POST["space"]);
+			$event->setPrice($_POST["price"]);
 
 			try {
-				// validate course object
+				// validate event object
 				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
 
 				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
 				//	$this->userMapper->update($user);
 				//}else{
 					//save the user object into the database
-					$this->courseMapper->add($course);
+					$this->eventMapper->add($event);
 				//}
 
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully added."),$course ->getName()));
+				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully added."),$event ->getName()));
 
-				$this->view->redirect("courses", "show");
+				$this->view->redirect("events", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -119,15 +119,18 @@ class EventsController extends BaseController {
 			}
 		}
 
-		// Put the course object visible to the view
-		$this->view->setVariable("course", $course);
-		// render the view (/view/courses/add.php)
-		$this->view->render("courses", "add");
-	}
+		$spaces = $this->eventMapper->getSpaces();
+		$this->view->setVariable("spaces", $spaces);
 
+		// Put the event object visible to the view
+		$this->view->setVariable("event", $event);
+		// render the view (/view/events/add.php)
+		$this->view->render("events", "add");
+	}
+/*
 	public function update(){
-		if (!isset($_REQUEST["id_course"])) {
-			throw new Exception("A id_course is mandatory");
+		if (!isset($_REQUEST["id_event"])) {
+			throw new Exception("A event id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {

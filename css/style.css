@@ -141,7 +141,7 @@ li.breadcrumb-item>a {
 
 
 
-#table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd {
+#table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd, #date, #price {
 	background: rgba(5, 53, 21, 0.73);
 	color:white;
 	border-color: #3c3a37;

@@ -67,24 +67,25 @@ class EventMapper {
 			return NULL;
 		}
 	}
-/*
-	public function add($course) {
-		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time)
-																values (?,?,?,?,?,?,?)");
 
-    $days = "";
-    for($i=0; $i<count($course->getDays()); $i++){
-      $days = $days.$course->getDays()[$i].",";
-    }
-    $size = strlen($days);
-    $days = substr($days, 0, $size-1);
+	public function getSpaces() {
+		$stmt = $this->db->query("SELECT id_space, name FROM spaces");
 
-		$stmt->execute(array($course->getName(), $course->getType(), $course->getDescription(),
-												 $course->getCapacity(), $days, $course->getStart_time(),
-												 $course->getEnd_time()));
-		return $this->db->lastInsertId();
+		$spaces = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $spaces;
 	}
 
+	public function add($space) {
+		$stmt = $this->db->prepare("INSERT INTO events(name, description, price, capacity, date, time, id_space)
+																values (?,?,?,?,?,?,?)");
+
+		$stmt->execute(array($space->getName(), $space->getDescription(), $space->getPrice(),
+												 $space->getCapacity(), $space->getDate(), $space->getTime(),
+												 $space->getId_space()));
+		return $this->db->lastInsertId();
+	}
+/*
 	public function update($course) {
 		$stmt = $this->db->prepare("UPDATE courses
 																set name = ?, type = ?, description = ?,

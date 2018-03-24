@@ -119,7 +119,9 @@ class EventsController extends BaseController {
 			}
 		}
 
+		//Get the id and name of the spaces
 		$spaces = $this->eventMapper->getSpaces();
+		// Put the space variable visible to the view
 		$this->view->setVariable("spaces", $spaces);
 
 		// Put the event object visible to the view
@@ -127,7 +129,7 @@ class EventsController extends BaseController {
 		// render the view (/view/events/add.php)
 		$this->view->render("events", "add");
 	}
-/*
+
 	public function update(){
 		if (!isset($_REQUEST["id_event"])) {
 			throw new Exception("A event id is mandatory");
@@ -141,23 +143,23 @@ class EventsController extends BaseController {
 			throw new Exception("You aren't an admin. Adding an user requires be admin");
 		}
 
-		$id_course = $_REQUEST["id_course"];
-		$course = $this->courseMapper->view($id_course);
+		$id_event = $_REQUEST["id_event"];
+		$event = $this->eventMapper->view($id_event);
 
-		if ($course == NULL) {
-			throw new Exception("no such course with id_course: ".$id_course);
+		if ($event == NULL) {
+			throw new Exception("no such event with id: ".$id_event);
 		}
 
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
-			// populate the course object with data form the form
-			$course->setName($_POST["name"]);
-			$course->setType($_POST["type"]);
-			$course->setDescription($_POST["description"]);
-			$course->setCapacity($_POST["capacity"]);
-			$course->setDays($_POST["days"]);
-			$course->setStart_time($_POST["start_time"]);
-			$course->setEnd_time($_POST["end_time"]);
+			// populate the event object with data form the form
+			$event->setName($_POST["name"]);
+			$event->setDescription($_POST["description"]);
+			$event->setCapacity($_POST["capacity"]);
+			$event->setDate($_POST["date"]);
+			$event->setTime($_POST["time"]);
+			$event->setId_space($_POST["space"]);
+			$event->setPrice($_POST["price"]);
 
 			try {
 				// validate user object
@@ -167,12 +169,12 @@ class EventsController extends BaseController {
 				//	$this->userMapper->update($user);
 				//}else{
 					//save the user object into the database
-					$this->courseMapper->update($course);
+					$this->eventMapper->update($event);
 				//}
 
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully updated."),$course ->getName()));
+				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully updated."),$event ->getName()));
 
-				$this->view->redirect("courses", "show");
+				$this->view->redirect("events", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -182,17 +184,22 @@ class EventsController extends BaseController {
 			}
 		}
 
+		//Get the id and name of the spaces
+		$spaces = $this->eventMapper->getSpaces();
+		// Put the space variable visible to the view
+		$this->view->setVariable("spaces", $spaces);
+
 		// Put the user object visible to the view
-		$this->view->setVariable("course", $course);
+		$this->view->setVariable("event", $event);
 		// render the view (/view/users/add.php)
-		$this->view->render("courses", "update");
+		$this->view->render("events", "update");
 	}
 
-
+/*
 	public function delete() {
 
-		if (!isset($_REQUEST["id_course"])) {
-			throw new Exception("A id_course is mandatory");
+		if (!isset($_REQUEST["id_event"])) {
+			throw new Exception("A id_event is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {

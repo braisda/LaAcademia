@@ -37,7 +37,7 @@ $currentuser = $view->getVariable("currentusername");
 			<div id="right_elements">
 			<?php if (isset($currentuser)): ?>
 				<div id="welcome">
-					<p><?= i18n("Welcome "), $currentuser ?> <a href="index.php?controller=users&amp;action=logout"><span class="oi oi-account-logout"></span></span></a></p>
+					<p><?= i18n("Welcome "), $currentuser ?> <a href="index.php?controller=users&amp;action=logout"> <span class="oi oi-account-logout "></span></a></p>
 				</div>
 
 			<?php endif ?>

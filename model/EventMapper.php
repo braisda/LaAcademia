@@ -76,37 +76,29 @@ class EventMapper {
 		return $spaces;
 	}
 
-	public function add($space) {
+	public function add($event) {
 		$stmt = $this->db->prepare("INSERT INTO events(name, description, price, capacity, date, time, id_space)
 																values (?,?,?,?,?,?,?)");
 
-		$stmt->execute(array($space->getName(), $space->getDescription(), $space->getPrice(),
-												 $space->getCapacity(), $space->getDate(), $space->getTime(),
-												 $space->getId_space()));
+		$stmt->execute(array($event->getName(), $event->getDescription(), $event->getPrice(),
+												 $event->getCapacity(), $event->getDate(), $event->getTime(),
+												 $event->getId_space()));
+		return $this->db->lastInsertId();
+	}
+
+	public function update($event) {
+		$stmt = $this->db->prepare("UPDATE events
+																set name = ?, description = ?, price = ?,
+																		capacity = ?, date = ?, time = ?,
+																	  id_space = ?
+																WHERE id_event = ?");
+
+		$stmt->execute(array($event->getName(), $event->getDescription(), $event->getPrice(),
+												 $event->getCapacity(), $event->getDate(), $event->getTime(),
+												 $event->getId_space(), $event->getId_event()));
 		return $this->db->lastInsertId();
 	}
 /*
-	public function update($course) {
-		$stmt = $this->db->prepare("UPDATE courses
-																set name = ?, type = ?, description = ?,
-																		capacity = ?, days = ?, start_time = ?,
-																		end_time = ?
-																WHERE id_course = ?");
-
-		$days = "";
-    for($i=0; $i<count($course->getDays()); $i++){
-      $days = $days.$course->getDays()[$i].",";
-    }
-    $size = strlen($days);
-    $days = substr($days, 0, $size-1); echo $days;
-
-		$stmt->execute(array($course->getName(), $course->getType(),
-												 $course->getDescription(), $course->getCapacity(), $days,
-												 $course->getStart_time(), $course->getEnd_time(),
-												 $course->getId_course()));
-		return $this->db->lastInsertId();
-	}
-
 	public function delete($course) {
 		//Borrado físico
 		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");

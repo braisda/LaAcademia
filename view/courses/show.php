@@ -13,7 +13,7 @@ $view->setVariable ("title", "Show Courses");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Courses List") ?></h4><a href="index.php?controller=courses&amp;action=add"></a> <span class="oi oi-plus"></span>
+    <h4 id="view_title"><?= i18n("Courses List") ?></h4><a href="index.php?controller=courses&amp;action=add"> <span class="oi oi-plus"></span></a>
   </div>
   <div class="row justify-content-around">
 

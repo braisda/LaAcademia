@@ -20,7 +20,7 @@ $view->setVariable ("title", "Show Users");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Users List") ?></h4><a href="index.php?controller=users&amp;action=add"></a> <span class="oi oi-plus">
+    <h4 id="view_title"><?= i18n("Users List") ?></h4><a href="index.php?controller=users&amp;action=add"> <span class="oi oi-plus"></a>
   </div>
   <div class="row justify-content-around">
 

@@ -13,7 +13,7 @@ $view->setVariable ("title", "Show Spaces");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Spaces List") ?></h4><a href="index.php?controller=spaces&amp;action=add"></a> <span class="oi oi-plus">
+    <h4 id="view_title"><?= i18n("Spaces List") ?></h4><a href="index.php?controller=spaces&amp;action=add"> <span class="oi oi-plus"></a>
   </div>
   <div class="row justify-content-around">
 

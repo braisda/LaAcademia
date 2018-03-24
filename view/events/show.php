@@ -13,7 +13,7 @@ $view->setVariable ("title", "Show Events");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Events List") ?></h4><a href="index.php?controller=events&amp;action=add"></a> <span class="oi oi-plus"></span></a>
+    <h4 id="view_title"><?= i18n("Events List") ?></h4><a href="index.php?controller=events&amp;action=add"> <span class="oi oi-plus"></span></a>
   </div>
   <div class="row justify-content-around">
 

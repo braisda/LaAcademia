@@ -213,6 +213,10 @@ li.breadcrumb-item>a {
 	font-style: italic;
 }
 
+.table-dark td, .table-dark th, .table-dark thead th {
+	text-align:center;
+}
+
 /* iconos*/
 .oi-power-standby, .oi-plus, .oi-account-logout {
 	color: #053515;

@@ -195,47 +195,46 @@ class EventsController extends BaseController {
 		$this->view->render("events", "update");
 	}
 
-/*
 	public function delete() {
 
 		if (!isset($_REQUEST["id_event"])) {
-			throw new Exception("A id_event is mandatory");
+			throw new Exception("A event id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding courses requires login");
+			throw new Exception("Not in session. Adding events requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding a course requires be admin");
+			throw new Exception("You aren't an admin. Adding a event requires be admin");
 		}
 
 		// Get the User object from the database
-		$id_course = $_REQUEST["id_course"];
-		$course = $this->courseMapper->view($id_course);
+		$id_event = $_REQUEST["id_event"];
+		$event = $this->eventMapper->view($id_event);
 
-		// Does the course exist?
-		if ($course == NULL) {
-			throw new Exception("no such user with id_user: ".$id_course);
+		// Does the event exist?
+		if ($event == NULL) {
+			throw new Exception("no such user with id_user: ".$id_event);
 		}
 
 		if (isset($_POST["submit"])) {
 
 			try {
 				// Delete the Post object from the database
-				$this->courseMapper->delete($course);
+				$this->eventMapper->delete($event);
 
 				// POST-REDIRECT-GET
 				// Everything OK, we will redirect the user to the list of posts
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully deleted."), $course->getName()));
+				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully deleted."), $event->getName()));
 
 				// perform the redirection. More or less:
 				// header("Location: index.php?controller=posts&action=index")
 				// die();
-				$this->view->redirect("courses", "show");
+				$this->view->redirect("events", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -246,9 +245,9 @@ class EventsController extends BaseController {
 		}
 
 		// Put the user object visible to the view
-		$this->view->setVariable("course", $course);
+		$this->view->setVariable("event", $event);
 		// render the view (/view/users/add.php)
-		$this->view->render("courses", "delete");
+		$this->view->render("events", "delete");
 
-	}*/
+	}
 }

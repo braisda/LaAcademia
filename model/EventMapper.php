@@ -98,10 +98,10 @@ class EventMapper {
 												 $event->getId_space(), $event->getId_event()));
 		return $this->db->lastInsertId();
 	}
-/*
-	public function delete($course) {
+
+	public function delete($event) {
 		//Borrado físico
-		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");
-		$stmt->execute(array($course->getId_course()));
-	}*/
+		$stmt = $this->db->prepare("DELETE FROM events WHERE id_event=?");
+		$stmt->execute(array($event->getId_event()));
+	}
 }

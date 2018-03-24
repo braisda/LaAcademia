@@ -13,7 +13,7 @@ $view->setVariable ("title", "Show Spaces");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Spaces List") ?><a href="index.php?controller=spaces&amp;action=add"> Añadir</img></a></h4>
+    <h4 id="view_title"><?= i18n("Spaces List") ?></h4><a href="index.php?controller=spaces&amp;action=add"></a> <span class="oi oi-plus">
   </div>
   <div class="row justify-content-around">
 
@@ -36,9 +36,9 @@ $view->setVariable ("title", "Show Spaces");
         							<td><?= $space->getName() ?></td>
         							<td><?= $space->getCapacity() ?></td>
                       <td>
-                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>">V</img></a>
-                        <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>">M</img></a>
-                        <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>">E</img></a>
+                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-magnifying-glass"></span></img></a>
+                        <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-loop"></span></img></a>
+                        <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-trash"></span></img></a>
                       </td>
         						</tr>
         				<?php endforeach; ?>

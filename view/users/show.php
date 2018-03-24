@@ -20,7 +20,7 @@ $view->setVariable ("title", "Show Users");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Users List") ?><a href="index.php?controller=users&amp;action=add"> Añadir</img></a></h4>
+    <h4 id="view_title"><?= i18n("Users List") ?></h4><a href="index.php?controller=users&amp;action=add"></a> <span class="oi oi-plus">
   </div>
   <div class="row justify-content-around">
 
@@ -45,9 +45,9 @@ $view->setVariable ("title", "Show Users");
         							<td><?= $user->getSurname() ?></td>
         							<td><?= $user->getName() ?></td>
                       <td>
-                        <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>">V</img></a>
-                        <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>">M</img></a>
-                        <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>">E</img></a>
+                        <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-magnifying-glass"></span></img></a>
+                        <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-loop"></span></img></a>
+                        <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-trash"></span></img></a>
                       </td>
         						</tr>
                   <?php endif ?>
@@ -81,9 +81,9 @@ $view->setVariable ("title", "Show Users");
   							<td><?= $user->getSurname() ?></td>
   							<td><?= $user->getName() ?></td>
                 <td>
-                  <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>">V</img></a>
-                  <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>">M</img></a>
-                  <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>">E</img></a>
+                  <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-magnifying-glass"></span></img></a>
+                  <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-loop"></span></img></a>
+                  <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-trash"></span></img></a>
                 </td>
   						</tr>
             <?php endif ?>
@@ -113,12 +113,12 @@ $view->setVariable ("title", "Show Users");
   						<tr>
                 <td>1</td>
   							<td><?=i18n("Pupils")?></td>
-                <td><a href="index.php?controller=users&amp;action=showPupils">V</img></a></td>
+                <td><a href="index.php?controller=users&amp;action=showPupils"><span class="oi oi-magnifying-glass"></span></img></a></td>
   						</tr>
               <tr>
                 <td>2</td>
   							<td><?=i18n("Competitors")?></td>
-                <td><a href="index.php?controller=users&amp;action=showCompetitors">V</img></a></td>
+                <td><a href="index.php?controller=users&amp;action=showCompetitors"><span class="oi oi-magnifying-glass"></span></img></a></td>
   						</tr>
         </tbody>
       </table>

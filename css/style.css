@@ -131,6 +131,7 @@ li.breadcrumb-item>a {
 	border-radius: 2px;
 	padding-top: 1px;
 	margin-bottom: 5px;
+	text-align: center;
 }
 
 #background_table {
@@ -139,7 +140,9 @@ li.breadcrumb-item>a {
 	border-radius: 2px;
 }
 
-
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+	display:inline-block;
+}
 
 #table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd, #date, #price {
 	background: rgba(5, 53, 21, 0.73);
@@ -210,6 +213,16 @@ li.breadcrumb-item>a {
 	font-style: italic;
 }
 
+/* iconos*/
+.oi-power-standby, .oi-plus, .oi-account-logout {
+	color: #053515;
+}
+
+.oi-magnifying-glass, .oi-trash, .oi-loop {
+	color: white;
+}
+
+/*-------------------*/
 
 /* end MAIN */
 

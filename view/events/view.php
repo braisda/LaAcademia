@@ -27,7 +27,7 @@ $view->setVariable ( "title", "View Event" );
         <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $event->getDate() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $event->getTime() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Capacity") ?>:</strong> <?= $event->getCapacity() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $event->getPrice() ?> (€)</li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $event->getPrice() ?> €</li>
         <li id="table_color" class="list-group-item">
           <a href="index.php?controller=spaces&amp;action=update&amp;id_event=<?= $event->getId_event() ?>" class="card-link"><?= i18n("Modify") ?></a>
           <a href="index.php?controller=spaces&amp;action=delete&amp;id_event=<?= $event->getId_event() ?>" class="card-link"><?= i18n("Delete") ?></a>

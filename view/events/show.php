@@ -41,9 +41,9 @@ $view->setVariable ("title", "Show Events");
                       <td><?= $event->getDate() ?></td>
         							<td><?= $event->getTime() ?></td>
                       <td>
-                        <a href="index.php?controller=events&amp;action=view&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-magnifying-glass"></span></img></a>
-                        <a href="index.php?controller=events&amp;action=update&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-loop"></span></img></a>
-                        <a href="index.php?controller=events&amp;action=delete&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-trash"></span></img></a>
+                        <a href="index.php?controller=events&amp;action=view&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-magnifying-glass"></span></a>
+                        <a href="index.php?controller=events&amp;action=update&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-loop"></span></a>
+                        <a href="index.php?controller=events&amp;action=delete&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-trash"></span></a>
                       </td>
         						</tr>
         				<?php endforeach; ?>

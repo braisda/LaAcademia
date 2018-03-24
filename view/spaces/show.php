@@ -36,9 +36,9 @@ $view->setVariable ("title", "Show Spaces");
         							<td><?= $space->getName() ?></td>
         							<td><?= $space->getCapacity() ?></td>
                       <td>
-                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-magnifying-glass"></span></img></a>
-                        <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-loop"></span></img></a>
-                        <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-trash"></span></img></a>
+                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-magnifying-glass"></span></a>
+                        <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-loop"></span></a>
+                        <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-trash"></span></a>
                       </td>
         						</tr>
         				<?php endforeach; ?>

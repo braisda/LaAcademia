@@ -56,9 +56,9 @@ $view->setVariable ("title", "Show Courses");
         							<td><?= $course->getStart_time() ?></td>
                       <td><?= $course->getEnd_time() ?></td>
                       <td>
-                        <a href="index.php?controller=courses&amp;action=view&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-magnifying-glass"></span></img></a>
-                        <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-loop"></span></img></a>
-                        <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-trash"></span></img></a>
+                        <a href="index.php?controller=courses&amp;action=view&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-magnifying-glass"></span></a>
+                        <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-loop"></span></a>
+                        <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-trash"></span></a>
                       </td>
         						</tr>
         				<?php endforeach; ?>

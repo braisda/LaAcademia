@@ -70,6 +70,13 @@
 	font-size: 13px;
 	font-weight:bold;
 }
+
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: #212529;
+}
+
+
+
 /* end HEADER */
 
 /* start MAIN */

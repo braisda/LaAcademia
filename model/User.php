@@ -370,7 +370,7 @@ class User {
 		$this->is_competitor = $is_competitor;
 	}
 
-	public function validateUserInsertion($password, $repitedpassword, $imageName, $imageType, $checkPassword, $checkImage){
+	public function validateUser($password, $repitedpassword, $imageName, $imageType, $checkPassword, $checkImage){
 		$errors = array();
 		$expression = '/^[9|6|7][0-9]{8}$/';
 
@@ -416,10 +416,12 @@ class User {
 			$errors["birthdate"] = "The date born is wrong";
 		}
 
-		// if (($imageType != "image/gif")	|| ($imageType != "image/jpeg")
-		// || ($imageType != "image/jpg") || ($imageType != "image/png")){
-		// 	$errors["imagetype"] = "The image is not valid";
-		// }
+		if($checkImage){
+			if ($imageType != "image/gif" and $imageType != "image/jpeg" and $imageType != "image/jpg" and $imageType != "image/png"){
+				$errors["imagetype"] = "The image is not valid";
+			}
+		}
+
 		if($checkImage){
 			if ($imageName == NULL){
 				$errors["imagetype"] = "Not image selected";
@@ -433,10 +435,6 @@ class User {
 		if (sizeof($errors) > 0){
 			throw new ValidationException($errors, "User is not valid");
 		}
-	}
-
-	public function validate_pass($str){
-		return (false !== strpos($str, "@") && false !== strpos($str, "."));
 	}
 
 	public function validate_email($str){

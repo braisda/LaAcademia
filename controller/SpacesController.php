@@ -91,19 +91,21 @@ class SpacesController extends BaseController {
 			$space->setName($_POST["name"]);
 			$space->setCapacity($_POST["capacity"]);
 			$directory = 'multimedia/images/';
+
+			$imageType = $_FILES['image']['type'];
+			$imageName = $_FILES['image']['name'];
 			$space->setImage($directory.$_FILES['image']['name']);
-			move_uploaded_file($_FILES['image']['tmp_name'],$directory.$_FILES['image']['name']);
+
 
 			try {
-				// validate space object
-				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
+				//validate space object
+				$space->validateSpace($imageName, $imageType, true); // if it fails, ValidationException
 
-				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
-				//	$this->userMapper->update($user);
-				//}else{
-					//save the user object into the database
-					$this->spaceMapper->add($space);
-				//}
+				//up the image to the server
+				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
+
+				//save the user object into the database
+				$this->spaceMapper->add($space);
 
 				$this->view->setFlash(sprintf(i18n("Space \"%s\" successfully added."),$space ->getName()));
 
@@ -149,22 +151,25 @@ class SpacesController extends BaseController {
 			$space->setName($_POST["name"]);
 			$space->setCapacity($_POST["capacity"]);
 			$directory = 'multimedia/images/';
+			$imageType = $_FILES['image']['type'];
+			$imageName = $_FILES['image']['name'];
 			if($_FILES['image']['name'] != NULL){
 				$space->setImage($directory.$_FILES['image']['name']);
-				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$_FILES['image']['name']);
+				$checkImage = true;
+			}else{
+				$checkImage = false;
 			}
 
 
 			try {
-				// validate user object
-				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
+				// validate space object
+				$space->validateSpace($imageName, $imageType, $checkImage); // if it fails, ValidationException
 
-				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
-				//	$this->userMapper->update($user);
-				//}else{
-					//save the user object into the database
-					$this->spaceMapper->update($space);
-				//}
+				//up the image to the server
+				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
+				
+				//save the space object into the database
+				$this->spaceMapper->update($space);
 
 				$this->view->setFlash(sprintf(i18n("Space \"%s\" successfully updated."),$space ->getName()));
 

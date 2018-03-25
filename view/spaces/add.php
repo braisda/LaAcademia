@@ -25,15 +25,30 @@ $errors = $view->getVariable("errors");
       <div class="form-group col-md-6">
         <label for="name"><?=i18n("Name")?></label>
         <input type="text" class="form-control" id="name" name="name" placeholder="<?=i18n("Name")?>">
+        <?php if(isset($errors["name"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["name"])?i18n($errors["name"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
       <div class="form-group col-md-2">
         <label for="capacity"><?=i18n("Capacity")?></label>
         <input class="form-control" type="number" value="10" id="capacity" name="capacity">
+        <?php if(isset($errors["capacity"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["capacity"])?i18n($errors["capacity"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
         <label for="inputZip"><?=i18n("Image")?></label>
         <input type="file" id="image" name="image">
+        <?php if(isset($errors["imagetype"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?> </strong><?= isset($errors["imagetype"])?i18n($errors["imagetype"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
     </div>
     <br/>

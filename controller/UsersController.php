@@ -218,7 +218,6 @@ class UsersController extends BaseController {
 			$imageType = $_FILES['image']['type'];
 			$imageName = $_FILES['image']['name'];
 			$user->setImage($directory.$_FILES['image']['name']);
-			move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
 
 			if(isset($_POST["isAdministrator"]) && $_POST["isAdministrator"] == "1"){
 				$user->setIs_administrator(1);
@@ -235,10 +234,13 @@ class UsersController extends BaseController {
 
 			try {
 				// validate user object
-				$user->validateUserInsertion($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, true, true); // if it fails, ValidationException
+				$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, true, true); // if it fails, ValidationException
+
+				//up the image to the server
+				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
 
 				// check if user exists in the database
-				if(!$this->userMapper->usernameExists($_POST["username"])){
+				//if(!$this->userMapper->usernameExists($_POST["username"])){
 
 					//save the user object into the database
 					$this->userMapper->add($user);
@@ -315,7 +317,6 @@ class UsersController extends BaseController {
 			$imageName = $_FILES['image']['name'];
 			if($_FILES['image']['name'] != NULL){
 				$user->setImage($directory.$_FILES['image']['name']);
-				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
 				$checkImage = true;
 			}else{
 				$checkImage = false;
@@ -344,29 +345,28 @@ class UsersController extends BaseController {
 
 			try {
 				// validate user object
-				$user->validateUserInsertion($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, $checkPassword, $checkImage); // if it fails, ValidationException
+				$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $checkPassword, $checkImage); // if it fails, ValidationException
+
+				//up the image to the server
+				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
 
 				// check if user exists in the database
 				//if(!$this->userMapper->usernameExists($_POST["username"])){
-					//save the user object into the database
-					$this->userMapper->update($user);
 
-					// POST-REDIRECT-GET
-					// Everything OK, we will redirect the user to the list of posts
-					// We want to see a message after redirection, so we establish
-					// a "flash" message (which is simply a Session variable) to be
-					// get in the view after redirection.
-					$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user ->getName()));
+				//save the user object into the database
+				$this->userMapper->update($user);
 
-					// perform the redirection. More or less:
-					// header("Location: index.php?controller=users&action=show")
-					// die();
-					$this->view->redirect("users", "show");
-				/*} else {
-					$errors = array();
-					$errors["email"] = "Username already exists";
-					$this->view->setVariable("errors", $errors);
-				}*/
+				// POST-REDIRECT-GET
+				// Everything OK, we will redirect the user to the list of posts
+				// We want to see a message after redirection, so we establish
+				// a "flash" message (which is simply a Session variable) to be
+				// get in the view after redirection.
+				$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user ->getName()));
+
+				// perform the redirection. More or less:
+				// header("Location: index.php?controller=users&action=show")
+				// die();
+				$this->view->redirect("users", "show");
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();

@@ -114,4 +114,32 @@ class Space {
 	public function setImage($image) {
 		$this->image = $image;
 	}
+
+	public function validateSpace($imageName, $imageType, $checkImage){
+		$errors = array();
+
+		if($this->getName() == NULL){
+			$errors["name"] = "The name is wrong";
+		}
+
+		if($this->getCapacity() == NULL){
+			$errors["capacity"] = "The capacity is wrong";
+		}
+
+		if($checkImage){
+			if ($imageType != "image/gif" and $imageType != "image/jpeg" and $imageType != "image/jpg" and $imageType != "image/png"){
+				$errors["imagetype"] = "The image is not valid";
+			}
+		}
+
+		if($checkImage){
+			if ($imageName == NULL){
+				$errors["imagetype"] = "Not image selected";
+			}
+		}
+
+		if (sizeof($errors) > 0){
+			throw new ValidationException($errors, "Space is not valid");
+		}
+	}
 }

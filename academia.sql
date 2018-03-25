@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.6
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 22-03-2018 a las 19:29:32
--- Versión del servidor: 10.1.28-MariaDB
--- Versión de PHP: 7.1.10
+-- Servidor: localhost
+-- Tiempo de generación: 25-03-2018 a las 14:09:57
+-- Versión del servidor: 10.1.29-MariaDB
+-- Versión de PHP: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,10 +21,10 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `academia`
 --
-create database if not exists academia;
-use academia;
+CREATE DATABASE IF NOT EXISTS `academia` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `academia`;
+GRANT ALL privileges ON academia.* to academia@localhost identified by "academiapass";
 
-grant all privileges on academia.* to academia@localhost identified by "academiapass";
 -- --------------------------------------------------------
 
 --
@@ -72,9 +72,18 @@ INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `
 
 CREATE TABLE `draws` (
   `id_draw` int(4) NOT NULL,
-  `name` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `modality` enum('individual','double') COLLATE utf8_spanish_ci NOT NULL,
+  `gender` enum('male','female') COLLATE utf8_spanish_ci NOT NULL,
   `id_tournament` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `draws`
+--
+
+INSERT INTO `draws` (`id_draw`, `modality`, `gender`, `id_tournament`) VALUES
+(1, 'individual', 'male', 1),
+(2, 'individual', 'female', 1);
 
 -- --------------------------------------------------------
 
@@ -242,9 +251,16 @@ CREATE TABLE `tournaments` (
   `id_tournament` int(4) NOT NULL,
   `name` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `description` text COLLATE utf8_spanish_ci NOT NULL,
-  `start_date` time NOT NULL,
-  `end_date` time NOT NULL
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `tournaments`
+--
+
+INSERT INTO `tournaments` (`id_tournament`, `name`, `description`, `start_date`, `end_date`) VALUES
+(1, 'I Torneo ESEI', 'I edición del Torneo ESEI para aficionados.\r\n\r\nSe llevará a cabo entre el 17 y 23 de Junio de 2018 en modalidades individual/dobles y masculino/femenino, en las instalaciones del centro de tenis \"La Academia\".\r\n\r\nPlazo de inscripción abierto hasta el 15 de Junio.', '2018-06-17', '2018-06-23');
 
 -- --------------------------------------------------------
 
@@ -341,28 +357,6 @@ ALTER TABLE `notifications`
   ADD KEY `sender` (`sender`);
 
 --
--- Indices de la tabla `receives`
---
-ALTER TABLE `receives`
-  ADD PRIMARY KEY (`id_user`,`id_notification`),
-  ADD KEY `id_notification` (`id_notification`);
-
---
--- Indices de la tabla `reservations`
---
-ALTER TABLE `reservations`
-  ADD PRIMARY KEY (`id_reservation`),
-  ADD KEY `id_course` (`id_course`),
-  ADD KEY `id_pupil` (`id_pupil`);
-
---
--- Indices de la tabla `results`
---
-ALTER TABLE `results`
-  ADD PRIMARY KEY (`id_result`),
-  ADD KEY `id_match` (`id_match`);
-
---
 -- Indices de la tabla `rounds`
 --
 ALTER TABLE `rounds`
@@ -401,19 +395,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT de la tabla `draws`
 --
 ALTER TABLE `draws`
-  MODIFY `id_draw` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `events`
---
-ALTER TABLE `events`
-  MODIFY `id_event` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `inscriptions`
---
-ALTER TABLE `inscriptions`
-  MODIFY `id_inscription` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_draw` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `matches`
@@ -426,18 +408,6 @@ ALTER TABLE `matches`
 --
 ALTER TABLE `notifications`
   MODIFY `id_notification` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `reservations`
---
-ALTER TABLE `reservations`
-  MODIFY `id_reservation` int(5) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `results`
---
-ALTER TABLE `results`
-  MODIFY `id_result` int(6) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `rounds`
@@ -455,7 +425,7 @@ ALTER TABLE `spaces`
 -- AUTO_INCREMENT de la tabla `tournaments`
 --
 ALTER TABLE `tournaments`
-  MODIFY `id_tournament` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tournament` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -466,13 +436,6 @@ ALTER TABLE `users`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `attends`
---
-ALTER TABLE `attends`
-  ADD CONSTRAINT `attends_ibfk_1` FOREIGN KEY (`id_event`) REFERENCES `events` (`id_event`),
-  ADD CONSTRAINT `attends_ibfk_2` FOREIGN KEY (`id_athlete`) REFERENCES `users` (`id_user`);
 
 --
 -- Filtros para la tabla `courses`
@@ -488,19 +451,6 @@ ALTER TABLE `draws`
   ADD CONSTRAINT `draws_ibfk_1` FOREIGN KEY (`id_tournament`) REFERENCES `tournaments` (`id_tournament`);
 
 --
--- Filtros para la tabla `events`
---
-ALTER TABLE `events`
-  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`id_space`) REFERENCES `spaces` (`id_space`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `inscriptions`
---
-ALTER TABLE `inscriptions`
-  ADD CONSTRAINT `inscriptions_ibfk_1` FOREIGN KEY (`id_tournament`) REFERENCES `tournaments` (`id_tournament`),
-  ADD CONSTRAINT `inscriptions_ibfk_2` FOREIGN KEY (`id_player`) REFERENCES `users` (`id_user`);
-
---
 -- Filtros para la tabla `matches`
 --
 ALTER TABLE `matches`
@@ -512,26 +462,6 @@ ALTER TABLE `matches`
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`receiver`) REFERENCES `users` (`id_user`),
   ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`sender`) REFERENCES `users` (`id_user`);
-
---
--- Filtros para la tabla `receives`
---
-ALTER TABLE `receives`
-  ADD CONSTRAINT `receives_ibfk_1` FOREIGN KEY (`id_notification`) REFERENCES `notifications` (`id_notification`),
-  ADD CONSTRAINT `receives_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
-
---
--- Filtros para la tabla `reservations`
---
-ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`id_pupil`) REFERENCES `users` (`id_user`),
-  ADD CONSTRAINT `reservations_ibfk_3` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id_course`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `results`
---
-ALTER TABLE `results`
-  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`id_match`) REFERENCES `matches` (`id_match`);
 
 --
 -- Filtros para la tabla `rounds`

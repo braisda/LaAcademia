@@ -143,6 +143,7 @@ li.breadcrumb-item>a {
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 	display:inline-block;
+	margin-bottom: 0px;
 }
 
 #table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd, #date, #price {

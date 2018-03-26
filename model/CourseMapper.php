@@ -108,7 +108,7 @@ class CourseMapper {
       $days = $days.$course->getDays()[$i].",";
     }
     $size = strlen($days);
-    $days = substr($days, 0, $size-1); echo $days;
+    $days = substr($days, 0, $size-1); 
 
 		$stmt->execute(array($course->getName(), $course->getType(),
 												 $course->getDescription(), $course->getCapacity(), $days,

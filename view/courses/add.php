@@ -110,6 +110,11 @@ $errors = $view->getVariable ( "errors" );
             <option value="<?=$space["id_space"]?>"><?=$space["name"]?></option>
           <?php } ?>
         </select>
+        <?php if(isset($errors["space"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["space"])?i18n($errors["space"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
@@ -120,6 +125,11 @@ $errors = $view->getVariable ( "errors" );
             <option value="<?=$trainer["id_user"]?>"><?=$trainer["name"]?></option>
           <?php } ?>
         </select>
+        <?php if(isset($errors["trainer"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["trainer"])?i18n($errors["trainer"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
 

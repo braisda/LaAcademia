@@ -46,7 +46,7 @@ $view->setVariable ("title", "Show Courses");
         						<tr>
                       <td><?= $n++ ?></td>
         							<td><?= $course->getName() ?></td>
-        							<td><?= $course->getType() ?></td>
+        							<td><?= i18n($course->getType()) ?></td>
         							<td><?= $course->getCapacity() ?></td>
                       <td>
                         <?php

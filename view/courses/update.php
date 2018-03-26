@@ -3,6 +3,8 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
 $course = $view->getVariable ( "course" );
+$spaces = $view->getVariable("spaces");
+$trainers = $view->getVariable("trainers");
 $view->setVariable ( "title", "Update Course" );
 $errors = $view->getVariable ( "errors" );
 ?>
@@ -110,6 +112,44 @@ $errors = $view->getVariable ( "errors" );
       <div class="form-group col-md-2">
         <label for="capacity"><?=i18n("Capacity")?></label>
         <input class="form-control" type="number" value="<?= $course->getCapacity() ?>" id="capacity" name="capacity">
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="space"><?=i18n("Spaces")?></label>
+        <select name="space" class="form-control" id="select" rows="8">
+          <?php
+          foreach ($spaces as $space) { ?>
+            <?php if($course->getId_space() == $space["id_space"]){ ?>
+              <option selected value="<?=$space["id_space"]?>"> <?=$space["name"]?></option>
+            <?php }else{ ?>
+              <option value="<?=$space["id_space"]?>"><?=$space["name"]?></option>
+            <?php }?>
+          <?php } ?>
+        </select>
+        <?php if(isset($errors["space"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["space"])?i18n($errors["space"]):"" ?>
+            </div>
+        <?php } ?>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="trainer"><?=i18n("Trainers")?></label>
+        <select name="trainer" class="form-control" id="select" rows="8">
+          <?php
+          foreach ($trainers as $trainer) { ?>
+            <?php if($course->getId_trainer() == $trainer["id_user"]){ ?>
+              <option selected value="<?=$trainer["id_user"]?>"> <?=$trainer["name"]?></option>
+            <?php }else{ ?>
+              <option value="<?=$trainer["id_user"]?>"><?=$trainer["name"]?></option>
+            <?php }?>
+          <?php } ?>
+        </select>
+        <?php if(isset($errors["trainer"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["trainer"])?i18n($errors["trainer"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
     </div>

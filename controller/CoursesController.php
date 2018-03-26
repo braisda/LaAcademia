@@ -124,6 +124,7 @@ class CoursesController extends BaseController {
 		}
 		//Get the id and name of the spaces
 		$spaces = $this->courseMapper->getSpaces();
+
 		// Put the space variable visible to the view
 		$this->view->setVariable("spaces", $spaces);
 
@@ -169,6 +170,11 @@ class CoursesController extends BaseController {
 			$course->setDays($_POST["days"]);
 			$course->setStart_time($_POST["start_time"]);
 			$course->setEnd_time($_POST["end_time"]);
+			$course->setId_space($_POST["space"]);
+			$course->setId_trainer($_POST["trainer"]);
+			echo "SPACE: ".$_POST["space"];
+			echo "TRAINER: ".$_POST["trainer"];
+
 
 			try {
 				// validate user object
@@ -177,6 +183,7 @@ class CoursesController extends BaseController {
 				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
 				//	$this->userMapper->update($user);
 				//}else{
+				var_dump($course);
 					//save the user object into the database
 					$this->courseMapper->update($course);
 				//}
@@ -192,6 +199,17 @@ class CoursesController extends BaseController {
 				$this->view->setVariable("errors", $errors);
 			}
 		}
+		//Get the id and name of the spaces
+		$spaces = $this->courseMapper->getSpaces();
+
+		// Put the space variable visible to the view
+		$this->view->setVariable("spaces", $spaces);
+
+		//Get the id and name of the trainers
+		$trainers = $this->courseMapper->getTrainers();
+
+		// Put the space variable visible to the view
+		$this->view->setVariable("trainers", $trainers);
 
 		// Put the user object visible to the view
 		$this->view->setVariable("course", $course);

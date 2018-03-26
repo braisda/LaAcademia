@@ -236,4 +236,40 @@ class Event {
 	public function getName_space() {
 		return $this->name_space;
 	}
+
+	public function validateEvent(){
+		$errors = array();
+
+		if($this->getName() == NULL){
+			$errors["name"] = "The name is wrong";
+		}
+
+		if($this->getDescription() == NULL){
+			$errors["description"] = "The description is wrong";
+		}
+
+		if($this->getPrice() == NULL){
+			$errors["price"] = "The price is wrong";
+		}
+
+		if($this->getCapacity() == NULL){
+			$errors["capacity"] = "The capacity is wrong";
+		}
+
+		if($this->getDate() == NULL){
+			$errors["date"] = "The date is wrong";
+		}
+
+		if($this->getTime() == NULL){
+			$errors["time"] = "The time is wrong";
+		}
+
+		if($this->getId_space() == NULL){
+			$errors["space"] = "The space is wrong";
+		}
+
+		if (sizeof($errors) > 0){
+			throw new ValidationException($errors, "User is not valid");
+		}
+	}
 }

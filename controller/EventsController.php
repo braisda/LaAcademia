@@ -98,14 +98,9 @@ class EventsController extends BaseController {
 
 			try {
 				// validate event object
-				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
+				$event->validateEvent(); // if it fails, ValidationException
 
-				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
-				//	$this->userMapper->update($user);
-				//}else{
-					//save the user object into the database
-					$this->eventMapper->add($event);
-				//}
+				$this->eventMapper->add($event);
 
 				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully added."),$event ->getName()));
 
@@ -163,14 +158,9 @@ class EventsController extends BaseController {
 
 			try {
 				// validate user object
-				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
+				$event->validateEvent(); // if it fails, ValidationException
 
-				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
-				//	$this->userMapper->update($user);
-				//}else{
-					//save the user object into the database
-					$this->eventMapper->update($event);
-				//}
+				$this->eventMapper->update($event);
 
 				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully updated."),$event ->getName()));
 

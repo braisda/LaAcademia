@@ -24,26 +24,51 @@ $errors = $view->getVariable("errors");
       <div class="form-group col-md-6">
         <label for="name"><?=i18n("Name")?></label>
         <input type="text" class="form-control" id="name" name="name" placeholder="<?=i18n("Name")?>">
+        <?php if(isset($errors["name"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["name"])?i18n($errors["name"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
         <label for="capacity"><?=i18n("Capacity")?></label>
         <input class="form-control" type="number" value="10" id="capacity" name="capacity">
+        <?php if(isset($errors["capacity"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["capacity"])?i18n($errors["capacity"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
         <label for="date"><?=i18n("Date")?></label>
         <input id="date" type="date" name="date" class="form-control">
+        <?php if(isset($errors["date"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["date"])?i18n($errors["date"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
         <label for="type"><?=i18n("Time")?></label>
         <input class="form-control" type="time" value="09:00:00" id="time" name="time">
+        <?php if(isset($errors["time"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["time"])?i18n($errors["time"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-8">
         <label for="description"><?=i18n("Description")?></label>
         <textarea class="form-control" id="description" name="description" rows="8" placeholder="<?=i18n("Description")?>"></textarea>
+        <?php if(isset($errors["description"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["description"])?i18n($errors["description"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
@@ -54,11 +79,21 @@ $errors = $view->getVariable("errors");
             <option value="<?=$space["id_space"]?>"><?=$space["name"]?></option>
           <?php } ?>
         </select>
+        <?php if(isset($errors["space"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["space"])?i18n($errors["space"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
         <label for="type"><?=i18n("Price")?></label>
         <input class="form-control" type="number" value="10" id="price" name="price">
+        <?php if(isset($errors["price"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["price"])?i18n($errors["price"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <!--   <div class="form-group col-md-2">

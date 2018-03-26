@@ -38,9 +38,10 @@ class CourseMapper {
 		$courses = array ();
 
 		foreach ($courses_db as $course) {
-			array_push ($courses, new Course($course ["id_course"], $course ["name"], $course ["type"], $course ["description"],
-																			$course ["capacity"], $course ["days"], $course ["start_time"],
-																			$course ["end_time"]));
+			array_push ($courses, new Course($course ["id_course"], $course ["name"], $course ["type"],
+																			 $course ["description"], $course ["capacity"], $course ["days"],
+																			 $course ["start_time"], $course ["end_time"], $course ["id_space"],
+																			 $course ["id_trainer"]));
 		}
 
 		return $courses;
@@ -53,17 +54,34 @@ class CourseMapper {
 		$course = $stmt->fetch ( PDO::FETCH_ASSOC );
 
 		if ($course != null) {
-			return new Course($course ["id_course"], $course ["name"], $course ["type"], $course ["description"],
-												$course ["capacity"], $course ["days"], $course ["start_time"],
-												$course ["end_time"]);
+			return new Course($course ["id_course"], $course ["name"], $course ["type"],
+												$course ["description"], $course ["capacity"], $course ["days"],
+												$course ["start_time"], $course ["end_time"], $course ["id_space"],
+												$course ["id_trainer"]);
 		} else {
 			return NULL;
 		}
 	}
 
+	public function getTrainers() {
+		$stmt = $this->db->query("SELECT id_user, name FROM users WHERE is_trainer = 1");
+
+		$trainers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $trainers;
+	}
+
+	public function getSpaces() {
+		$stmt = $this->db->query("SELECT id_space, name FROM spaces");
+
+		$spaces = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $spaces;
+	}
+
 	public function add($course) {
-		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time)
-																values (?,?,?,?,?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time, id_space, id_trainer)
+																values (?,?,?,?,?,?,?,?,?)");
 
     $days = "";
     for($i=0; $i<count($course->getDays()); $i++){
@@ -74,7 +92,7 @@ class CourseMapper {
 
 		$stmt->execute(array($course->getName(), $course->getType(), $course->getDescription(),
 												 $course->getCapacity(), $days, $course->getStart_time(),
-												 $course->getEnd_time()));
+												 $course->getEnd_time(), $course->getId_space(), $course->getId_trainer()));
 		return $this->db->lastInsertId();
 	}
 
@@ -82,7 +100,7 @@ class CourseMapper {
 		$stmt = $this->db->prepare("UPDATE courses
 																set name = ?, type = ?, description = ?,
 																		capacity = ?, days = ?, start_time = ?,
-																		end_time = ?
+																		end_time = ?, id_space = ?, id_trainer= ?
 																WHERE id_course = ?");
 
 		$days = "";
@@ -95,6 +113,7 @@ class CourseMapper {
 		$stmt->execute(array($course->getName(), $course->getType(),
 												 $course->getDescription(), $course->getCapacity(), $days,
 												 $course->getStart_time(), $course->getEnd_time(),
+												 $course->getId_space(), $course->getId_trainer(),
 												 $course->getId_course()));
 		return $this->db->lastInsertId();
 	}

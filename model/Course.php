@@ -55,6 +55,16 @@ class Course {
 	private $end_time;
 
 	/**
+	* The space of the course
+	*/
+	private $id_space;
+
+	/**
+	* The trainer of the course
+	*/
+	private $id_trainer;
+
+	/**
 	* The constructor
 	*
 	* @param $id_course The name of the course
@@ -65,10 +75,12 @@ class Course {
   * @param $days The days when the course is taught
   * @param $start_time The start time of the course
   * @param $end_time The end time of the course
+	* @param $id_space The space of the course
+  * @param $id_trainer The trainer of the course
 	*/
 	public function __construct($id_course=NULL, $name=NULL, $type=NULL,
 															$description=NULL, $capacity=NULL, $days=NULL,
-                              $start_time=NULL, $end_time=NULL) {
+                              $start_time=NULL, $end_time=NULL, $id_space=NULL, $id_trainer=NULL) {
 		$this->id_course = $id_course;
 		$this->name = $name;
 		$this->type = $type;
@@ -77,6 +89,8 @@ class Course {
 		$this->days = $days;
 		$this->start_time = $start_time;
 		$this->end_time = $end_time;
+		$this->id_space = $id_space;
+		$this->id_trainer = $id_trainer;
 	}
 
 	/**
@@ -219,5 +233,87 @@ class Course {
 	*/
 	public function setEnd_time($end_time) {
 		$this->end_time = $end_time;
+	}
+
+	/**
+	* Gets the space of this course
+	*
+	* @return string The space of this course
+	*/
+	public function getId_space() {
+		return $this->id_space;
+	}
+
+	/**
+	* Sets the id_space of this space
+	*
+	* @param string $id_space The space of this course
+	* @return void
+	*/
+	public function setId_space($id_space) {
+		$this->id_space = $id_space;
+	}
+
+	/**
+	* Gets the trainer of this course
+	*
+	* @return string The trainer of this course
+	*/
+	public function getId_trainer() {
+		return $this->id_trainer;
+	}
+
+	/**
+	* Sets the trainer of this course
+	*
+	* @param string $id_trainer The trainer of this course
+	* @return void
+	*/
+	public function setId_trainer($id_trainer) {
+		$this->id_trainer = $id_trainer;
+	}
+
+	public function validateUser(){
+		$errors = array();
+
+		if($this->getName() == NULL){
+			$errors["name"] = "The name is wrong";
+		}
+
+		if($this->getType() == NULL){
+			$errors["type"] = "The type is wrong";
+		}
+
+		if($this->getStart_time() == NULL){
+			$errors["start_time"] = "The start time is wrong";
+		}
+
+		if($this->getEnd_time() == NULL){
+			$errors["end_time"] = "The end time is wrong";
+		}
+
+		if($this->getDescription() == NULL){
+			$errors["description"] = "The description is wrong";
+		}
+
+		if($this->getDays() == NULL){
+			$errors["days"] = "The days are wrong";
+		}
+
+		if($this->getCapacity() == NULL){
+			$errors["capacity"] = "The capacity is wrong";
+		}
+
+		if($this->getId_space() == NULL){
+			$errors["space"] = "The space is wrong";
+		}
+
+		if($this->getId_trainer() == NULL){
+			$errors["trainer"] = "The trainer is wrong";
+		}
+
+		if (sizeof($errors) > 0){
+			throw new ValidationException($errors, "Course is not valid");
+		}
 	}
 }

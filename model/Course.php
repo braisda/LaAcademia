@@ -273,7 +273,7 @@ class Course {
 		$this->id_trainer = $id_trainer;
 	}
 
-	public function validateUser(){
+	public function validateCourse(){
 		$errors = array();
 
 		if($this->getName() == NULL){

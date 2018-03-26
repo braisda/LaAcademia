@@ -94,22 +94,22 @@ class CoursesController extends BaseController {
 			$course->setType($_POST["type"]);
 			$course->setDescription($_POST["description"]);
 			$course->setCapacity($_POST["capacity"]);
-			$course->setDays($_POST["days"]);
+			if(isset($_POST["days"])){
+				$course->setDays($_POST["days"]);
+			}else{
+				$course->setDays(NULL);
+			}
 			$course->setStart_time($_POST["start_time"]);
 			$course->setEnd_time($_POST["end_time"]);
 			$course->setId_space($_POST["space"]);
 			$course->setId_trainer($_POST["trainer"]);
 
 			try {
-				// validate course object
-				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
+				//validate course object
+				$course->ValidateCourse(); // if it fails, ValidationException
 
-				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
-				//	$this->userMapper->update($user);
-				//}else{
-					//save the user object into the database
-					$this->courseMapper->add($course);
-				//}
+				//save the course object into the database
+				$this->courseMapper->add($course);
 
 				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully added."),$course ->getName()));
 
@@ -172,21 +172,13 @@ class CoursesController extends BaseController {
 			$course->setEnd_time($_POST["end_time"]);
 			$course->setId_space($_POST["space"]);
 			$course->setId_trainer($_POST["trainer"]);
-			echo "SPACE: ".$_POST["space"];
-			echo "TRAINER: ".$_POST["trainer"];
-
 
 			try {
-				// validate user object
-				//$user->ValidRegister($_POST["rpass"]); // if it fails, ValidationException
+				//validate course object
+				$course->ValidateCourse(); // if it fails, ValidationException
 
-				//if(!$user->userMapper->is_valid_DNI($user->getUsername())){
-				//	$this->userMapper->update($user);
-				//}else{
-				var_dump($course);
-					//save the user object into the database
-					$this->courseMapper->update($course);
-				//}
+				//save the course object into the database
+				$this->courseMapper->update($course);
 
 				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully updated."),$course ->getName()));
 

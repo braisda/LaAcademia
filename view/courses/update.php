@@ -25,6 +25,11 @@ $errors = $view->getVariable ( "errors" );
       <div class="form-group col-md-6">
         <label for="name"><?=i18n("Name")?></label>
         <input type="text" class="form-control" id="name" name="name" value="<?= $course->getName() ?>" placeholder="<?= $course->getName() ?>">
+        <?php if(isset($errors["name"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["name"])?i18n($errors["name"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
@@ -44,21 +49,41 @@ $errors = $view->getVariable ( "errors" );
           <?php }?>
 
         </select>
+        <?php if(isset($errors["type"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["type"])?i18n($errors["type"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
         <label for="type"><?=i18n("Start Time")?></label>
         <input class="form-control" type="time" value="<?= $course->getStart_time() ?>" id="time" name="start_time">
+        <?php if(isset($errors["start_time"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["start_time"])?i18n($errors["start_time"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
         <label for="type"><?=i18n("End Time")?></label>
         <input class="form-control" type="time" value="<?= $course->getEnd_time() ?>" id="time" name="end_time">
+        <?php if(isset($errors["end_time"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["end_time"])?i18n($errors["end_time"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-8">
         <label for="description"><?=i18n("Description")?></label>
         <textarea class="form-control" id="description" name="description" rows="8" placeholder="<?= $course->getDescription() ?>"><?= $course->getDescription() ?></textarea>
+        <?php if(isset($errors["description"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["description"])?i18n($errors["description"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
@@ -107,11 +132,21 @@ $errors = $view->getVariable ( "errors" );
             <option value="Sunday"><?=i18n("Sunday")?></option>
           <?php }?>
         </select>
+        <?php if(isset($errors["days"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["days"])?i18n($errors["days"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
         <label for="capacity"><?=i18n("Capacity")?></label>
         <input class="form-control" type="number" value="<?= $course->getCapacity() ?>" id="capacity" name="capacity">
+        <?php if(isset($errors["capacity"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["capacity"])?i18n($errors["capacity"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
 
       <div class="form-group col-md-2">

@@ -233,14 +233,13 @@ class UsersController extends BaseController {
 			}
 
 			try {
-				// validate user object
-				$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, true, true); // if it fails, ValidationException
-
-				//up the image to the server
-				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
-
 				// check if user exists in the database
-				//if(!$this->userMapper->usernameExists($_POST["username"])){
+				if(!$this->userMapper->usernameExists($_POST["username"])){
+					// validate user object
+					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, true, true); // if it fails, ValidationException
+
+					//up the image to the server
+					move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
 
 					//save the user object into the database
 					$this->userMapper->add($user);
@@ -344,29 +343,33 @@ class UsersController extends BaseController {
 			}
 
 			try {
-				// validate user object
-				$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $checkPassword, $checkImage); // if it fails, ValidationException
-
-				//up the image to the server
-				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
-
 				// check if user exists in the database
-				//if(!$this->userMapper->usernameExists($_POST["username"])){
+				if(!$this->userMapper->usernameExists($_POST["username"])){
+					// validate user object
+					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $checkPassword, $checkImage); // if it fails, ValidationException
 
-				//save the user object into the database
-				$this->userMapper->update($user);
+					//up the image to the server
+					move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
+					
+					//save the user object into the database
+					$this->userMapper->update($user);
 
-				// POST-REDIRECT-GET
-				// Everything OK, we will redirect the user to the list of posts
-				// We want to see a message after redirection, so we establish
-				// a "flash" message (which is simply a Session variable) to be
-				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user ->getName()));
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user ->getName()));
 
-				// perform the redirection. More or less:
-				// header("Location: index.php?controller=users&action=show")
-				// die();
-				$this->view->redirect("users", "show");
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=users&action=show")
+					// die();
+					$this->view->redirect("users", "show");
+				} else {
+					$errors = array();
+					$errors["email"] = "Username already exists";
+					$this->view->setVariable("errors", $errors);
+				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();

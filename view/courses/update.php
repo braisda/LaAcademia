@@ -187,6 +187,16 @@ $errors = $view->getVariable ( "errors" );
         <?php } ?>
       </div>
 
+      <div class="form-group col-md-2">
+        <label for="type"><?=i18n("Price")?></label>
+        <input class="form-control" type="number" value="<?= $course->getPrice() ?>" id="price" name="price">
+        <?php if(isset($errors["price"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["price"])?i18n($errors["price"]):"" ?>
+            </div>
+        <?php } ?>
+      </div>
+
     </div>
     <br/>
     <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Modify")?></button>

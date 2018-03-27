@@ -60,9 +60,24 @@ class Course {
 	private $id_space;
 
 	/**
+  * The space name of the course
+  */
+  private $name_space;
+
+	/**
 	* The trainer of the course
 	*/
 	private $id_trainer;
+
+	/**
+  * The trainer name of the course
+  */
+  private $name_trainer;
+
+	/**
+  * The price of the course
+  */
+  private $price;
 
 	/**
 	* The constructor
@@ -77,10 +92,14 @@ class Course {
   * @param $end_time The end time of the course
 	* @param $id_space The space of the course
   * @param $id_trainer The trainer of the course
+	* @param $name_space The name of the course's space
+	* @param $name_trainer The name of the course's trainer
+	* @param $price The price of the course
 	*/
 	public function __construct($id_course=NULL, $name=NULL, $type=NULL,
 															$description=NULL, $capacity=NULL, $days=NULL,
-                              $start_time=NULL, $end_time=NULL, $id_space=NULL, $id_trainer=NULL) {
+                              $start_time=NULL, $end_time=NULL, $id_space=NULL,
+															$id_trainer=NULL, $name_space=NULL, $name_trainer=NULL, $price=NULL) {
 		$this->id_course = $id_course;
 		$this->name = $name;
 		$this->type = $type;
@@ -91,6 +110,9 @@ class Course {
 		$this->end_time = $end_time;
 		$this->id_space = $id_space;
 		$this->id_trainer = $id_trainer;
+		$this->name_space = $name_space;
+		$this->name_trainer = $name_trainer;
+		$this->price = $price;
 	}
 
 	/**
@@ -273,6 +295,43 @@ class Course {
 		$this->id_trainer = $id_trainer;
 	}
 
+	/**
+	* Gets the name of the event's space
+	*
+	* @return string The name of the event's space
+	*/
+	public function getName_space() {
+		return $this->name_space;
+	}
+
+	/**
+	* Gets the name of the course's trainer
+	*
+	* @return string The name of the course's trainer
+	*/
+	public function getName_trainer() {
+		return $this->name_trainer;
+	}
+
+	/**
+	* Gets the price of this course
+	*
+	* @return string The price of this course
+	*/
+	public function getPrice() {
+		return $this->price;
+	}
+
+	/**
+	* Sets the price of this course
+	*
+	* @param string $price The price of this course
+	* @return void
+	*/
+	public function setPrice($price) {
+		$this->price = $price;
+	}
+
 	public function validateCourse(){
 		$errors = array();
 
@@ -310,6 +369,10 @@ class Course {
 
 		if($this->getId_trainer() == NULL){
 			$errors["trainer"] = "The trainer is wrong";
+		}
+
+		if($this->getPrice() == NULL){
+			$errors["price"] = "The price is wrong";
 		}
 
 		if (sizeof($errors) > 0){

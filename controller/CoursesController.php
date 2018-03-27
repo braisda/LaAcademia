@@ -103,6 +103,7 @@ class CoursesController extends BaseController {
 			$course->setEnd_time($_POST["end_time"]);
 			$course->setId_space($_POST["space"]);
 			$course->setId_trainer($_POST["trainer"]);
+			$course->setPrice($_POST["price"]);
 
 			try {
 				//validate course object
@@ -172,6 +173,7 @@ class CoursesController extends BaseController {
 			$course->setEnd_time($_POST["end_time"]);
 			$course->setId_space($_POST["space"]);
 			$course->setId_trainer($_POST["trainer"]);
+			$course->setPrice($_POST["price"]);
 
 			try {
 				//validate course object

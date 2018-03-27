@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-03-2018 a las 14:09:57
+-- Tiempo de generación: 27-03-2018 a las 20:01:43
 -- Versión del servidor: 10.1.29-MariaDB
 -- Versión de PHP: 7.2.0
 
@@ -24,7 +24,6 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `academia` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `academia`;
 GRANT ALL privileges ON academia.* to academia@localhost identified by "academiapass";
-
 -- --------------------------------------------------------
 
 --
@@ -52,17 +51,18 @@ CREATE TABLE `courses` (
   `start_time` time NOT NULL,
   `end_time` time NOT NULL,
   `id_space` int(4) NOT NULL,
-  `id_trainer` int(4) NOT NULL
+  `id_trainer` int(4) NOT NULL,
+  `price` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `courses`
 --
 
-INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `days`, `start_time`, `end_time`, `id_space`, `id_trainer`) VALUES
-(1, 'Iniciación', 'Children', 'Curso iniciación infantil', 10, 'Monday,Tuesday', '08:00:00', '10:00:00', 1, 2),
-(2, 'Iniciación', 'Adults', 'Curso iniciación adultos', 10, 'Wednesday,Thursday', '08:00:00', '10:00:00', 1, 2),
-(3, 'Avanzado', 'Children', 'Curso avanzado infantil', 5, 'Friday,Saturday', '10:00:00', '12:00:00', 2, 3);
+INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `days`, `start_time`, `end_time`, `id_space`, `id_trainer`, `price`) VALUES
+(1, 'Iniciación', 'Children', 'Curso iniciación infantil', 10, 'Monday,Tuesday', '08:00:00', '10:00:00', 1, 2, 30),
+(2, 'Iniciación', 'Adults', 'Curso iniciación adultos', 10, 'Wednesday,Thursday', '08:00:00', '10:00:00', 1, 3, 40),
+(3, 'Avanzado', 'Children', 'Curso avanzado infantil', 6, 'Friday,Saturday', '10:00:00', '12:00:00', 2, 3, 35);
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE `events` (
 
 INSERT INTO `events` (`id_event`, `name`, `description`, `price`, `capacity`, `date`, `time`, `id_space`) VALUES
 (1, 'Conferencia Psicología Deportiva', 'Conferencia \"Psicología Deportiva (Dirigida a Padres y Entrenadores)\" a cargo de D. Carlos Méndez Gil, psicólogo de la Real Federación Española de Tenis.', 10, 400, '2018-06-15', '11:00:00', 6),
-(2, 'Cena Navidad', 'Cena navideña para miembros del club y familiares', 20, 90, '2018-06-30', '22:00:00', 3);
+(2, 'Cena Navidad', 'Cena navideña para miembros del club y familiares', 20, 89, '2018-06-30', '22:00:00', 3);
 
 -- --------------------------------------------------------
 
@@ -389,7 +389,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id_course` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_course` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `draws`
@@ -419,7 +419,7 @@ ALTER TABLE `rounds`
 -- AUTO_INCREMENT de la tabla `spaces`
 --
 ALTER TABLE `spaces`
-  MODIFY `id_space` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_space` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `tournaments`
@@ -431,7 +431,7 @@ ALTER TABLE `tournaments`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_user` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

@@ -66,6 +66,7 @@ $view->setVariable ("title", "Show Courses");
                         <a href="index.php?controller=courses&amp;action=view&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-magnifying-glass"></span></a>
                         <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-loop"></span></a>
                         <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-trash"></span></a>
+                        <a href="index.php?controller=courses_reservations&amp;action=show"><span class="oi oi-task"></span></span></a>
                       </td>
         						</tr>
         				<?php endforeach; ?>

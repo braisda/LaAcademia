@@ -2,7 +2,7 @@
 // file: view/courseReservations/show.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
-$reservations = $view->getVariable("courseReservations");
+$reservations = $view->getVariable("courseReservation");
 $pupils = $view->getVariable("pupils");
 $courses = $view->getVariable("courses");
 $view->setVariable ("title", "Show Courses Reservations");
@@ -49,7 +49,7 @@ $view->setVariable ("title", "Show Courses Reservations");
         							<td><?= $reservation->getTime() ?></td>
         							<td>
                         <?php
-                          if($reservation->getIs_confirmed() == 0){
+                          if($reservation->getIs_confirmed() == 1){
                             $toret = "Confirmed";
                           }else{
                             $toret = "Pendient";
@@ -70,7 +70,6 @@ $view->setVariable ("title", "Show Courses Reservations");
                         <?= $name." ".$surname ?></td>
                       <td>
                         <?php
-                          $name;
                           foreach ($courses as $course) {
                             if($course["id_course"] == $reservation->getId_course()){
                               $name = $course["name"];
@@ -81,8 +80,8 @@ $view->setVariable ("title", "Show Courses Reservations");
 
                         <?= $name." ".i18n($type) ?></td>
                       <td>
-                        <a href="index.php?controller=courses_reservations&amp;action=view&amp;id_course=<?= $reservation->getId_reservation() ?>"><span class="oi oi-magnifying-glass"></span></a>
-                        <a href="index.php?controller=courses_reservationscourses_reservationscourses_reservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                        <a href="index.php?controller=courseReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-magnifying-glass"></span></a>
+                        <a href="index.php?controller=courseReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
                       </td>
         						</tr>
         				<?php endforeach; ?>

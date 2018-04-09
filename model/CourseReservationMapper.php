@@ -62,39 +62,36 @@ class CourseReservationMapper {
 
 		return $courses;
 	}
-/*
-	public function view($id_course) {
-		$stmt = $this->db->prepare("SELECT * FROM courses WHERE id_course=?");
-		$stmt->execute(array($id_course));
 
-		$course = $stmt->fetch ( PDO::FETCH_ASSOC );
+	public function view($id_reservation) {
+		$stmt = $this->db->prepare("SELECT * FROM courses_reservations WHERE id_reservation=?");
+		$stmt->execute(array($id_reservation));
 
-		$stmt2 = $this->db->prepare("SELECT name FROM spaces WHERE id_space=?");
-    $stmt2->execute(array($course ["id_space"]));
+		$reservation = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $space = $stmt2->fetch ( PDO::FETCH_ASSOC );
+		$stmt2 = $this->db->prepare("SELECT name FROM courses WHERE id_course=?");
+    $stmt2->execute(array($reservation["id_course"]));
 
-    $space_name = $space ["name"];
+    $course = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+    $course_name = $course["name"];
 
 		$stmt3 = $this->db->prepare("SELECT name FROM users WHERE id_user=?");
-    $stmt3->execute(array($course ["id_trainer"]));
+    $stmt3->execute(array($reservation["id_pupil"]));
 
-    $trainer = $stmt3->fetch ( PDO::FETCH_ASSOC );
+    $pupil = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-    $trainer_name = $trainer ["name"];
+    $pupil_name = $pupil["name"];
 
-		if ($course != null) {
-			return new Course($course ["id_course"], $course ["name"], $course ["type"],
-												$course ["description"], $course ["capacity"], $course ["days"],
-												$course ["start_time"], $course ["end_time"], $course ["id_space"],
-												$course ["id_trainer"], $space_name, $trainer_name, $course ["price"]);
+		if ($reservation != null) {
+			return new CourseReservation($reservation["id_reservation"], $reservation["date"], $reservation["time"],
+												$reservation["is_confirmed"], $reservation["id_pupil"], $reservation["id_course"]);
 		} else {
 			return NULL;
 		}
 	}
 
-
-
+/*
 	public function add($course) {
 		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time, id_space, id_trainer, price)
 																values (?,?,?,?,?,?,?,?,?,?)");

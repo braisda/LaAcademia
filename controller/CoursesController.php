@@ -52,7 +52,7 @@ class CoursesController extends BaseController {
 
 	public function view(){
 		if (!isset($_GET["id_course"])) {
-			throw new Exception("id_course is mandatory");
+			throw new Exception("id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -65,7 +65,7 @@ class CoursesController extends BaseController {
 		$course = $this->courseMapper->view($id_course);
 
 		if ($course == NULL) {
-			throw new Exception("no such course with id_course: ".$id_course);
+			throw new Exception("no such course with id: ".$id_course);
 		}
 
 		// put the course object to the view

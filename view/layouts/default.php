@@ -94,9 +94,16 @@ $currentuser = $view->getVariable("currentusername");
 		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Exercises") ?></a>
 		        </div>
 		      </li>-->
-
-					<li class="nav-item">
-		        <a id="texto_menu" class="nav-link" href="index.php?controller=events&amp;action=show"><?= i18n("Events") ?></a>
+					<li class="nav-item dropdown">
+		        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          <?= i18n("Events") ?>
+		        </a>
+		        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          <a id="texto_menu" class="nav-link" href="index.php?controller=events&amp;action=show"><?= i18n("Events") ?></a>
+		          <!-- <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Calendar") ?></a> -->
+		          <!-- <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Assistance") ?></a> -->
+							<a id="texto_menu" class="dropdown-item" href="index.php?controller=eventReservations&amp;action=show"><?= i18n("Reservations") ?></a>
+		        </div>
 		      </li>
 
 					<li class="nav-item">

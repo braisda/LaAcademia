@@ -69,20 +69,6 @@ class CourseReservationMapper {
 
 		$reservation = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		$stmt2 = $this->db->prepare("SELECT name FROM courses WHERE id_course=?");
-    $stmt2->execute(array($reservation["id_course"]));
-
-    $course = $stmt2->fetch(PDO::FETCH_ASSOC);
-
-    $course_name = $course["name"];
-
-		$stmt3 = $this->db->prepare("SELECT name FROM users WHERE id_user=?");
-    $stmt3->execute(array($reservation["id_pupil"]));
-
-    $pupil = $stmt3->fetch(PDO::FETCH_ASSOC);
-
-    $pupil_name = $pupil["name"];
-
 		if ($reservation != null) {
 			return new CourseReservation($reservation["id_reservation"], $reservation["date"], $reservation["time"],
 												$reservation["is_confirmed"], $reservation["id_pupil"], $reservation["id_course"]);
@@ -91,51 +77,18 @@ class CourseReservationMapper {
 		}
 	}
 
-/*
-	public function add($course) {
-		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time, id_space, id_trainer, price)
-																values (?,?,?,?,?,?,?,?,?,?)");
-
-    $days = "";
-    for($i=0; $i<count($course->getDays()); $i++){
-      $days = $days.$course->getDays()[$i].",";
-    }
-    $size = strlen($days);
-    $days = substr($days, 0, $size-1);
-
-		$stmt->execute(array($course->getName(), $course->getType(), $course->getDescription(),
-												 $course->getCapacity(), $days, $course->getStart_time(),
-												 $course->getEnd_time(), $course->getId_space(), $course->getId_trainer(),
-											   $course->getPrice()));
-		return $this->db->lastInsertId();
-	}
-
-	public function update($course) {
-		$stmt = $this->db->prepare("UPDATE courses
-																set name = ?, type = ?, description = ?,
-																		capacity = ?, days = ?, start_time = ?,
-																		end_time = ?, id_space = ?, id_trainer= ?,
-																		price = ?
+	public function update($reservation) {
+		$stmt = $this->db->prepare("UPDATE courses_reservations
+																set is_confirmed = ?
 																WHERE id_course = ?");
 
-		$days = "";
-    for($i=0; $i<count($course->getDays()); $i++){
-      $days = $days.$course->getDays()[$i].",";
-    }
-    $size = strlen($days);
-    $days = substr($days, 0, $size-1);var_dump($course->getPrice());
-
-		$stmt->execute(array($course->getName(), $course->getType(),
-												 $course->getDescription(), $course->getCapacity(), $days,
-												 $course->getStart_time(), $course->getEnd_time(),
-												 $course->getId_space(), $course->getId_trainer(),
-												 $course->getPrice(), $course->getId_course()));
+		$stmt->execute(array(1, $reservation->getId_course()));
 		return $this->db->lastInsertId();
 	}
 
 	public function delete($course) {
 		//Borrado físico
-		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");
-		$stmt->execute(array($course->getId_course()));
-	}*/
+		$stmt = $this->db->prepare("DELETE FROM courses_reservations WHERE id_reservation=?");
+		$stmt->execute(array($course->getId_reservation()));
+	}
 }

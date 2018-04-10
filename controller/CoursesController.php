@@ -143,11 +143,11 @@ class CoursesController extends BaseController {
 
 	public function update(){
 		if (!isset($_REQUEST["id_course"])) {
-			throw new Exception("A id_course is mandatory");
+			throw new Exception("A id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding users requires login");
+			throw new Exception("Not in session. Update a course requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){
@@ -215,7 +215,7 @@ class CoursesController extends BaseController {
 	public function delete() {
 
 		if (!isset($_REQUEST["id_course"])) {
-			throw new Exception("A id_course is mandatory");
+			throw new Exception("A id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {

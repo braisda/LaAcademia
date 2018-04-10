@@ -1,22 +1,22 @@
 <?php
-// file: view/courseReservations/view.php
+// file: view/courses_reservations/delete.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $reservation = $view->getVariable("courseReservation");
 $pupils = $view->getVariable("pupils");
 $courses = $view->getVariable("courses");
-$view->setVariable ( "title", "View Reservation" );
+$view->setVariable ( "title", "Delete Course Reservation" );
 ?>
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=courseReservations&amp;action=show"><?= i18n("Courses Reservations List") ?></a></li>
-  <li class="breadcrumb-item active"><?= i18n("Course Reservation Information") ?></li>
+  <li class="breadcrumb-item active"><?= i18n("Delete Course Reservation") ?></li>
 </ol>
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Course Reservation Information") ?></h4>
+    <h4 id="view_title"><?= i18n("Delete Course Reservation") ?></h4>
   </div>
 
   <div class="row justify-content-center">
@@ -59,18 +59,12 @@ $view->setVariable ( "title", "View Reservation" );
 
           <?= i18n($toret) ?></td>
         </li>
-        <li id="table_color" class="list-group-item">
-
-          <?php
-            if($reservation->getIs_confirmed() == 0){
-          ?>
-              <a href="index.php?controller=courseReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>" class="card-link"><span class="oi oi-task"></span></a>
-          <?php
-            }
-          ?>
-          <a href="index.php?controller=courseReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>" class="card-link"><span class="oi oi-trash"></a>
-        </li>
       </ul>
+      <br/>
+      <form action="index.php?controller=courseReservations&amp;action=delete" method="POST">
+        <input type="hidden" name="id_reservation" value="<?= $reservation->getId_reservation() ?>">
+        <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Delete")?></button>
+      </form>
     </div>
   </div>
 </div>

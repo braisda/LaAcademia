@@ -96,184 +96,88 @@ class CourseReservationsController extends BaseController {
 		// render the view (/view/courseReservations/view.php)
 		$this->view->render("courseReservations", "view");
 	}
-/*
-	public function add(){
 
-		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding courses requires login");
-		}
 
-		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an course requires be admin");
-		}
-
-		$course = new Course();
-
-		if(isset($_POST["submit"])) { // reaching via HTTP course...
-
-			// populate the course object with data form the form
-			$course->setName($_POST["name"]);
-			$course->setType($_POST["type"]);
-			$course->setDescription($_POST["description"]);
-			$course->setCapacity($_POST["capacity"]);
-			if(isset($_POST["days"])){
-				$course->setDays($_POST["days"]);
-			}else{
-				$course->setDays(NULL);
-			}
-			$course->setStart_time($_POST["start_time"]);
-			$course->setEnd_time($_POST["end_time"]);
-			$course->setId_space($_POST["space"]);
-			$course->setId_trainer($_POST["trainer"]);
-			$course->setPrice($_POST["price"]);
-
-			try {
-				//validate course object
-				$course->ValidateCourse(); // if it fails, ValidationException
-
-				//save the course object into the database
-				$this->courseMapper->add($course);
-
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully added."),$course ->getName()));
-
-				$this->view->redirect("courses", "show");
-
-			}catch(ValidationException $ex) {
-				// Get the errors array inside the exepction...
-				$errors = $ex->getErrors();
-				// And put it to the view as "errors" variable
-				$this->view->setVariable("errors", $errors);
-			}
-		}
-		//Get the id and name of the spaces
-		$spaces = $this->courseMapper->getSpaces();
-
-		// Put the space variable visible to the view
-		$this->view->setVariable("spaces", $spaces);
-
-		//Get the id and name of the trainers
-		$trainers = $this->courseMapper->getTrainers();
-
-		// Put the space variable visible to the view
-		$this->view->setVariable("trainers", $trainers);
-
-		// Put the course object visible to the view
-		$this->view->setVariable("course", $course);
-		// render the view (/view/courses/add.php)
-		$this->view->render("courses", "add");
-	}
-
-	public function update(){
-		if (!isset($_REQUEST["id_course"])) {
-			throw new Exception("A id_course is mandatory");
+	public function confirm(){
+		if (!isset($_REQUEST["id_reservation"])) {
+			throw new Exception("A id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding users requires login");
+			throw new Exception("Not in session. Confirm a reservation requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an user requires be admin");
+			throw new Exception("You aren't an admin. Confirm a reservation requires be admin");
 		}
 
-		$id_course = $_REQUEST["id_course"];
-		$course = $this->courseMapper->view($id_course);
+		$id_reservation = $_REQUEST["id_reservation"];
+		$reservation = $this->courseReservationMapper->view($id_reservation);
 
-		if ($course == NULL) {
-			throw new Exception("no such course with id_course: ".$id_course);
+		if ($reservation == NULL) {
+			throw new Exception("no such reservation with id: ".$id_reservation);
 		}
 
-		if(isset($_POST["submit"])) { // reaching via HTTP user...
+		try {
 
-			// populate the course object with data form the form
-			$course->setName($_POST["name"]);
-			$course->setType($_POST["type"]);
-			$course->setDescription($_POST["description"]);
-			$course->setCapacity($_POST["capacity"]);
-			$course->setDays($_POST["days"]);
-			$course->setStart_time($_POST["start_time"]);
-			$course->setEnd_time($_POST["end_time"]);
-			$course->setId_space($_POST["space"]);
-			$course->setId_trainer($_POST["trainer"]);
-			$course->setPrice($_POST["price"]);
+			//save the reservation object into the database
+			$this->courseReservationMapper->update($reservation);
 
-			try {
-				//validate course object
-				$course->ValidateCourse(); // if it fails, ValidationException
+			$this->view->setFlash(sprintf(i18n("Reservation \"%s at %s\" successfully confirmed."),$reservation->getDate(), $reservation->getTime()));
 
-				//save the course object into the database
-				$this->courseMapper->update($course);
+			$this->view->redirect("courseReservations", "show");
 
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully updated."),$course ->getName()));
-
-				$this->view->redirect("courses", "show");
-
-			}catch(ValidationException $ex) {
-				// Get the errors array inside the exepction...
-				$errors = $ex->getErrors();
-				// And put it to the view as "errors" variable
-				$this->view->setVariable("errors", $errors);
-			}
+		}catch(ValidationException $ex) {
+			// Get the errors array inside the exepction...
+			$errors = $ex->getErrors();
+			// And put it to the view as "errors" variable
+			$this->view->setVariable("errors", $errors);
 		}
-		//Get the id and name of the spaces
-		$spaces = $this->courseMapper->getSpaces();
 
-		// Put the space variable visible to the view
-		$this->view->setVariable("spaces", $spaces);
-
-		//Get the id and name of the trainers
-		$trainers = $this->courseMapper->getTrainers();
-
-		// Put the space variable visible to the view
-		$this->view->setVariable("trainers", $trainers);
-
-		// Put the user object visible to the view
-		$this->view->setVariable("course", $course);
 		// render the view (/view/users/add.php)
-		$this->view->render("courses", "update");
+		$this->view->render("courseReservations", "show");
 	}
-
 
 	public function delete() {
 
-		if (!isset($_REQUEST["id_course"])) {
-			throw new Exception("A id_course is mandatory");
+		if (!isset($_REQUEST["id_reservation"])) {
+			throw new Exception("A id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding courses requires login");
+			throw new Exception("Not in session. Adding courses reservations requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding a course requires be admin");
+			throw new Exception("You aren't an admin. Adding a course reservation requires be admin");
 		}
 
 		// Get the User object from the database
-		$id_course = $_REQUEST["id_course"];
-		$course = $this->courseMapper->view($id_course);
+		$id_reservation = $_REQUEST["id_reservation"];
+		$reservation = $this->courseReservationMapper->view($id_reservation);
 
-		// Does the course exist?
-		if ($course == NULL) {
-			throw new Exception("no such user with id_user: ".$id_course);
+		// Does the reservation exist?
+		if ($reservation == NULL) {
+			throw new Exception("no such reservation with id: ".$id_reservation);
 		}
 
 		if (isset($_POST["submit"])) {
 
 			try {
-				// Delete the Post object from the database
-				$this->courseMapper->delete($course);
+				// Delete the CourseReservation object from the database
+				$this->courseReservationMapper->delete($reservation);
 
 				// POST-REDIRECT-GET
 				// Everything OK, we will redirect the user to the list of posts
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully deleted."), $course->getName()));
+				$this->view->setFlash(sprintf(i18n("Course reservation \"%s at %s\" successfully deleted."), $reservation->getDate(), $reservation->getTime()));
 
 				// perform the redirection. More or less:
 				// header("Location: index.php?controller=posts&action=index")
 				// die();
-				$this->view->redirect("courses", "show");
+				$this->view->redirect("courseReservations", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -283,10 +187,22 @@ class CourseReservationsController extends BaseController {
 			}
 		}
 
-		// Put the user object visible to the view
-		$this->view->setVariable("course", $course);
-		// render the view (/view/users/add.php)
-		$this->view->render("courses", "delete");
+    //Get the id, name and surname of the pupils
+		$pupils = $this->courseReservationMapper->getPupils();
 
-	}*/
+		// Put the space variable visible to the view
+		$this->view->setVariable("pupils", $pupils);
+
+    //Get the id, name and type of the courses
+		$courses = $this->courseReservationMapper->getCourses();
+
+		// Put the course variable visible to the view
+		$this->view->setVariable("courses", $courses);
+
+		// Put the user object visible to the view
+		$this->view->setVariable("courseReservation", $reservation);
+		// render the view (/view/courseReservations/delete.php)
+		$this->view->render("courseReservations", "delete");
+
+	}
 }

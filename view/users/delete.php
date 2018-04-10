@@ -19,7 +19,7 @@ $view->setVariable ( "title", "Delete User" );
   </div>
   <div class="row justify-content-center">
     <div id="card" class="card" style="width: 18rem;">
-      <img class="card-img-top" src="multimedia/images/users/profile.png" alt="Card image cap">
+      <img class="card-img-top" src="<?= $user->getImage() ?>" alt="Card image cap">
       <div id="card_body" class="card-body">
         <h5 class="card-title"><?= $user->getName() ?> <?= $user->getSurname() ?></h5>
         <p class="card-text"><?= i18n("User of type admin") ?></p>

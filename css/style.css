@@ -148,6 +148,34 @@ li.breadcrumb-item>a {
 	border-radius: 2px;
 }
 
+#background_install {
+	background: rgba(255, 255, 255, 0.73);
+  color: black;
+	border-radius: 2px;
+	max-width: 175px;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 5px;
+}
+
+.center_install {
+	margin: 3px;
+	max-width: 71px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.center_install_msg {
+	border-radius: 2px;
+	max-width: 175px;
+	padding:4px;
+	background: rgba(255, 255, 255, 0.73);
+	margin: 3px;
+	max-width: 350px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 	display:inline-block;
 	margin-bottom: 0px;

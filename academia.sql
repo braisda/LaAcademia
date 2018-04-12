@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.6
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 27-03-2018 a las 20:01:43
--- Versión del servidor: 10.1.29-MariaDB
--- Versión de PHP: 7.2.0
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-04-2018 a las 13:34:54
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -67,6 +67,29 @@ INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `courses_reservations`
+--
+
+CREATE TABLE `courses_reservations` (
+  `id_reservation` int(5) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `is_confirmed` int(1) NOT NULL,
+  `id_pupil` int(4) NOT NULL,
+  `id_course` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `courses_reservations`
+--
+
+INSERT INTO `courses_reservations` (`id_reservation`, `date`, `time`, `is_confirmed`, `id_pupil`, `id_course`) VALUES
+(1, '2018-05-14', '15:00:00', 1, 4, 2),
+(2, '2018-05-15', '11:00:00', 1, 5, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `draws`
 --
 
@@ -109,6 +132,29 @@ CREATE TABLE `events` (
 INSERT INTO `events` (`id_event`, `name`, `description`, `price`, `capacity`, `date`, `time`, `id_space`) VALUES
 (1, 'Conferencia Psicología Deportiva', 'Conferencia \"Psicología Deportiva (Dirigida a Padres y Entrenadores)\" a cargo de D. Carlos Méndez Gil, psicólogo de la Real Federación Española de Tenis.', 10, 400, '2018-06-15', '11:00:00', 6),
 (2, 'Cena Navidad', 'Cena navideña para miembros del club y familiares', 20, 89, '2018-06-30', '22:00:00', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `events_reservations`
+--
+
+CREATE TABLE `events_reservations` (
+  `id_reservation` int(5) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `is_confirmed` int(1) NOT NULL,
+  `id_assistant` int(4) NOT NULL,
+  `id_event` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `events_reservations`
+--
+
+INSERT INTO `events_reservations` (`id_reservation`, `date`, `time`, `is_confirmed`, `id_assistant`, `id_event`) VALUES
+(4, '2018-04-25', '11:00:00', 0, 8, 1),
+(6, '2018-04-27', '12:00:00', 1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -165,21 +211,6 @@ CREATE TABLE `notifications` (
 CREATE TABLE `receives` (
   `id_user` int(4) NOT NULL,
   `id_notification` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `reservations`
---
-
-CREATE TABLE `reservations` (
-  `id_reservation` int(5) NOT NULL,
-  `date` date NOT NULL,
-  `time` time NOT NULL,
-  `is_confirmed` int(1) NOT NULL,
-  `id_pupil` int(4) NOT NULL,
-  `id_course` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -320,6 +351,14 @@ ALTER TABLE `courses`
   ADD KEY `id_space` (`id_space`);
 
 --
+-- Indices de la tabla `courses_reservations`
+--
+ALTER TABLE `courses_reservations`
+  ADD PRIMARY KEY (`id_reservation`),
+  ADD KEY `id_pupil` (`id_pupil`),
+  ADD KEY `id_course` (`id_course`);
+
+--
 -- Indices de la tabla `draws`
 --
 ALTER TABLE `draws`
@@ -332,6 +371,14 @@ ALTER TABLE `draws`
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id_event`),
   ADD KEY `id_space` (`id_space`);
+
+--
+-- Indices de la tabla `events_reservations`
+--
+ALTER TABLE `events_reservations`
+  ADD PRIMARY KEY (`id_reservation`),
+  ADD KEY `id_assistant` (`id_assistant`),
+  ADD KEY `id_event` (`id_event`);
 
 --
 -- Indices de la tabla `inscriptions`
@@ -389,13 +436,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id_course` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_course` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `courses_reservations`
+--
+ALTER TABLE `courses_reservations`
+  MODIFY `id_reservation` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `draws`
 --
 ALTER TABLE `draws`
   MODIFY `id_draw` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `events_reservations`
+--
+ALTER TABLE `events_reservations`
+  MODIFY `id_reservation` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `matches`
@@ -445,10 +504,24 @@ ALTER TABLE `courses`
   ADD CONSTRAINT `courses_ibfk_2` FOREIGN KEY (`id_space`) REFERENCES `spaces` (`id_space`);
 
 --
+-- Filtros para la tabla `courses_reservations`
+--
+ALTER TABLE `courses_reservations`
+  ADD CONSTRAINT `courses_reservations_ibfk_1` FOREIGN KEY (`id_pupil`) REFERENCES `users` (`id_user`),
+  ADD CONSTRAINT `courses_reservations_ibfk_2` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id_course`);
+
+--
 -- Filtros para la tabla `draws`
 --
 ALTER TABLE `draws`
   ADD CONSTRAINT `draws_ibfk_1` FOREIGN KEY (`id_tournament`) REFERENCES `tournaments` (`id_tournament`);
+
+--
+-- Filtros para la tabla `events_reservations`
+--
+ALTER TABLE `events_reservations`
+  ADD CONSTRAINT `events_reservations_ibfk_1` FOREIGN KEY (`id_assistant`) REFERENCES `users` (`id_user`),
+  ADD CONSTRAINT `events_reservations_ibfk_2` FOREIGN KEY (`id_event`) REFERENCES `events` (`id_event`);
 
 --
 -- Filtros para la tabla `matches`

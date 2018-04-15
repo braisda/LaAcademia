@@ -13,7 +13,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 *
 * Controller to login, logout and user CRUD
 *
-* @author lipido <lipido@gmail.com>
+* @author lipido <braisda@gmail.com>
 */
 class UsersController extends BaseController {
 
@@ -164,7 +164,7 @@ class UsersController extends BaseController {
 
 	public function view(){
 		if (!isset($_GET["id_user"])) {
-			throw new Exception("id_user user is mandatory");
+			throw new Exception("id user is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -217,6 +217,7 @@ class UsersController extends BaseController {
 			$directory = 'multimedia/images/users/';
 			$imageType = $_FILES['image']['type'];
 			$imageName = $_FILES['image']['name'];
+			$imageSize = $_FILES['image']['size'];
 			$user->setImage($directory.$_FILES['image']['name']);
 
 			if(isset($_POST["isAdministrator"]) && $_POST["isAdministrator"] == "1"){
@@ -236,7 +237,7 @@ class UsersController extends BaseController {
 				// check if user exists in the database
 				if(!$this->userMapper->usernameExists($_POST["username"])){
 					// validate user object
-					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, true, true); // if it fails, ValidationException
+					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageType, $imageType, $imageSize, true, true); // if it fails, ValidationException
 
 					//up the image to the server
 					move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
@@ -350,7 +351,7 @@ class UsersController extends BaseController {
 
 					//up the image to the server
 					move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
-					
+
 					//save the user object into the database
 					$this->userMapper->update($user);
 

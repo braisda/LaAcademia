@@ -4,7 +4,8 @@
 $view = ViewManager::getInstance();
 $currentuser = $view->getVariable("currentusername");
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -65,9 +66,15 @@ $currentuser = $view->getVariable("currentusername");
 		        </div>
 		      </li>
 
-					<li class="nav-item">
-		        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("Users") ?></a>
-		      </li>
+					<?php if (isset($_SESSION["admin"]) || isset($_SESSION["trainer"])){ ?>
+						<li class="nav-item">
+			        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("Users") ?></a>
+			      </li>
+					<?php }else{ ?>
+						<li class="nav-item">
+			        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("My Profile") ?></a>
+			      </li>
+					<?php } ?>
 
 					<li class="nav-item">
 		        <a id="texto_menu" class="nav-link" href="index.php?controller=spaces&amp;action=show"><?= i18n("Spaces") ?></a>

@@ -370,27 +370,46 @@ class User {
 		$this->is_competitor = $is_competitor;
 	}
 
-	public function validateUser($password, $repitedpassword, $imageName, $imageType, $checkPassword, $checkImage){
+	public function validateUser($password, $repitedpassword, $imageName, $imageType, $imageSize, $checkPassword, $checkImage){
 		$errors = array();
 		$expression = '/^[9|6|7][0-9]{8}$/';
+		$expName = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$/';
+		$expSurname = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ]+ [A-Za-zñÑáéíóúÁÉÍÓÚ]+$/';
+		$expPass = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ0-9\.]+$/';
 
-		if(!$this->validate_email($this->getUsername())){
+		if($this->getUsername() == NULL){
+			$errors["email"] = "The email can not be empty";
+		}
+
+		if(!$this->getUsername() == NULL && !$this->validate_email($this->getUsername())){
 			$errors["email"] = "The email is wrong";
 		}
 
 		if($this->getName() == NULL){
-			$errors["name"] = "The name is wrong";
+			$errors["name"] = "The name can not be empty";
+		}
+
+		if(!preg_match($expName, $this->getName())){
+			$errors["name"] = "Name must have only letters";
 		}
 
 		if($this->getSurname() == NULL){
-			$errors["surname"] = "The surname is wrong";
+			$errors["surname"] = "The surname can not be empty";
 		}
 
-		if (strlen($this->getDni()) < 9 ) {
+		if(!preg_match($expSurname, $this->getSurname())){
+			$errors["surname"] = "Surame must have two words with only letters";
+		}
+
+		if($this->getDni() == NULL){
+		 	$errors["dni"] = "DNI can not be empty";
+		}
+
+		if (!$this->getDni() == NULL && strlen($this->getDni()) < 9) {
 			$errors["dni"] = "DNI must be at least 9 characters length";
 		}
 
-	 	if(!$this->validate_dni($this->getDni()) || $this->getDni() == NULL){
+	 	if(!$this->getDni() == NULL && strlen($this->getDni()) == 9 && !$this->validate_dni($this->getDni())){
 		 	$errors["dni"] = "DNI incorrect";
 		}
 
@@ -399,16 +418,24 @@ class User {
 				$errors["password"] = "Password must be at least 5 characters length";
 			}
 
+			if(!preg_match($expPass, $password) && !strlen($password) < 5){
+				$errors["password"] = "Password must have letters, numbers and points";
+			}
+
 			if($repitedpassword != $password){
 				$errors["password"] = "Passwords do not match";
 			}
 		}
 
-		if(strlen($this->getTelephone()) != 9){
+		if($this->getTelephone() == NULL){
+			$errors["telephone"] = "The phone can not be empty";
+		}
+
+		if(!$this->getTelephone() == NULL && strlen($this->getTelephone()) < 9){
 			$errors["telephone"] = "The phone number must have 9 numbers";
 		}
 
-		if(!preg_match($expression, $this->getTelephone())){
+		if(!$this->getTelephone() == NULL && strlen($this->getTelephone()) == 9 && !preg_match($expression, $this->getTelephone())){
 			$errors["telephone"] = "The phone number is wrong";
 		}
 
@@ -417,16 +444,21 @@ class User {
 		}
 
 		if($checkImage){
-			if ($imageType != "image/gif" and $imageType != "image/jpeg" and $imageType != "image/jpg" and $imageType != "image/png"){
-				$errors["imagetype"] = "The image is not valid";
+			if($imageSize < 5242880){
+				if($checkImage){
+					if ($imageName == NULL){
+						$errors["imagetype"] = "Not image selected";
+					}
+				}
+
+				if ($imageName != NULL and $imageType != "image/gif" and $imageType != "image/jpeg" and $imageType != "image/jpg" and $imageType != "image/png"){
+					$errors["imagetype"] = "The image is not valid";
+				}
+			}else{
+				$errors["imagetype"] = "The image is too big";
 			}
 		}
 
-		if($checkImage){
-			if ($imageName == NULL){
-				$errors["imagetype"] = "Not image selected";
-			}
-		}
 
 		if($this->getIs_administrator() == NULL and $this->getIs_trainer() == NULL and
 		$this->getIs_pupil() == NULL and $this->getIs_competitor() == NULL){
@@ -444,11 +476,16 @@ class User {
 	public function validate_dni($email){
 		$letter = substr($email, -1);
 		$numbers = substr($email, 0, -1);
-		if ( substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 ){
-			return true;
+		if(ctype_digit($numbers)){
+			if ( substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen ($numbers) == 8 ){
+				return true;
+			}else{
+				return false;
+			}
 		}else{
 			return false;
 		}
+
 	}
 
 	public function getType(){

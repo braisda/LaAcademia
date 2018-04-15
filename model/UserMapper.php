@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 *
 * Database interface for User entities
 *
-* @author lipido <lipido@gmail.com>
+* @author lipido <braisda@gmail.com>
 */
 class UserMapper {
 
@@ -210,8 +210,4 @@ class UserMapper {
 		$stmt = $this->db->prepare("UPDATE users set is_active=? where id_user=?");
 		$stmt->execute(array(0,	$user->getId_user()));
 	}
-
-
-
-
 }

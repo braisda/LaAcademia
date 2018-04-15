@@ -14,7 +14,7 @@ require_once(__DIR__."/../model/User.php");
  * Basically, it provides some protected
  * attributes and view variables.
  *
- * @author lipido <lipido@gmail.com>
+ * @author lipido <braisda@gmail.com>
  */
 class BaseController {
 

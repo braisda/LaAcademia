@@ -113,8 +113,8 @@ class UsersController extends BaseController {
 			throw new Exception("Not in session. Show users requires login");
 		}
 
-		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. See all users requires be admin");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
 		}
 
 		$users = $this->userMapper->showAllUsers();
@@ -131,8 +131,8 @@ class UsersController extends BaseController {
 			throw new Exception("Not in session. Show users requires login");
 		}
 
-		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. See all users requires be admin");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
 		}
 
 		$users = $this->userMapper->showAllUsers();
@@ -149,8 +149,8 @@ class UsersController extends BaseController {
 			throw new Exception("Not in session. Show users requires login");
 		}
 
-		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. See all users requires be admin");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
 		}
 
 		$users = $this->userMapper->showAllUsers();

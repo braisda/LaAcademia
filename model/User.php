@@ -389,7 +389,7 @@ class User {
 			$errors["name"] = "The name can not be empty";
 		}
 
-		if(!preg_match($expName, $this->getName())){
+		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
 			$errors["name"] = "Name must have only letters";
 		}
 

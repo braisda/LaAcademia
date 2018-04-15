@@ -281,11 +281,11 @@ class UsersController extends BaseController {
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding users requires login");
+			throw new Exception("Not in session. Update users requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an user requires be admin");
+			throw new Exception("You aren't an admin. Update an user requires be admin");
 		}
 
 		$id_user = $_REQUEST["id_user"];
@@ -315,6 +315,7 @@ class UsersController extends BaseController {
 
 			$imageType = $_FILES['image']['type'];
 			$imageName = $_FILES['image']['name'];
+			$imageSize = $_FILES['image']['size'];
 			if($_FILES['image']['name'] != NULL){
 				$user->setImage($directory.$_FILES['image']['name']);
 				$checkImage = true;
@@ -344,10 +345,8 @@ class UsersController extends BaseController {
 			}
 
 			try {
-				// check if user exists in the database
-				if(!$this->userMapper->usernameExists($_POST["username"])){
 					// validate user object
-					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $checkPassword, $checkImage); // if it fails, ValidationException
+					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
 
 					//up the image to the server
 					move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
@@ -366,11 +365,6 @@ class UsersController extends BaseController {
 					// header("Location: index.php?controller=users&action=show")
 					// die();
 					$this->view->redirect("users", "show");
-				} else {
-					$errors = array();
-					$errors["email"] = "Username already exists";
-					$this->view->setVariable("errors", $errors);
-				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();

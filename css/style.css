@@ -187,8 +187,6 @@ li.breadcrumb-item>a {
 	border-color: #3c3a37;
 }
 
-
-
 .input {
 	background: rgba(5, 53, 21, 0.73);
 	color:white;
@@ -259,9 +257,17 @@ li.breadcrumb-item>a {
 	color: #053515;
 }
 
-.oi-magnifying-glass, .oi-trash, .oi-loop, .oi-task {
+.oi-zoom-in, .oi-trash, .oi-loop, .oi-task {
 	color: white;
 }
+
+
+
+
+.oi-magnifying-glass {
+	color: #053515;
+}
+
 
 /*-------------------*/
 

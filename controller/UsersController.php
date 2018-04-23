@@ -126,42 +126,6 @@ class UsersController extends BaseController {
 		$this->view->render("users", "show");
 	}
 
-	public function showPupils(){
-		if(!isset($this->currentUser)){
-			throw new Exception("Not in session. Show users requires login");
-		}
-
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
-			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
-		}
-
-		$users = $this->userMapper->showAllUsers();
-
-		// put the users object to the view
-		$this->view->setVariable("users", $users);
-
-		// render the view (/view/users/show.php)
-		$this->view->render("users", "showPupils");
-	}
-
-	public function showCompetitors(){
-		if(!isset($this->currentUser)){
-			throw new Exception("Not in session. Show users requires login");
-		}
-
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
-			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
-		}
-
-		$users = $this->userMapper->showAllUsers();
-
-		// put the users object to the view
-		$this->view->setVariable("users", $users);
-
-		// render the view (/view/users/show.php)
-		$this->view->render("users", "showCompetitors");
-	}
-
 	public function view(){
 		if (!isset($_GET["id_user"])) {
 			throw new Exception("id user is mandatory");
@@ -434,5 +398,108 @@ class UsersController extends BaseController {
 		// render the view (/view/users/add.php)
 		$this->view->render("users", "delete");
 
+	}
+
+	public function search() {
+		if(!isset($this->currentUser)){
+			throw new Exception("Not in session. Show users requires login");
+		}
+
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
+		}
+
+		if (isset($_POST["submit"])) {
+			$query = "";
+			$flag = 0;
+
+			if ($_POST["name"]){
+				$query .= "name='". $_POST["name"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["surname"]){
+				if ($flag){
+				$query .= " AND ";
+				}
+				$query .= "surname LIKE '%". $_POST["surname"] ."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["dni"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "dni='". $_POST["dni"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["username"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "username LIKE '%". $_POST["username"] ."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["telephone"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "telephone LIKE '%". $_POST["telephone"] ."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["birthdate"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "birthdate LIKE '%". $_POST["birthdate"] ."%'";
+				$flag = 1;
+			}
+
+			if (isset($_POST["isAdministrator"])){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "is_administrator='". $_POST["isAdministrator"] ."'";
+				$flag = 1;
+			}
+
+			if (isset($_POST["isTrainer"])){
+				if ($flag){
+					$query .= " AND ";
+					}
+				$query .= "is_trainer='". $_POST["isTrainer"] ."'";
+				$flag = 1;
+			}
+
+			if (isset($_POST["isPupil"])){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "is_pupil='". $_POST["isPupil"] ."'";
+				$flag = 1;
+			}
+
+			if (isset($_POST["isCompetitor"])){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "is_competitor='". $_POST["isCompetitor"] ."'";
+				$flag = 1;
+			}
+
+			if (empty($query)) {
+				$users = $this->userMapper->showAllUsers();
+			} else {
+				$users = $this->userMapper->search($query);
+			}
+			$this->view->setVariable("users", $users);
+			$this->view->render("users", "show");
+		}else {
+			// render the view (/view/users/add.php)
+			$this->view->render("users", "search");
+		}
 	}
 }

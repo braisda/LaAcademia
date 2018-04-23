@@ -210,4 +210,23 @@ class UserMapper {
 		$stmt = $this->db->prepare("UPDATE users set is_active=? where id_user=?");
 		$stmt->execute(array(0,	$user->getId_user()));
 	}
+
+	public function search($query) {
+        $search_query = "SELECT * FROM users WHERE ". $query." AND is_active = 1 ORDER BY surname";
+        $stmt = $this->db->prepare($search_query);
+        $stmt->execute();
+        $users_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $users = array();
+
+        foreach ($users_db as $user) {
+            array_push($users, new User($user ["email"], $user ["id_user"], $user ["name"],
+																				$user ["surname"], $user ["dni"], $user ["password"],
+																				$user ["telephone"], $user ["birthdate"], $user ["image"],
+																				$user ["is_active"], $user ["is_administrator"], $user ["is_trainer"],
+																				$user ["is_pupil"], $user ["is_competitor"]));
+        }
+
+        return $users;
+    }
 }

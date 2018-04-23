@@ -489,14 +489,21 @@ class User {
 	}
 
 	public function getType(){
+		$toret="";
 		if($this->is_administrator == 1){
-			$toret = "administrator";
-		}elseif ($this->is_trainer == 1) {
-			$toret = "trainer";
-		}elseif ($this->is_pupil == 1) {
-			$toret = "pupil";
-		}elseif ($this->is_competitor == 1) {
-			$toret = "competitor";
+			$toret = $toret."administrator ";
+		}
+
+		if ($this->is_trainer == 1) {
+			$toret = $toret."trainer ";
+		}
+
+		if ($this->is_pupil == 1) {
+			$toret = $toret."pupil ";
+		}
+
+		if ($this->is_competitor == 1) {
+			$toret = $toret."competitor ";
 		}
 		return $toret;
 	}

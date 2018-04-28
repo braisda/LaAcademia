@@ -155,6 +155,27 @@ class UsersController extends BaseController {
 		$this->view->render("users", "view");
 	}
 
+	public function viewProfile(){
+		if (!isset($this->currentUser)) {
+			throw new Exception("Not in session. View Users requires login");
+		}
+
+		$username = $this->currentUser->getUsername();
+
+		// find the User object in the database
+		$user = $this->userMapper->getProfile($username);
+
+		if ($user == NULL) {
+			throw new Exception("no such user with username: ".$username);
+		}
+
+		// put the user object to the view
+		$this->view->setVariable("user", $user);
+
+		// render the view (/view/users/view.php)
+		$this->view->render("users", "view");
+	}
+
 	public function add(){
 
 		if (!isset($this->currentUser)) {

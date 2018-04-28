@@ -178,6 +178,24 @@ class UserMapper {
 		}
 	}
 
+	public function getProfile($username) {
+		$stmt = $this->db->prepare("SELECT * FROM users WHERE email=?");
+		$stmt->execute(array($username));
+
+		$user = $stmt->fetch ( PDO::FETCH_ASSOC );
+
+		if ($user != null) {
+			return new User($user ["email"], $user ["id_user"], $user ["name"],
+											$user ["surname"], $user ["dni"], $user ["password"],
+											$user ["telephone"], $user ["birthdate"], $user ["image"],
+											$user ["is_active"], $user ["is_administrator"],
+											$user ["is_trainer"], $user ["is_pupil"],
+											$user ["is_competitor"]);
+		} else {
+			return NULL;
+		}
+	}
+
 	public function add($user) {
 		$stmt = $this->db->prepare("INSERT INTO users(name, surname, dni, email, password, telephone,
 																									birthdate, image, is_administrator, is_trainer,

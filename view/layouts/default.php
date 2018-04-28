@@ -68,12 +68,18 @@ $currentuser = $view->getVariable("currentusername");
 		      </li>
 
 					<?php if ($_SESSION["admin"] || $_SESSION["trainer"]){ ?>
-						<li class="nav-item">
-			        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("Users") ?></a>
+						<li class="nav-item dropdown">
+			        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<?= i18n("Users") ?>
+			        </a>
+			        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a id="texto_menu" class="dropdown-item" href="index.php?controller=users&amp;action=viewProfile"><?= i18n("My Profile") ?></a>
+			          <a id="texto_menu" class="dropdown-item" href="index.php?controller=users&amp;action=show"><?= i18n("Users") ?></a>
+			        </div>
 			      </li>
 					<?php }else{ ?>
 						<li class="nav-item">
-			        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("My Profile") ?></a>
+			        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=viewProfile"><?= i18n("My Profile") ?></a>
 			      </li>
 					<?php } ?>
 

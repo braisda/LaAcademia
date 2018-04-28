@@ -22,7 +22,7 @@ $view->setVariable ("title", "Show Courses Reservations");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Courses Reservations List") ?></h4>
+    <h4 id="view_title"><?= i18n("Courses Reservations List") ?></h4><a href="index.php?controller=courseReservation&amp;action=search"> <span id="search_icon" class="oi oi-magnifying-glass"></a>
   </div>
   <div class="row justify-content-around">
 
@@ -80,7 +80,7 @@ $view->setVariable ("title", "Show Courses Reservations");
 
                         <?= $name." ".i18n($type) ?></td>
                       <td>
-                        <a href="index.php?controller=courseReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-magnifying-glass"></span></a>
+                        <a href="index.php?controller=courseReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in"></span></a>
                         <a href="index.php?controller=courseReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
                       </td>
         						</tr>

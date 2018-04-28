@@ -20,7 +20,7 @@ $view->setVariable ("title", "Show Courses");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Courses List") ?></h4><a href="index.php?controller=courses&amp;action=add"> <span class="oi oi-plus"></span></a>
+    <h4 id="view_title"><?= i18n("Courses List") ?></h4><a href="index.php?controller=courses&amp;action=search"> <span id="search_icon" class="oi oi-magnifying-glass"></a><a href="index.php?controller=courses&amp;action=add"> <span class="oi oi-plus"></span></a>
   </div>
   <div class="row justify-content-around">
 
@@ -63,7 +63,7 @@ $view->setVariable ("title", "Show Courses");
         							<td><?= $course->getStart_time() ?></td>
                       <td><?= $course->getEnd_time() ?></td>
                       <td>
-                        <a href="index.php?controller=courses&amp;action=view&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-magnifying-glass"></span></a>
+                        <a href="index.php?controller=courses&amp;action=view&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-zoom-in"></span></a>
                         <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-loop"></span></a>
                         <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-trash"></span></a>
                         <a href="index.php?controller=courses_reservations&amp;action=show"><span class="oi oi-task"></span></span></a>

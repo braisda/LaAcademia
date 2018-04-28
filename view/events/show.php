@@ -20,7 +20,7 @@ $view->setVariable ("title", "Show Events");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Events List") ?></h4><a href="index.php?controller=events&amp;action=add"> <span class="oi oi-plus"></span></a>
+    <h4 id="view_title"><?= i18n("Events List") ?></h4><a href="index.php?controller=events&amp;action=search"> <span id="search_icon" class="oi oi-magnifying-glass"></a></span></a>
   </div>
   <div class="row justify-content-around">
 
@@ -48,7 +48,7 @@ $view->setVariable ("title", "Show Events");
                       <td><?= $event->getDate() ?></td>
         							<td><?= $event->getTime() ?></td>
                       <td>
-                        <a href="index.php?controller=events&amp;action=view&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-magnifying-glass"></span></a>
+                        <a href="index.php?controller=events&amp;action=view&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-zoom-in"></span></a>
                         <a href="index.php?controller=events&amp;action=update&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-loop"></span></a>
                         <a href="index.php?controller=events&amp;action=delete&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-trash"></span></a>
                       </td>

@@ -60,7 +60,7 @@ $view->setVariable ("title", "Show Users");
 
                       </td>
                       <td>
-                        <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-zoom-in"></span></span></a>
+                        <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-zoom-in"></span></a>
                         <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-loop"></span></a>
                         <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-trash"></span></a>
                       </td>

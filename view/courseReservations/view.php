@@ -64,7 +64,11 @@ $view->setVariable ( "title", "View Reservation" );
           <?php
             if($reservation->getIs_confirmed() == 0){
           ?>
-              <a href="index.php?controller=courseReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>" class="card-link"><span class="oi oi-task"></span></a>
+              <a href="index.php?controller=courseReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>" class="card-link"><span class="oi oi-circle-check"></span></a>
+          <?php
+            }else{
+          ?>
+            <a href="index.php?controller=courseReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
           <?php
             }
           ?>

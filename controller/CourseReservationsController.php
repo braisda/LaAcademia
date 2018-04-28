@@ -129,7 +129,47 @@ class CourseReservationsController extends BaseController {
 		try {
 
 			//save the reservation object into the database
-			$this->courseReservationMapper->update($reservation);
+			$this->courseReservationMapper->confirm($reservation);
+
+			$this->view->setFlash(sprintf(i18n("Reservation \"%s at %s\" successfully confirmed."),$reservation->getDate(), $reservation->getTime()));
+
+			$this->view->redirect("courseReservations", "show");
+
+		}catch(ValidationException $ex) {
+			// Get the errors array inside the exepction...
+			$errors = $ex->getErrors();
+			// And put it to the view as "errors" variable
+			$this->view->setVariable("errors", $errors);
+		}
+
+		// render the view (/view/users/add.php)
+		$this->view->render("courseReservations", "show");
+	}
+
+	public function cancel(){
+		if (!isset($_REQUEST["id_reservation"])) {
+			throw new Exception("A id is mandatory");
+		}
+
+		if (!isset($this->currentUser)) {
+			throw new Exception("Not in session. Confirm a reservation requires login");
+		}
+
+		if($this->userMapper->findType() != "admin"){
+			throw new Exception("You aren't an admin. Confirm a reservation requires be admin");
+		}
+
+		$id_reservation = $_REQUEST["id_reservation"];
+		$reservation = $this->courseReservationMapper->view($id_reservation);
+
+		if ($reservation == NULL) {
+			throw new Exception("no such reservation with id: ".$id_reservation);
+		}
+
+		try {
+
+			//save the reservation object into the database
+			$this->courseReservationMapper->cancel($reservation);
 
 			$this->view->setFlash(sprintf(i18n("Reservation \"%s at %s\" successfully confirmed."),$reservation->getDate(), $reservation->getTime()));
 

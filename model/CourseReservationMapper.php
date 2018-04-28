@@ -77,12 +77,21 @@ class CourseReservationMapper {
 		}
 	}
 
-	public function update($reservation) {
+	public function confirm($reservation) {
 		$stmt = $this->db->prepare("UPDATE courses_reservations
 																set is_confirmed = ?
-																WHERE id_course = ?");
+																WHERE id_reservation = ?");
 
-		$stmt->execute(array(1, $reservation->getId_course()));
+		$stmt->execute(array(1, $reservation->getId_reservation()));
+		return $this->db->lastInsertId();
+	}
+
+	public function cancel($reservation) {
+		$stmt = $this->db->prepare("UPDATE courses_reservations
+																set is_confirmed = ?
+																WHERE id_reservation = ?");
+
+		$stmt->execute(array(0, $reservation->getId_reservation()));
 		return $this->db->lastInsertId();
 	}
 

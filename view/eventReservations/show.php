@@ -81,6 +81,13 @@ $view->setVariable ("title", "Show Events Reservations");
                       <td>
                         <a href="index.php?controller=eventReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in"></span></a>
                         <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                        <?php
+                          if($reservation->getIs_confirmed() == 0){
+                        ?>
+                          <a href="index.php?controller=eventReservations&amp;action=confirm"><span class="oi oi-task"></span></span></a>
+                        <?php
+                          }
+                        ?>
                       </td>
         						</tr>
         				<?php endforeach; ?>

@@ -39,6 +39,10 @@ class CoursesController extends BaseController {
 			throw new Exception("Not in session. Show courses requires login");
 		}
 
+		if($this->userMapper->findType() == "competitor"){
+			throw new Exception("You aren't an admin, a trainer or a pupil. See all spaces requires be admin, trainer or pupil");
+		}
+
 		$courses = $this->courseMapper->show();
 
 		// put the courses object to the view
@@ -57,6 +61,10 @@ class CoursesController extends BaseController {
 
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View Courses requires login");
+		}
+
+		if($this->userMapper->findType() == "competitor"){
+			throw new Exception("You aren't an admin, a trainer or a pupil. See all spaces requires be admin, trainer or pupil");
 		}
 
 		$id_course = $_GET["id_course"];

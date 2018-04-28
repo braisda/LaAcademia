@@ -53,6 +53,7 @@ $currentuser = $view->getVariable("currentusername");
 			 </button>
 
 			 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				 <?php if (isset($_SESSION["currentuser"])): ?>
 			   <ul class="navbar-nav ml-auto">
 
 		      <li class="nav-item dropdown">
@@ -66,7 +67,7 @@ $currentuser = $view->getVariable("currentusername");
 		        </div>
 		      </li>
 
-					<?php if (isset($_SESSION["admin"]) || isset($_SESSION["trainer"])){ ?>
+					<?php if ($_SESSION["admin"] || $_SESSION["trainer"]){ ?>
 						<li class="nav-item">
 			        <a id="texto_menu" class="nav-link" href="index.php?controller=users&amp;action=show"><?= i18n("Users") ?></a>
 			      </li>
@@ -76,52 +77,58 @@ $currentuser = $view->getVariable("currentusername");
 			      </li>
 					<?php } ?>
 
+					<?php if ($_SESSION["admin"] || $_SESSION["trainer"]){ ?>
 					<li class="nav-item">
 		        <a id="texto_menu" class="nav-link" href="index.php?controller=spaces&amp;action=show"><?= i18n("Spaces") ?></a>
 		      </li>
+					<?php } ?>
 
-					<li class="nav-item dropdown">
-		        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          <?= i18n("Courses") ?>
-		        </a>
-		        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a id="texto_menu" class="dropdown-item" href="index.php?controller=courses&amp;action=show"><?= i18n("Courses") ?></a>
-		          <!-- <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Calendar") ?></a> -->
-		          <!-- <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Assistance") ?></a> -->
-							<a id="texto_menu" class="dropdown-item" href="index.php?controller=courseReservations&amp;action=show"><?= i18n("Reservations") ?></a>
-		        </div>
-		      </li>
+					<?php if (!$_SESSION["competitor"]){ ?>
+						<?php if ($_SESSION["admin"] || $_SESSION["pupil"]){ ?>
+							<li class="nav-item dropdown">
+				        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          <?= i18n("Courses") ?>
+				        </a>
+				        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          <a id="texto_menu" class="dropdown-item" href="index.php?controller=courses&amp;action=show"><?= i18n("Courses") ?></a>
+									<a id="texto_menu" class="dropdown-item" href="index.php?controller=courseReservations&amp;action=show"><?= i18n("Reservations") ?></a>
+				        </div>
+				      </li>
+						<?php }else{ ?>
+							<li class="nav-item">
+								<a id="texto_menu" class="nav-link" href="index.php?controller=courses&amp;action=show"><?= i18n("Courses") ?></a>
+							</li>
+							<?php } ?>
+					<?php } ?>
 
-					<!--<li class="nav-item dropdown">
-		        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          <?= i18n("Instruction") ?>
-		        </a>
-		        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Workouts") ?></a>
-		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Exercises") ?></a>
-		        </div>
-		      </li>-->
-					<li class="nav-item dropdown">
-		        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          <?= i18n("Events") ?>
-		        </a>
-		        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a id="texto_menu" class="nav-link" href="index.php?controller=events&amp;action=show"><?= i18n("Events") ?></a>
-		          <!-- <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Calendar") ?></a> -->
-		          <!-- <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Assistance") ?></a> -->
-							<a id="texto_menu" class="dropdown-item" href="index.php?controller=eventReservations&amp;action=show"><?= i18n("Reservations") ?></a>
-		        </div>
-		      </li>
+					<?php if (!$_SESSION["trainer"]){ ?>
+						<li class="nav-item dropdown">
+			        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          <?= i18n("Events") ?>
+			        </a>
+			        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a id="texto_menu" class="nav-link" href="index.php?controller=events&amp;action=show"><?= i18n("Events") ?></a>
+								<a id="texto_menu" class="dropdown-item" href="index.php?controller=eventReservations&amp;action=show"><?= i18n("Reservations") ?></a>
+			        </div>
+			      </li>
+					<?php }else{ ?>
+						<li class="nav-item">
+							<a id="texto_menu" class="nav-link" href="index.php?controller=events&amp;action=show"><?= i18n("Events") ?></a>
+						</li>
+					<?php } ?>
 
-					<li class="nav-item">
-		        <a id="texto_menu" class="nav-link" href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments") ?></a>
-		      </li>
+					<?php if (!$_SESSION["pupil"]){ ?>
+						<li class="nav-item">
+			        <a id="texto_menu" class="nav-link" href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments") ?></a>
+			      </li>
+					<?php } ?>
 
-					<li class="nav-item">
-		        <a id="texto_menu" class="nav-link" href="index.php?controller=notifications&amp;action=show"><?= i18n("Notifications") ?></a>
-		      </li>
+						<li class="nav-item">
+			        <a id="texto_menu" class="nav-link" href="index.php?controller=notifications&amp;action=show"><?= i18n("Notifications") ?></a>
+			      </li>
 
 		    </ul>
+				<?php endif ?>
 		  </div>
 		</nav>
 	</header>

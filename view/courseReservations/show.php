@@ -82,6 +82,13 @@ $view->setVariable ("title", "Show Courses Reservations");
                       <td>
                         <a href="index.php?controller=courseReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in"></span></a>
                         <a href="index.php?controller=courseReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                        <?php
+                          if($reservation->getIs_confirmed() == 0){
+                        ?>
+                          <a href="index.php?controller=courseReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-task"></span></span></a>
+                        <?php
+                          }
+                        ?>
                       </td>
         						</tr>
         				<?php endforeach; ?>

@@ -20,7 +20,20 @@ $view->setVariable ("title", "Show Users");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Users List") ?></h4><a href="index.php?controller=users&amp;action=search"> <span id="search_icon" class="oi oi-magnifying-glass"></a><a href="index.php?controller=users&amp;action=add"> <span class="oi oi-plus"></a>
+    <h4 id="view_title"><?= i18n("Users List") ?></h4>
+    <a href="index.php?controller=users&amp;action=search">
+      <span id="search_icon" class="oi oi-magnifying-glass">
+    </a>
+    <?php
+      if($_SESSION["admin"]){
+    ?>
+    <a href="index.php?controller=users&amp;action=add">
+      <span class="oi oi-plus">
+    </a>
+    <?php
+      }
+    ?>
+
   </div>
   <div class="row justify-content-around">
 
@@ -61,8 +74,14 @@ $view->setVariable ("title", "Show Users");
                       </td>
                       <td>
                         <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-zoom-in"></span></a>
-                        <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-loop"></span></a>
-                        <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-trash"></span></a>
+                        <?php
+                          if($_SESSION["admin"]){
+                        ?>
+                          <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-loop"></span></a>
+                          <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-trash"></span></a>
+                        <?php
+                          }
+                        ?>
                       </td>
         						</tr>
         				<?php endforeach; ?>

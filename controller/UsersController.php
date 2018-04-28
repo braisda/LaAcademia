@@ -135,7 +135,7 @@ class UsersController extends BaseController {
 			throw new Exception("Not in session. View Users requires login");
 		}
 
-		if($this->userMapper->findType() == "athlete"){
+		if($this->userMapper->findType() == "pupil" || $this->userMapper->findType() == "competitor"){
 			throw new Exception("You aren't an admin or a trainer. View an user requires be admin or trainer");
 		}
 
@@ -259,6 +259,11 @@ class UsersController extends BaseController {
 			throw new Exception("no such user with id: ".$id_user);
 		}
 
+		// put the flag to true if the current user wants to change his own email
+		if($this->currentUser->getUsername() == $user->getUsername()){
+			$flag = true;
+		}
+
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
 			// populate the user object with data form the form
@@ -321,7 +326,7 @@ class UsersController extends BaseController {
 
 					// if the current user changes his own password,
 					// the session is closed logout and we redirect to the login view
-					if($this->currentUser){
+					if($flag){
 						session_destroy();
 						$this->view->redirect("entry", "index");
 					}
@@ -427,7 +432,7 @@ class UsersController extends BaseController {
 			$flag = 0;
 
 			if ($_POST["name"]){
-				$query .= "name='". $_POST["name"]."'";
+				$query .= "name LIKE '%". $_POST["name"]."%'";
 				$flag = 1;
 			}
 

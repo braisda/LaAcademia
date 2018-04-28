@@ -39,6 +39,10 @@ class CourseReservationsController extends BaseController {
 			throw new Exception("Not in session. Show courses requires login");
 		}
 
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "pupil"){
+			throw new Exception("You aren't an admin or a pupil. See all reservations requires be admin or pupil");
+		}
+
 		$reservations = $this->courseReservationMapper->show();
 
     //Get the id, name and surname of the pupils
@@ -67,6 +71,10 @@ class CourseReservationsController extends BaseController {
 
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View Courses Reservations requires login");
+		}
+
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "pupil"){
+			throw new Exception("You aren't an admin or a pupil. See all reservations requires be admin or pupil");
 		}
 
 		$id_reservation = $_GET["id_reservation"];

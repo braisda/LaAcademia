@@ -39,6 +39,10 @@ class EventReservationsController extends BaseController {
 			throw new Exception("Not in session. Show events requires login");
 		}
 
+		if($this->userMapper->findType() == "trainer"){
+			throw new Exception("You aren't an admin, a competitor or a pupil. See all reservatinos requires be admin, competitor or pupil");
+		}
+
 		$reservations = $this->eventReservationMapper->show();
 
     //Get the id, name and surname of the assistants
@@ -67,6 +71,10 @@ class EventReservationsController extends BaseController {
 
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View Events Reservations requires login");
+		}
+
+		if($this->userMapper->findType() == "trainer"){
+			throw new Exception("You aren't an admin, a competitor or a pupil. See all reservatinos requires be admin, competitor or pupil");
 		}
 
 		$id_reservation = $_GET["id_reservation"];

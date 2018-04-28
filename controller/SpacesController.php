@@ -39,6 +39,10 @@ class SpacesController extends BaseController {
 			throw new Exception("Not in session. Show spaces requires login");
 		}
 
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all spaces requires be admin or trainer");
+		}
+
 		$spaces = $this->spaceMapper->show();
 
 		// put the spaces object to the view
@@ -55,6 +59,10 @@ class SpacesController extends BaseController {
 
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View Spaces requires login");
+		}
+
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all spaces requires be admin or trainer");
 		}
 
 		$id_space= $_GET["id_space"];
@@ -167,7 +175,7 @@ class SpacesController extends BaseController {
 
 				//up the image to the server
 				move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
-				
+
 				//save the space object into the database
 				$this->spaceMapper->update($space);
 

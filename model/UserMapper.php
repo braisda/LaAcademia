@@ -128,17 +128,17 @@ class UserMapper {
 	public function findType() {
 		$user = $_SESSION ["currentuser"];
 		$stmt = $this->db->prepare ( "SELECT * FROM users WHERE email=?" );
-		$stmt->execute ( array (
-				$user
-		) );
+		$stmt->execute(array($user));
 		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
 
 		if ($array ["is_administrator"] == 1) {
 			return "admin";
 		} else if ($array ["is_trainer"] == 1) {
 			return "trainer";
+		} else if ($array ["is_pupil"] == 1) {
+			return "pupil";
 		} else {
-			return "athlete";
+			return "competitor";
 		}
 	}
 

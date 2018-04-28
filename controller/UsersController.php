@@ -309,6 +309,7 @@ class UsersController extends BaseController {
 			}
 
 			try {
+				if($this->currentUser->getUsername()==$_POST["username"] || !$this->userMapper->usernameExists($_POST["username"])){
 					// validate user object
 					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
 
@@ -317,6 +318,13 @@ class UsersController extends BaseController {
 
 					//save the user object into the database
 					$this->userMapper->update($user);
+
+					// if the current user changes his own password,
+					// the session is closed logout and we redirect to the login view
+					if($this->currentUser){
+						session_destroy();
+						$this->view->redirect("entry", "index");
+					}
 
 					// POST-REDIRECT-GET
 					// Everything OK, we will redirect the user to the list of posts
@@ -329,6 +337,11 @@ class UsersController extends BaseController {
 					// header("Location: index.php?controller=users&action=show")
 					// die();
 					$this->view->redirect("users", "show");
+				}else {
+					$errors = array();
+					$errors["email"] = "Username already exists";
+					$this->view->setVariable("errors", $errors);
+				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();

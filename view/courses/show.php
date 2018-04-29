@@ -86,7 +86,7 @@ $view->setVariable ("title", "Show Courses");
                           }
                           if($_SESSION["pupil"]){
                         ?>
-                          <a href="index.php?controller=courses_reservations&amp;action=add"><span class="oi oi-task"></span></span></a>
+                          <a href="index.php?controller=courseReservations&amp;action=add&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-task"></span></span></a>
                         <?php
                           }
                         ?>

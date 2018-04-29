@@ -1,20 +1,21 @@
 <?php
-// file: view/courses/view.php
+// file: view/courses/add.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
-$course = $view->getVariable ( "course" );
-$view->setVariable ( "title", "View Course" );
+$course = $view->getVariable("course");
+$view->setVariable ( "title", "Add Course Reservation" );
+$errors = $view->getVariable ( "errors" );
 ?>
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
-  <li class="breadcrumb-item"><a href="index.php?controller=courses&amp;action=show"><?= i18n("Courses List") ?></a></li>
-  <li class="breadcrumb-item active"><?= i18n("Course Information") ?></li>
+  <li class="breadcrumb-item"><a href="index.php?controller=courseReservation&amp;action=show"><?= i18n("Course Reservations List") ?></a></li>
+  <li class="breadcrumb-item active"><?= i18n("Add Course Reservation") ?></li>
 </ol>
 
-<div id="container" class="container">
+<div class="container" id="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Course Information") ?></h4>
+    <h4 id="view_title"><?= i18n("Add Course Reservation") ?></h4>
   </div>
 
   <div class="row justify-content-center">
@@ -28,18 +29,20 @@ $view->setVariable ( "title", "View Course" );
         <li id="table_color" class="list-group-item"><strong><?= i18n("Start Time") ?>:</strong> <?= $course->getStart_time() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("End Time") ?>:</strong> <?= $course->getEnd_time() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Capacity") ?>:</strong> <?= $course->getCapacity() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $course->getPrice() ?> €</li>
-        <?php
-          if($_SESSION["admin"]){
-        ?>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $course->getPrice() ?></li>
         <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>" class="card-link"><span class="oi oi-loop"></span></a>
-          <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $course->getId_course() ?>" class="card-link"><span class="oi oi-trash"></a>
+          <a href="index.php?controller=courses&amp;action=update&amp;id_course=aa" class="card-link"><span class="oi oi-loop"></span></a>
+          <a href="index.php?controller=courses&amp;action=delete&amp;id_course=aa" class="card-link"><span class="oi oi-trash"></a>
         </li>
-        <?php
-      }
-        ?>
       </ul>
+      <br/>
+      <form action="index.php?controller=courseReservations&amp;action=add" method="POST">
+        <input type="hidden" name="id_course" value="<?= $course->getId_course() ?>">
+        <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Reserve")?></button>
+      </form>
     </div>
+
   </div>
+
+
 </div>

@@ -81,17 +81,20 @@ $view->setVariable ("title", "Show Courses Reservations");
                         <?= $name." ".i18n($type) ?></td>
                       <td>
                         <a href="index.php?controller=courseReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in"></span></a>
-
                         <a href="index.php?controller=courseReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
                         <?php
                           if($reservation->getIs_confirmed() == 0){
+                            if($_SESSION["admin"]){
                         ?>
                           <a href="index.php?controller=courseReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check"></span></a>
                         <?php
+                            }
                           }else{
+                            if($_SESSION["admin"]){
                         ?>
                           <a href="index.php?controller=courseReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
                         <?php
+                            }
                           }
                         ?>
                       </td>

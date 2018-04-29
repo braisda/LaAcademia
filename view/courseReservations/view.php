@@ -62,7 +62,8 @@ $view->setVariable ( "title", "View Reservation" );
         <li id="table_color" class="list-group-item">
 
           <?php
-            if($reservation->getIs_confirmed() == 0){
+            if($_SESSION["admin"]){
+              if($reservation->getIs_confirmed() == 0){
           ?>
               <a href="index.php?controller=courseReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>" class="card-link"><span class="oi oi-circle-check"></span></a>
           <?php
@@ -71,6 +72,7 @@ $view->setVariable ( "title", "View Reservation" );
             <a href="index.php?controller=courseReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
           <?php
             }
+          }
           ?>
           <a href="index.php?controller=courseReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>" class="card-link"><span class="oi oi-trash"></a>
         </li>

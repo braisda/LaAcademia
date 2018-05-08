@@ -43,10 +43,19 @@ class EventReservationsController extends BaseController {
 			throw new Exception("You aren't an admin, a competitor or a pupil. See all reservatinos requires be admin, competitor or pupil");
 		}
 
-		$reservations = $this->eventReservationMapper->show();
-
     //Get the id, name and surname of the assistants
 		$assistants = $this->eventReservationMapper->getAssistants();
+
+		if($_SESSION["admin"]){
+			$reservations = $this->eventReservationMapper->show();
+		}else{
+			foreach ($assistants as $assistant) {
+				if($assistant["email"] == $_SESSION["currentuser"]){
+					$id_user = $assistant["id_user"];
+				}
+			}
+			$reservations = $this->eventReservationMapper->showMine($id_user);
+		}
 
 		// Put the space variable visible to the view
 		$this->view->setVariable("assistants", $assistants);
@@ -105,6 +114,56 @@ class EventReservationsController extends BaseController {
 		$this->view->render("eventReservations", "view");
 	}
 
+	public function add(){
+		if (!isset($_REQUEST["id_event"])) {
+			throw new Exception("A id is mandatory");
+		}
+
+		$id_event = $_REQUEST["id_event"];
+
+		if (!isset($this->currentUser)) {
+			throw new Exception("Not in session. Adding event reservation requires login");
+		}
+
+		if($this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't a pupil. Adding an event reservation requires be pupil or competitor");
+		}
+
+		$reservation = new EventReservation();
+		// find the Event object in the database
+		$event = $this->eventReservationMapper->getEvent($id_event);
+		$id_user = $this->eventReservationMapper->getId_user($_SESSION["currentuser"]);
+
+		if(isset($_POST["submit"])) { // reaching via HTTP event...
+
+			// populate the event reservation object with data
+			$reservation->setDate(date("Y-m-d"));
+			$reservation->setTime(date("H:i:s"));
+			$reservation->setIs_confirmed(0);
+			$reservation->setId_assistant($id_user);
+			$reservation->setId_event($id_event);
+
+			try {
+				//save the event reservation object into the database
+				$this->eventReservationMapper->add($reservation);
+
+				$this->view->setFlash(sprintf(i18n("Event reservation \"%s at %s\" successfully added."), date("Y-m-d"), date("H:i:s")));
+
+				$this->view->redirect("eventReservations", "show");
+
+			}catch(ValidationException $ex) {
+				// Get the errors array inside the exepction...
+				$errors = $ex->getErrors();
+				// And put it to the view as "errors" variable
+				$this->view->setVariable("errors", $errors);
+			}
+		}
+		// put the event object to the view
+		$this->view->setVariable("event", $event);
+
+		// render the view (/view/events/add.php)
+		$this->view->render("eventReservations", "add");
+	}
 
 	public function confirm(){
 		if (!isset($_REQUEST["id_reservation"])) {
@@ -129,9 +188,49 @@ class EventReservationsController extends BaseController {
 		try {
 
 			//save the reservation object into the database
-			$this->eventReservationMapper->update($reservation);
+			$this->eventReservationMapper->confirm($reservation);
 
-			$this->view->setFlash(sprintf(i18n("Reservation \"%s at %s\" successfully confirmed."),$reservation->getDate(), $reservation->getTime()));
+			$this->view->setFlash(sprintf(i18n("Reservation \"%s at %s\" successfully confirmed."),$reservation->getDateReservation(), $reservation->getTimeReservation()));
+
+			$this->view->redirect("eventReservations", "show");
+
+		}catch(ValidationException $ex) {
+			// Get the errors array inside the exepction...
+			$errors = $ex->getErrors();
+			// And put it to the view as "errors" variable
+			$this->view->setVariable("errors", $errors);
+		}
+
+		// render the view (/view/users/add.php)
+		$this->view->render("eventReservations", "show");
+	}
+
+	public function cancel(){
+		if (!isset($_REQUEST["id_reservation"])) {
+			throw new Exception("A id is mandatory");
+		}
+
+		if (!isset($this->currentUser)) {
+			throw new Exception("Not in session. Cancel a reservation requires login");
+		}
+
+		if($this->userMapper->findType() != "admin"){
+			throw new Exception("You aren't an admin. Cancel a reservation requires be admin");
+		}
+
+		$id_reservation = $_REQUEST["id_reservation"];
+		$reservation = $this->eventReservationMapper->view($id_reservation);
+
+		if ($reservation == NULL) {
+			throw new Exception("no such reservation with id: ".$id_reservation);
+		}
+
+		try {
+
+			//save the reservation object into the database
+			$this->eventReservationMapper->cancel($reservation);
+
+			$this->view->setFlash(sprintf(i18n("Reservation \"%s at %s\" successfully cancelled."),$reservation->getDateReservation(), $reservation->getTimeReservation()));
 
 			$this->view->redirect("eventReservations", "show");
 
@@ -156,13 +255,19 @@ class EventReservationsController extends BaseController {
 			throw new Exception("Not in session. Adding events reservations requires login");
 		}
 
-		if($this->userMapper->findType() != "admin"){
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
 			throw new Exception("You aren't an admin. Adding a event reservation requires be admin");
 		}
 
 		// Get the User object from the database
 		$id_reservation = $_REQUEST["id_reservation"];
 		$reservation = $this->eventReservationMapper->view($id_reservation);
+
+		if($_SESSION["pupil"] || $_SESSION["competitor"]){
+			if($this->eventReservationMapper->getState($id_reservation) == 1){
+				throw new Exception("You can't delete a event reservation which is confirmed");
+			}
+		}
 
 		// Does the reservation exist?
 		if ($reservation == NULL) {
@@ -180,7 +285,7 @@ class EventReservationsController extends BaseController {
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Event reservation \"%s at %s\" successfully deleted."), $reservation->getDate(), $reservation->getTime()));
+				$this->view->setFlash(sprintf(i18n("Event reservation \"%s at %s\" successfully deleted."), $reservation->getDateReservation(), $reservation->getTimeReservation()));
 
 				// perform the redirection. More or less:
 				// header("Location: index.php?controller=posts&action=index")

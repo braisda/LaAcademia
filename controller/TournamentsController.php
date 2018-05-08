@@ -39,6 +39,10 @@ class TournamentsController extends BaseController {
 			throw new Exception("Not in session. Show tournaments requires login");
 		}
 
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
+		}
+
 		$tournaments = $this->tournamentMapper->show();
 
 		// put the tournaments object to the view

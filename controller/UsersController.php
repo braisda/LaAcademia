@@ -117,7 +117,7 @@ class UsersController extends BaseController {
 			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
 		}
 
-		$users = $this->userMapper->showAllUsers();
+		$users = $this->userMapper->show();
 
 		// put the users object to the view
 		$this->view->setVariable("users", $users);

@@ -142,7 +142,7 @@ class UserMapper {
 		}
 	}
 
-	public function showAllUsers() {
+	public function show() {
 		$stmt = $this->db->query ( "SELECT * FROM users WHERE is_active = 1 ORDER BY surname" );
 
 		$users_db = $stmt->fetchAll ( PDO::FETCH_ASSOC );

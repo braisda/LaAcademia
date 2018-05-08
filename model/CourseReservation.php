@@ -129,9 +129,9 @@ class CourseReservation {
 	*/
 	public function __construct($id_reservation=NULL, $date=NULL, $time=NULL,
 															$is_confirmed=NULL, $id_pupil=NULL, $id_course=NULL, $name=NULL, $type=NULL,
-																													$description=NULL, $capacity=NULL, $days=NULL,
-														                              $start_time=NULL, $end_time=NULL, $id_space=NULL,
-																													$id_trainer=NULL, $name_space=NULL, $name_trainer=NULL, $price=NULL) {
+															$description=NULL, $capacity=NULL, $days=NULL,
+														  $start_time=NULL, $end_time=NULL, $id_space=NULL,
+															$id_trainer=NULL, $name_space=NULL, $name_trainer=NULL, $price=NULL) {
 		$this->id_reservation = $id_reservation;
 		$this->date = $date;
 		$this->time = $time;

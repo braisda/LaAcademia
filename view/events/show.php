@@ -70,7 +70,7 @@ $view->setVariable ("title", "Show Events");
                             }
                             if($_SESSION["pupil"] || $_SESSION["competitor"]){
                           ?>
-                            <a href="index.php?controller=events_reservations&amp;action=add"><span class="oi oi-task"></span></span></a>
+                            <a href="index.php?controller=eventReservations&amp;action=add&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-task"></span></span></a>
                           <?php
                             }
                           ?>

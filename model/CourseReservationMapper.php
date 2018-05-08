@@ -127,19 +127,6 @@ class CourseReservationMapper {
 		return $this->db->lastInsertId();
 	}
 
-	public function update($event) {
-		$stmt = $this->db->prepare("UPDATE events
-																set name = ?, description = ?, price = ?,
-																		capacity = ?, date = ?, time = ?,
-																	  id_space = ?
-																WHERE id_event = ?");
-
-		$stmt->execute(array($event->getName(), $event->getDescription(), $event->getPrice(),
-												 $event->getCapacity(), $event->getDate(), $event->getTime(),
-												 $event->getId_space(), $event->getId_event()));
-		return $this->db->lastInsertId();
-	}
-
 	public function getCourse($id_course) {
 		$stmt = $this->db->prepare("SELECT * FROM courses WHERE id_course=?");
 		$stmt->execute(array($id_course));
@@ -161,13 +148,6 @@ class CourseReservationMapper {
     $trainer = $stmt3->fetch ( PDO::FETCH_ASSOC );
 
     $trainer_name = $trainer ["name"];
-
-$a=new CourseReservation(NULL, NULL, NULL, NULL, NULL,$course ["id_course"], $course ["name"], $course ["type"],
-									$course ["description"], $course ["capacity"], $course ["days"],
-									$course ["start_time"], $course ["end_time"], $course ["id_space"],
-									$course ["id_trainer"], $space_name, $trainer_name, $course ["price"]);
-
-									//var_dump($a);
 
 		if ($course != null) {
 			return new CourseReservation(NULL, NULL, NULL, NULL, NULL,$course ["id_course"], $course ["name"], $course ["type"],

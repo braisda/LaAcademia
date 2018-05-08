@@ -45,8 +45,8 @@ $view->setVariable ("title", "Show Events Reservations");
                 <?php $n=1; foreach ($reservations as $reservation): ?>
         						<tr>
                       <td><?= $n++ ?></td>
-        							<td><?= $reservation->getDate() ?></td>
-        							<td><?= $reservation->getTime() ?></td>
+        							<td><?= $reservation->getDateReservation() ?></td>
+        							<td><?= $reservation->getTimeReservation() ?></td>
         							<td>
                         <?php
                           if($reservation->getIs_confirmed() == 1){
@@ -80,18 +80,31 @@ $view->setVariable ("title", "Show Events Reservations");
                         <?= $name?></td>
                       <td>
                         <a href="index.php?controller=eventReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in"></span></a>
-                        <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+
                         <?php
                           if($reservation->getIs_confirmed() == 0){
+                            if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=eventReservations&amp;action=confirm"><span class="oi oi-task"></span></span></a>
+                          <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                          <a href="index.php?controller=eventReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check"></span></a>
                         <?php
+                            }else{
+                        ?>
+                              <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                        <?php
+                            }
+                          }else{
+                            if($_SESSION["admin"]){
+                        ?>
+                          <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                          <a href="index.php?controller=eventReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
+                        <?php
+                            }
                           }
                         ?>
                       </td>
         						</tr>
         				<?php endforeach; ?>
-
               </tbody>
             </table>
         </div>

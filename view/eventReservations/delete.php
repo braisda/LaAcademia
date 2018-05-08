@@ -45,8 +45,8 @@ $view->setVariable ( "title", "Delete Event Reservation" );
 
           <?= $name." ".$surname ?></td>
         </li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $reservation->getDate() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $reservation->getTime() ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $reservation->getDateReservation() ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $reservation->getTimeReservation() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("State") ?>:</strong>
           <?php
             if($reservation->getIs_confirmed() == 1){

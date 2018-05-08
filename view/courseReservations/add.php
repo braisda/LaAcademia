@@ -9,7 +9,7 @@ $errors = $view->getVariable ( "errors" );
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
-  <li class="breadcrumb-item"><a href="index.php?controller=courseReservation&amp;action=show"><?= i18n("Course Reservations List") ?></a></li>
+  <li class="breadcrumb-item"><a href="index.php?controller=courseReservations&amp;action=show"><?= i18n("Course Reservations List") ?></a></li>
   <li class="breadcrumb-item active"><?= i18n("Add Course Reservation") ?></li>
 </ol>
 
@@ -30,10 +30,6 @@ $errors = $view->getVariable ( "errors" );
         <li id="table_color" class="list-group-item"><strong><?= i18n("End Time") ?>:</strong> <?= $course->getEnd_time() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Capacity") ?>:</strong> <?= $course->getCapacity() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $course->getPrice() ?></li>
-        <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=courses&amp;action=update&amp;id_course=aa" class="card-link"><span class="oi oi-loop"></span></a>
-          <a href="index.php?controller=courses&amp;action=delete&amp;id_course=aa" class="card-link"><span class="oi oi-trash"></a>
-        </li>
       </ul>
       <br/>
       <form action="index.php?controller=courseReservations&amp;action=add" method="POST">

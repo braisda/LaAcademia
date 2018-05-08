@@ -45,8 +45,8 @@ $view->setVariable ( "title", "View Reservation" );
 
           <?= $name." ".$surname ?></td>
         </li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $reservation->getDate() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $reservation->getTime() ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $reservation->getDateReservation() ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $reservation->getTimeReservation() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("State") ?>:</strong>
           <?php
             if($reservation->getIs_confirmed() == 1){
@@ -55,20 +55,36 @@ $view->setVariable ( "title", "View Reservation" );
               $toret = "Pendient";
             }
           ?>
-
           <?= i18n($toret) ?></td>
         </li>
-        <li id="table_color" class="list-group-item">
-
           <?php
-            if($reservation->getIs_confirmed() == 0){
+            if($_SESSION["admin"]){
           ?>
-              <a href="index.php?controller=eventReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>" class="card-link"><span class="oi oi-task"></span></a>
+            <li id="table_color" class="list-group-item">
           <?php
+              if($reservation->getIs_confirmed() == 0){
+          ?>
+                <a href="index.php?controller=eventReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check"></span></a>
+          <?php
+              }else{
+          ?>
+                <a href="index.php?controller=courseReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
+          <?php
+              }
+          ?>
+              <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+              </li>
+          <?php
+            }else{
+              if($reservation->getIs_confirmed() == 0){
+          ?>
+              <li id="table_color" class="list-group-item">
+                <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+              </li>
+          <?php
+              }
             }
           ?>
-          <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>" class="card-link"><span class="oi oi-trash"></a>
-        </li>
       </ul>
     </div>
   </div>

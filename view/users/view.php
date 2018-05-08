@@ -23,7 +23,7 @@ $view->setVariable ( "title", "View User" );
       <div id="card_body" class="card-body">
         <h5 class="card-title"><?= $user->getName() ?> <?= $user->getSurname() ?></h5>
 
-        <p class="card-text"><?= i18n("User of type ".$user->getType()) ?></p>
+        <p class="card-text"><?= i18n("User of type ") ?> <?= i18n($user->getType()) ?> </p>
       </div>
       <ul id="background_table"  class="list-group list-group-flush">
         <li id="table_color" class="list-group-item"><?= i18n("Dni:") ?> <?= $user->getDni() ?></li>

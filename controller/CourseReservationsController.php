@@ -122,7 +122,7 @@ class CourseReservationsController extends BaseController {
 		$id_course = $_REQUEST["id_course"];
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding courses requires login");
+			throw new Exception("Not in session. Adding course reservation requires login");
 		}
 
 		if($this->userMapper->findType() != "pupil"){

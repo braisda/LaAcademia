@@ -25,11 +25,6 @@ class EntryController extends BaseController {
 		$this->view->render("entry", "login");
 	}
 
-  public function register() {
-    // render the view (/view/login/register.php)
-    $this->view->render("entry", "register");
-  }
-
 	public function home(){
 		if (isset($_SESSION["currentuser"])){
 			$this->userMapper = new UserMapper();
@@ -44,10 +39,4 @@ class EntryController extends BaseController {
 			//throw new Exception("Not in session. Show menu requires login");
 		}
 	}
-
-	public function contact(){
-		// render the view (/view/login/contact.php)
-		$this->view->render("entry", "contact");
-	}
-
 }

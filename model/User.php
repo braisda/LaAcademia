@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/ValidationException.php");
 *
 * Represents a User in the academy
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class User {
 
@@ -32,81 +32,93 @@ class User {
 
 	/**
 	* The dni of the user
+	* @var string
 	*/
 	private $dni;
 
 	/**
 	* The email of the user
+	* @var string
 	*/
 	private $username;
 
 	/**
 	* The password of the user
+	* @var string
 	*/
 	private $password;
 
 	/**
 	* The telephone of the user
+	* @var string
 	*/
 	private $telephone;
 
 	/**
 	* The birthdate of the user
+	* @var string
 	*/
 	private $birthdate;
 
 	/**
 	* The image of the user
+	* @var string
 	*/
 	private $image;
 
 	/**
 	* The state of the user
+	* @var string
 	*/
 	private $is_active;
 
 	/**
 	* The type of the user
+	* @var string
 	*/
 	private $is_administrator;
 
 	/**
 	* The type of the user
+	* @var string
 	*/
 	private $is_trainer;
 
 	/**
 	* The type of the user
+	* @var string
 	*/
 	private $is_pupil;
 
 	/**
 	* The type of the user
+	* @var string
 	*/
 	private $is_competitor;
 
 	/**
 	* The constructor
 	*
-	* @param $username The email of the user
-	* @param $id_user The id of the user
-	* @param $name The name of the user
-	* @param $surname The surname of the user
-	* @param $dni The dni of the user
-	* @param $password The password of the user
-	* @param $telephone The telephone of the user
-	* @param $birthdate The birthdate of the user
-	* @param $image The birthdate of the user
-	* @param $is_active The state of the user
-	* @param $is_administrator The type of the user
-	* @param $is_trainer The type of the user
-	* @param $is_pupil The type of the user
-	* @param $is_competitor The type of the user
+	* @param string $username The email of the user
+	* @param string $id_user The id of the user
+	* @param string $name The name of the user
+	* @param string $surname The surname of the user
+	* @param string $dni The dni of the user
+	* @param string $password The password of the user
+	* @param string $telephone The telephone of the user
+	* @param string $birthdate The birthdate of the user
+	* @param string $image The birthdate of the user
+	* @param string $is_active The state of the user
+	* @param string $is_administrator The type of the user
+	* @param string $is_trainer The type of the user
+	* @param string $is_pupil The type of the user
+	* @param string $is_competitor The type of the user
 	*/
-	public function __construct($username=NULL, $id_user=NULL, $name=NULL, $surname=NULL,
-															$dni=NULL, $password=NULL, $telephone=NULL, $birthdate=NULL,
-															$image=NULL, $is_active=NULL, $is_administrator=NULL, $is_trainer=NULL,
-															$is_pupil=NULL, $is_competitor=NULL) {
+	public function __construct($username=NULL, $id_user=NULL, $name=NULL,
+															$surname=NULL, $dni=NULL, $password=NULL,
+															$telephone=NULL, $birthdate=NULL,	$image=NULL,
+															$is_active=NULL, $is_administrator=NULL,
+															$is_trainer=NULL,	$is_pupil=NULL, $is_competitor=NULL) {
 		$this->username = $username;
 		$this->id_user =$id_user;
 		$this->name = $name;
@@ -216,6 +228,7 @@ class User {
 	public function getPassword() {
 		return $this->password;
 	}
+
 	/**
 	* Sets the password of this user
 	*
@@ -234,6 +247,7 @@ class User {
 	public function getTelephone() {
 		return $this->telephone;
 	}
+
 	/**
 	* Sets the telephone of this user
 	*
@@ -252,6 +266,7 @@ class User {
 	public function getBirthdate() {
 		return $this->birthdate;
 	}
+
 	/**
 	* Sets the birthdate of this user
 	*
@@ -270,6 +285,7 @@ class User {
 	public function getImage() {
 		return $this->image;
 	}
+	
 	/**
 	* Sets the image of this user
 	*
@@ -288,6 +304,7 @@ class User {
 	public function getIs_active() {
 		return $this->is_active;
 	}
+
 	/**
 	* Sets the state of this user
 	*
@@ -306,6 +323,7 @@ class User {
 	public function getIs_administrator() {
 		return $this->is_administrator;
 	}
+
 	/**
 	* Sets the state of this user
 	*
@@ -324,6 +342,7 @@ class User {
 	public function getIs_trainer() {
 		return $this->is_trainer;
 	}
+
 	/**
 	* Sets the state of this user
 	*
@@ -342,6 +361,7 @@ class User {
 	public function getIs_pupil() {
 		return $this->is_pupil;
 	}
+
 	/**
 	* Sets the state of this user
 	*
@@ -360,6 +380,7 @@ class User {
 	public function getIs_competitor() {
 		return $this->is_competitor;
 	}
+
 	/**
 	* Sets the state of this user
 	*
@@ -370,6 +391,24 @@ class User {
 		$this->is_competitor = $is_competitor;
 	}
 
+	/**
+	* Checks if the current instance is valid
+	* for being inserted in the database.
+	*
+	* @param string $password The password of this user
+	* @param string $repitedpassword The repeated password of this user
+	* @param string $imageName The name of the image of this user
+	* @param string $imageType The type the image of this user
+	* @param string $imageSize The image size of the image of this user
+	* @param string $checkPassword A indicator to check the password
+	*								(don't check if is an update that doesn't changes the password)
+	* @param string $checkImage A indicator to check the image
+	*								(don't check if is a update that doesn't changes the image)
+	*
+	* @throws ValidationException if the instance is not valid
+	*
+	* @return void
+	*/
 	public function validateUser($password, $repitedpassword, $imageName, $imageType, $imageSize, $checkPassword, $checkImage){
 		$errors = array();
 		$expression = '/^[9|6|7][0-9]{8}$/';
@@ -459,20 +498,36 @@ class User {
 			}
 		}
 
-
 		if($this->getIs_administrator() == NULL and $this->getIs_trainer() == NULL and
 		$this->getIs_pupil() == NULL and $this->getIs_competitor() == NULL){
 			$errors["type"] = "The user must have a type";
 		}
+
 		if (sizeof($errors) > 0){
 			throw new ValidationException($errors, "User is not valid");
 		}
 	}
 
+	/**
+	* Checks if the email is valid
+	* for being inserted in the database.
+	*
+	* @param string $str The email of the user
+	*
+	* @return boolean true if the email is valid, false otherwise
+	*/
 	public function validate_email($str){
 		return (false !== strpos($str, "@") && false !== strpos($str, "."));
 	}
 
+	/**
+	* Checks if the DNI is valid
+	* for being inserted in the database.
+	*
+	* @param string $email The DNI of the user
+	*
+	* @return boolean true if the DNI is valid, false otherwise
+	*/
 	public function validate_dni($email){
 		$letter = substr($email, -1);
 		$numbers = substr($email, 0, -1);
@@ -488,6 +543,12 @@ class User {
 
 	}
 
+	/**
+	* Returns the type of the current user
+	*
+	*
+	* @return string The type of the user
+	*/
 	public function getType(){
 		$toret="";
 		if($this->is_administrator == 1){
@@ -507,6 +568,4 @@ class User {
 		}
 		return $toret;
 	}
-
-
 }

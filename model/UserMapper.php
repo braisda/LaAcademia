@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 *
 * Database interface for User entities
 *
-* @author lipido <braisda@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class UserMapper {
 
@@ -21,14 +21,6 @@ class UserMapper {
 	public function __construct() {
 		$this->db = PDOConnection::getInstance();
 	}
-
-	/**
-	* Saves a User into the database
-	*
-	* @param User $user The user to be saved
-	* @throws PDOException if a database error occurs
-	* @return void
-	*/
 
 	/**
 	* Checks if a given username is already in the database
@@ -62,11 +54,14 @@ class UserMapper {
 	}
 
 	/**
-	* Checks if the user is an admin user
+	* Checcks if the current user is a admin user
+	*
+	* @throws PDOException if a database error occurs
+	* @return boolean true if the user is admin, false otherwise.
 	*/
 	public function isAdmin() {
 		$user = $_SESSION ["currentuser"];
-		$stmt = $this->db->prepare ( "SELECT * FROM users WHERE email=?" );
+	  $stmt = $this->db->prepare ( "SELECT * FROM users WHERE email=?" );
 		$stmt->execute (array($user));
 		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
 
@@ -78,7 +73,10 @@ class UserMapper {
 	}
 
 	/**
-	* Checks if the user is a trainer user
+	* Checcks if the current user is a trainer user
+	*
+	* @throws PDOException if a database error occurs
+	* @return boolean true if the user is trainer, false otherwise.
 	*/
 	public function isTrainer() {
 		$user = $_SESSION ["currentuser"];
@@ -94,7 +92,10 @@ class UserMapper {
 	}
 
 	/**
-	* Checks if the user is an athlete user
+	* Checcks if the current user is a pupil user
+	*
+	* @throws PDOException if a database error occurs
+	* @return boolean true if the user is pupil, false otherwise.
 	*/
 	public function isPupil() {
 		$user = $_SESSION ["currentuser"];
@@ -102,7 +103,7 @@ class UserMapper {
 		$stmt->execute (array($user));
 		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
 
-		if ($array ["is_pupil"] == 1 && $array ["is_competitor"] == 1) {
+		if ($array ["is_pupil"] == 1 && $array ["is_competitor"] == 0) {
 			return true;
 		} else {
 			return false;
@@ -110,7 +111,10 @@ class UserMapper {
 	}
 
 	/**
-	* Checks if the user is an athlete user
+	* Checcks if the current user is a competitor user
+	*
+	* @throws PDOException if a database error occurs
+	* @return boolean true if the user is competitor, false otherwise.
 	*/
 	public function isCompetitor() {
 		$user = $_SESSION ["currentuser"];
@@ -126,7 +130,10 @@ class UserMapper {
 	}
 
 	/**
-	* Checks if the user is a pupil and a competitor user
+	* Checcks if the current user is a pupil and competitor user
+	*
+	* @throws PDOException if a database error occurs
+	* @return boolean true if the user is pupil and competitor, false otherwise.
 	*/
 	public function isPupilCompetitor() {
 		$user = $_SESSION ["currentuser"];
@@ -141,6 +148,12 @@ class UserMapper {
 		}
 	}
 
+	/**
+	* Finds the type of the current user
+	*
+	* @throws PDOException if a database error occurs
+	* @return string the type of the current user
+	*/
 	public function findType() {
 		$user = $_SESSION ["currentuser"];
 		$stmt = $this->db->prepare ( "SELECT * FROM users WHERE email=?" );
@@ -158,6 +171,12 @@ class UserMapper {
 		}
 	}
 
+	/**
+	* Retrieves all users
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of User instances
+	*/
 	public function show() {
 		$stmt = $this->db->query ( "SELECT * FROM users WHERE is_active = 1 ORDER BY surname" );
 
@@ -176,6 +195,14 @@ class UserMapper {
 		return $users;
 	}
 
+	/**
+	* Loads a User from the database given its id
+	*
+	* @param string $id_user The id of the user
+	* @throws PDOException if a database error occurs
+	* @return User The User instances. NULL if the Post is not found
+	*
+	*/
 	public function getUser($id_user) {
 		$stmt = $this->db->prepare("SELECT * FROM users WHERE id_user=?");
 		$stmt->execute(array($id_user));
@@ -194,6 +221,14 @@ class UserMapper {
 		}
 	}
 
+	/**
+	* Loads a User from the database given its id
+	*
+	* @param string $username The username of the user
+	* @throws PDOException if a database error occurs
+	* @return User The User instances. NULL if the Post is not found
+	*
+	*/
 	public function getProfile($username) {
 		$stmt = $this->db->prepare("SELECT * FROM users WHERE email=?");
 		$stmt->execute(array($username));
@@ -212,6 +247,13 @@ class UserMapper {
 		}
 	}
 
+	/**
+	* Saves a User into the database
+	*
+	* @param User $user The user to be saved
+	* @throws PDOException if a database error occurs
+	* @return int The new user id
+	*/
 	public function add($user) {
 		$stmt = $this->db->prepare("INSERT INTO users(name, surname, dni, email, password, telephone,
 																									birthdate, image, is_administrator, is_trainer,
@@ -226,6 +268,13 @@ class UserMapper {
 		return $this->db->lastInsertId();
 	}
 
+	/**
+	* Updates a User in the database
+	*
+	* @param User $user The user to be saved
+	* @throws PDOException if a database error occurs
+	* @return int The modified id user
+	*/
 	public function update($user) {
 		$stmt = $this->db->prepare("UPDATE users set name = ?, surname = ?, dni = ?, email = ?, password = ?,
 																								 telephone = ?, birthdate = ?, image = ?, is_administrator = ?,
@@ -239,12 +288,26 @@ class UserMapper {
 		return $this->db->lastInsertId();
 	}
 
+	/**
+	* Deletes a User into the database
+	*
+	* @param User $post The user to be deleted
+	* @throws PDOException if a database error occurs
+	* @return void
+	*/
 	public function delete($user) {
 		//Borrado lógico
 		$stmt = $this->db->prepare("UPDATE users set is_active=? where id_user=?");
 		$stmt->execute(array(0,	$user->getId_user()));
 	}
 
+	/**
+	* Searhs a User into the database
+	*
+	* @param string $query The user to be searched
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of User instances that match the search parameter
+	*/
 	public function search($query) {
         $search_query = "SELECT * FROM users WHERE ". $query." AND is_active = 1 ORDER BY surname";
         $stmt = $this->db->prepare($search_query);

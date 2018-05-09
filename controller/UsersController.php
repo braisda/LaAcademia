@@ -13,7 +13,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 *
 * Controller to login, logout and user CRUD
 *
-* @author lipido <braisda@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class UsersController extends BaseController {
 
@@ -30,10 +30,9 @@ class UsersController extends BaseController {
 
 		$this->userMapper = new UserMapper();
 
-		// Users controller operates in a "welcome" layout
-		// different to the "default" layout where the internal
-		// menu is displayed
-		//$this->view->setLayout("welcome");
+		// Users controller operates in a "default" layout
+		// You can change the layout:
+		//$this->view->setLayout("otherLayout");
 	}
 
 	/**
@@ -108,6 +107,13 @@ class UsersController extends BaseController {
 
 	}
 
+	/**
+	* Action to list users
+	*
+	* Loads all the users from the database.
+	* No HTTP parameters are needed.
+	*
+	*/
 	public function show(){
 		if(!isset($this->currentUser)){
 			throw new Exception("Not in session. Show users requires login");
@@ -126,6 +132,20 @@ class UsersController extends BaseController {
 		$this->view->render("users", "show");
 	}
 
+	/**
+	* Action to view a provided user
+	*
+	* This action should only be called via GET
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the user (via HTTP GET)</li>
+	* </ul>
+	*
+	* @throws Exception If no such user of the provided id is found
+	* @return void
+	*
+	*/
 	public function view(){
 		if (!isset($_GET["id_user"])) {
 			throw new Exception("id user is mandatory");
@@ -155,6 +175,20 @@ class UsersController extends BaseController {
 		$this->view->render("users", "view");
 	}
 
+	/**
+	* Action to view a provided user
+	*
+	* This action should only be called via GET
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>username: Username of the user (via HTTP GET)</li>
+	* </ul>
+	*
+	* @throws Exception If no such user of the provided username is found
+	* @return void
+	*
+	*/
 	public function viewProfile(){
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View Users requires login");
@@ -176,6 +210,34 @@ class UsersController extends BaseController {
 		$this->view->render("users", "view");
 	}
 
+	/**
+	* Action to add a new user
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it adds the user to the database
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the user (via HTTP POST)</li>
+	* <li>surname: Surnme of the user (via HTTP POST)</li>
+	* <li>dni: Dni of the user (via HTTP POST)</li>
+	* <li>username: Email of the user (via HTTP POST)</li>
+	* <li>password: Password of the user (via HTTP POST)</li>
+	* <li>telephone: Telephone of the user (via HTTP POST)</li>
+	* <li>birthdate: Birthdate of the user (via HTTP POST)</li>
+	* <li>imageType: Image type of the user (via FILES POST)</li>
+	* <li>imageName: Image name of the user (via FILES POST)</li>
+	* <li>imageSize: Image size of the user (via FILES POST)</li>
+	* <li>isAdministrator: Type of the user (administrator) (via HTTP POST)</li>
+	* <li>isTrainer: Type of the user (trainer) (via HTTP POST)</li>
+	* <li>isPupil: Type of the user (pupil) (via HTTP POST)</li>
+	* <li>isCompetitor: Type of the user (competitor) (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if the type is not admin
+	* @return void
+	*/
 	public function add(){
 
 		if (!isset($this->currentUser)) {
@@ -260,6 +322,35 @@ class UsersController extends BaseController {
 		$this->view->render("users", "add");
 	}
 
+	/**
+	* Action to edit a user
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it modifies the user in the database.
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the user (via HTTP POST)</li>
+	* <li>surname: Surnme of the user (via HTTP POST)</li>
+	* <li>dni: Dni of the user (via HTTP POST)</li>
+	* <li>username: Email of the user (via HTTP POST)</li>
+	* <li>password: Password of the user (via HTTP POST)</li>
+	* <li>telephone: Telephone of the user (via HTTP POST)</li>
+	* <li>birthdate: Birthdate of the user (via HTTP POST)</li>
+	* <li>imageType: Image type of the user (via FILES POST)</li>
+	* <li>imageName: Image name of the user (via FILES POST)</li>
+	* <li>imageSize: Image size of the user (via FILES POST)</li>
+	* <li>isAdministrator: Type of the user (administrator) (via HTTP POST)</li>
+	* <li>isTrainer: Type of the user (trainer) (via HTTP POST)</li>
+	* <li>isPupil: Type of the user (pupil) (via HTTP POST)</li>
+	* <li>isCompetitor: Type of the user (competitor) (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a user id is not provided
+	* @throws Exception if the type is not admin
+	* @return void
+	*/
 	public function update(){
 		if (!isset($_REQUEST["id_user"])) {
 			throw new Exception("A id user is mandatory");
@@ -292,6 +383,7 @@ class UsersController extends BaseController {
 			$user->setSurname($_POST["surname"]);
 			$user->setDni($_POST["dni"]);
 			$user->setUsername($_POST["username"]);
+			// if the password was chenged put the flag to true
 			if(isset($_POST["password"]) && $_POST["password"] != ""){
 				$user->setPassword(md5($_POST["password"]));
 				$checkPassword = true;
@@ -306,6 +398,7 @@ class UsersController extends BaseController {
 			$imageType = $_FILES['image']['type'];
 			$imageName = $_FILES['image']['name'];
 			$imageSize = $_FILES['image']['size'];
+			// if the image was chenged put the flag to true
 			if($_FILES['image']['name'] != NULL){
 				$user->setImage($directory.$_FILES['image']['name']);
 				$checkImage = true;
@@ -382,7 +475,22 @@ class UsersController extends BaseController {
 		$this->view->render("users", "update");
 	}
 
-
+	/**
+	* Action to delete a user
+	*
+	* This action should only be called via HTTP POST
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the user (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a user id is not provided
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any user with the provided id
+	* @return void
+	*/
 	public function delete() {
 
 		if (!isset($_REQUEST["id_user"])) {
@@ -439,6 +547,33 @@ class UsersController extends BaseController {
 
 	}
 
+	/**
+	* Action to list users that match a search pattern
+	*
+	* This action should only be called via HTTP POST
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the user (via HTTP POST)</li>
+	* <li>surname: Surnme of the user (via HTTP POST)</li>
+	* <li>dni: Dni of the user (via HTTP POST)</li>
+	* <li>username: Email of the user (via HTTP POST)</li>
+	* <li>password: Password of the user (via HTTP POST)</li>
+	* <li>telephone: Telephone of the user (via HTTP POST)</li>
+	* <li>birthdate: Birthdate of the user (via HTTP POST)</li>
+	* <li>imageType: Image type of the user (via FILES POST)</li>
+	* <li>imageName: Image name of the user (via FILES POST)</li>
+	* <li>imageSize: Image size of the user (via FILES POST)</li>
+	* <li>isAdministrator: Type of the user (administrator) (via HTTP POST)</li>
+	* <li>isTrainer: Type of the user (trainer) (via HTTP POST)</li>
+	* <li>isPupil: Type of the user (pupil) (via HTTP POST)</li>
+	* <li>isCompetitor: Type of the user (competitor) (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if the type is not admin
+	* @return void
+	*/
 	public function search() {
 		if(!isset($this->currentUser)){
 			throw new Exception("Not in session. Show users requires login");

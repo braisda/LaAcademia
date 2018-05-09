@@ -57,8 +57,8 @@ $view->setVariable ("title", "Show Tournaments");
                       <td><?= $n++ ?></td>
         							<td><?= $tournament->getName() ?></td>
         							<td><?= $tournament->getDescription() ?></td>
-                      <td><?= $tournament->getStart_date() ?></td>
-                      <td><?= $tournament->getEnd_date() ?></td>
+                      <td><?= date("d-m-Y", strtotime($tournament->getStart_date())); ?></td>
+                      <td><?= date("d-m-Y", strtotime($tournament->getStart_date())); ?></td>
                       <td>
                         <a href="index.php?controller=tournaments&amp;action=view&amp;id_space=<?= $tournament->getId_tournament() ?>"><span class="oi oi-zoom-in"></span></a>
                         <?php

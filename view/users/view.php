@@ -27,7 +27,7 @@ $view->setVariable ( "title", "View User" );
       </div>
       <ul id="background_table"  class="list-group list-group-flush">
         <li id="table_color" class="list-group-item"><?= i18n("Dni:") ?> <?= $user->getDni() ?></li>
-        <li id="table_color" class="list-group-item"><?= i18n("Birthdate:") ?> <?= $user->getBirthdate() ?></li>
+        <li id="table_color" class="list-group-item"><?= i18n("Birthdate:") ?> <?= date("d-m-Y", strtotime($user->getBirthdate())); ?></li>
         <li id="table_color" class="list-group-item"><?= i18n("Email:") ?> <?= $user->getUsername() ?></li>
         <li id="table_color" class="list-group-item"><?= i18n("Telephone:") ?> <?= $user->getTelephone() ?></li>
         <li id="table_color" class="list-group-item">

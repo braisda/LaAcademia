@@ -24,7 +24,7 @@ $view->setVariable ( "title", "View Event" );
       <ul id="background_table"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= $event->getDescription() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Place") ?>:</strong> <?= $event->getName_space() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $event->getDate() ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= date("d-m-Y", strtotime($event->getDate())); ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $event->getTime() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Capacity") ?>:</strong> <?= $event->getCapacity() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $event->getPrice() ?> €</li>

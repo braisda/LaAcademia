@@ -57,7 +57,7 @@ $view->setVariable ("title", "Show Events");
                       <td><?= $n++ ?></td>
         							<td><?= $event->getName() ?></td>
         							<td><?= $event->getCapacity() ?></td>
-                      <td><?= $event->getDate() ?></td>
+                      <td><?= date("d-m-Y", strtotime($event->getDate())); ?></td>
         							<td><?= $event->getTime() ?></td>
                       <td>
                         <a href="index.php?controller=events&amp;action=view&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-zoom-in"></span></a>

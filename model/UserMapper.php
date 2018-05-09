@@ -102,7 +102,7 @@ class UserMapper {
 		$stmt->execute (array($user));
 		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
 
-		if ($array ["is_pupil"] == 1) {
+		if ($array ["is_pupil"] == 1 && $array ["is_competitor"] == 1) {
 			return true;
 		} else {
 			return false;
@@ -118,7 +118,23 @@ class UserMapper {
 		$stmt->execute (array($user));
 		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
 
-		if ($array ["is_competitor"] == 1) {
+		if ($array ["is_competitor"] == 1 && $array ["is_pupil"] == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	* Checks if the user is a pupil and a competitor user
+	*/
+	public function isPupilCompetitor() {
+		$user = $_SESSION ["currentuser"];
+		$stmt = $this->db->prepare ( "SELECT * FROM users WHERE email=?" );
+		$stmt->execute (array($user));
+		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
+
+		if ($array ["is_pupil"] == 1 && $array ["is_competitor"] == 1) {
 			return true;
 		} else {
 			return false;

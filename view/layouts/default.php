@@ -140,8 +140,6 @@ $currentuser = $view->getVariable("currentusername");
 	</header>
 
 	<main id = "main">
-
-
 		<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>
 	</main>
 

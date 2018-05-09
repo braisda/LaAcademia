@@ -10,16 +10,16 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
 /**
-* Class EventsController
+* Class TournamentController
 *
-* Controller to events CRUD
+* Controller to tournaments CRUD
 *
-* @author lipido <lipido@gmail.com>
+* @author lipido <brais@gmail.com>
 */
 class TournamentsController extends BaseController {
 
 	/**
-	* Reference to the EventMapper to interact
+	* Reference to the TournamentMapper to interact
 	* with the database
 	*
 	* @var TournamentMapper
@@ -39,8 +39,8 @@ class TournamentsController extends BaseController {
 			throw new Exception("Not in session. Show tournaments requires login");
 		}
 
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer" && $this->userMapper->findType() != "competitor"){
-			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
+		if($this->userMapper->findType() == "pupil"){
+			throw new Exception("You aren't an admin, trainer or competitor. See all tournaments requires be admin, trainer or competitor");
 		}
 
 		$tournaments = $this->tournamentMapper->show();
@@ -59,6 +59,10 @@ class TournamentsController extends BaseController {
 
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View Events requires login");
+		}
+
+		if($this->userMapper->findType() == "pupil"){
+			throw new Exception("You aren't an admin, trainer or competitor. See all tournaments requires be admin, trainer or competitor");
 		}
 
 		$id_tournament = $_GET["id_tournament"];

@@ -285,7 +285,7 @@ class User {
 	public function getImage() {
 		return $this->image;
 	}
-	
+
 	/**
 	* Sets the image of this user
 	*
@@ -455,6 +455,10 @@ class User {
 		if($checkPassword){
 			if (strlen($password) < 5) {
 				$errors["password"] = "Password must be at least 5 characters length";
+			}
+
+			if (strlen($password) > 20) {
+				$errors["password"] = "Password must not be more than 20 characters length";
 			}
 
 			if(!preg_match($expPass, $password) && !strlen($password) < 5){

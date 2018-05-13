@@ -118,12 +118,23 @@ class Space {
 	public function validateSpace($imageName, $imageType, $checkImage){
 		$errors = array();
 
+		$expName = '/^[A-Za-z0-9\s]+$/';
+		$expCapacity = '/^\d+$/';
+
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
 		}
 
+		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
+			$errors["name"] = "Name must have only letters and numbers";
+		}
+
 		if($this->getCapacity() == NULL){
 			$errors["capacity"] = "The capacity is wrong";
+		}
+
+		if(!$this->getCapacity() == NULL &&!preg_match($expCapacity, $this->getCapacity())){
+			$errors["name"] = "Capacity must have only numbers";
 		}
 
 		if($checkImage){

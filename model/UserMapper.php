@@ -200,10 +200,10 @@ class UserMapper {
 	*
 	* @param string $id_user The id of the user
 	* @throws PDOException if a database error occurs
-	* @return User The User instances. NULL if the Post is not found
+	* @return User The User instances. NULL if the User is not found
 	*
 	*/
-	public function getUser($id_user) {
+	public function view($id_user) {
 		$stmt = $this->db->prepare("SELECT * FROM users WHERE id_user=?");
 		$stmt->execute(array($id_user));
 
@@ -291,7 +291,7 @@ class UserMapper {
 	/**
 	* Deletes a User into the database
 	*
-	* @param User $post The user to be deleted
+	* @param User $user The user to be deleted
 	* @throws PDOException if a database error occurs
 	* @return void
 	*/
@@ -304,7 +304,7 @@ class UserMapper {
 	/**
 	* Searhs a User into the database
 	*
-	* @param string $query The user to be searched
+	* @param string $query The query for the user to be searched
 	* @throws PDOException if a database error occurs
 	* @return mixed Array of User instances that match the search parameter
 	*/

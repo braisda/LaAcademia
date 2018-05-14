@@ -162,7 +162,7 @@ class UsersController extends BaseController {
 		$id_user = $_GET["id_user"];
 
 		// find the User object in the database
-		$user = $this->userMapper->getUser($id_user);
+		$user = $this->userMapper->view($id_user);
 
 		if ($user == NULL) {
 			throw new Exception("no such user with id: ".$id_user);
@@ -323,7 +323,7 @@ class UsersController extends BaseController {
 	}
 
 	/**
-	* Action to edit a user
+	* Action to edit an user
 	*
 	* When called via GET, it shows the add form
 	* When called via POST, it modifies the user in the database.
@@ -349,6 +349,7 @@ class UsersController extends BaseController {
 	* @throws Exception if no user is in session
 	* @throws Exception if a user id is not provided
 	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any user with the provided id
 	* @return void
 	*/
 	public function update(){
@@ -494,7 +495,7 @@ class UsersController extends BaseController {
 	public function delete() {
 
 		if (!isset($_REQUEST["id_user"])) {
-			throw new Exception("A id_user is mandatory");
+			throw new Exception("A id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -665,7 +666,7 @@ class UsersController extends BaseController {
 			}
 
 			if (empty($query)) {
-				$users = $this->userMapper->showAllUsers();
+				$users = $this->userMapper->show();
 			} else {
 				$users = $this->userMapper->search($query);
 			}

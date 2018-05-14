@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/ValidationException.php");
 *
 * Represents a Space in the academy
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class Space {
 
@@ -26,21 +26,23 @@ class Space {
 
   /**
 	* The capacity of the space
+	* @var string
 	*/
 	private $capacity;
 
 	/**
 	* The image of the space
+	* @var string
 	*/
 	private $image;
 
 	/**
 	* The constructor
 	*
-	* @param $id_space The name of the space
-	* @param $name The name of the space
-  * @param $capacity The capacity of the space
-  * @param $image The image of the space
+	* @param string $id_space The name of the space
+	* @param string $name The name of the space
+  * @param string $capacity The capacity of the space
+  * @param string $image The image of the space
 	*/
 	public function __construct($id_space=NULL, $name=NULL, $capacity=NULL, $image=NULL) {
 		$this->id_space = $id_space;
@@ -115,7 +117,21 @@ class Space {
 		$this->image = $image;
 	}
 
-	public function validateSpace($imageName, $imageType, $checkImage){
+	/**
+	* Checks if the current instance is valid
+	* for being inserted in the database.
+	*
+	* @param string $imageName The name of the image of this space
+	* @param string $imageType The type the image of this space
+	* @param string $imageSize The image size of the image of this space
+	* @param string $checkImage A indicator to check the image
+	*								(don't check if is a update that doesn't changes the image)
+	*
+	* @throws ValidationException if the instance is not valid
+	*
+	* @return void
+	*/
+	public function validateSpace($imageName, $imageType, $imageSize, $checkImage){
 		$errors = array();
 
 		$expName = '/^[A-Za-z0-9\s]+$/';
@@ -138,16 +154,21 @@ class Space {
 		}
 
 		if($checkImage){
-			if ($imageType != "image/gif" and $imageType != "image/jpeg" and $imageType != "image/jpg" and $imageType != "image/png"){
-				$errors["imagetype"] = "The image is not valid";
+			if($imageSize < 5242880){
+				if($checkImage){
+					if ($imageName == NULL){
+						$errors["imagetype"] = "Not image selected";
+					}
+				}
+
+				if ($imageName != NULL and $imageType != "image/gif" and $imageType != "image/jpeg" and $imageType != "image/jpg" and $imageType != "image/png"){
+					$errors["imagetype"] = "The image is not valid";
+				}
+			}else{
+				$errors["imagetype"] = "The image is too big";
 			}
 		}
 
-		if($checkImage){
-			if ($imageName == NULL){
-				$errors["imagetype"] = "Not image selected";
-			}
-		}
 
 		if (sizeof($errors) > 0){
 			throw new ValidationException($errors, "Space is not valid");

@@ -196,7 +196,7 @@ class CourseMapper {
 	}
 
 	/**
-	* Searhes a Course into the database
+	* Searches a Course into the database
 	*
 	* @param string $query The query for the course to be searched
 	* @throws PDOException if a database error occurs

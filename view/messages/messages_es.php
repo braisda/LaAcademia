@@ -202,7 +202,7 @@ array(
 	"Yes" => "Sí",
 	"No" => "No",
 	"Search Course Reservation" => "Buscar Reservas de Cursos",
-	"" => "",
+	"Search Event" => "Buscar Evento",
 	"" => "",
 	"" => "",
 	"" => "",

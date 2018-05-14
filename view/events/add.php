@@ -9,6 +9,30 @@ $view->setVariable("title", "Add Event");
 $errors = $view->getVariable("errors");
 ?>
 
+<script>
+function validateName(){
+  var name = document.getElementById("name");
+  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/.test(name.value);
+
+  if(!res){
+    document.getElementById("name").style.borderColor = "red";
+  }else{
+    document.getElementById("name").style.borderColor = "#3c3a37";
+  }
+}
+
+function validateDescription(){
+  var description = document.getElementById("description");
+  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ().,"'¡!]+$/.test(description.value);
+
+  if(!res){
+    document.getElementById("description").style.borderColor = "red";
+  }else{
+    document.getElementById("description").style.borderColor = "#3c3a37";
+  }
+}
+</script>
+
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=events&amp;action=show"><?= i18n("Events List") ?></a></li>
@@ -23,7 +47,7 @@ $errors = $view->getVariable("errors");
     <div id="background_table" class="form-row">
       <div class="form-group col-md-6">
         <label for="name"><?=i18n("Name")?></label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="<?=i18n("Name")?>">
+        <input type="text" class="form-control" id="name" onblur="validateName()" name="name" placeholder="<?=i18n("Name")?>">
         <?php if(isset($errors["name"])){ ?>
             <div class="alert alert-danger" role="alert">
               <strong><?= i18n("Error!") ?></strong> <?= isset($errors["name"])?i18n($errors["name"]):"" ?>
@@ -63,7 +87,7 @@ $errors = $view->getVariable("errors");
 
       <div class="form-group col-md-8">
         <label for="description"><?=i18n("Description")?></label>
-        <textarea class="form-control" id="description" name="description" rows="8" placeholder="<?=i18n("Description")?>"></textarea>
+        <textarea class="form-control" id="description" onblur="validateDescription()" name="description" rows="8" placeholder="<?=i18n("Description")?>"></textarea>
         <?php if(isset($errors["description"])){ ?>
             <div class="alert alert-danger" role="alert">
               <strong><?= i18n("Error!") ?></strong> <?= isset($errors["description"])?i18n($errors["description"]):"" ?>
@@ -95,11 +119,6 @@ $errors = $view->getVariable("errors");
             </div>
         <?php } ?>
       </div>
-
-      <!--   <div class="form-group col-md-2">
-        <label for="inputZip">Foto</label>
-        <input type="file" id="inputZip">
-      </div>   -->
     </div>
     <br/>
     <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Add")?></button>

@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/ValidationException.php");
 *
 * Represents a Event in the academy
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class Event {
 
@@ -26,51 +26,58 @@ class Event {
 
 	/**
 	* The description of the event
+	* @var string
 	*/
 	private $description;
 
   /**
 	* The price of the event
+	* @var string
 	*/
 	private $price;
 
 	/**
 	* The capacity of the event
+	* @var string
 	*/
 	private $capacity;
 
 	/**
 	* The date of the event
+	* @var string
 	*/
 	private $date;
 
   /**
 	* The time of the event
+	* @var string
 	*/
 	private $time;
 
 	/**
 	* The space of the event
+	* @var string
 	*/
 	private $id_space;
 
   /**
   * The space of the event
+	* @var string
   */
   private $name_space;
 
 	/**
 	* The constructor
 	*
-	* @param $id_event The name of the event
-	* @param $name The name of the event
-  * @param $description The description of the event
-  * @param $price The price of the event
-  * @param $capacity The capacity of the event
-  * @param $date The date of the event
-  * @param $time The time of the event
-  * @param $id_space The space of the event
-  * @param $name_space The name of the event's space
+	* @param string $id_event The name of the event
+	* @param string $name The name of the event
+  * @param string $description The description of the event
+  * @param string $price The price of the event
+  * @param string $capacity The capacity of the event
+  * @param string $date The date of the event
+  * @param string $time The time of the event
+  * @param string $id_space The space of the event
+  * @param string $name_space The name of the event's space
 	*/
 	public function __construct($id_event=NULL, $name=NULL, $description=NULL,
 															$price=NULL, $capacity=NULL, $date=NULL,
@@ -237,15 +244,34 @@ class Event {
 		return $this->name_space;
 	}
 
+	/**
+	* Checks if the current instance is valid
+	* for being inserted in the database.
+	*
+	* @throws ValidationException if the instance is not valid
+	*
+	* @return void
+	*/
 	public function validateEvent(){
 		$errors = array();
+
+		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
+		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚnÑ().,\"'¡!]+$/";
 
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
 		}
 
+		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
+			$errors["name"] = "Name must have only letters and numbers";
+		}
+
 		if($this->getDescription() == NULL){
 			$errors["description"] = "The description is wrong";
+		}
+
+		if(!$this->getDescription() == NULL &&!preg_match($expDescrip, $this->getDescription())){
+			$errors["description"] = "Description must have only letters and numbers";
 		}
 
 		if($this->getPrice() == NULL){

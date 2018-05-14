@@ -9,6 +9,30 @@ $view->setVariable ( "title", "Update Course" );
 $errors = $view->getVariable ( "errors" );
 ?>
 
+<script>
+function validateName(){
+  var name = document.getElementById("name");
+  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/.test(name.value);
+
+  if(!res){
+    document.getElementById("name").style.borderColor = "red";
+  }else{
+    document.getElementById("name").style.borderColor = "#3c3a37";
+  }
+}
+
+function validateDescription(){
+  var description = document.getElementById("description");
+  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ().,"'¡!]+$/.test(description.value);
+
+  if(!res){
+    document.getElementById("description").style.borderColor = "red";
+  }else{
+    document.getElementById("description").style.borderColor = "#3c3a37";
+  }
+}
+</script>
+
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=courses&amp;action=show"><?= i18n("Courses List") ?></a></li>

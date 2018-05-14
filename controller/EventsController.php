@@ -14,7 +14,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 *
 * Controller to events CRUD
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class EventsController extends BaseController {
 
@@ -34,6 +34,13 @@ class EventsController extends BaseController {
     $this->userMapper = new UserMapper();
 	}
 
+	/**
+	* Action to list events
+	*
+	* Loads all the events from the database.
+	* No HTTP parameters are needed.
+	*
+	*/
 	public function show(){
 		if(!isset($this->currentUser)){
 			throw new Exception("Not in session. Show events requires login");
@@ -48,6 +55,20 @@ class EventsController extends BaseController {
 		$this->view->render("events", "show");
 	}
 
+	/**
+	* Action to view a provided event
+	*
+	* This action should only be called via GET
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the event (via HTTP GET)</li>
+	* </ul>
+	*
+	* @throws Exception If no such user of the provided id is found
+	* @return void
+	*
+	*/
 	public function view(){
 		if (!isset($_GET["id_event"])) {
 			throw new Exception("Event id is mandatory");
@@ -73,6 +94,27 @@ class EventsController extends BaseController {
 		$this->view->render("events", "view");
 	}
 
+	/**
+	* Action to add a new event
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it adds the user to the database
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the event (via HTTP POST)</li>
+	* <li>description: Description of the event (via HTTP POST)</li>
+	* <li>price: Price of the event (via HTTP POST)</li>
+	* <li>capacity: Capacity of the event (via HTTP POST)</li>
+	* <li>date: Date of the event (via HTTP POST)</li>
+	* <li>time: Time of the event (via HTTP POST)</li>
+	* <li>space: Space of the event (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if the type is not admin
+	* @return void
+	*/
 	public function add(){
 
 		if (!isset($this->currentUser)) {
@@ -101,9 +143,16 @@ class EventsController extends BaseController {
 				$event->validateEvent(); // if it fails, ValidationException
 
 				$this->eventMapper->add($event);
-
+				// POST-REDIRECT-GET
+				// Everything OK, we will redirect the user to the list of posts
+				// We want to see a message after redirection, so we establish
+				// a "flash" message (which is simply a Session variable) to be
+				// get in the view after redirection.
 				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully added."),$event ->getName()));
 
+				// perform the redirection. More or less:
+				// header("Location: index.php?controller=events&action=show")
+				// die();
 				$this->view->redirect("events", "show");
 
 			}catch(ValidationException $ex) {
@@ -125,6 +174,29 @@ class EventsController extends BaseController {
 		$this->view->render("events", "add");
 	}
 
+	/**
+	* Action to edit an event
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it modifies the event in the database.
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the event (via HTTP POST)</li>
+	* <li>description: Description of the event (via HTTP POST)</li>
+	* <li>price: Price of the event (via HTTP POST)</li>
+	* <li>capacity: Capacity of the event (via HTTP POST)</li>
+	* <li>date: Date of the event (via HTTP POST)</li>
+	* <li>time: Time of the event (via HTTP POST)</li>
+	* <li>space: Space of the event (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a user id is not provided
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any event with the provided id
+	* @return void
+	*/
 	public function update(){
 		if (!isset($_REQUEST["id_event"])) {
 			throw new Exception("A event id is mandatory");
@@ -162,8 +234,16 @@ class EventsController extends BaseController {
 
 				$this->eventMapper->update($event);
 
+				// POST-REDIRECT-GET
+				// Everything OK, we will redirect the user to the list of posts
+				// We want to see a message after redirection, so we establish
+				// a "flash" message (which is simply a Session variable) to be
+				// get in the view after redirection.
 				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully updated."),$event ->getName()));
 
+				// perform the redirection. More or less:
+				// header("Location: index.php?controller=events&action=show")
+				// die();
 				$this->view->redirect("events", "show");
 
 			}catch(ValidationException $ex) {
@@ -185,6 +265,22 @@ class EventsController extends BaseController {
 		$this->view->render("events", "update");
 	}
 
+	/**
+	* Action to delete an event
+	*
+	* This action should only be called via HTTP POST
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the event (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a user id is not provided
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any event with the provided id
+	* @return void
+	*/
 	public function delete() {
 
 		if (!isset($_REQUEST["id_event"])) {
@@ -222,7 +318,7 @@ class EventsController extends BaseController {
 				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully deleted."), $event->getName()));
 
 				// perform the redirection. More or less:
-				// header("Location: index.php?controller=posts&action=index")
+				// header("Location: index.php?controller=events&action=show")
 				// die();
 				$this->view->redirect("events", "show");
 
@@ -238,6 +334,109 @@ class EventsController extends BaseController {
 		$this->view->setVariable("event", $event);
 		// render the view (/view/users/add.php)
 		$this->view->render("events", "delete");
+	}
 
+	/**
+	* Action to list events that match a search pattern
+	*
+	* This action should only be called via HTTP POST
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the event (via HTTP POST)</li>
+	* <li>description: Description of the event (via HTTP POST)</li>
+	* <li>price: Price of the event (via HTTP POST)</li>
+	* <li>capacity: Capacity of the event (via HTTP POST)</li>
+	* <li>date: Date of the event (via HTTP POST)</li>
+	* <li>time: Time of the event (via HTTP POST)</li>
+	* <li>space: Space of the event (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if the type is not admin
+	* @return void
+	*/
+	public function search() {
+		if(!isset($this->currentUser)){
+			throw new Exception("Not in session. Show users requires login");
+		}
+
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
+		}
+
+		if (isset($_POST["submit"])) {
+			$query = "";
+			$flag = 0;
+
+			if ($_POST["name"]){
+				$query .= "name LIKE '%". $_POST["name"]."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["description"]){
+				if ($flag){
+				$query .= " AND ";
+				}
+				$query .= "description LIKE '%". $_POST["description"] ."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["price"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "price='". $_POST["price"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["capacity"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "capacity='". $_POST["capacity"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["date"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "date='". $_POST["date"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["time"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "time='". $_POST["time"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["space"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "id_space='". $_POST["space"]."'";
+				$flag = 1;
+			}
+
+			if (empty($query)) {
+				$events = $this->eventMapper->show();
+			} else {
+				$events = $this->eventMapper->search($query);
+			}
+			$this->view->setVariable("events", $events);
+			$this->view->render("events", "show");
+		}else {
+			//Get the id and name of the spaces
+			$spaces = $this->eventMapper->getSpaces();
+			// Put the space variable visible to the view
+			$this->view->setVariable("spaces", $spaces);
+			
+			// render the view (/view/events/search.php)
+			$this->view->render("events", "search");
+		}
 	}
 }

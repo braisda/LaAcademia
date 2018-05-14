@@ -5,39 +5,37 @@ $view = ViewManager::getInstance();
 $course = $view->getVariable ("course");
 $spaces = $view->getVariable("spaces");
 $trainers = $view->getVariable("trainers");
-$view->setVariable("title", "Add Course");
+$view->setVariable("title", "Search Courses");
 $errors = $view->getVariable("errors");
 ?>
 
 <script>
 function validateName(){
   var name = document.getElementById("name");
-  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/.test(name.value);
+  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$]+$/.test(name.value);
 
   if(!res){
-      document.getElementById("name").style.borderColor = "red";
+    document.getElementById("name").style.borderColor = "red";
   }else{
     document.getElementById("name").style.borderColor = "#3c3a37";
   }
 }
 
 function validateDescription(){
-  var name = document.getElementById("description");
-  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/.test(name.value);
+  var description = document.getElementById("description");
+  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ().,"'¡!]+$/.test(description.value);
 
   if(!res){
-      document.getElementById("description").style.borderColor = "red";
+    document.getElementById("description").style.borderColor = "red";
   }else{
     document.getElementById("description").style.borderColor = "#3c3a37";
   }
 }
-
-
 </script>
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
-  <li class="breadcrumb-item"><a href="index.php?controller=users&amp;action=show"><?= i18n("Courses List") ?></a></li>
+  <li class="breadcrumb-item"><a href="index.php?controller=courses&amp;action=show"><?= i18n("Courses List") ?></a></li>
   <li class="breadcrumb-item active"><?= i18n("Search Course") ?></li>
 </ol>
 

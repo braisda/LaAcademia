@@ -365,6 +365,7 @@ class Course {
 		$errors = array();
 
 		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
+		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚnÑ().,\"'¡!]+$/";
 
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
@@ -390,7 +391,7 @@ class Course {
 			$errors["description"] = "The description is wrong";
 		}
 
-		if(!$this->getDescription() == NULL &&!preg_match($expName, $this->getDescription())){
+		if(!$this->getDescription() == NULL &&!preg_match($expDescrip, $this->getDescription())){
 			$errors["description"] = "Description must have only letters and numbers";
 		}
 

@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 *
 * Database interface for CourseReservation entities
 *
-* @author lipido <braisda@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class CourseReservationMapper {
 
@@ -23,15 +23,29 @@ class CourseReservationMapper {
 	}
 
 	/**
-	* Saves a Course into the database
+	* Checks if a given reservation is already in the database
 	*
-	* @param CourseReservation $courseReservation The reservation to be saved
-	* @throws PDOException if a database error occurs
-	* @return void
+	* @param string $pupil the pupil of the reservation to check
+	* @param string $course the course of the reservation to check
+	* @return boolean true if the name exists, false otherwise
 	*/
+	public function reservationExists($pupil, $course) {
+		$stmt = $this->db->prepare("SELECT count(id_pupil) FROM courses_reservations where id_pupil=? AND id_course=?");
+		$stmt->execute(array($pupil, $course));
 
+		if ($stmt->fetchColumn() > 0) {
+			return true;
+		}
+	}
+
+	/**
+	* Retrieves all reservations
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of CourseReservation instances
+	*/
 	public function show() {
-		$stmt = $this->db->query ( "SELECT * FROM courses_reservations ORDER BY date DESC" );
+		$stmt = $this->db->query ("SELECT * FROM courses_reservations ORDER BY date DESC");
 
 		$reservations_db = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 
@@ -47,6 +61,13 @@ class CourseReservationMapper {
 		return $reservations;
 	}
 
+	/**
+	* Retrieves reservations of the current user
+	*
+	* @param string $id_pupil The id of the user
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of CourseReservation instances
+	*/
 	public function showMine($id_pupil) {
 		$stmt = $this->db->prepare("SELECT * FROM courses_reservations WHERE id_pupil= ? ORDER BY date DESC");
 		$stmt->execute(array($id_pupil));
@@ -63,6 +84,12 @@ class CourseReservationMapper {
 		return $reservations;
 	}
 
+	/**
+	* Retrieves id, name, surname and email from all users
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of users
+	*/
   public function getPupils() {
 		$stmt = $this->db->query("SELECT id_user, name, surname, email FROM users WHERE is_pupil = 1");
 
@@ -71,6 +98,12 @@ class CourseReservationMapper {
 		return $pupils;
 	}
 
+	/**
+	* Retrieves id, name, and type from all courses
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of courses
+	*/
 	public function getCourses() {
 		$stmt = $this->db->query("SELECT id_course, name, type FROM courses");
 
@@ -79,6 +112,14 @@ class CourseReservationMapper {
 		return $courses;
 	}
 
+	/**
+	* Loads a CourseReservation from the database given its id
+	*
+	* @param string $id_reservation The id of the reservation
+	* @throws PDOException if a database error occurs
+	* @return CourseReservation The CourseReservation instances. NULL if the User is not found
+	*
+	*/
 	public function view($id_reservation) {
 		$stmt = $this->db->prepare("SELECT * FROM courses_reservations WHERE id_reservation=?");
 		$stmt->execute(array($id_reservation));
@@ -93,9 +134,17 @@ class CourseReservationMapper {
 		}
 	}
 
-	public function getState($id_course){
+	/**
+	* Loads the state of a CourseReservation from the database given its id
+	*
+	* @param string $id_reservation The id of the reservation
+	* @throws PDOException if a database error occurs
+	* @return string The state of the reservation. NULL if the CourseReservation is not found
+	*
+	*/
+	public function getState($id_reservation){
 		$stmt = $this->db->prepare("SELECT is_confirmed FROM courses_reservations WHERE id_reservation=?");
-		$stmt->execute(array($id_course));
+		$stmt->execute(array($id_reservation));
 		$state = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if($state != null) {
@@ -105,6 +154,14 @@ class CourseReservationMapper {
 		}
 	}
 
+	/**
+	* Loads the id of the current user
+	*
+	* @param string $email The email of the current user
+	* @throws PDOException if a database error occurs
+	* @return string The id of the current user. NULL if the user is not found
+	*
+	*/
 	public function getId_user($email){
 		$stmt = $this->db->prepare("SELECT id_user FROM users WHERE email=?");
 		$stmt->execute(array($email));
@@ -117,6 +174,13 @@ class CourseReservationMapper {
 		}
 	}
 
+	/**
+	* Saves a CourseReservation into the database
+	*
+	* @param CourseReservation $courseReservation The reservation to be saved
+	* @throws PDOException if a database error occurs
+	* @return int The new reservation id
+	*/
 	public function add($courseReservation) {
 		$stmt = $this->db->prepare("INSERT INTO courses_reservations(date, time, is_confirmed, id_pupil, id_course)
 																values (?,?,?,?,?)");
@@ -127,13 +191,19 @@ class CourseReservationMapper {
 		return $this->db->lastInsertId();
 	}
 
+	/**
+	* Loads a CourseReservation with the informatin of the course from the database given its id
+	*
+	* @param string $id_course The id of the course
+	* @throws PDOException if a database error occurs
+	* @return CourseReservation The CourseReservation instances. NULL if the CourseReservation is not found
+	*
+	*/
 	public function getCourse($id_course) {
 		$stmt = $this->db->prepare("SELECT * FROM courses WHERE id_course=?");
 		$stmt->execute(array($id_course));
 
 		$course = $stmt->fetch ( PDO::FETCH_ASSOC );
-
-		//var_dump($course);
 
 		$stmt2 = $this->db->prepare("SELECT name FROM spaces WHERE id_space=?");
     $stmt2->execute(array($course ["id_space"]));
@@ -159,6 +229,13 @@ class CourseReservationMapper {
 		}
 	}
 
+	/**
+	* Updates a CourseReservation in the database
+	*
+	* @param Space $reservation The reservation to be saved
+	* @throws PDOException if a database error occurs
+	* @return int The modified id reservation
+	*/
 	public function confirm($reservation) {
 		$stmt = $this->db->prepare("UPDATE courses_reservations
 																set is_confirmed = ?
@@ -168,6 +245,13 @@ class CourseReservationMapper {
 		return $this->db->lastInsertId();
 	}
 
+	/**
+	* Updates a CourseReservation in the database
+	*
+	* @param CourseReservation $reservation The reservation to be saved
+	* @throws PDOException if a database error occurs
+	* @return int The modified id reservation
+	*/
 	public function cancel($reservation) {
 		$stmt = $this->db->prepare("UPDATE courses_reservations
 																set is_confirmed = ?
@@ -177,9 +261,41 @@ class CourseReservationMapper {
 		return $this->db->lastInsertId();
 	}
 
-	public function delete($course) {
+	/**
+	* Deletes a CourseReservation into the database
+	*
+	* @param CourseReservation $course The reservation to be deleted
+	* @throws PDOException if a database error occurs
+	* @return void
+	*/
+	public function delete($reservation) {
 		//Borrado físico
 		$stmt = $this->db->prepare("DELETE FROM courses_reservations WHERE id_reservation=?");
-		$stmt->execute(array($course->getId_reservation()));
+		$stmt->execute(array($reservation->getId_reservation()));
 	}
+
+	/**
+	* Searhes a CourseReservation into the database
+	*
+	* @param string $query The query for the space to be searched
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of CourseReservation instances that match the search parameter
+	*/
+	public function search($query) {
+        $search_query = "SELECT * FROM courses_reservations WHERE ". $query;
+        $stmt = $this->db->prepare($search_query);
+        $stmt->execute();
+        $reservations_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+				$reservations = array ();
+
+				foreach ($reservations_db as $reservation) {
+					array_push ($reservations, new CourseReservation($reservation ["id_reservation"],
+																					 $reservation ["date"], $reservation ["time"],
+																					 $reservation ["is_confirmed"], $reservation ["id_pupil"],
+																					 $reservation ["id_course"]));
+				}
+
+        return $reservations;
+    }
 }

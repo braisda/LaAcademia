@@ -44,7 +44,7 @@ class SpaceMapper {
 	* @return mixed Array of Space instances
 	*/
 	public function show() {
-		$stmt = $this->db->query ( "SELECT * FROM spaces ORDER BY name" );
+		$stmt = $this->db->query("SELECT * FROM spaces ORDER BY name");
 
 		$spaces_db = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 
@@ -123,7 +123,7 @@ class SpaceMapper {
 	}
 
 	/**
-	* Searhs a Space into the database
+	* Searhes a Space into the database
 	*
 	* @param string $query The query for the space to be searched
 	* @throws PDOException if a database error occurs

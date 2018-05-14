@@ -330,6 +330,7 @@ class UsersController extends BaseController {
 	*
 	* The expected HTTP parameters are:
 	* <ul>
+	* <li>id: Id of the user (via HTTP POST and GET)</li>
 	* <li>name: Name of the user (via HTTP POST)</li>
 	* <li>surname: Surnme of the user (via HTTP POST)</li>
 	* <li>dni: Dni of the user (via HTTP POST)</li>
@@ -366,7 +367,7 @@ class UsersController extends BaseController {
 		}
 
 		$id_user = $_REQUEST["id_user"];
-		$user = $this->userMapper->getUser($id_user);
+		$user = $this->userMapper->view($id_user);
 
 		if ($user == NULL) {
 			throw new Exception("no such user with id: ".$id_user);
@@ -508,7 +509,7 @@ class UsersController extends BaseController {
 
 		// Get the User object from the database
 		$id_user = $_REQUEST["id_user"];
-		$user = $this->userMapper->getUser($id_user);
+		$user = $this->userMapper->view($id_user);
 
 		// Does the user exist?
 		if ($user == NULL) {
@@ -673,7 +674,7 @@ class UsersController extends BaseController {
 			$this->view->setVariable("users", $users);
 			$this->view->render("users", "show");
 		}else {
-			// render the view (/view/users/add.php)
+			// render the view (/view/users/search.php)
 			$this->view->render("users", "search");
 		}
 	}

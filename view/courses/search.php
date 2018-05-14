@@ -43,7 +43,6 @@ function validateDescription(){
 
 <div class="container" id="container">
   <div id="background_title">
-
     <h4 id="view_title"><?= i18n("Search Course") ?></h4>
   </div>
 

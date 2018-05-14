@@ -196,6 +196,7 @@ class SpacesController extends BaseController {
 	*
 	* The expected HTTP parameters are:
 	* <ul>
+	* <li>id: Id of the space (via HTTP POST and GET)</li>
 	* <li>name: Name of the space (via HTTP POST)</li>
 	* <li>Capacity: Capacity of the space (via HTTP POST)</li>
 	* <li>imageType: Image type of the space (via FILES POST)</li>
@@ -295,7 +296,7 @@ class SpacesController extends BaseController {
 	*
 	* The expected HTTP parameters are:
 	* <ul>
-	* <li>id: Id of the space (via HTTP POST)</li>
+	* <li>id: Id of the post (via HTTP POST and GET)</li>
 	* </ul>
 	*
 	* @throws Exception if no user is in session
@@ -400,7 +401,7 @@ class SpacesController extends BaseController {
 			$this->view->setVariable("spaces", $spaces);
 			$this->view->render("spaces", "show");
 		}else {
-			// render the view (/view/users/add.php)
+			// render the view (/view/spaces/search.php)
 			$this->view->render("spaces", "search");
 		}
 	}

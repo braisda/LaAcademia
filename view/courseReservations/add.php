@@ -1,10 +1,10 @@
 <?php
-// file: view/courses/add.php
+// file: view/courseReservationss/add.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
-$view = ViewManager::getInstance ();
+$view = ViewManager::getInstance();
 $course = $view->getVariable("course");
-$view->setVariable ( "title", "Add Course Reservation" );
-$errors = $view->getVariable ( "errors" );
+$view->setVariable("title", "Add Course Reservation");
+$errors = $view->getVariable("errors");
 ?>
 
 <ol class="breadcrumb">
@@ -30,7 +30,13 @@ $errors = $view->getVariable ( "errors" );
         <li id="table_color" class="list-group-item"><strong><?= i18n("End Time") ?>:</strong> <?= $course->getEnd_time() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Capacity") ?>:</strong> <?= $course->getCapacity() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $course->getPrice() ?></li>
+
       </ul>
+      <?php if(isset($errors["reservation"])){ ?>
+          <div class="alert alert-danger" role="alert">
+            <strong><?= i18n("Error!") ?></strong> <?= isset($errors["reservation"])?i18n($errors["reservation"]):"" ?>
+          </div>
+      <?php } ?>
       <br/>
       <form action="index.php?controller=courseReservations&amp;action=add" method="POST">
         <input type="hidden" name="id_course" value="<?= $course->getId_course() ?>">

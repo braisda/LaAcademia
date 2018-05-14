@@ -214,6 +214,7 @@ class CoursesController extends BaseController {
 	*
 	* The expected HTTP parameters are:
 	* <ul>
+	* <li>id: Id of the course (via HTTP POST and GET)</li>
 	* <li>name: Name of the course (via HTTP POST)</li>
 	* <li>type: Type of the course (via HTTP POST)</li>
 	* <li>description: Description of the course (via HTTP POST)</li>
@@ -323,7 +324,7 @@ class CoursesController extends BaseController {
 	*
 	* The expected HTTP parameters are:
 	* <ul>
-	* <li>id: Id of the space (via HTTP POST)</li>
+	* <li>id: Id of the post (via HTTP POST and GET)</li>
 	* </ul>
 	*
 	* @throws Exception if no user is in session
@@ -501,7 +502,7 @@ class CoursesController extends BaseController {
 
 			// Put the space variable visible to the view
 			$this->view->setVariable("trainers", $trainers);
-			// render the view (/view/users/add.php)
+			// render the view (/view/courses/search.php)
 			$this->view->render("courses", "search");
 		}
 	}

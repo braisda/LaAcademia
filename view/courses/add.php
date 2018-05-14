@@ -1,12 +1,12 @@
 <?php
 // file: view/courses/add.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
-$view = ViewManager::getInstance ();
-$course = $view->getVariable ( "course" );
+$view = ViewManager::getInstance();
+$course = $view->getVariable("course");
 $spaces = $view->getVariable("spaces");
 $trainers = $view->getVariable("trainers");
-$view->setVariable ( "title", "Add Course" );
-$errors = $view->getVariable ( "errors" );
+$view->setVariable("title", "Add Course");
+$errors = $view->getVariable("errors");
 ?>
 
 <ol class="breadcrumb">

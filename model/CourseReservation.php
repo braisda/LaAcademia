@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/ValidationException.php");
 *
 * Represents a CourseReservation in the academy
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class CourseReservation {
 
@@ -26,21 +26,25 @@ class CourseReservation {
 
 	/**
 	* The time of the reservation
+	* @var string
 	*/
 	private $time;
 
 	/**
 	* The state of the reservation
+	* @var string
 	*/
 	private $is_confirmed;
 
 	/**
 	* The pupil who send the reservation
+	* @var string
 	*/
 	private $id_pupil;
 
 	/**
 	* The course which will be reserved
+	* @var string
 	*/
 	private $id_course;
 
@@ -52,80 +56,91 @@ class CourseReservation {
 
 	/**
 	* The type of the course
+	* @var string
 	*/
 	private $type;
 
 	/**
 	* The description of the course
+	* @var string
 	*/
 	private $description;
 
 	/**
 	* The capacity of the course
+	* @var string
 	*/
 	private $capacity;
 
 	/**
 	* The days when the course is taught
+	* @var string
 	*/
 	private $days;
 
 	/**
 	* The start time of the course
+	* @var string
 	*/
 	private $start_time;
 
 	/**
 	* The end time of the course
+	* @var string
 	*/
 	private $end_time;
 
 	/**
 	* The space of the course
+	* @var string
 	*/
 	private $id_space;
 
 	/**
   * The space name of the course
+	* @var string
   */
   private $name_space;
 
 	/**
 	* The trainer of the course
+	* @var string
 	*/
 	private $id_trainer;
 
 	/**
   * The trainer name of the course
+	* @var string
   */
   private $name_trainer;
 
 	/**
   * The price of the course
+	* @var string
   */
   private $price;
 
 	/**
 	* The constructor
 	*
-	* @param $id_reservation The id of this reservation
-	* @param $date The time of the reservation
-  * @param $time The type of the course
-  * @param $is_confirmed The state of the reservation
-  * @param $id_pupil The pupil who send the reservation
-  * @param $id_course The course which will be reserved
-	* @param $name The name of the course
-  * @param $type The type of the course
-  * @param $description The description of the course
-  * @param $capacity The capacity of the course
-  * @param $days The days when the course is taught
-  * @param $start_time The start time of the course
-  * @param $end_time The end time of the course
-	* @param $id_space The space of the course
-  * @param $id_trainer The trainer of the course
-	* @param $name_space The name of the course's space
-	* @param $name_trainer The name of the course's trainer
-	* @param $price The price of the course
+	* @param string $id_reservation The id of this reservation
+	* @param string $date The time of the reservation
+  * @param string $time The type of the course
+  * @param string $is_confirmed The state of the reservation
+  * @param string $id_pupil The pupil who send the reservation
+  * @param string $id_course The course which will be reserved
+	* @param string $name The name of the course
+  * @param string $type The type of the course
+  * @param string $description The description of the course
+  * @param string $capacity The capacity of the course
+  * @param string $days The days when the course is taught
+  * @param string $start_time The start time of the course
+  * @param string $end_time The end time of the course
+	* @param string $id_space The space of the course
+  * @param string $id_trainer The trainer of the course
+	* @param string $name_space The name of the course's space
+	* @param string $name_trainer The name of the course's trainer
+	* @param string $price The price of the course
 	*/
 	public function __construct($id_reservation=NULL, $date=NULL, $time=NULL,
 															$is_confirmed=NULL, $id_pupil=NULL, $id_course=NULL, $name=NULL, $type=NULL,
@@ -462,53 +477,5 @@ class CourseReservation {
 	*/
 	public function setPrice($price) {
 		$this->price = $price;
-	}
-
-	public function validateCourse(){
-		$errors = array();
-
-		/*if($this->getName() == NULL){
-			$errors["name"] = "The name is wrong";
-		}
-
-		if($this->getType() == NULL){
-			$errors["type"] = "The type is wrong";
-		}
-
-		if($this->getStart_time() == NULL){
-			$errors["start_time"] = "The start time is wrong";
-		}
-
-		if($this->getEnd_time() == NULL){
-			$errors["end_time"] = "The end time is wrong";
-		}
-
-		if($this->getDescription() == NULL){
-			$errors["description"] = "The description is wrong";
-		}
-
-		if($this->getDays() == NULL){
-			$errors["days"] = "The days are wrong";
-		}
-
-		if($this->getCapacity() == NULL){
-			$errors["capacity"] = "The capacity is wrong";
-		}
-
-		if($this->getId_space() == NULL){
-			$errors["space"] = "The space is wrong";
-		}
-
-		if($this->getId_trainer() == NULL){
-			$errors["trainer"] = "The trainer is wrong";
-		}
-
-		if($this->getPrice() == NULL){
-			$errors["price"] = "The price is wrong";
-		}
-
-		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "Course is not valid");
-		}*/
 	}
 }

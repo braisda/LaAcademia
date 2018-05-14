@@ -529,7 +529,7 @@ class UsersController extends BaseController {
 				$this->view->setFlash(sprintf(i18n("User \"%s\" successfully deleted."),$user->getName()));
 
 				// perform the redirection. More or less:
-				// header("Location: index.php?controller=users&action=index")
+				// header("Location: index.php?controller=users&action=show")
 				// die();
 				$this->view->redirect("users", "show");
 

@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 *
 * Database interface for Course entities
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class CourseMapper {
 
@@ -23,13 +23,27 @@ class CourseMapper {
 	}
 
 	/**
-	* Saves a Course into the database
+	* Checks if a given name and type are already in the database
 	*
-	* @param Course $course The course to be saved
-	* @throws PDOException if a database error occurs
-	* @return void
+	* @param string $name the name to check
+	* @param string $type the name to check
+	* @return boolean true if the name and type exists, false otherwise
 	*/
+	public function courseExists($name, $type) {
+		$stmt = $this->db->prepare("SELECT count(name) FROM courses where name=? and type=?");
+		$stmt->execute(array($name, $type));
 
+		if ($stmt->fetchColumn() > 0) {
+			return true;
+		}
+	}
+
+	/**
+	* Retrieves all courses
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of Course instances
+	*/
 	public function show() {
 		$stmt = $this->db->query ( "SELECT * FROM courses ORDER BY name" );
 
@@ -47,6 +61,14 @@ class CourseMapper {
 		return $courses;
 	}
 
+	/**
+	* Loads a Course from the database given its id
+	*
+	* @param string $id_course The id of the course
+	* @throws PDOException if a database error occurs
+	* @return Space The Course instances. NULL if the Course is not found
+	*
+	*/
 	public function view($id_course) {
 		$stmt = $this->db->prepare("SELECT * FROM courses WHERE id_course=?");
 		$stmt->execute(array($id_course));
@@ -77,6 +99,12 @@ class CourseMapper {
 		}
 	}
 
+	/**
+	* Retrieves the id and the name of the users who are trainers
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of User instances
+	*/
 	public function getTrainers() {
 		$stmt = $this->db->query("SELECT id_user, name FROM users WHERE is_trainer = 1");
 
@@ -85,6 +113,12 @@ class CourseMapper {
 		return $trainers;
 	}
 
+	/**
+	* Retrieves the id and the name of all spaces
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of Space instances
+	*/
 	public function getSpaces() {
 		$stmt = $this->db->query("SELECT id_space, name FROM spaces");
 
@@ -93,6 +127,13 @@ class CourseMapper {
 		return $spaces;
 	}
 
+	/**
+	* Saves a Course into the database
+	*
+	* @param Course $course The course to be saved
+	* @throws PDOException if a database error occurs
+	* @return void
+	*/
 	public function add($course) {
 		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time, id_space, id_trainer, price)
 																values (?,?,?,?,?,?,?,?,?,?)");
@@ -111,6 +152,13 @@ class CourseMapper {
 		return $this->db->lastInsertId();
 	}
 
+	/**
+	* Updates a Course in the database
+	*
+	* @param Course $course The course to be saved
+	* @throws PDOException if a database error occurs
+	* @return int The modified id course
+	*/
 	public function update($course) {
 		$stmt = $this->db->prepare("UPDATE courses
 																set name = ?, type = ?, description = ?,
@@ -134,9 +182,41 @@ class CourseMapper {
 		return $this->db->lastInsertId();
 	}
 
+	/**
+	* Deletes a Course into the database
+	*
+	* @param Course $course The course to be deleted
+	* @throws PDOException if a database error occurs
+	* @return void
+	*/
 	public function delete($course) {
 		//Borrado físico
 		$stmt = $this->db->prepare("DELETE FROM courses WHERE id_course=?");
 		$stmt->execute(array($course->getId_course()));
 	}
+
+	/**
+	* Searhes a Course into the database
+	*
+	* @param string $query The query for the course to be searched
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of Course instances that match the search parameter
+	*/
+	public function search($query) {
+        $search_query = "SELECT * FROM courses WHERE ". $query;
+        $stmt = $this->db->prepare($search_query);
+        $stmt->execute();
+        $courses_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $courses = array();
+
+        foreach ($courses_db as $course) {
+            array_push ($courses, new Course($course ["id_course"], $course ["name"], $course ["type"],
+																						 $course ["description"], $course ["capacity"], $course ["days"],
+																						 $course ["start_time"], $course ["end_time"], $course ["id_space"],
+																						 $course ["id_trainer"], $course["price"]));
+        }
+
+        return $courses;
+    }
 }

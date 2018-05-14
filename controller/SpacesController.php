@@ -174,7 +174,6 @@ class SpacesController extends BaseController {
 					$errors["name"] = "Name already exists";
 					$this->view->setVariable("errors", $errors);
 				}
-
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();
@@ -267,7 +266,7 @@ class SpacesController extends BaseController {
 					$this->view->setFlash(sprintf(i18n("Space \"%s\" successfully updated."),$space ->getName()));
 
 					// perform the redirection. More or less:
-					// header("Location: index.php?controller=users&action=show")
+					// header("Location: index.php?controller=spaces&action=show")
 					// die();
 					$this->view->redirect("spaces", "show");
 				} else {
@@ -342,7 +341,7 @@ class SpacesController extends BaseController {
 				$this->view->setFlash(sprintf(i18n("Space \"%s\" successfully deleted."), $space->getName()));
 
 				// perform the redirection. More or less:
-				// header("Location: index.php?controller=posts&action=index")
+				// header("Location: index.php?controller=spaces&action=show")
 				// die();
 				$this->view->redirect("spaces", "show");
 

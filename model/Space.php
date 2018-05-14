@@ -134,7 +134,7 @@ class Space {
 	public function validateSpace($imageName, $imageType, $imageSize, $checkImage){
 		$errors = array();
 
-		$expName = '/^[A-Za-z0-9\s]+$/';
+		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
 		$expCapacity = '/^\d+$/';
 
 		if($this->getName() == NULL){

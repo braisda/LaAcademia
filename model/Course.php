@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/ValidationException.php");
 *
 * Represents a Course in the academy
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class Course {
 
@@ -26,75 +26,86 @@ class Course {
 
 	/**
 	* The type of the course
+	* @var string
 	*/
 	private $type;
 
 	/**
 	* The description of the course
+	* @var string
 	*/
 	private $description;
 
 	/**
 	* The capacity of the course
+	* @var string
 	*/
 	private $capacity;
 
 	/**
 	* The days when the course is taught
+	* @var string
 	*/
 	private $days;
 
 	/**
 	* The start time of the course
+	* @var string
 	*/
 	private $start_time;
 
 	/**
 	* The end time of the course
+	* @var string
 	*/
 	private $end_time;
 
 	/**
 	* The space of the course
+	* @var string
 	*/
 	private $id_space;
 
 	/**
   * The space name of the course
+	* @var string
   */
   private $name_space;
 
 	/**
 	* The trainer of the course
+	* @var string
 	*/
 	private $id_trainer;
 
 	/**
   * The trainer name of the course
+	* @var string
   */
   private $name_trainer;
 
 	/**
   * The price of the course
+	* @var string
   */
   private $price;
 
 	/**
 	* The constructor
 	*
-	* @param $id_course The name of the course
-	* @param $name The name of the course
-  * @param $type The type of the course
-  * @param $description The description of the course
-  * @param $capacity The capacity of the course
-  * @param $days The days when the course is taught
-  * @param $start_time The start time of the course
-  * @param $end_time The end time of the course
-	* @param $id_space The space of the course
-  * @param $id_trainer The trainer of the course
-	* @param $name_space The name of the course's space
-	* @param $name_trainer The name of the course's trainer
-	* @param $price The price of the course
+	* @param string $id_course The name of the course
+	* @param string $name The name of the course
+  * @param string $type The type of the course
+  * @param string $description The description of the course
+  * @param string $capacity The capacity of the course
+  * @param string $days The days when the course is taught
+  * @param string $start_time The start time of the course
+  * @param string $end_time The end time of the course
+	* @param string $id_space The space of the course
+  * @param string $id_trainer The trainer of the course
+	* @param string $name_space The name of the course's space
+	* @param string $name_trainer The name of the course's trainer
+	* @param string $price The price of the course
 	*/
 	public function __construct($id_course=NULL, $name=NULL, $type=NULL,
 															$description=NULL, $capacity=NULL, $days=NULL,
@@ -332,11 +343,35 @@ class Course {
 		$this->price = $price;
 	}
 
+	/**
+	* Checks if the current instance is valid
+	* for being inserted in the database.
+	*
+	* @param string $password The password of this user
+	* @param string $repitedpassword The repeated password of this user
+	* @param string $imageName The name of the image of this user
+	* @param string $imageType The type the image of this user
+	* @param string $imageSize The image size of the image of this user
+	* @param string $checkPassword A indicator to check the password
+	*								(don't check if is an update that doesn't changes the password)
+	* @param string $checkImage A indicator to check the image
+	*								(don't check if is a update that doesn't changes the image)
+	*
+	* @throws ValidationException if the instance is not valid
+	*
+	* @return void
+	*/
 	public function validateCourse(){
 		$errors = array();
 
+		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
+
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
+		}
+
+		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
+			$errors["name"] = "Name must have only letters and numbers";
 		}
 
 		if($this->getType() == NULL){
@@ -353,6 +388,10 @@ class Course {
 
 		if($this->getDescription() == NULL){
 			$errors["description"] = "The description is wrong";
+		}
+
+		if(!$this->getDescription() == NULL &&!preg_match($expName, $this->getDescription())){
+			$errors["description"] = "Description must have only letters and numbers";
 		}
 
 		if($this->getDays() == NULL){

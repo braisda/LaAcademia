@@ -302,7 +302,7 @@ class UserMapper {
 	}
 
 	/**
-	* Searhs a User into the database
+	* Searhes a User into the database
 	*
 	* @param string $query The query for the user to be searched
 	* @throws PDOException if a database error occurs

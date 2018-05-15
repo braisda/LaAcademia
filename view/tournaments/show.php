@@ -27,7 +27,7 @@ $view->setVariable ("title", "Show Tournaments");
     <?php
       if($_SESSION["admin"]){
     ?>
-    <a href="index.php?controller=spaces&amp;action=add">
+    <a href="index.php?controller=tournaments&amp;action=add">
       <span class="oi oi-plus">
     </a>
     <?php
@@ -37,7 +37,7 @@ $view->setVariable ("title", "Show Tournaments");
   </div>
   <div class="row justify-content-around">
 
-    <div id="background_table" class="col-12">
+    <div id="background_table" class="col-9">
       <div class="table-responsive">
         <br/>
             <table id="table_color" class="table table-sm table-dark">
@@ -45,7 +45,6 @@ $view->setVariable ("title", "Show Tournaments");
                 <tr>
                   <th scope="col">#</th>
                   <th><?=i18n("Name")?></th>
-                  <th><?=i18n("Description")?></th>
                   <th><?=i18n("Start Date")?></th>
                   <th><?=i18n("End Date")?></th>
                   <th><?=i18n("Operations")?></th>
@@ -56,11 +55,10 @@ $view->setVariable ("title", "Show Tournaments");
         						<tr>
                       <td><?= $n++ ?></td>
         							<td><?= $tournament->getName() ?></td>
-        							<td><?= $tournament->getDescription() ?></td>
                       <td><?= date("d-m-Y", strtotime($tournament->getStart_date())); ?></td>
                       <td><?= date("d-m-Y", strtotime($tournament->getStart_date())); ?></td>
                       <td>
-                        <a href="index.php?controller=tournaments&amp;action=view&amp;id_space=<?= $tournament->getId_tournament() ?>"><span class="oi oi-zoom-in"></span></a>
+                        <a href="index.php?controller=tournaments&amp;action=view&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-zoom-in"></span></a>
                         <?php
                           if($_SESSION["admin"]){
                         ?>

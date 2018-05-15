@@ -78,6 +78,7 @@ class SpaceMapper {
 			return NULL;
 		}
 	}
+	
 	/**
 	* Saves a Space into the database
 	*

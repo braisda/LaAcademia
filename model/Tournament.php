@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/ValidationException.php");
 *
 * Represents a Tournament in the academy
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class Tournament {
 
@@ -40,45 +40,52 @@ class Tournament {
 	private $end_date;
 
 	/**
+	* The price of the tournament
+	*/
+	private $price;
+
+	/**
 	* The constructor
 	*
-	* @param $id_event The name of the event
-	* @param $name The name of the event
-  * @param $description The description of the event
-  * @param $start_date The start date of the event
-  * @param $start_date The start date of the event
+	* @param $id_tournament The id of the tournament
+	* @param $name The name of the tournament
+  * @param $description The description of the tournament
+  * @param $start_date The start date of the tournament
+  * @param $start_date The start date of the tournament
+	* @param $price The price of the tournament
   */
 	public function __construct($id_tournament=NULL, $name=NULL, $description=NULL,
-															$start_date=NULL, $end_date=NULL) {
+															$start_date=NULL, $end_date=NULL, $price=NULL) {
 		$this->id_tournament = $id_tournament;
 		$this->name = $name;
 		$this->description = $description;
 		$this->start_date = $start_date;
 		$this->end_date = $end_date;
+		$this->price = $price;
 	}
 
 	/**
-	* Gets the id of this event
+	* Gets the id of this tournament
 	*
-	* @return string The id of this event
+	* @return string The id of this tournament
 	*/
 	public function getId_tournament() {
 		return $this->id_tournament;
 	}
 
 	/**
-	* Gets the name of this event
+	* Gets the name of this tournament
 	*
-	* @return string The name of this event
+	* @return string The name of this tournament
 	*/
 	public function getName() {
 		return $this->name;
 	}
 
 	/**
-	* Sets the name of this event
+	* Sets the name of this tournament
 	*
-	* @param string $name The name of this event
+	* @param string $name The name of this tournament
 	* @return void
 	*/
 	public function setName($name) {
@@ -86,18 +93,18 @@ class Tournament {
 	}
 
 	/**
-	* Gets the description of this event
+	* Gets the description of this tournament
 	*
-	* @return string The description of this event
+	* @return string The description of this tournament
 	*/
 	public function getDescription() {
 		return $this->description;
 	}
 
 	/**
-	* Sets the description of this event
+	* Sets the description of this tournament
 	*
-	* @param string $description The description of this event
+	* @param string $description The description of this tournament
 	* @return void
 	*/
 	public function setDescription($description) {
@@ -105,18 +112,18 @@ class Tournament {
 	}
 
   /**
-  * Gets the price of this event
+  * Gets the start date of this tournament
   *
-  * @return string The price of this event
+  * @return string The start date of this tournament
   */
   public function getStart_date() {
   	return $this->start_date;
   }
 
   /**
-  * Sets the price of this event
+  * Sets the start date of this tournament
   *
-  * @param string $price The price of this event
+  * @param string $start date The start date of this tournament
   * @return void
   */
   public function setStart_date($start_date) {
@@ -124,47 +131,78 @@ class Tournament {
   }
 
 	/**
-	* Gets the capacity of this event
+	* Gets the end_date of this tournament
 	*
-	* @return string The capacity of this event
+	* @return string The end_date of this tournament
 	*/
 	public function getEnd_date() {
 		return $this->end_date;
 	}
 
+	/**
+  * Sets the end_date of this tournament
+  *
+  * @param string $end_date The end_date of this tournament
+  * @return void
+  */
+  public function setEnd_date($end_date) {
+  	$this->end_date = $end_date;
+  }
+
+	/**
+	* Gets the price of this tournament
+	*
+	* @return string The price of this tournament
+	*/
+	public function getPrice() {
+		return $this->price;
+	}
+
+	/**
+	* Sets the price of this tournament
+	*
+	* @param string $price The price of this tournament
+	* @return void
+	*/
+	public function setPrice($price) {
+		$this->price = $price;
+	}
+
+	/**
+	* Checks if the current instance is valid
+	* for being inserted in the database.
+	*
+	* @param string $name The name of this tournament
+	* @param string $description The description password of this tournament
+	*
+	* @throws ValidationException if the instance is not valid
+	*
+	* @return void
+	*/
 	public function validateTournament(){
 		$errors = array();
 
+		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
+		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚnÑ().,\"'¡!]+$/";
+
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
+		}
+
+		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
+			$errors["name"] = "Name must have only letters and numbers";
 		}
 
 		if($this->getDescription() == NULL){
 			$errors["description"] = "The description is wrong";
 		}
 
-		if($this->getPrice() == NULL){
-			$errors["price"] = "The price is wrong";
-		}
-
-		if($this->getCapacity() == NULL){
-			$errors["capacity"] = "The capacity is wrong";
-		}
-
-		if($this->getDate() == NULL){
-			$errors["date"] = "The date is wrong";
-		}
-
-		if($this->getTime() == NULL){
-			$errors["time"] = "The time is wrong";
-		}
-
-		if($this->getId_space() == NULL){
-			$errors["space"] = "The space is wrong";
+		if(!$this->getDescription() == NULL &&!preg_match($expDescrip, $this->getDescription())){
+			$errors["description"] = "Description must have only letters and numbers";
 		}
 
 		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "User is not valid");
+			throw new ValidationException($errors, "Tournament is not valid");
 		}
 	}
 }

@@ -1,11 +1,9 @@
 <?php
-// file: view/events/add.php
+// file: view/courses/add.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
-$event = $view->getVariable("event");
-$spaces = $view->getVariable("spaces");
-
-$view->setVariable("title", "Add Event");
+$tournament = $view->getVariable("tournament");
+$view->setVariable("title", "Add Tournament");
 $errors = $view->getVariable("errors");
 ?>
 
@@ -35,17 +33,17 @@ function validateDescription(){
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
-  <li class="breadcrumb-item"><a href="index.php?controller=events&amp;action=show"><?= i18n("Events List") ?></a></li>
-  <li class="breadcrumb-item active"><?= i18n("Add Event") ?></li>
+  <li class="breadcrumb-item"><a href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments List") ?></a></li>
+  <li class="breadcrumb-item active"><?= i18n("Add Tournament") ?></li>
 </ol>
 
 <div class="container" id="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Add Event") ?></h4>
+    <h4 id="view_title"><?= i18n("Add Tournament") ?></h4>
   </div>
-  <form action="index.php?controller=events&amp;action=add" method="POST">
+  <form action="index.php?controller=tournaments&amp;action=add" method="POST">
     <div id="background_table" class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-8">
         <label for="name"><?=i18n("Name")?></label>
         <input type="text" class="form-control" id="name" onblur="validateName()" name="name" placeholder="<?=i18n("Name")?>">
         <?php if(isset($errors["name"])){ ?>
@@ -55,37 +53,29 @@ function validateDescription(){
         <?php } ?>
       </div>
 
+
+
       <div class="form-group col-md-2">
-        <label for="capacity"><?=i18n("Capacity")?></label>
-        <input class="form-control" type="number" value="10" id="capacity" name="capacity">
-        <?php if(isset($errors["capacity"])){ ?>
+        <label for="date"><?=i18n("Start Date")?></label>
+        <input class="form-control" type="date" id="date" name="start_date">
+        <?php if(isset($errors["start_date"])){ ?>
             <div class="alert alert-danger" role="alert">
-              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["capacity"])?i18n($errors["capacity"]):"" ?>
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["start_date"])?i18n($errors["start_date"]):"" ?>
             </div>
         <?php } ?>
       </div>
 
       <div class="form-group col-md-2">
-        <label for="date"><?=i18n("Date")?></label>
-        <input id="date" type="date" name="date" class="form-control">
-        <?php if(isset($errors["date"])){ ?>
+        <label for="type"><?=i18n("End Date")?></label>
+        <input class="form-control" type="date" id="date" name="end_date">
+        <?php if(isset($errors["end_date"])){ ?>
             <div class="alert alert-danger" role="alert">
-              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["date"])?i18n($errors["date"]):"" ?>
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["end_date"])?i18n($errors["end_date"]):"" ?>
             </div>
         <?php } ?>
       </div>
 
-      <div class="form-group col-md-2">
-        <label for="type"><?=i18n("Time")?></label>
-        <input class="form-control" type="time" value="09:00:00" id="time" name="time">
-        <?php if(isset($errors["time"])){ ?>
-            <div class="alert alert-danger" role="alert">
-              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["time"])?i18n($errors["time"]):"" ?>
-            </div>
-        <?php } ?>
-      </div>
-
-      <div class="form-group col-md-8">
+      <div class="form-group col-md-10">
         <label for="description"><?=i18n("Description")?></label>
         <textarea class="form-control" id="description" onblur="validateDescription()" name="description" rows="8" placeholder="<?=i18n("Description")?>"></textarea>
         <?php if(isset($errors["description"])){ ?>
@@ -96,29 +86,15 @@ function validateDescription(){
       </div>
 
       <div class="form-group col-md-2">
-        <label for="space"><?=i18n("Spaces")?></label>
-        <select name="space" class="form-control" id="select" rows="8">
-          <?php
-          foreach ($spaces as $space) { ?>
-            <option value="<?=$space["id_space"]?>"><?=$space["name"]?></option>
-          <?php } ?>
-        </select>
-        <?php if(isset($errors["space"])){ ?>
-            <div class="alert alert-danger" role="alert">
-              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["space"])?i18n($errors["space"]):"" ?>
-            </div>
-        <?php } ?>
-      </div>
-
-      <div class="form-group col-md-2">
         <label for="type"><?=i18n("Price")?></label>
-        <input class="form-control" type="number" value="10" id="price" name="price">
+        <input class="form-control" type="number" value="30" id="price" name="price">
         <?php if(isset($errors["price"])){ ?>
             <div class="alert alert-danger" role="alert">
               <strong><?= i18n("Error!") ?></strong> <?= isset($errors["price"])?i18n($errors["price"]):"" ?>
             </div>
         <?php } ?>
       </div>
+
     </div>
     <br/>
     <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Add")?></button>

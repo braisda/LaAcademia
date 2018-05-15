@@ -14,7 +14,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 *
 * Controller to tournaments CRUD
 *
-* @author lipido <brais@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class TournamentsController extends BaseController {
 
@@ -34,6 +34,13 @@ class TournamentsController extends BaseController {
     $this->userMapper = new UserMapper();
 	}
 
+	/**
+	* Action to list tournaments
+	*
+	* Loads all the tournaments from the database.
+	* No HTTP parameters are needed.
+	*
+	*/
 	public function show(){
 		if(!isset($this->currentUser)){
 			throw new Exception("Not in session. Show tournaments requires login");
@@ -52,13 +59,27 @@ class TournamentsController extends BaseController {
 		$this->view->render("tournaments", "show");
 	}
 
+	/**
+	* Action to view a provided tournament
+	*
+	* This action should only be called via GET
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the tournament (via HTTP GET)</li>
+	* </ul>
+	*
+	* @throws Exception If no such space of the provided id is found
+	* @return void
+	*
+	*/
 	public function view(){
 		if (!isset($_GET["id_tournament"])) {
 			throw new Exception("Event id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. View Events requires login");
+			throw new Exception("Not in session. View tournaments requires login");
 		}
 
 		if($this->userMapper->findType() == "pupil"){
@@ -80,7 +101,26 @@ class TournamentsController extends BaseController {
 		// render the view (/view/tournaments/view.php)
 		$this->view->render("tournaments", "view");
 	}
-/*
+
+	/**
+	* Action to add a new tournament
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it adds the tournament to the database
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the tournament (via HTTP POST)</li>
+	* <li>desciption: Description of the tournament (via HTTP POST)</li>
+	* <li>start_adte: Start date of the tournament (via FILES POST)</li>
+	* <li>end_date: End date of the tournament (via FILES POST)</li>
+	* <li>price: Price of the tournament (via FILES POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if the type is not admin
+	* @return void
+	*/
 	public function add(){
 
 		if (!isset($this->currentUser)) {
@@ -98,15 +138,13 @@ class TournamentsController extends BaseController {
 			// populate the tournament object with data form the form
 			$tournament->setName($_POST["name"]);
 			$tournament->setDescription($_POST["description"]);
-			$tournament->setCapacity($_POST["capacity"]);
-			$tournament->setDate($_POST["date"]);
-			$tournament->setTime($_POST["time"]);
-			$tournament->setId_space($_POST["space"]);
+			$tournament->setStart_date($_POST["start_date"]);
+			$tournament->setEnd_date($_POST["end_date"]);
 			$tournament->setPrice($_POST["price"]);
 
 			try {
 				// validate tournament object
-				$tournament->validateEvent(); // if it fails, ValidationException
+				$tournament->validateTournament(); // if it fails, ValidationException
 
 				$this->tournamentMapper->add($tournament);
 
@@ -122,17 +160,12 @@ class TournamentsController extends BaseController {
 			}
 		}
 
-		//Get the id and name of the spaces
-		$spaces = $this->tournamentMapper->getSpaces();
-		// Put the space variable visible to the view
-		$this->view->setVariable("spaces", $spaces);
-
 		// Put the tournament object visible to the view
 		$this->view->setVariable("tournament", $tournament);
 		// render the view (/view/tournaments/add.php)
 		$this->view->render("tournaments", "add");
 	}
-
+/*
 	public function update(){
 		if (!isset($_REQUEST["id_tournament"])) {
 			throw new Exception("A event id is mandatory");

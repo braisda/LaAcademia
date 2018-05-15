@@ -69,7 +69,7 @@ class Event {
 	/**
 	* The constructor
 	*
-	* @param string $id_event The name of the event
+	* @param string $id_event The id of the event
 	* @param string $name The name of the event
   * @param string $description The description of the event
   * @param string $price The price of the event

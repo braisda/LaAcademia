@@ -10,7 +10,7 @@ $errors = $view->getVariable("errors");
 <script>
 function validateName(){
   var name = document.getElementById("name");
-  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/.test(name.value);
+  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]+$/.test(name.value);
 
   if(!res){
       document.getElementById("name").style.borderColor = "red";

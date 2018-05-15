@@ -23,13 +23,11 @@ class TournamentMapper {
 	}
 
 	/**
-	* Saves a Tournament into the database
+	* Retrieves all tournaments
 	*
-	* @param Tournament $tournament The tournament to be saved
 	* @throws PDOException if a database error occurs
-	* @return void
+	* @return mixed Array of Tournament instances
 	*/
-
 	public function show() {
 		$stmt = $this->db->query ( "SELECT * FROM tournaments ORDER BY start_date" );
 
@@ -47,47 +45,45 @@ class TournamentMapper {
 
 		return $tournaments;
 	}
-/*
+
+	/**
+	* Loads a Tournament from the database given its id
+	*
+	* @param string $id_tournament The id of the tournament
+	* @throws PDOException if a database error occurs
+	* @return Tournament The Tournament instances. NULL if the Tournament is not found
+	*
+	*/
 	public function view($id_tournament) {
 		$stmt = $this->db->prepare("SELECT * FROM tournaments WHERE id_tournament=?");
 		$stmt->execute(array($id_tournament));
 
 		$tournament = $stmt->fetch ( PDO::FETCH_ASSOC );
 
-    $stmt2 = $this->db->prepare("SELECT name FROM spaces WHERE id_space=?");
-    $stmt2->execute(array($event ["id_space"]));
-
-    $space = $stmt2->fetch ( PDO::FETCH_ASSOC );
-
-    $space_name = $space ["name"];
-
-		if ($event != null) {
-			return new Event($event ["id_event"], $event ["name"], $event ["description"],
-											 $event ["price"], $event ["capacity"], $event ["date"], $event ["time"],
-											 $event ["id_space"], $space_name);
+		if ($tournament != null) {
+			return new Tournament($tournament ["id_tournament"], $tournament ["name"], $tournament ["description"],
+											 $tournament ["start_date"], $tournament ["end_date"], $tournament ["price"]);
 		} else {
 			return NULL;
 		}
 	}
 
-	public function getSpaces() {
-		$stmt = $this->db->query("SELECT id_space, name FROM spaces");
+	/**
+	* Saves a Tournament into the database
+	*
+	* @param Tournament $tournamente The tournament to be saved
+	* @throws PDOException if a database error occurs
+	* @return int The new tournament id
+	*/
+	public function add($tournament) {
+		$stmt = $this->db->prepare("INSERT INTO tournaments(name, description, start_date, end_date, price)
+																values (?,?,?,?,?)");
 
-		$spaces = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-		return $spaces;
-	}
-
-	public function add($event) {
-		$stmt = $this->db->prepare("INSERT INTO events(name, description, price, capacity, date, time, id_space)
-																values (?,?,?,?,?,?,?)");
-
-		$stmt->execute(array($event->getName(), $event->getDescription(), $event->getPrice(),
-												 $event->getCapacity(), $event->getDate(), $event->getTime(),
-												 $event->getId_space()));
+		$stmt->execute(array($tournament->getName(), $tournament->getDescription(), $tournament->getStart_date(),
+												 $tournament->getEnd_date(), $tournament->getPrice(),));
 		return $this->db->lastInsertId();
 	}
-
+/*
 	public function update($event) {
 		$stmt = $this->db->prepare("UPDATE events
 																set name = ?, description = ?, price = ?,

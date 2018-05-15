@@ -69,13 +69,13 @@ class TournamentsController extends BaseController {
 	* <li>id: Id of the tournament (via HTTP GET)</li>
 	* </ul>
 	*
-	* @throws Exception If no such space of the provided id is found
+	* @throws Exception If no such tournament of the provided id is found
 	* @return void
 	*
 	*/
 	public function view(){
 		if (!isset($_GET["id_tournament"])) {
-			throw new Exception("Event id is mandatory");
+			throw new Exception("tournament id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -88,14 +88,14 @@ class TournamentsController extends BaseController {
 
 		$id_tournament = $_GET["id_tournament"];
 
-		// find the Event object in the database
+		// find the tournament object in the database
 		$tournament = $this->tournamentMapper->view($id_tournament);
 
 		if ($tournament == NULL) {
 			throw new Exception("No such tournament with id: ".$id_tournament);
 		}
 
-		// put the event object to the view
+		// put the tournament object to the view
 		$this->view->setVariable("tournament", $tournament);
 
 		// render the view (/view/tournaments/view.php)
@@ -143,15 +143,29 @@ class TournamentsController extends BaseController {
 			$tournament->setPrice($_POST["price"]);
 
 			try {
-				// validate tournament object
-				$tournament->validateTournament(); // if it fails, ValidationException
+				// check if tournament exists in the database
+				if(!$this->tournamentMapper->tournamentExists($_POST["name"])){
+					// validate tournament object
+					$tournament->validateTournament(); // if it fails, ValidationException
 
-				$this->tournamentMapper->add($tournament);
+					$this->tournamentMapper->add($tournament);
 
-				$this->view->setFlash(sprintf(i18n("tournament \"%s\" successfully added."),$tournament ->getName()));
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Tournament \"%s\" successfully added."),$tournament ->getName()));
 
-				$this->view->redirect("tournaments", "show");
-
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=tournaments&action=show")
+					// die();
+					$this->view->redirect("tournaments", "show");
+				} else {
+					$errors = array();
+					$errors["name"] = "Name already exists";
+					$this->view->setVariable("errors", $errors);
+				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();
@@ -165,10 +179,31 @@ class TournamentsController extends BaseController {
 		// render the view (/view/tournaments/add.php)
 		$this->view->render("tournaments", "add");
 	}
-/*
+
+	/**
+	* Action to edit a tournament
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it modifies the tournament in the database.
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the tournament (via HTTP POST)</li>
+	* <li>desciption: Description of the tournament (via HTTP POST)</li>
+	* <li>start_adte: Start date of the tournament (via FILES POST)</li>
+	* <li>end_date: End date of the tournament (via FILES POST)</li>
+	* <li>price: Price of the tournament (via FILES POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a tournament id is not provided
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any tournament with the provided id
+	* @return void
+	*/
 	public function update(){
 		if (!isset($_REQUEST["id_tournament"])) {
-			throw new Exception("A event id is mandatory");
+			throw new Exception("A tournament id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
@@ -179,34 +214,46 @@ class TournamentsController extends BaseController {
 			throw new Exception("You aren't an admin. Adding an user requires be admin");
 		}
 
-		$id_event = $_REQUEST["id_event"];
-		$event = $this->eventMapper->view($id_event);
+		$id_tournament = $_REQUEST["id_tournament"];
+		$tournament = $this->tournamentMapper->view($id_tournament);
 
-		if ($event == NULL) {
-			throw new Exception("no such event with id: ".$id_event);
+		if ($tournament == NULL) {
+			throw new Exception("no such tournament with id: ".$id_tournament);
 		}
 
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
-			// populate the event object with data form the form
-			$event->setName($_POST["name"]);
-			$event->setDescription($_POST["description"]);
-			$event->setCapacity($_POST["capacity"]);
-			$event->setDate($_POST["date"]);
-			$event->setTime($_POST["time"]);
-			$event->setId_space($_POST["space"]);
-			$event->setPrice($_POST["price"]);
+			// populate the tournament object with data form the form
+			$tournament->setName($_POST["name"]);
+			$tournament->setDescription($_POST["description"]);
+			$tournament->setStart_date($_POST["start_date"]);
+			$tournament->setEnd_date($_POST["end_date"]);
+			$tournament->setPrice($_POST["price"]);
 
 			try {
-				// validate user object
-				$event->validateEvent(); // if it fails, ValidationException
+				// check if tournament exists in the database
+				if(!$this->tournamentMapper->tournamentExists($_POST["name"])){
+					// validate tournament object
+					$tournament->validatetournament(); // if it fails, ValidationException
 
-				$this->eventMapper->update($event);
+					$this->tournamentMapper->update($tournament);
 
-				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully updated."),$event ->getName()));
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Tournament \"%s\" successfully updated."),$tournament ->getName()));
 
-				$this->view->redirect("events", "show");
-
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=tournaments&action=show")
+					// die();
+					$this->view->redirect("tournaments", "show");
+				} else {
+					$errors = array();
+					$errors["name"] = "Name already exists";
+					$this->view->setVariable("errors", $errors);
+				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();
@@ -214,58 +261,68 @@ class TournamentsController extends BaseController {
 				$this->view->setVariable("errors", $errors);
 			}
 		}
-
-		//Get the id and name of the spaces
-		$spaces = $this->eventMapper->getSpaces();
-		// Put the space variable visible to the view
-		$this->view->setVariable("spaces", $spaces);
-
 		// Put the user object visible to the view
-		$this->view->setVariable("event", $event);
+		$this->view->setVariable("tournament", $tournament);
 		// render the view (/view/users/add.php)
-		$this->view->render("events", "update");
+		$this->view->render("tournaments", "update");
 	}
 
+	/**
+	* Action to delete a tournament
+	*
+	* This action should only be called via HTTP POST
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the tournament (via HTTP POST and GET)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a tournament id is not provided
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any tournament with the provided id
+	* @return void
+	*/
 	public function delete() {
 
-		if (!isset($_REQUEST["id_event"])) {
-			throw new Exception("A event id is mandatory");
+		if (!isset($_REQUEST["id_tournament"])) {
+			throw new Exception("A tournament id is mandatory");
 		}
 
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding events requires login");
+			throw new Exception("Not in session. Adding tournaments requires login");
 		}
 
 		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding a event requires be admin");
+			throw new Exception("You aren't an admin. Adding a tournament requires be admin");
 		}
 
-		// Get the User object from the database
-		$id_event = $_REQUEST["id_event"];
-		$event = $this->eventMapper->view($id_event);
+		// Get the Tournament object from the database
+		$id_tournament = $_REQUEST["id_tournament"];
+		$tournament = $this->tournamentMapper->view($id_tournament);
 
-		// Does the event exist?
-		if ($event == NULL) {
-			throw new Exception("no such user with id_user: ".$id_event);
+		// Does the tournament exist?
+		if ($tournament == NULL) {
+			throw new Exception("no such user with id_user: ".$id_tournament);
 		}
 
 		if (isset($_POST["submit"])) {
 
 			try {
-				// Delete the Post object from the database
-				$this->eventMapper->delete($event);
+				// Delete the Torunament object from the database
+				$this->tournamentMapper->delete($tournament);
 
 				// POST-REDIRECT-GET
 				// Everything OK, we will redirect the user to the list of posts
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully deleted."), $event->getName()));
+				$this->view->setFlash(sprintf(i18n("Tournament \"%s\" successfully deleted."), $tournament->getName()));
 
 				// perform the redirection. More or less:
 				// header("Location: index.php?controller=posts&action=index")
 				// die();
-				$this->view->redirect("events", "show");
+				$this->view->redirect("tournaments", "show");
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -276,9 +333,86 @@ class TournamentsController extends BaseController {
 		}
 
 		// Put the user object visible to the view
-		$this->view->setVariable("event", $event);
+		$this->view->setVariable("tournament", $tournament);
 		// render the view (/view/users/add.php)
-		$this->view->render("events", "delete");
+		$this->view->render("tournaments", "delete");
+	}
 
-	}*/
+	/**
+	* Action to list tournaments that match a search pattern
+	*
+	* This action should only be called via HTTP POST
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>name: Name of the tournament (via HTTP POST)</li>
+	* <li>desciption: Description of the tournament (via HTTP POST)</li>
+	* <li>start_adte: Start date of the tournament (via FILES POST)</li>
+	* <li>end_date: End date of the tournament (via FILES POST)</li>
+	* <li>price: Price of the tournament (via FILES POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if the type is not admin, trainer or competitor
+	* @return void
+	*/
+	public function search() {
+		if(!isset($this->currentUser)){
+			throw new Exception("Not in session. Show tournaments requires login");
+		}
+
+		if($this->userMapper->findType() == "pupil"){
+			throw new Exception("You aren't an admin, a trainer or a competitor. See all tournaments requires be admin, trainer or competitor");
+		}
+
+		if (isset($_POST["submit"])) {
+			$query = "";
+			$flag = 0;
+
+			if ($_POST["name"]){
+				$query .= "name LIKE '%". $_POST["name"]."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["description"]){
+				$query .= "description LIKE '%". $_POST["description"]."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["start_date"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "start_date='". $_POST["start_date"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["end_date"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "end_date='". $_POST["end_date"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["price"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "price='". $_POST["price"]."'";
+				$flag = 1;
+			}
+
+			if(empty($query)) {
+				$tournaments = $this->tournamentMapper->show();
+			} else {
+				$tournaments = $this->tournamentMapper->search($query);
+			}
+			$this->view->setVariable("tournaments", $tournaments);
+			$this->view->render("tournaments", "show");
+		}else {
+			// render the view (/view/tournaments/search.php)
+			$this->view->render("tournaments", "search");
+		}
+	}
 }

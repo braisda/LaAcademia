@@ -62,8 +62,8 @@ $view->setVariable ("title", "Show Tournaments");
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=tournaments&amp;action=update&amp;id_space=<?= $tournament->getId_tournament() ?>"><span class="oi oi-loop"></span></a>
-                          <a href="index.php?controller=tournaments&amp;action=delete&amp;id_space=<?= $tournament->getId_tournament() ?>"><span class="oi oi-trash"></span></a>
+                          <a href="index.php?controller=tournaments&amp;action=update&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-loop"></span></a>
+                          <a href="index.php?controller=tournaments&amp;action=delete&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-trash"></span></a>
                         <?php
                           }
                         ?>

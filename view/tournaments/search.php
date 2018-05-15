@@ -3,7 +3,7 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $tournament = $view->getVariable("tournament");
-$view->setVariable("title", "Add Tournament");
+$view->setVariable("title", "Search Tournament");
 $errors = $view->getVariable("errors");
 ?>
 
@@ -34,14 +34,14 @@ function validateDescription(){
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments List") ?></a></li>
-  <li class="breadcrumb-item active"><?= i18n("Add Tournament") ?></li>
+  <li class="breadcrumb-item active"><?= i18n("Search Tournament") ?></li>
 </ol>
 
 <div class="container" id="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Add Tournament") ?></h4>
+    <h4 id="view_title"><?= i18n("Search Tournament") ?></h4>
   </div>
-  <form action="index.php?controller=tournaments&amp;action=add" method="POST">
+  <form action="index.php?controller=tournaments&amp;action=search" method="POST">
     <div id="background_table" class="form-row">
       <div class="form-group col-md-8">
         <label for="name"><?=i18n("Name")?></label>
@@ -52,8 +52,6 @@ function validateDescription(){
             </div>
         <?php } ?>
       </div>
-
-
 
       <div class="form-group col-md-2">
         <label for="date"><?=i18n("Start Date")?></label>
@@ -87,7 +85,7 @@ function validateDescription(){
 
       <div class="form-group col-md-2">
         <label for="type"><?=i18n("Price")?></label>
-        <input class="form-control" type="number" value="30" id="price" name="price">
+        <input class="form-control" type="number" id="price" name="price">
         <?php if(isset($errors["price"])){ ?>
             <div class="alert alert-danger" role="alert">
               <strong><?= i18n("Error!") ?></strong> <?= isset($errors["price"])?i18n($errors["price"]):"" ?>
@@ -97,6 +95,6 @@ function validateDescription(){
 
     </div>
     <br/>
-    <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Add")?></button>
+    <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Search")?></button>
   </form>
 </div>

@@ -192,7 +192,7 @@ class SpacesController extends BaseController {
 	* Action to edit a space
 	*
 	* When called via GET, it shows the add form
-	* When called via POST, it modifies the user in the database.
+	* When called via POST, it modifies the space in the database.
 	*
 	* The expected HTTP parameters are:
 	* <ul>
@@ -205,7 +205,7 @@ class SpacesController extends BaseController {
 	* </ul>
 	*
 	* @throws Exception if no user is in session
-	* @throws Exception if a user id is not provided
+	* @throws Exception if a space id is not provided
 	* @throws Exception if the type is not admin
 	* @throws Exception if there is not any space with the provided id
 	* @return void
@@ -296,11 +296,11 @@ class SpacesController extends BaseController {
 	*
 	* The expected HTTP parameters are:
 	* <ul>
-	* <li>id: Id of the post (via HTTP POST and GET)</li>
+	* <li>id: Id of the space (via HTTP POST and GET)</li>
 	* </ul>
 	*
 	* @throws Exception if no user is in session
-	* @throws Exception if a user id is not provided
+	* @throws Exception if a space id is not provided
 	* @throws Exception if the type is not admin
 	* @throws Exception if there is not any space with the provided id
 	* @return void
@@ -319,7 +319,7 @@ class SpacesController extends BaseController {
 			throw new Exception("You aren't an admin. Adding a space requires be admin");
 		}
 
-		// Get the User object from the database
+		// Get the Space object from the database
 		$id_space = $_REQUEST["id_space"];
 		$space = $this->spaceMapper->view($id_space);
 
@@ -331,7 +331,7 @@ class SpacesController extends BaseController {
 		if (isset($_POST["submit"])) {
 
 			try {
-				// Delete the Post object from the database
+				// Delete the Space object from the database
 				$this->spaceMapper->delete($space);
 
 				// POST-REDIRECT-GET
@@ -377,14 +377,14 @@ class SpacesController extends BaseController {
 	*/
 	public function search() {
 		if(!isset($this->currentUser)){
-			throw new Exception("Not in session. Show users requires login");
+			throw new Exception("Not in session. Show spaces requires login");
 		}
 
 		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
 			throw new Exception("You aren't an admin or a trainer. See all spaces requires be admin or trainer");
 		}
 
-		if (isset($_POST["submit"])) {
+		if(isset($_POST["submit"])) {
 			$query = "";
 			$flag = 0;
 

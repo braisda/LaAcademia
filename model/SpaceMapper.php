@@ -78,7 +78,7 @@ class SpaceMapper {
 			return NULL;
 		}
 	}
-	
+
 	/**
 	* Saves a Space into the database
 	*
@@ -106,7 +106,8 @@ class SpaceMapper {
 																set name = ?, capacity = ?, image = ?
 																WHERE id_space = ?");
 
-		$stmt->execute(array($space->getName(), $space->getCapacity(), $space->getImage(), $space->getId_space()));
+		$stmt->execute(array($space->getName(), $space->getCapacity(),
+												 $space->getImage(), $space->getId_space()));
 		return $this->db->lastInsertId();
 	}
 

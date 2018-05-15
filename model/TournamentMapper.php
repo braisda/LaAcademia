@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 *
 * Database interface for Tournament entities
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class TournamentMapper {
 
@@ -20,6 +20,21 @@ class TournamentMapper {
 
 	public function __construct() {
 		$this->db = PDOConnection::getInstance();
+	}
+
+	/**
+	* Checks if a given name is already in the database
+	*
+	* @param string $name the name to check
+	* @return boolean true if the name exists, false otherwise
+	*/
+	public function tournamentExists($name) {
+		$stmt = $this->db->prepare("SELECT count(name) FROM tournaments where name=?");
+		$stmt->execute(array($name));
+
+		if ($stmt->fetchColumn() > 0) {
+			return true;
+		}
 	}
 
 	/**
@@ -83,23 +98,61 @@ class TournamentMapper {
 												 $tournament->getEnd_date(), $tournament->getPrice(),));
 		return $this->db->lastInsertId();
 	}
-/*
-	public function update($event) {
-		$stmt = $this->db->prepare("UPDATE events
-																set name = ?, description = ?, price = ?,
-																		capacity = ?, date = ?, time = ?,
-																	  id_space = ?
-																WHERE id_event = ?");
 
-		$stmt->execute(array($event->getName(), $event->getDescription(), $event->getPrice(),
-												 $event->getCapacity(), $event->getDate(), $event->getTime(),
-												 $event->getId_space(), $event->getId_event()));
+	/**
+	* Updates a Tournament in the database
+	*
+	* @param Tournament $tournament The tournament to be saved
+	* @throws PDOException if a database error occurs
+	* @return int The modified id tournament
+	*/
+	public function update($tournament) {
+		$stmt = $this->db->prepare("UPDATE tournaments
+																set name = ?, description = ?, start_date = ?,
+																		end_date = ?, price = ?
+																WHERE id_tournament = ?");
+
+		$stmt->execute(array($tournament->getName(), $tournament->getDescription(), $tournament->getStart_date(),
+												 $tournament->getEnd_date(), $tournament->getPrice(), $tournament->getId_tournament()));
 		return $this->db->lastInsertId();
 	}
 
-	public function delete($event) {
+	/**
+	* Deletes a Tournament into the database
+	*
+	* @param Tournament $tournament The tournament to be deleted
+	* @throws PDOException if a database error occurs
+	* @return void
+	*/
+	public function delete($tournament) {
 		//Borrado físico
-		$stmt = $this->db->prepare("DELETE FROM events WHERE id_event=?");
-		$stmt->execute(array($event->getId_event()));
-	}*/
+		$stmt = $this->db->prepare("DELETE FROM tournaments WHERE id_tournament=?");
+		$stmt->execute(array($tournament->getId_tournament()));
+	}
+
+	/**
+	* Searhes a Tournament into the database
+	*
+	* @param string $query The query for the space to be searched
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of Tournament instances that match the search parameter
+	*/
+	public function search($query) {
+        $search_query = "SELECT * FROM tournaments WHERE ". $query;
+        $stmt = $this->db->prepare($search_query);
+        $stmt->execute();
+        $tournaments_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $tournaments = array();
+
+				foreach ($tournaments_db as $tournament) {
+					array_push ($tournaments, new Tournament($tournament ["id_tournament"],
+		                                               $tournament ["name"],
+		                                               $tournament ["description"],
+																					         $tournament ["start_date"],
+		                                               $tournament ["end_date"]));
+				}
+
+				return $tournaments;
+    }
 }

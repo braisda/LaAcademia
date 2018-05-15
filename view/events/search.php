@@ -22,7 +22,7 @@ function validateName(){
 
 function validateDescription(){
   var description = document.getElementById("description");
-  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ().,"'¡!]+$/.test(description.value);
+  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ()ºª.:,"'¡!\-\+/]+$/.test(description.value);
 
   if(!res){
     document.getElementById("description").style.borderColor = "red";

@@ -70,7 +70,7 @@ class UsersController extends BaseController {
 				$_SESSION["currentuser"]=$_POST["username"];
 
 				// send user to the restricted area (HTTP 302 code)
-				$this->view->redirect("entry", "home");
+				$this->view->redirect("users", "home");
 
 			}else{
 				$errors = array();
@@ -80,7 +80,44 @@ class UsersController extends BaseController {
 		}
 
 		// render the view (/view/entry/login.php)
-		$this->view->render("entry", "login");
+		$this->view->render("users", "login");
+	}
+
+	/**
+	* Action to choose the default view
+	*
+	* If the user is in session (after login), render the home view
+	* If the user is not in session (after logout), render the login view
+	*
+	*/
+	public function index() {
+		if (isset($_SESSION['currentuser'])){
+			$this->view->render("users","home");
+		}else{
+			$this->view->render("users","login");
+		}
+	}
+
+	/**
+	* Action to access to the restricted area
+	*
+	* If the user is in session (after login), the user type is especified
+	*
+	*/
+	public function home(){
+		if (isset($_SESSION["currentuser"])){
+			$this->userMapper = new UserMapper();
+
+			$_SESSION["admin"] = $this->userMapper->isAdmin();
+			$_SESSION["trainer"] = $this->userMapper->isTrainer();
+			$_SESSION["pupil"] = $this->userMapper->isPupil();
+			$_SESSION["competitor"] = $this->userMapper->isCompetitor();
+			$_SESSION["pupil_competitor"] = $this->userMapper->isPupilCompetitor();
+
+			$this->view->render("users","home");
+		}else{
+			//throw new Exception("Not in session. Show menu requires login");
+		}
 	}
 
 	/**
@@ -103,7 +140,7 @@ class UsersController extends BaseController {
 		// perform a redirection. More or less:
 		// header("Location: index.php?controller=entry&action=index")
 		// die();
-		$this->view->redirect("entry", "index");
+		$this->view->redirect("users", "index");
 
 	}
 

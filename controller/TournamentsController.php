@@ -131,7 +131,7 @@ class TournamentsController extends BaseController {
 			throw new Exception("You aren't an admin. Adding an tournament requires be admin");
 		}
 
-		$tournament = new tournament();
+		$tournament = new Tournament();
 
 		if(isset($_POST["submit"])) { // reaching via HTTP tournament...
 

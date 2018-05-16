@@ -19,7 +19,7 @@ $view->setVariable("title", "View Tournament");
 
   <div class="row justify-content-center">
     <div id="card_event" class="card">
-      <h4 id="card_body" class="card-header"><?= $tournament->getName() ?> <span class="oi oi-zoom-in"></span></span></h4>
+      <h4 id="card_body" class="card-header"><?= $tournament->getName() ?> <a href="index.php?controller=draws&amp;action=show&amp;id_tournament=<?= $tournament->getId_tournament() ?>" class="card-link"><span class="oi oi-zoom-in"></span></a></h4>
       <ul id="background_table"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= $tournament->getDescription() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Start Time") ?>:</strong> <?= $tournament->getStart_date() ?></li>

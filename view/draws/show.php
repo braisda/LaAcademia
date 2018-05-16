@@ -24,7 +24,7 @@ $view->setVariable ("title", "Show Draws");
 <div id="container" class="container">
   <div id="background_title">
     <h4 id="view_title"><?= i18n("Draws List") ?></h4>
-    <a href="index.php?controller=draws&amp;action=search">
+    <a href="index.php?controller=draws&amp;action=search&amp;id_tournament=<?= $tournament ?>">
       <span id="search_icon" class="oi oi-magnifying-glass">
     </a>
     <?php

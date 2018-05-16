@@ -390,6 +390,10 @@ class DrawsController extends BaseController {
 	* @return void
 	*/
 	public function search() {
+		if (!isset($_REQUEST["id_tournament"])) {
+			throw new Exception("tournament id is mandatory");
+		}
+
 		if(!isset($this->currentUser)){
 			throw new Exception("Not in session. Show draws requires login");
 		}
@@ -402,37 +406,19 @@ class DrawsController extends BaseController {
 			$query = "";
 			$flag = 0;
 
-			if ($_POST["name"]){
-				$query .= "name LIKE '%". $_POST["name"]."%'";
-				$flag = 1;
-			}
-
-			if ($_POST["description"]){
-				$query .= "description LIKE '%". $_POST["description"]."%'";
-				$flag = 1;
-			}
-
-			if ($_POST["start_date"]){
+			if ($_POST["modality"]){
 				if ($flag){
 					$query .= " AND ";
 				}
-				$query .= "start_date='". $_POST["start_date"]."'";
+				$query .= "modality='". $_POST["modality"]."'";
 				$flag = 1;
 			}
 
-			if ($_POST["end_date"]){
+			if ($_POST["gender"]){
 				if ($flag){
 					$query .= " AND ";
 				}
-				$query .= "end_date='". $_POST["end_date"]."'";
-				$flag = 1;
-			}
-
-			if ($_POST["price"]){
-				if ($flag){
-					$query .= " AND ";
-				}
-				$query .= "price='". $_POST["price"]."'";
+				$query .= "gender='". $_POST["gender"]."'";
 				$flag = 1;
 			}
 
@@ -442,8 +428,14 @@ class DrawsController extends BaseController {
 				$draws = $this->drawMapper->search($query);
 			}
 			$this->view->setVariable("draws", $draws);
+			$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
+			
 			$this->view->render("draws", "show");
+
 		}else {
+			// put the draws object to the view
+			$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
+
 			// render the view (/view/draws/search.php)
 			$this->view->render("draws", "search");
 		}

@@ -32,8 +32,6 @@ $errors = $view->getVariable("errors");
         <?php } ?>
       </div>
 
-
-
       <div class="form-group col-md-2">
         <label for="date"><?=i18n("Start Date")?></label>
         <input class="form-control" type="date" id="date" value="<?= $tournament->getStart_date() ?>" name="start_date">

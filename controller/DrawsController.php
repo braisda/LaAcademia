@@ -311,6 +311,10 @@ class DrawsController extends BaseController {
 	*/
 	public function delete() {
 
+		if (!isset($_REQUEST["id_tournament"])) {
+			throw new Exception("tournament id is mandatory");
+		}
+
 		if (!isset($_REQUEST["id_draw"])) {
 			throw new Exception("A draw id is mandatory");
 		}
@@ -329,7 +333,7 @@ class DrawsController extends BaseController {
 
 		// Does the draw exist?
 		if ($draw == NULL) {
-			throw new Exception("no such user with id_user: ".$id_draw);
+			throw new Exception("no such draw with id_user: ".$id_draw);
 		}
 
 		if (isset($_POST["submit"])) {
@@ -343,12 +347,12 @@ class DrawsController extends BaseController {
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Draw \"%s\" successfully deleted."), $draw->getName()));
+				$this->view->setFlash(sprintf(i18n("Draw \"%s\" successfully deleted."), $draw->getModality()));
 
 				// perform the redirection. More or less:
 				// header("Location: index.php?controller=posts&action=index")
 				// die();
-				$this->view->redirect("draws", "show");
+				$this->view->redirect("draws", "show", "id_tournament=".$_REQUEST["id_tournament"]);
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -357,6 +361,9 @@ class DrawsController extends BaseController {
 				$this->view->setVariable("errors", $errors);
 			}
 		}
+
+		// put the draws object to the view
+		$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
 
 		// Put the user object visible to the view
 		$this->view->setVariable("draw", $draw);

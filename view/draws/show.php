@@ -64,7 +64,7 @@ $view->setVariable ("title", "Show Draws");
                           if($_SESSION["admin"]){
                         ?>
                           <a href="index.php?controller=draws&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-loop"></span></a>
-                          <a href="index.php?controller=draws&amp;action=delete&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-trash"></span></a>
+                          <a href="index.php?controller=draws&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-trash"></span></a>
                         <?php
                           }
                         ?>

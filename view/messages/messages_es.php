@@ -222,7 +222,7 @@ array(
 	"Draw already exists" => "El cuadro ya existe",
 	"Draw \"%s\" successfully added." => "Cuadro \"%s\" añadido correctamente",
 	"Draw \"%s\" successfully updated." => "Cuadro \"%s\" modificado correctamente",
-	"" => "",
+	"Username or password are not valid" => "El usuario o la contraseña no son correctos",
 	"" => "",
 	"" => "",
 	"" => "",

@@ -74,7 +74,7 @@ class UsersController extends BaseController {
 
 			}else{
 				$errors = array();
-				$errors["general"] = "Username is not valid";
+				$errors["general"] = "Username or password are not valid";
 				$this->view->setVariable("errors", $errors);
 			}
 		}

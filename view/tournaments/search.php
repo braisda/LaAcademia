@@ -7,29 +7,7 @@ $view->setVariable("title", "Search Tournament");
 $errors = $view->getVariable("errors");
 ?>
 
-<script>
-function validateName(){
-  var name = document.getElementById("name");
-  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]+$/.test(name.value);
-
-  if(!res){
-    document.getElementById("name").style.borderColor = "red";
-  }else{
-    document.getElementById("name").style.borderColor = "#3c3a37";
-  }
-}
-
-function validateDescription(){
-  var description = document.getElementById("description");
-  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ()ºª.:,"'¡!\-\+/]+$/.test(description.value);
-
-  if(!res){
-    document.getElementById("description").style.borderColor = "red";
-  }else{
-    document.getElementById("description").style.borderColor = "#3c3a37";
-  }
-}
-</script>
+<script type="text/javascript" src="js/validations.js"></script>
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>

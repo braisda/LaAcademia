@@ -9,29 +9,7 @@ $view->setVariable ( "title", "Update Course" );
 $errors = $view->getVariable ( "errors" );
 ?>
 
-<script>
-function validateName(){
-  var name = document.getElementById("name");
-  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]+$/.test(name.value);
-
-  if(!res){
-    document.getElementById("name").style.borderColor = "red";
-  }else{
-    document.getElementById("name").style.borderColor = "#3c3a37";
-  }
-}
-
-function validateDescription(){
-  var description = document.getElementById("description");
-  var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ()ºª.:,"'¡!\-\+/]+$/.test(description.value);
-
-  if(!res){
-    document.getElementById("description").style.borderColor = "red";
-  }else{
-    document.getElementById("description").style.borderColor = "#3c3a37";
-  }
-}
-</script>
+<script type="text/javascript" src="js/validations.js"></script>
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
@@ -48,7 +26,7 @@ function validateDescription(){
     <div id="background_table" class="form-row">
       <div class="form-group col-md-6">
         <label for="name"><?=i18n("Name")?></label>
-        <input type="text" class="form-control" id="name" name="name" value="<?= $course->getName() ?>" placeholder="<?= $course->getName() ?>">
+        <input type="text" class="form-control" id="name" onblur="validateName()" name="name" value="<?= $course->getName() ?>" placeholder="<?= $course->getName() ?>">
         <?php if(isset($errors["name"])){ ?>
             <div class="alert alert-danger" role="alert">
               <strong><?= i18n("Error!") ?></strong> <?= isset($errors["name"])?i18n($errors["name"]):"" ?>
@@ -102,7 +80,7 @@ function validateDescription(){
 
       <div class="form-group col-md-8">
         <label for="description"><?=i18n("Description")?></label>
-        <textarea class="form-control" id="description" name="description" rows="8" placeholder="<?= $course->getDescription() ?>"><?= $course->getDescription() ?></textarea>
+        <textarea class="form-control" id="description" onblur="validateDescription()" name="description" rows="8" placeholder="<?= $course->getDescription() ?>"><?= $course->getDescription() ?></textarea>
         <?php if(isset($errors["description"])){ ?>
             <div class="alert alert-danger" role="alert">
               <strong><?= i18n("Error!") ?></strong> <?= isset($errors["description"])?i18n($errors["description"]):"" ?>

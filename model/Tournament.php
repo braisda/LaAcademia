@@ -47,12 +47,12 @@ class Tournament {
 	/**
 	* The constructor
 	*
-	* @param $id_tournament The id of the tournament
-	* @param $name The name of the tournament
-  * @param $description The description of the tournament
-  * @param $start_date The start date of the tournament
-  * @param $start_date The start date of the tournament
-	* @param $price The price of the tournament
+	* @param string $id_tournament The id of the tournament
+	* @param string $name The name of the tournament
+  * @param string $description The description of the tournament
+  * @param string $start_date The start date of the tournament
+  * @param string $start_date The start date of the tournament
+	* @param string $price The price of the tournament
   */
 	public function __construct($id_tournament=NULL, $name=NULL, $description=NULL,
 															$start_date=NULL, $end_date=NULL, $price=NULL) {

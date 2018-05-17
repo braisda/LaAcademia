@@ -124,9 +124,21 @@ $currentuser = $view->getVariable("currentusername");
 					<?php } ?>
 
 					<?php if (!$_SESSION["pupil"]){ ?>
-						<li class="nav-item">
-			        <a id="texto_menu" class="nav-link" href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments") ?></a>
-			      </li>
+						<?php if ($_SESSION["admin"] || $_SESSION["competitor"]){ ?>
+							<li class="nav-item dropdown">
+				        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          <?= i18n("Tournaments") ?>
+				        </a>
+				        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          <a id="texto_menu" class="dropdown-item" href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments") ?></a>
+									<a id="texto_menu" class="dropdown-item" href="index.php?controller=tournamentReservations&amp;action=show"><?= i18n("Reservations") ?></a>
+				        </div>
+				      </li>
+						<?php }else{ ?>
+							<li class="nav-item">
+								<a id="texto_menu" class="nav-link" href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments") ?></a>
+							</li>
+							<?php } ?>
 					<?php } ?>
 
 						<li class="nav-item">

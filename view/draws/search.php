@@ -23,7 +23,7 @@ $errors = $view->getVariable("errors");
   <form action="index.php?controller=draws&amp;action=search" method="POST">
     <input type="hidden" name="id_tournament" value="<?= $tournament ?>">
     <div id="background_table" class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-3">
         <label for="modality"><?=i18n("Modality")?></label>
         <select name="modality" class="form-control" id="select" rows="8">
           <option selected></option>
@@ -37,7 +37,7 @@ $errors = $view->getVariable("errors");
         <?php } ?>
       </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
           <label for="gender"><?=i18n("Gender")?></label>
           <select name="gender" class="form-control" id="select" rows="8">
             <option selected></option>
@@ -47,6 +47,35 @@ $errors = $view->getVariable("errors");
           <?php if(isset($errors["modality"])){ ?>
               <div class="alert alert-danger" role="alert">
                 <strong><?= i18n("Error!") ?></strong> <?= isset($errors["modality"])?i18n($errors["modality"]):"" ?>
+              </div>
+          <?php } ?>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for="category"><?=i18n("Category")?></label>
+          <select name="category" class="form-control" id="select" rows="8">
+            <option selected></option>
+            <option value="children"><?=i18n("Children")?></option>
+            <option value="adult"><?=i18n("Adult")?></option>
+            <option value="veteran"><?=i18n("Veteran")?></option>
+          </select>
+          <?php if(isset($errors["modality"])){ ?>
+              <div class="alert alert-danger" role="alert">
+                <strong><?= i18n("Error!") ?></strong> <?= isset($errors["category"])?i18n($errors["category"]):"" ?>
+              </div>
+          <?php } ?>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for="type"><?=i18n("Type")?></label>
+          <select name="type" class="form-control" id="select" rows="8">
+            <option selected></option>
+            <option value="regular"><?=i18n("Regular")?></option>
+            <option value="consolation"><?=i18n("Consolation")?></option>
+          </select>
+          <?php if(isset($errors["type"])){ ?>
+              <div class="alert alert-danger" role="alert">
+                <strong><?= i18n("Error!") ?></strong> <?= isset($errors["type"])?i18n($errors["type"]):"" ?>
               </div>
           <?php } ?>
         </div>

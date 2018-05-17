@@ -28,9 +28,9 @@ class DrawMapper {
 	* @param string $name the name to check
 	* @return boolean true if the name exists, false otherwise
 	*/
-	public function drawExists($modality, $gender) {
-		$stmt = $this->db->prepare("SELECT count(modality) FROM draws where modality=? AND gender=?");
-		$stmt->execute(array($modality, $gender));
+	public function drawExists($modality, $gender, $category, $type) {
+		$stmt = $this->db->prepare("SELECT count(modality) FROM draws where modality=? AND gender=? AND category=? AND type=?");
+		$stmt->execute(array($modality, $gender, $category, $type));
 
 		if ($stmt->fetchColumn() > 0) {
 			return true;
@@ -53,8 +53,8 @@ class DrawMapper {
 
 		foreach ($draws_db as $draw) {
 			array_push ($draws, new Draw($draw ["id_draw"], $draw ["modality"],
-                                               $draw ["gender"],
-                                               $draw ["id_tournament"]));
+                                   $draw ["gender"], $draw ["category"],
+																	 $draw ["type"], $draw ["id_tournament"]));
 		}
 
 		return $draws;
@@ -76,8 +76,8 @@ class DrawMapper {
 
 		if ($draw != null) {
 			return new Draw($draw ["id_draw"], $draw ["modality"],
-                                               $draw ["gender"],
-                                               $draw ["id_tournament"]);
+                      $draw ["gender"], $draw ["category"],
+											$draw ["type"], $draw ["id_tournament"]);
 		} else {
 			return NULL;
 		}
@@ -91,10 +91,12 @@ class DrawMapper {
 	* @return int The new draw id
 	*/
 	public function add($draw) {
-		$stmt = $this->db->prepare("INSERT INTO draws(modality, gender, id_tournament)
-																values (?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO draws(modality, gender, category, type, id_tournament)
+																values (?,?,?,?,?)");
 
-		$stmt->execute(array($draw->getModality(), $draw->getGender(), $draw->getId_tournament()));
+		$stmt->execute(array($draw->getModality(), $draw->getGender(),
+												 $draw->getCategory(), $draw->getType(),
+											   $draw->getId_tournament()));
 		return $this->db->lastInsertId();
 	}
 
@@ -107,15 +109,14 @@ class DrawMapper {
 	*/
 	public function update($draw) {
 		$stmt = $this->db->prepare("UPDATE draws
-																set modality = ?, gender = ?, id_tournament = ?
+																set modality = ?, gender = ?, category = ?,
+																		type = ?, id_tournament = ?
 																WHERE id_draw = ?");
-/*var_dump($draw->getId_tournament());
-var_dump($draw->getModality());
-var_dump($draw->getGender());
-var_dump($draw->getId_draw());
-var_dump($stmt);*/
-		$stmt->execute(array($draw->getModality(), $draw->getGender(), $draw->getId_tournament(), $draw->getId_draw()));
-    var_dump($draw->getId_tournament());
+
+		$stmt->execute(array($draw->getModality(), $draw->getGender(),
+												 $draw->getCategory(), $draw->getType(),
+												 $draw->getId_tournament(), $draw->getId_draw()));
+
 		return $this->db->lastInsertId();
 	}
 
@@ -149,8 +150,8 @@ var_dump($stmt);*/
 
 				foreach ($draws_db as $draw) {
 					array_push ($draws, new Draw($draw ["id_draw"], $draw ["modality"],
-                                                   $draw ["gender"],
-                                                   $draw ["id_tournament"]));
+		                      						 $draw ["gender"], $draw ["category"],
+																			 $draw ["type"], $draw ["id_tournament"]));
 				}
 
 				return $draws;

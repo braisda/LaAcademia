@@ -156,11 +156,13 @@ class DrawsController extends BaseController {
 			// populate the draw object with data form the form
 			$draw->setModality($_POST["modality"]);
 			$draw->setGender($_POST["gender"]);
+			$draw->setCategory($_POST["category"]);
+			$draw->setType($_POST["type"]);
 			$draw->setId_tournament($_POST["id_tournament"]);
 
 			try {
 				// check if draw exists in the database
-				if(!$this->drawMapper->drawExists($_POST["modality"], $_POST["gender"])){
+				if(!$this->drawMapper->drawExists($_POST["modality"], $_POST["gender"], $_POST["category"], $_POST["type"])){
 					// validate draw object
 					$draw->validateDraw(); // if it fails, ValidationException
 
@@ -250,11 +252,13 @@ class DrawsController extends BaseController {
 			// populate the draw object with data form the form
       $draw->setModality($_POST["modality"]);
 			$draw->setGender($_POST["gender"]);
+			$draw->setCategory($_POST["category"]);
+			$draw->setType($_POST["type"]);
 			$draw->setId_tournament($_REQUEST["id_tournament"]);
 
 			try {
 				// check if draw exists in the database
-				if(!$this->drawMapper->drawExists($_POST["modality"], $_POST["gender"])){
+				if(!$this->drawMapper->drawExists($_POST["modality"], $_POST["gender"], $_POST["category"], $_POST["type"])){
 					// validate draw object
 					$draw->validateDraw(); // if it fails, ValidationException
 
@@ -422,6 +426,22 @@ class DrawsController extends BaseController {
 				$flag = 1;
 			}
 
+			if ($_POST["category"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "category='". $_POST["category"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["type"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "type='". $_POST["type"]."'";
+				$flag = 1;
+			}
+
 			if(empty($query)) {
 				$draws = $this->drawMapper->show();
 			} else {
@@ -429,7 +449,7 @@ class DrawsController extends BaseController {
 			}
 			$this->view->setVariable("draws", $draws);
 			$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
-			
+
 			$this->view->render("draws", "show");
 
 		}else {

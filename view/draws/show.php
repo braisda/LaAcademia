@@ -49,6 +49,8 @@ $view->setVariable ("title", "Show Draws");
                   <th scope="col">#</th>
                   <th><?=i18n("Modality")?></th>
                   <th><?=i18n("Gender")?></th>
+                  <th><?=i18n("Category")?></th>
+                  <th><?=i18n("Type")?></th>
                   <th><?=i18n("Operations")?></th>
                 </tr>
               </thead>
@@ -58,6 +60,8 @@ $view->setVariable ("title", "Show Draws");
                       <td><?= $n++ ?></td>
         							<td><?= i18n(ucfirst($draw->getModality())) ?></td>
                       <td><?= i18n(ucfirst($draw->getGender())) ?></td>
+                      <td><?= i18n(ucfirst($draw->getCategory())) ?></td>
+                      <td><?= i18n(ucfirst($draw->getType())) ?></td>
                       <td>
                         <a href="index.php?controller=draws&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-zoom-in"></span></a>
                         <?php

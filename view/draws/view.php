@@ -22,15 +22,22 @@ $view->setVariable("title", "View Tournament");
 
   <div class="row justify-content-center">
     <div id="card_event" class="card">
-      <h4 id="card_body" class="card-header"><?= $draw->getModality() ?></h4>
+      <h4 id="card_body" class="card-header">
+        <?= i18n(ucfirst($draw->getModality())) ?>
+        <?= i18n($draw->getGender())?>
+        <a href="index.php?controller=matches&amp;action=show&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>" class="card-link">
+          <span class="oi oi-zoom-in"></span>
+        </a>
+      </h4>
       <ul id="background_table"  class="list-group list-group-flush">
-        <li id="event_decription" class="list-group-item"><?= $draw->getGender() ?></li>
+        <li id="event_decription" class="list-group-item"><?= i18n("Category") ?>: <?= i18n(ucfirst($draw->getCategory())) ?></li>
+        <li id="event_decription" class="list-group-item"><?= i18n("Type") ?>: <?= i18n(ucfirst($draw->getType())) ?></li>
         <?php
           if($_SESSION["admin"]){
         ?>
         <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=draws&amp;action=update&amp;id_draw=<?= $draw->getId_draw() ?>" class="card-link"><span class="oi oi-loop"></span></a>
-          <a href="index.php?controller=draws&amp;action=delete&amp;id_draw=<?= $draw->getId_draw() ?>" class="card-link"><span class="oi oi-trash"></a>
+          <a href="index.php?controller=draws&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>" class="card-link"><span class="oi oi-loop"></span></a>
+          <a href="index.php?controller=draws&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>" class="card-link"><span class="oi oi-trash"></a>
         </li>
         <?php
       }

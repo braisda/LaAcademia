@@ -46,6 +46,10 @@ class MatchesController extends BaseController {
 			throw new Exception("tournament id is mandatory");
 		}
 
+    if (!isset($_REQUEST["id_draw"])) {
+			throw new Exception("draw id is mandatory");
+		}
+
 		if(!isset($this->currentUser)){
 			throw new Exception("Not in session. Show matches requires login");
 		}
@@ -55,6 +59,13 @@ class MatchesController extends BaseController {
 		}
 
 		$matches = $this->matchMapper->show($_GET["id_tournament"]);
+		$competitors = $this->matchMapper->getCompetitors();
+
+		// put the competitors object to the view
+		$this->view->setVariable("competitors", $competitors);
+
+    // put the matches object to the view
+		$this->view->setVariable("draw", $_GET["id_draw"]);
 
     // put the matches object to the view
 		$this->view->setVariable("tournament", $_GET["id_tournament"]);

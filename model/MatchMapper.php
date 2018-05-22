@@ -28,7 +28,7 @@ class MatchMapper {
 	* @param string $name the name to check
 	* @return boolean true if the name exists, false otherwise
 	*/
-	public function matchExists($rival1a, $rival1b, $rival2a, $rival2a) {
+	public function matchExists($rival1a, $rival1b, $rival2a, $rival2b) {
 		$stmt = $this->db->prepare("SELECT count(name) FROM matches where rival1a=? AND rival1b=? AND rival2a=? AND rival2b=?");
 		$stmt->execute(array($rival1a, $rival1b, $rival2a, $rival2a));
 
@@ -58,6 +58,7 @@ class MatchMapper {
                                                $match ["rival2b"],
                                                $match ["date"],
                                                $match ["round"],
+                                               $match ["cell"],
                                                $match ["set1a"],
                                                $match ["set1b"],
                                                $match ["set2a"],
@@ -72,6 +73,24 @@ class MatchMapper {
 		}
 
 		return $matches;
+	}
+
+	public function getCompetitors() {
+		$stmt = $this->db->query("SELECT id_user, name, surname FROM users where is_competitor = 1");
+
+		$competitors_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$competitors = array ();
+
+		foreach($competitors_db as $competitor) {
+			array_push ($competitors, new User(NULL, $competitor ["id_user"], $competitor ["name"],
+																			$competitor ["surname"], NULL, NULL,
+																			NULL, NULL, NULL,
+																			NULL, NULL, NULL,
+																			NULL, NULL));
+		}
+
+		return $competitors;
 	}
 
 	/**
@@ -90,23 +109,23 @@ class MatchMapper {
 
 		if ($match != null) {
 			return new Match($match ["id_match"],
-                                               $match ["rival1a"],
-                                               $match ["rival1b"],
-																			         $match ["rival2a"],
-                                               $match ["rival2b"],
-                                               $match ["date"],
-                                               $match ["round"],
-                                               $match ["set1a"],
-                                               $match ["set1b"],
-                                               $match ["set2a"],
-                                               $match ["set2b"],
-                                               $match ["set3a"],
-                                               $match ["set3b"],
-                                               $match ["set4a"],
-                                               $match ["set4b"],
-                                               $match ["set5a"],
-                                               $match ["set5b"],
-                                               $match ["id_draw"]));
+                       $match ["rival1a"],
+                       $match ["rival1b"],
+											 $match ["rival2a"],
+                       $match ["rival2b"],
+                       $match ["date"],
+                       $match ["round"],
+                       $match ["set1a"],
+                       $match ["set1b"],
+                       $match ["set2a"],
+                       $match ["set2b"],
+                       $match ["set3a"],
+                       $match ["set3b"],
+                       $match ["set4a"],
+                       $match ["set4b"],
+                       $match ["set5a"],
+                       $match ["set5b"],
+                       $match ["id_draw"]);
 		} else {
 			return NULL;
 		}
@@ -156,7 +175,7 @@ class MatchMapper {
                          $match->getSet1a(), $match->getSet1b(), $match->getSet2a(),
                      		 $match->getSet2b(), $match->getSet3a(), $match->getSet3b(),
                          $match->getSet4a(), $match->getSet4b(), $match->getSet5a(),
-                         $match->getSet5b(), $match->getId_draw(), $match->getId_match());
+                         $match->getSet5b(), $match->getId_draw(), $match->getId_match()));
 		return $this->db->lastInsertId();
 	}
 

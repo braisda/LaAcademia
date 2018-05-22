@@ -428,12 +428,20 @@ class User {
 			$errors["name"] = "The name can not be empty";
 		}
 
+		if(strlen($this->getName()) > 20){
+			$errors["name"] = "The name can not be longer than 20 characters";
+		}
+
 		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
 			$errors["name"] = "Name must have only letters";
 		}
 
 		if($this->getSurname() == NULL){
 			$errors["surname"] = "The surname can not be empty";
+		}
+
+		if(strlen($this->getSurname()) > 60){
+			$errors["surname"] = "The surname can not be longer than 60 characters";
 		}
 
 		if(!preg_match($expSurname, $this->getSurname())){
@@ -446,6 +454,10 @@ class User {
 
 		if (!$this->getDni() == NULL && strlen($this->getDni()) < 9) {
 			$errors["dni"] = "DNI must be at least 9 characters length";
+		}
+
+		if (!$this->getDni() == NULL && strlen($this->getDni()) > 9) {
+			$errors["dni"] = "DNI must be less than 9 characters length";
 		}
 
 	 	if(!$this->getDni() == NULL && strlen($this->getDni()) == 9 && !$this->validate_dni($this->getDni())){

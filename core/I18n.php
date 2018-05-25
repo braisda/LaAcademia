@@ -14,7 +14,7 @@
 * In addition this file creates a global function, i18n(), as a shortcut
 * to the function.
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class I18n {
 

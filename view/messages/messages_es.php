@@ -236,7 +236,7 @@ array(
 	"The name can not be longer than 20 characters" => "El nombre no puede tener más de 20 caracteres",
 	"DNI must be less than 10 characters length" => "El DNI debe tener menos de 10 caracteres",
 	"Update Course" => "Modificar Curso",
-	"" => "",
+	"Search Tournament" => "Buscar Torneo",
 	"" => "",
 	"" => "",
 	"" => "",

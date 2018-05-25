@@ -35,7 +35,7 @@
 *	 Typical fragments are 'css', 'javascript', so you can specify
 *	 additional css and javascripts from your specific views.
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class ViewManager {
 

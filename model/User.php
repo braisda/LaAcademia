@@ -457,7 +457,7 @@ class User {
 		}
 
 		if (!$this->getDni() == NULL && strlen($this->getDni()) > 9) {
-			$errors["dni"] = "DNI must be less than 9 characters length";
+			$errors["dni"] = "DNI must be less than 10 characters length";
 		}
 
 	 	if(!$this->getDni() == NULL && strlen($this->getDni()) == 9 && !$this->validate_dni($this->getDni())){

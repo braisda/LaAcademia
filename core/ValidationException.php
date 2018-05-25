@@ -3,13 +3,13 @@
 
 /**
 * Class ValidationException
-* 
+*
 * A simple Exception including an array of errors
 * useful for form validation.
 * The errors array contains validation errors, normally
 * indexed by form named parameters.
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class ValidationException extends Exception {
 

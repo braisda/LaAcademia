@@ -239,7 +239,7 @@ array(
 	"Search Tournament" => "Buscar Torneo",
 	"Course \"%s\" successfully updated." => "Curso \"%s\" modificado correctamente.",
 	"Update Tournament" => "Modificar Torneo",
-	"" => "",
+	"Search Event Reservation" => "Buscar Reservas de Eventos",
 	"" => "",
 	"" => "",
 	"" => "",

@@ -10,11 +10,11 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
 /**
-* Class EventsController
+* Class EventReservationsController
 *
-* Controller to events CRUD
+* Controller to event reservations CRUD
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class EventReservationsController extends BaseController {
 
@@ -34,6 +34,13 @@ class EventReservationsController extends BaseController {
     $this->userMapper = new UserMapper();
 	}
 
+	/**
+	* Action to list event reservations
+	*
+	* Loads all the event reservations from the database.
+	* No HTTP parameters are needed.
+	*
+	*/
 	public function show(){
 		if(!isset($this->currentUser)){
 			throw new Exception("Not in session. Show events requires login");
@@ -73,6 +80,20 @@ class EventReservationsController extends BaseController {
 		$this->view->render("eventReservations", "show");
 	}
 
+	/**
+	* Action to view a provided event reservation
+	*
+	* This action should only be called via GET
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the reservation (via HTTP GET)</li>
+	* </ul>
+	*
+	* @throws Exception If no such reservation of the provided id is found
+	* @return void
+	*
+	*/
 	public function view(){
 		if (!isset($_GET["id_reservation"])) {
 			throw new Exception("id is mandatory");
@@ -114,6 +135,26 @@ class EventReservationsController extends BaseController {
 		$this->view->render("eventReservations", "view");
 	}
 
+	/**
+	* Action to add a new event reservation
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it adds the reservation to the database
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>date: Date of the reservation (via HTTP POST)</li>
+	* <li>time: Time of the reservation (via HTTP POST)</li>
+	* <li>is_confirmed: Surnme of the reservation (via HTTP POST)</li>
+	* <li>id_assistant: Assistant id of the reservation (via HTTP POST)</li>
+	* <li>id_event: Course id of the reservation (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any event with the provided id
+	* @return void
+	*/
 	public function add(){
 		if (!isset($_REQUEST["id_event"])) {
 			throw new Exception("A id is mandatory");
@@ -165,6 +206,23 @@ class EventReservationsController extends BaseController {
 		$this->view->render("eventReservations", "add");
 	}
 
+	/**
+	* Action to confirm a reservation
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it modifies the reservation in the database.
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the reservation (via HTTP POST and GET)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a reservation id is not provided
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any reservation with the provided id
+	* @return void
+	*/
 	public function confirm(){
 		if (!isset($_REQUEST["id_reservation"])) {
 			throw new Exception("A id is mandatory");
@@ -205,6 +263,23 @@ class EventReservationsController extends BaseController {
 		$this->view->render("eventReservations", "show");
 	}
 
+	/**
+	* Action to cancel a reservation
+	*
+	* When called via GET, it shows the add form
+	* When called via POST, it modifies the reservation in the database.
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the reservation (via HTTP POST and GET)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a reservation id is not provided
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any reservation with the provided id
+	* @return void
+	*/
 	public function cancel(){
 		if (!isset($_REQUEST["id_reservation"])) {
 			throw new Exception("A id is mandatory");
@@ -245,6 +320,22 @@ class EventReservationsController extends BaseController {
 		$this->view->render("eventReservations", "show");
 	}
 
+	/**
+	* Action to delete a event reservation
+	*
+	* This action should only be called via HTTP POST
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id: Id of the reservation (via HTTP POST and GET)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if a user id is not provided
+	* @throws Exception if the type is not admin
+	* @throws Exception if there is not any reservation with the provided id
+	* @return void
+	*/
 	public function delete() {
 
 		if (!isset($_REQUEST["id_reservation"])) {
@@ -317,5 +408,127 @@ class EventReservationsController extends BaseController {
 		// render the view (/view/eventReservations/delete.php)
 		$this->view->render("eventReservations", "delete");
 
+	}
+
+	/**
+	* Action to list reservations that match a search pattern
+	*
+	* This action should only be called via HTTP POST
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>id_assistant: Assistant id of the reservation (via HTTP POST)</li>
+	* <li>id_event: Course id of the reservation (via HTTP POST)</li>
+	* <li>date: Date id of the reservation (via HTTP POST)</li>
+	* <li>time: Time id of the reservation (via HTTP POST)</li>
+	* <li>is_confirmed: State of the reservation (via HTTP POST)</li>
+	* </ul>
+	*
+	* @throws Exception if no user is in session
+	* @throws Exception if the type is not admin
+	* @return void
+	*/
+	public function search() {
+		if(!isset($this->currentUser)){
+			throw new Exception("Not in session. Show users requires login");
+		}
+
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "pupil"){
+			throw new Exception("You aren't an admin or a trainer. Search reservations requires be admin or trainer");
+		}
+
+		if (isset($_POST["submit"])) {
+			$query = "";
+			$flag = 0;
+			if($this->userMapper->findType() == "admin"){
+				if ($_POST["pupil"]){
+					if ($flag){
+						$query .= " AND ";
+					}
+					$query .= "id_assistant='". $_POST["pupil"]."'";
+					$flag = 1;
+				}
+			}
+
+			if ($_POST["event"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "id_event='". $_POST["event"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["date"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "date='". $_POST["date"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["time"]){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "time='". $_POST["time"]."'";
+				$flag = 1;
+			}
+
+			if ($_POST["confirmed"] == 1 || $_POST["confirmed"] == 0){
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "is_confirmed='". $_POST["confirmed"]."'";
+				$flag = 1;
+			}
+
+			if($this->userMapper->findType() == "pupil"){
+				$id = $this->eventReservationMapper->getId_user($_SESSION["currentuser"]);
+				if ($flag){
+					$query .= " AND ";
+				}
+				$query .= "id_assistant='".$id."'";
+				$flag = 1;
+			}
+
+			if (empty($query)) {
+				if($this->userMapper->findType() == "admin"){
+					$reservations = $this->eventReservationMapper->show();
+				}else{
+					$reservations = $this->eventReservationMapper->showMine($this->eventReservationMapper->getId_user($_SESSION["currentuser"]));
+				}
+			} else {
+				$reservations = $this->eventReservationMapper->search($query);
+			}
+			//Get the id, name and surname of the pupils
+			$assistants = $this->eventReservationMapper->getAssistants();
+
+			// Put the space variable visible to the view
+			$this->view->setVariable("assistants", $assistants);
+
+	    //Get the id, name and type of the events
+			$events = $this->eventReservationMapper->getEvents();
+
+			// Put the event variable visible to the view
+			$this->view->setVariable("events", $events);
+
+			$this->view->setVariable("eventReservation", $reservations);
+			$this->view->render("eventReservations", "show");
+		}else {
+			//Get the id, name and surname of the assistants
+			$assistants = $this->eventReservationMapper->getAssistants();
+
+			// Put the space variable visible to the view
+			$this->view->setVariable("assistants", $assistants);
+
+	    //Get the id, name and type of the events
+			$events = $this->eventReservationMapper->getEvents();
+
+			// Put the event variable visible to the view
+			$this->view->setVariable("events", $events);
+
+			// render the view (/view/eventReservations/search.php)
+			$this->view->render("eventReservations", "search");
+		}
 	}
 }

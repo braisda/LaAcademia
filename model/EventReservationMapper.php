@@ -64,7 +64,7 @@ class EventReservationMapper {
 	}
 
   public function getAssistants() {
-		$stmt = $this->db->query("SELECT id_user, name, surname, email FROM users where is_pupil = 1 OR is_competitor = 1");
+		$stmt = $this->db->query("SELECT id_user, name, surname, email FROM users where is_pupil = 1 OR is_competitor = 1 ORDER BY name");
 
 		$assistants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -173,4 +173,29 @@ class EventReservationMapper {
 		$stmt = $this->db->prepare("DELETE FROM events_reservations WHERE id_reservation=?");
 		$stmt->execute(array($event->getId_reservation()));
 	}
+
+	/**
+	* Searhes a EventReservation into the database
+	*
+	* @param string $query The query for the event to be searched
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of CourseReservation instances that match the search parameter
+	*/
+	public function search($query) {
+        $search_query = "SELECT * FROM events_reservations WHERE ". $query;
+        $stmt = $this->db->prepare($search_query);
+        $stmt->execute();
+        $reservations_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+				$reservations = array ();
+
+				foreach ($reservations_db as $reservation) {
+					array_push ($reservations, new EventReservation($reservation ["id_reservation"],
+		                                       $reservation ["date"], $reservation ["time"],
+																					 $reservation ["is_confirmed"], $reservation ["id_assistant"],
+		                                       $reservation ["id_event"]));
+				}
+
+        return $reservations;
+    }
 }

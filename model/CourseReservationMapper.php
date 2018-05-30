@@ -91,7 +91,7 @@ class CourseReservationMapper {
 	* @return mixed Array of users
 	*/
   public function getPupils() {
-		$stmt = $this->db->query("SELECT id_user, name, surname, email FROM users WHERE is_pupil = 1");
+		$stmt = $this->db->query("SELECT id_user, name, surname, email FROM users WHERE is_pupil = 1 ORDER BY name");
 
 		$pupils = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -105,7 +105,7 @@ class CourseReservationMapper {
 	* @return mixed Array of courses
 	*/
 	public function getCourses() {
-		$stmt = $this->db->query("SELECT id_course, name, type FROM courses");
+		$stmt = $this->db->query("SELECT id_course, name, type FROM courses ORDER BY name");
 
 		$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -277,7 +277,7 @@ class CourseReservationMapper {
 	/**
 	* Searhes a CourseReservation into the database
 	*
-	* @param string $query The query for the space to be searched
+	* @param string $query The query for the course to be searched
 	* @throws PDOException if a database error occurs
 	* @return mixed Array of CourseReservation instances that match the search parameter
 	*/

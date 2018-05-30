@@ -37,6 +37,4 @@ $errors = $view->getVariable ( "errors" );
     </div>
 
   </div>
-
-
 </div>

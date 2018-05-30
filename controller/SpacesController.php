@@ -233,7 +233,17 @@ class SpacesController extends BaseController {
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
 			// populate the space object with data form the form
+
+			// put the flag to true if the current user wants to change his own email
+			$flag = false;
+			$oldName = $space->getName();
+			if($space->getName() != $_POST["name"]){
+				$oldName = $space->getName();
+				$flag = true;
+			}
+
 			$space->setName($_POST["name"]);
+
 			$space->setCapacity($_POST["capacity"]);
 			$directory = 'multimedia/images/';
 			$imageType = $_FILES['image']['type'];
@@ -245,11 +255,30 @@ class SpacesController extends BaseController {
 			}else{
 				$checkImage = false;
 			}
-
-
 			try {
 				// check if space exists in the database
-				if(!$this->spaceMapper->spaceExists($_POST["name"])){
+				if(!$flag){
+					// validate space object
+					$space->validateSpace($imageName, $imageType, $imageSize, $checkImage); // if it fails, ValidationException
+
+					//up the image to the server
+					move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
+
+					//save the space object into the database
+					$this->spaceMapper->update($space);
+
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Space \"%s\" successfully updated."),$space ->getName()));
+
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=spaces&action=show")
+					// die();
+					$this->view->redirect("spaces", "show");
+				} else if($flag && !$this->spaceMapper->spaceExists($_POST["name"])){
 					// validate space object
 					$space->validateSpace($imageName, $imageType, $imageSize, $checkImage); // if it fails, ValidationException
 

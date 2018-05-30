@@ -10,7 +10,7 @@ require_once(__DIR__."/../core/I18n.php");
 * Allows you to change the current language
 * by establishing it in the I18n singleton instance
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class LanguageController {
 	const LANGUAGE_SETTING = "__language__";

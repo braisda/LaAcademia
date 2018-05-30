@@ -220,6 +220,13 @@ class EventsController extends BaseController {
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
 			// populate the event object with data form the form
+
+			// put the flag to true if the user changes the space name
+			$flag = false;
+			if($event->getName() != $_POST["name"]){
+				$flag = true;
+			}
+
 			$event->setName($_POST["name"]);
 			$event->setDescription($_POST["description"]);
 			$event->setCapacity($_POST["capacity"]);
@@ -229,22 +236,45 @@ class EventsController extends BaseController {
 			$event->setPrice($_POST["price"]);
 
 			try {
-				// validate user object
-				$event->validateEvent(); // if it fails, ValidationException
+				// check if space exists in the database
+				if(!$flag){
+					// validate user object
+					$event->validateEvent(); // if it fails, ValidationException
 
-				$this->eventMapper->update($event);
+					$this->eventMapper->update($event);
 
-				// POST-REDIRECT-GET
-				// Everything OK, we will redirect the user to the list of posts
-				// We want to see a message after redirection, so we establish
-				// a "flash" message (which is simply a Session variable) to be
-				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully updated."),$event ->getName()));
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully updated."),$event ->getName()));
 
-				// perform the redirection. More or less:
-				// header("Location: index.php?controller=events&action=show")
-				// die();
-				$this->view->redirect("events", "show");
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=events&action=show")
+					// die();
+					$this->view->redirect("events", "show");
+				} else if($flag && !$this->eventMapper->eventExists($_POST["name"])){
+					$event->validateEvent(); // if it fails, ValidationException
+
+					$this->eventMapper->update($event);
+
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully updated."),$event ->getName()));
+
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=events&action=show")
+					// die();
+					$this->view->redirect("events", "show");
+				} else {
+					$errors = array();
+					$errors["name"] = "Name already exists";
+					$this->view->setVariable("errors", $errors);
+				}
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -434,7 +464,7 @@ class EventsController extends BaseController {
 			$spaces = $this->eventMapper->getSpaces();
 			// Put the space variable visible to the view
 			$this->view->setVariable("spaces", $spaces);
-			
+
 			// render the view (/view/events/search.php)
 			$this->view->render("events", "search");
 		}

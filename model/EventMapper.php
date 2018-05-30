@@ -23,6 +23,21 @@ class EventMapper {
 	}
 
 	/**
+	* Checks if a given name is already in the database
+	*
+	* @param string $name the name to check
+	* @return boolean true if the name exists, false otherwise
+	*/
+	public function eventExists($name) {
+		$stmt = $this->db->prepare("SELECT count(name) FROM events where name=?");
+		$stmt->execute(array($name));
+
+		if ($stmt->fetchColumn() > 0) {
+			return true;
+		}
+	}
+
+	/**
 	* Retrieves all events
 	*
 	* @throws PDOException if a database error occurs

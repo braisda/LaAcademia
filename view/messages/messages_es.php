@@ -237,7 +237,7 @@ array(
 	"DNI must be less than 10 characters length" => "El DNI debe tener menos de 10 caracteres",
 	"Update Course" => "Modificar Curso",
 	"Search Tournament" => "Buscar Torneo",
-	"" => "",
+	"Course \"%s\" successfully updated." => "Curso \"%s\" modificado correctamente.",
 	"" => "",
 	"" => "",
 	"" => "",

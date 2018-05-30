@@ -234,11 +234,9 @@ class SpacesController extends BaseController {
 
 			// populate the space object with data form the form
 
-			// put the flag to true if the current user wants to change his own email
+			// put the flag to true if the user changes the space name
 			$flag = false;
-			$oldName = $space->getName();
 			if($space->getName() != $_POST["name"]){
-				$oldName = $space->getName();
 				$flag = true;
 			}
 

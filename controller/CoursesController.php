@@ -256,6 +256,13 @@ class CoursesController extends BaseController {
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
 			// populate the course object with data form the form
+
+			// put the flag to true if the user changes the space name
+			$flag = false;
+			if($course->getName() != $_POST["name"] || $course->getType() != $_POST["type"]){
+				$flag = true;
+			}
+
 			$course->setName($_POST["name"]);
 			$course->setType($_POST["type"]);
 			$course->setDescription($_POST["description"]);
@@ -269,7 +276,7 @@ class CoursesController extends BaseController {
 
 			try {
 				// check if space exists in the database
-				if(!$this->courseMapper->courseExists($_POST["name"], $_POST["type"])){
+				if(!$flag){
 					//validate course object
 					$course->ValidateCourse(); // if it fails, ValidationException
 
@@ -287,7 +294,25 @@ class CoursesController extends BaseController {
 					// header("Location: index.php?controller=spaces&action=show")
 					// die();
 					$this->view->redirect("courses", "show");
-				} else {
+				} else if($flag && !$this->courseMapper->courseExists($_POST["name"], $_POST["type"])){
+					//validate course object
+					$course->ValidateCourse(); // if it fails, ValidationException
+
+					//save the course object into the database
+					$this->courseMapper->update($course);
+
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Course \"%s\" successfully updated."),$course ->getName()));
+
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=spaces&action=show")
+					// die();
+					$this->view->redirect("courses", "show");
+				}else {
 					$errors = array();
 					$errors["name"] = "Course already exists";
 					$this->view->setVariable("errors", $errors);

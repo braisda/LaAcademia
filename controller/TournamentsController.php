@@ -224,6 +224,13 @@ class TournamentsController extends BaseController {
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
 			// populate the tournament object with data form the form
+
+			// put the flag to true if the user changes the space name
+			$flag = false;
+			if($tournament->getName() != $_POST["name"]){
+				$flag = true;
+			}
+
 			$tournament->setName($_POST["name"]);
 			$tournament->setDescription($_POST["description"]);
 			$tournament->setStart_date($_POST["start_date"]);
@@ -232,7 +239,24 @@ class TournamentsController extends BaseController {
 
 			try {
 				// check if tournament exists in the database
-				if(!$this->tournamentMapper->tournamentExists($_POST["name"])){
+				if(!$flag){
+					// validate tournament object
+					$tournament->validatetournament(); // if it fails, ValidationException
+
+					$this->tournamentMapper->update($tournament);
+
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Tournament \"%s\" successfully updated."),$tournament ->getName()));
+
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=tournaments&action=show")
+					// die();
+					$this->view->redirect("tournaments", "show");
+				} else if($flag && !$this->tournamentMapper->tournamentExists($_POST["name"])){
 					// validate tournament object
 					$tournament->validatetournament(); // if it fails, ValidationException
 

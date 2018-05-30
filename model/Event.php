@@ -256,7 +256,7 @@ class Event {
 		$errors = array();
 
 		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
-		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚnÑ().,\"'¡! ]+$/";
+		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ()ºª.:,\"'¡!\-\+\/]+$/";
 
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";

@@ -183,13 +183,13 @@ class Tournament {
 		$errors = array();
 
 		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
-		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚnÑ().,\"'¡!]+$/";
+		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ()ºª.:,\"'¡!\-\+\/]+$/";
 
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
 		}
 
-		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
+		if(!$this->getName() == NULL && !preg_match($expName, $this->getName())){
 			$errors["name"] = "Name must have only letters and numbers";
 		}
 
@@ -197,7 +197,7 @@ class Tournament {
 			$errors["description"] = "The description is wrong";
 		}
 
-		if(!$this->getDescription() == NULL &&!preg_match($expDescrip, $this->getDescription())){
+		if(!$this->getDescription() == NULL && !preg_match($expDescrip, $this->getDescription())){
 			$errors["description"] = "Description must have only letters and numbers";
 		}
 

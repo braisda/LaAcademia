@@ -412,7 +412,7 @@ class User {
 	public function validateUser($password, $repitedpassword, $imageName, $imageType, $imageSize, $checkPassword, $checkImage){
 		$errors = array();
 		$expression = '/^[9|6|7][0-9]{8}$/';
-		$expName = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$/';
+		$expName = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$/';
 		$expSurname = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ]+ [A-Za-zñÑáéíóúÁÉÍÓÚ]+$/';
 		$expPass = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ0-9\.]+$/';
 

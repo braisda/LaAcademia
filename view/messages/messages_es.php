@@ -238,7 +238,7 @@ array(
 	"Update Course" => "Modificar Curso",
 	"Search Tournament" => "Buscar Torneo",
 	"Course \"%s\" successfully updated." => "Curso \"%s\" modificado correctamente.",
-	"" => "",
+	"Update Tournament" => "Modificar Torneo",
 	"" => "",
 	"" => "",
 	"" => "",

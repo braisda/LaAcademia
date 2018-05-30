@@ -79,7 +79,7 @@ class UsersController extends BaseController {
 			}
 		}
 
-		// render the view (/view/entry/login.php)
+		// render the view (/view/users/login.php)
 		$this->view->render("users", "login");
 	}
 
@@ -138,7 +138,7 @@ class UsersController extends BaseController {
 		session_destroy();
 
 		// perform a redirection. More or less:
-		// header("Location: index.php?controller=entry&action=index")
+		// header("Location: index.php?controller=users&action=index")
 		// die();
 		$this->view->redirect("users", "index");
 
@@ -410,18 +410,26 @@ class UsersController extends BaseController {
 			throw new Exception("no such user with id: ".$id_user);
 		}
 
-		// put the flag to true if the current user wants to change his own email
-		if($this->currentUser->getUsername() == $user->getUsername()){
-			$flag = true;
-		}
-
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
 			// populate the user object with data form the form
 			$user->setName($_POST["name"]);
 			$user->setSurname($_POST["surname"]);
 			$user->setDni($_POST["dni"]);
+
+			// put the flag to true if the current user wants to change his own email
+			$flag = false;
+			$flagCurrent = false;
+			$oldUsername = $user->getUsername();
+			if($user->getUsername() != $_POST["username"]){
+				$oldUsername = $user->getUsername();
+				$flag = true;
+				if($this->currentUser->getUsername() == $user->getUsername()){
+					$flagCurrent = true;
+				}
+			}
 			$user->setUsername($_POST["username"]);
+
 			// if the password was chenged put the flag to true
 			if(isset($_POST["password"]) && $_POST["password"] != ""){
 				$user->setPassword(md5($_POST["password"]));
@@ -467,7 +475,10 @@ class UsersController extends BaseController {
 			}
 
 			try {
-				if($this->currentUser->getUsername()==$_POST["username"] || !$this->userMapper->usernameExists($_POST["username"])){
+				if(!$flag){
+					echo "No cambia username ";
+					echo " viejo: ".$oldUsername;
+					echo " nuevo: ".$_POST["username"];
 					// validate user object
 					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
 
@@ -477,29 +488,73 @@ class UsersController extends BaseController {
 					//save the user object into the database
 					$this->userMapper->update($user);
 
-					// if the current user changes his own password,
-					// the session is closed logout and we redirect to the login view
-					if($flag){
-						session_destroy();
-						$this->view->redirect("entry", "index");
-					}
-
 					// POST-REDIRECT-GET
 					// Everything OK, we will redirect the user to the list of posts
 					// We want to see a message after redirection, so we establish
 					// a "flash" message (which is simply a Session variable) to be
 					// get in the view after redirection.
-					$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user ->getName()));
+					$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user->getName()));
 
 					// perform the redirection. More or less:
 					// header("Location: index.php?controller=users&action=show")
 					// die();
 					$this->view->redirect("users", "show");
-				}else {
-					$errors = array();
-					$errors["email"] = "Username already exists";
-					$this->view->setVariable("errors", $errors);
-				}
+				}else if ($flag) {
+					echo "Cambia username";
+					echo " viejo: ".$oldUsername;
+					echo " nuevo: ".$_POST["username"];
+					// validate user object
+					if(!$flagCurrent && !$this->userMapper->usernameExists($_POST["username"])){
+						echo " No es el mio y SÍ compruebo si existe";
+						$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
+
+						//up the image to the server
+						move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
+
+						//save the user object into the database
+						$this->userMapper->update($user);
+
+
+						// POST-REDIRECT-GET
+						// Everything OK, we will redirect the user to the list of posts
+						// We want to see a message after redirection, so we establish
+						// a "flash" message (which is simply a Session variable) to be
+						// get in the view after redirection.
+						$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user->getName()));
+
+						// perform the redirection. More or less:
+						// header("Location: index.php?controller=users&action=show")
+						// die();
+						$this->view->redirect("users", "show");
+					}else if($flagCurrent) {
+						echo " Es el mio y NO compruebo si existe";
+						$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
+
+						//up the image to the server
+						move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
+
+						//save the user object into the database
+						$this->userMapper->update($user);
+
+						$_SESSION["currentuser"]=$_POST["username"];
+
+						// POST-REDIRECT-GET
+						// Everything OK, we will redirect the user to the list of posts
+						// We want to see a message after redirection, so we establish
+						// a "flash" message (which is simply a Session variable) to be
+						// get in the view after redirection.
+						$this->view->setFlash(sprintf(i18n("User \"%s\" successfully updated."),$user ->getName()));
+
+						// perform the redirection. More or less:
+						// header("Location: index.php?controller=users&action=show")
+						// die();
+						$this->view->redirect("users", "show");
+						}else {
+							$errors = array();
+							$errors["email"] = "Username already exists";
+							$this->view->setVariable("errors", $errors);
+						}
+					}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();

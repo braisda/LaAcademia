@@ -15,12 +15,12 @@ $view->setVariable("title", "View Tournament");
   <li class="breadcrumb-item"><a href="index.php?controller=draws&amp;action=show&amp;id_tournament=<?= $tournament ?>"><?= i18n("Draws List") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=draws&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>"><?= i18n("Draw Information") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=matches&amp;action=show&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>"><?= i18n("Matches List") ?></a></li>
-  <li class="breadcrumb-item active"><?= i18n("Match Information") ?></li>
+  <li class="breadcrumb-item active"><?= i18n("Delete Match") ?></li>
 </ol>
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Match Information") ?></h4>
+    <h4 id="view_title"><?= i18n("Delete Match") ?></h4>
   </div>
 
   <div class="row justify-content-center">
@@ -63,27 +63,16 @@ $view->setVariable("title", "View Tournament");
                   <td><?= $match->getSet4b()?></td>
                   <td><?= $match->getSet5b()?></td>
                 </tr>
-                <tr>
-                  <td><?php
-                    if($_SESSION["admin"]){
-                  ?>
-                    <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-loop"></span></a>
-                    <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-trash"></a>
-                  <?php
-                }
-                  ?>
-                </td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
           </tbody>
         </table>
       </ul>
+      <br/>
+      <form action="index.php?controller=matches&amp;action=delete" method="POST">
+        <input type="hidden" name="id_tournament" value="<?= $tournament ?>">
+        <input type="hidden" name="id_draw" value="<?= $draw ?>">
+        <input type="hidden" name="id_match" value="<?= $match->getId_match() ?>">
+        <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Delete")?></button>
+      </form>
     </div>
   </div>
 </div>

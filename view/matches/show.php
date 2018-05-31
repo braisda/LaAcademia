@@ -15,8 +15,15 @@ $view->setVariable("title", "Matches List");
   <li class="breadcrumb-item"><a href="index.php?controller=tournaments&amp;action=view&amp;id_tournament=<?= $tournament ?>"><?= i18n("Tournament Information") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=draws&amp;action=show&amp;id_tournament=<?= $tournament ?>"><?= i18n("Draws List") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=draws&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>"><?= i18n("Draw Information") ?></a></li>
-  <li class="breadcrumb-item active"><a href="index.php?controller=tournaments&amp;action=show"><?= i18n("Matches List") ?></a></li>
+  <li class="breadcrumb-item active"><?= i18n("Matches List") ?></li>
 </ol>
+
+<?php $alert = "" ?>
+<?php if($alert =($view->popFlash())){ ?>
+    <div class="alert alert-success" role="alert">
+      <?= $alert ?>
+    </div>
+<?php } ?>
 
 <div id="container" class="container">
   <div id="background_title">
@@ -64,7 +71,7 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                        <a href="index.php?controller=matches&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>">V</a>
+                        <a href="index.php?controller=matches&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>">V</a>
                     <?php
                           $flag = true;
                         }
@@ -76,8 +83,8 @@ $view->setVariable("title", "Matches List");
                       <?php
                         }else{
                       ?>
-                          <a href="index.php?controller=matches&amp;action=edit&amp;id_match=<?= $match->getId_match() ?>">M</a>
-                          <a href="index.php?controller=matches&amp;action=delete&amp;id_match=<?= $match->getId_match() ?>">E</a>
+                          <a href="index.php?controller=matches&amp;action=edit&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>">M</a>
+                          <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>">E</a>
                       <?php
                         }
                       }

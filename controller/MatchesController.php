@@ -335,6 +335,10 @@ class MatchesController extends BaseController {
 			throw new Exception("tournament id is mandatory");
 		}
 
+		if (!isset($_REQUEST["id_draw"])) {
+			throw new Exception("draw id is mandatory");
+		}
+
 		if (!isset($_REQUEST["id_match"])) {
 			throw new Exception("A match id is mandatory");
 		}
@@ -367,12 +371,12 @@ class MatchesController extends BaseController {
 				// We want to see a message after redirection, so we establish
 				// a "flash" message (which is simply a Session variable) to be
 				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Match \"%s\" successfully deleted."), $match->getModality()));
+				$this->view->setFlash(sprintf(i18n("Match \"%s\" successfully deleted."), $match->getDate()));
 
 				// perform the redirection. More or less:
-				// header("Location: index.php?controller=posts&action=index")
+				// header("Location: index.php?controller=matches&action=show")
 				// die();
-				$this->view->redirect("matches", "show", "id_tournament=".$_REQUEST["id_tournament"]);
+				$this->view->redirect("matches", "show", "id_tournament=".$_REQUEST["id_tournament"], "id_draw=".$_REQUEST["id_draw"]);
 
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
@@ -384,6 +388,9 @@ class MatchesController extends BaseController {
 
 		// put the matches object to the view
 		$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
+
+		// put the matches object to the view
+		$this->view->setVariable("draw", $_GET["id_draw"]);
 
 		// Put the user object visible to the view
 		$this->view->setVariable("match", $match);

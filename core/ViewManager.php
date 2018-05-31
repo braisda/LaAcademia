@@ -254,8 +254,8 @@ class ViewManager {
 	* @param string $queryString An optional query string
 	* @return void
 	*/
-	public function redirect($controller, $action, $queryString=NULL) {
-		header("Location: index.php?controller=$controller&action=$action".(isset($queryString)?"&$queryString":""));
+	public function redirect($controller, $action, $queryString=NULL, $queryString2=NULL) {
+		header("Location: index.php?controller=$controller&action=$action".(isset($queryString)?"&$queryString":"").(isset($queryString2)?"&$queryString2":""));
 		die();
 	}
 

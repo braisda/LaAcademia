@@ -269,7 +269,6 @@ class CourseReservationMapper {
 	* @return void
 	*/
 	public function delete($reservation) {
-		//Borrado físico
 		$stmt = $this->db->prepare("DELETE FROM courses_reservations WHERE id_reservation=?");
 		$stmt->execute(array($reservation->getId_reservation()));
 	}

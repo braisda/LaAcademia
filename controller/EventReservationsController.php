@@ -185,13 +185,27 @@ class EventReservationsController extends BaseController {
 			$reservation->setId_event($id_event);
 
 			try {
-				//save the event reservation object into the database
-				$this->eventReservationMapper->add($reservation);
+				// check if reservation exists in the database
+				if(!$this->eventReservationMapper->reservationExists($id_user, $id_event)){
+					//save the event reservation object into the database
+					$this->eventReservationMapper->add($reservation);
 
-				$this->view->setFlash(sprintf(i18n("Event reservation \"%s at %s\" successfully added."), date("Y-m-d"), date("H:i:s")));
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Event reservation \"%s at %s\" successfully added."), date("Y-m-d"), date("H:i:s")));
 
-				$this->view->redirect("eventReservations", "show");
-
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=eventReservations&action=show")
+					// die();
+					$this->view->redirect("eventReservations", "show");
+				} else {
+					$errors = array();
+					$errors["reservation"] = "Reservation already exists";
+					$this->view->setVariable("errors", $errors);
+				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();

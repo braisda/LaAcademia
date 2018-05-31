@@ -29,6 +29,11 @@ $errors = $view->getVariable ( "errors" );
         <li id="table_color" class="list-group-item"><strong><?= i18n("Capacity") ?>:</strong> <?= $event->getCapacity() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $event->getPrice() ?></li>
       </ul>
+      <?php if(isset($errors["reservation"])){ ?>
+          <div class="alert alert-danger" role="alert">
+            <strong><?= i18n("Error!") ?></strong> <?= isset($errors["reservation"])?i18n($errors["reservation"]):"" ?>
+          </div>
+      <?php } ?>
       <br/>
       <form action="index.php?controller=eventReservations&amp;action=add" method="POST">
         <input type="hidden" name="id_event" value="<?= $event->getId_event() ?>">

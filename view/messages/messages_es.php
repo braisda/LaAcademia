@@ -240,7 +240,7 @@ array(
 	"Course \"%s\" successfully updated." => "Curso \"%s\" modificado correctamente.",
 	"Update Tournament" => "Modificar Torneo",
 	"Search Event Reservation" => "Buscar Reservas de Eventos",
-	"" => "",
+	"Event reservation \"%s at %s\" successfully added." => "Reserva de evento \"%s at %s\" añadida correctamente.",
 	"" => "",
 	"" => "",
 	"" => "",

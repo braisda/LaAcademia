@@ -45,8 +45,10 @@ $view->setVariable("title", "Matches List");
                     <?php
                     $name = "";
                       $flag = false;
+                      $id_match = "";
                       foreach ($matches as $match) {
                         if($match->getRound() == "round of 32" && $match->getCell() == "0,0" && $match->getId_draw() == $draw){
+                          $id_match = $match->getId_match();
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
                               $name = $competitor->getName();
@@ -62,18 +64,22 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
+                        <a href="index.php?controller=matches&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>">V</a>
                     <?php
                           $flag = true;
                         }
                       }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=edit&amp;id_match=<?= $match->getId_match() ?>">M</a>
+                          <a href="index.php?controller=matches&amp;action=delete&amp;id_match=<?= $match->getId_match() ?>">E</a>
+                      <?php
+                        }
                       }
                     ?>
                   </td>
@@ -106,20 +112,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -148,20 +158,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -193,20 +207,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -234,20 +252,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -278,20 +300,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -320,20 +346,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -366,20 +396,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -406,20 +440,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -450,20 +488,24 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                    <?php
-                          $flag = true;
+                          <a href="index.php">V</a>
+                      <?php
+                            $flag = true;
+                          }
                         }
-                      }
-                      if(!$flag){
-                    ?>
-                        <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                    <?php
-                      }else{
-                    ?>
-                        <a href="index.php">M</a>
-                    <?php
-                      }
-                    ?>
+                        if($_SESSION["admin"]) {
+                          if(!$flag){
+                        ?>
+                            <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                        <?php
+                          }else{
+                        ?>
+                            <a href="index.php">M</a>
+                            <a href="index.php">E</a>
+                        <?php
+                          }
+                        }
+                      ?>
                   </td>
                   <td></td>
                   <td></td>
@@ -492,20 +534,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td></td>
                 <td></td>
@@ -537,20 +583,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td></td>
                 <td></td>
@@ -578,20 +628,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td></td>
                 <td></td>
@@ -622,20 +676,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td></td>
                 <td></td>
@@ -664,20 +722,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td></td>
                 <td></td>
@@ -711,20 +773,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td>
                   <?php
@@ -746,20 +812,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
               </tr>
 
@@ -784,20 +854,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td></td>
                 <td></td>
@@ -828,20 +902,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td></td>
                 <td></td>
@@ -865,20 +943,24 @@ $view->setVariable("title", "Matches List");
                         <br/>
                         <?= $name2 ?> <?= $surname2 ?>
                         <br/>
-                  <?php
-                        $flag = true;
+                        <a href="index.php">V</a>
+                    <?php
+                          $flag = true;
+                        }
                       }
-                    }
-                    if(!$flag){
-                  ?>
-                      <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
-                  <?php
-                    }else{
-                  ?>
-                      <a href="index.php">M</a>
-                  <?php
-                    }
-                  ?>
+                      if($_SESSION["admin"]) {
+                        if(!$flag){
+                      ?>
+                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                      <?php
+                        }else{
+                      ?>
+                          <a href="index.php">M</a>
+                          <a href="index.php">E</a>
+                      <?php
+                        }
+                      }
+                    ?>
                 </td>
                 <td>
                   <?php

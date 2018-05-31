@@ -107,6 +107,34 @@ class MatchMapper {
 
 		$match = $stmt->fetch ( PDO::FETCH_ASSOC );
 
+		$stmt2 = $this->db->prepare("SELECT name, surname FROM users WHERE id_user=?");
+    $stmt2->execute(array($match["rival1a"]));
+
+    $player1a = $stmt2->fetch ( PDO::FETCH_ASSOC );
+
+    $player1a_name = $player1a["name"]." ".$player1a["surname"];
+
+		$stmt3 = $this->db->prepare("SELECT name, surname FROM users WHERE id_user=?");
+    $stmt3->execute(array($match["rival1b"]));
+
+    $player1b = $stmt3->fetch ( PDO::FETCH_ASSOC );
+
+    $player1b_name = $player1b["name"]." ".$player1b["surname"];
+
+		$stmt4 = $this->db->prepare("SELECT name, surname FROM users WHERE id_user=?");
+    $stmt4->execute(array($match["rival2a"]));
+
+    $player2a = $stmt4->fetch ( PDO::FETCH_ASSOC );
+
+    $player2a_name = $player2a["name"]." ".$player2a["surname"];
+
+		$stmt5 = $this->db->prepare("SELECT name, surname FROM users WHERE id_user=?");
+    $stmt5->execute(array($match["rival2b"]));
+
+    $player2b = $stmt5->fetch ( PDO::FETCH_ASSOC );
+
+    $player2b_name = $player2b["name"]." ".$player2b["surname"];
+
 		if ($match != null) {
 			return new Match($match ["id_match"],
                        $match ["rival1a"],
@@ -115,6 +143,7 @@ class MatchMapper {
                        $match ["rival2b"],
                        $match ["date"],
                        $match ["round"],
+											 $match ["cell"],
                        $match ["set1a"],
                        $match ["set1b"],
                        $match ["set2a"],
@@ -125,7 +154,11 @@ class MatchMapper {
                        $match ["set4b"],
                        $match ["set5a"],
                        $match ["set5b"],
-                       $match ["id_draw"]);
+                       $match ["id_draw"],
+										 	 $player1a_name,
+										 	 $player1b_name,
+									 	   $player2a_name,
+								 		 	 $player2b_name);
 		} else {
 			return NULL;
 		}
@@ -140,13 +173,13 @@ class MatchMapper {
 	*/
 	public function add($match) {
 		$stmt = $this->db->prepare("INSERT INTO matches(rival1a, rival1b, rival2a, rival2b,
-                                                    date, round, set1a, set1b, set2a,
+                                                    date, round, cell set1a, set1b, set2a,
                                                     set2b, set3a, set3b, set4a, set4b,
                                                     set5a, set5b, id_draw)
 																values (?,?,?,?,?)");
 
 		$stmt->execute(array($match->getRival1a(), $match->getRival1b(), $match->getRival2a(),
-												 $match->getRival2b(), $match->getDate(), $match->getRound(),
+												 $match->getRival2b(), $match->getDate(), $match->getRound(), $match->getCell(),
                          $match->getSet1a(), $match->getSet1b(), $match->getSet2a(),
                      		 $match->getSet2b(), $match->getSet3a(), $match->getSet3b(),
                          $match->getSet4a(), $match->getSet4b(), $match->getSet5a(),
@@ -164,14 +197,14 @@ class MatchMapper {
 	public function update($match) {
 		$stmt = $this->db->prepare("UPDATE matches
 																set rival1a = ?, rival1b = ?, rival2a = ?,
-																		rival2b = ?, date = ?, round = ? , set1a = ?,
+																		rival2b = ?, date = ?, round = ?, cell=?, set1a = ?,
                                     set1b = ? , set2a = ?, set2b = ?, set3a = ?,
                                     set3b = ?, set4a = ?, set4b=?, set5a = ?,
                                     set5b = ?, id_draw = ?
 																WHERE id_match = ?");
 
 		$stmt->execute(array($match->getRival1a(), $match->getRival1b(), $match->getRival2a(),
-												 $match->getRival2b(), $match->getDate(), $match->getRound(),
+												 $match->getRival2b(), $match->getDate(), $match->getRound(), $match->getCell(),
                          $match->getSet1a(), $match->getSet1b(), $match->getSet2a(),
                      		 $match->getSet2b(), $match->getSet3a(), $match->getSet3b(),
                          $match->getSet4a(), $match->getSet4b(), $match->getSet5a(),
@@ -215,6 +248,7 @@ class MatchMapper {
                                                    $match ["rival2b"],
                                                    $match ["date"],
                                                    $match ["round"],
+																									 $match ["cell"],
                                                    $match ["set1a"],
                                                    $match ["set1b"],
                                                    $match ["set2a"],

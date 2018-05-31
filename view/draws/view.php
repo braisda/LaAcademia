@@ -29,7 +29,7 @@ $view->setVariable("title", "View Tournament");
           <span class="oi oi-zoom-in"></span>
         </a>
       </h4>
-      <ul id="background_table"  class="list-group list-group-flush">
+      <ul id="background_table2"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= i18n("Category") ?>: <?= i18n(ucfirst($draw->getCategory())) ?></li>
         <li id="event_decription" class="list-group-item"><?= i18n("Type") ?>: <?= i18n(ucfirst($draw->getType())) ?></li>
         <?php

@@ -21,7 +21,7 @@ $view->setVariable ( "title", "View Event" );
   <div class="row justify-content-center">
     <div id="card_event" class="card">
       <h4 id="card_body" class="card-header"><?= $event->getName() ?></h4>
-      <ul id="background_table"  class="list-group list-group-flush">
+      <ul id="background_table2"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= $event->getDescription() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Place") ?>:</strong> <?= $event->getName_space() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= date("d-m-Y", strtotime($event->getDate())); ?></li>

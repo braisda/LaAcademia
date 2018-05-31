@@ -25,7 +25,7 @@ $view->setVariable ( "title", "View User" );
 
         <p class="card-text"><?= i18n("User of type ") ?> <?= i18n($user->getType()) ?> </p>
       </div>
-      <ul id="background_table"  class="list-group list-group-flush">
+      <ul id="background_table2"  class="list-group list-group-flush">
         <li id="table_color" class="list-group-item"><?= i18n("Dni:") ?> <?= $user->getDni() ?></li>
         <li id="table_color" class="list-group-item"><?= i18n("Birthdate:") ?> <?= date("d-m-Y", strtotime($user->getBirthdate())); ?></li>
         <li id="table_color" class="list-group-item"><?= i18n("Email:") ?> <?= $user->getUsername() ?></li>

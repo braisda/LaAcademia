@@ -32,7 +32,7 @@ $view->setVariable ( "title", "View Reservation" );
 
         <?= $name ?></td>
       </h4>
-      <ul id="background_table" class="list-group list-group-flush">
+      <ul id="background_table2" class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item">
           <?php
             foreach ($assistants as $assistant) {

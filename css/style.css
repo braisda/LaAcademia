@@ -146,6 +146,14 @@ li.breadcrumb-item>a {
 	background: rgba(255, 255, 255, 0.73);
   color: black;
 	border-radius: 2px;
+	padding-bottom: 1rem;
+}
+
+#background_table2 {
+	background: rgba(255, 255, 255, 0.73);
+  color: black;
+	border-radius: 2px;
+	padding-bottom: 0;
 }
 
 #background_install {
@@ -241,12 +249,22 @@ li.breadcrumb-item>a {
 	width: 50%
 }
 
+#card_event2 {
+	border: 0px;
+	background-color: transparent;
+	width: 80%
+}
+
 #event_decription {
 	background: rgba(5, 53, 21, 0.73);
 	color:white;
 	border-color: #3c3a37;
 	font-style: italic;
 	white-space: pre !important;
+}
+
+.table {
+	margin-bottom: 0;
 }
 
 .table-dark td, .table-dark th, .table-dark thead th {

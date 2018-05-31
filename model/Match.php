@@ -111,6 +111,26 @@ class Match {
 	private $id_draw;
 
 	/**
+	* The name and surname of the rival1a
+	*/
+	private $rival1a_name;
+
+	/**
+	* The name and surname of the rival1b
+	*/
+	private $rival1b_name;
+
+	/**
+	* The name and surname of the rival2a
+	*/
+	private $rival2a_name;
+
+	/**
+	* The name and surname of the rival2b
+	*/
+	private $rival2b_name;
+
+	/**
 	* The constructor
 	*
 	* @param string $id_match The id of the match
@@ -132,13 +152,19 @@ class Match {
   * @param string $set5a The set5a of the match
   * @param string $set5b The set5b of the match
   * @param string $id_draw The id of the draw
+	* @param string $rival1a_name The name and surname of the rival1a
+	* @param string $rival1b_name The name and surname of the rival1b
+	* @param string $rival2a_name The name and surname of the rival2a
+	* @param string $rival2b_name The name and surname of the rival2b
   */
 	public function __construct($id_match=NULL, $rival1a=NULL, $rival1b=NULL,
 															$rival2a=NULL, $rival2b=NULL, $date=NULL,
                               $round=NULL, $cell=NULL, $set1a=NULL, $set1b=NULL,
                             	$set2a=NULL, $set2b=NULL, $set3a=NULL,
                               $set3b=NULL, $set4a=NULL, $set4b=NULL,
-                              $set5a=NULL, $set5b=NULL, $id_draw=NULL) {
+                              $set5a=NULL, $set5b=NULL, $id_draw=NULL,
+															$rival1a_name=NULL, $rival1b_name=NULL, $rival2a_name=NULL,
+															$rival2b_name=NULL) {
 		$this->id_match = $id_match;
 		$this->rival1a = $rival1a;
 		$this->rival1b = $rival1b;
@@ -158,6 +184,10 @@ class Match {
 		$this->set5a = $set5a;
 		$this->set5b = $set5b;
 		$this->id_draw = $id_draw;
+		$this->rival1a_name = $rival1a_name;
+		$this->rival1b_name = $rival1b_name;
+		$this->rival2a_name = $rival2a_name;
+		$this->rival2b_name = $rival2b_name;
 	}
 
 	/**
@@ -509,6 +539,42 @@ class Match {
 	*/
 	public function setId_draw($id_draw) {
 		$this->id_draw = $id_draw;
+	}
+
+	/**
+	* Gets the name and surname of the rival1a
+	*
+	* @return string The name and surname of the rival1a
+	*/
+	public function getName_rival1a() {
+		return $this->rival1a_name;
+	}
+
+	/**
+	* Gets the name and surname of the rival1b
+	*
+	* @return string The name and surname of the rival1b
+	*/
+	public function getName_rival1b() {
+		return $this->rival1b_name;
+	}
+
+	/**
+	* Gets the name and surname of the rival2a
+	*
+	* @return string The name and surname of the rival2a
+	*/
+	public function getName_rival2a() {
+		return $this->rival2a_name;
+	}
+
+	/**
+	* Gets the name and surname of the rival2b
+	*
+	* @return string The name and surname of the rival2b
+	*/
+	public function getName_rival2b() {
+		return $this->rival2b_name;
 	}
 
 	/**

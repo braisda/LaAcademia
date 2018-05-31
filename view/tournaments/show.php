@@ -65,10 +65,15 @@ $view->setVariable ("title", "Show Tournaments");
                           <a href="index.php?controller=tournaments&amp;action=update&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-loop"></span></a>
                           <a href="index.php?controller=tournaments&amp;action=delete&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-trash"></span></a>
                         <?php
-                          }
-                        ?>
-                      </td>
-        						</tr>
+                      }
+                      if($_SESSION["competitor"]){
+                    ?>
+                      <a href="index.php?controller=tournamentReservations&amp;action=add&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-task"></span></span></a>
+                    <?php
+                      }
+                    ?>
+                  </td>
+                </tr>
         				<?php endforeach; ?>
               </tbody>
             </table>

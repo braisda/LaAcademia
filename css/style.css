@@ -189,7 +189,7 @@ li.breadcrumb-item>a {
 	margin-bottom: 0px;
 }
 
-#table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd, #date, #price {
+#table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd, #date, #price, #set {
 	background: rgba(5, 53, 21, 0.73);
 	color:white;
 	border-color: #3c3a37;

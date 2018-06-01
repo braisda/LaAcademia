@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `academia`.`courses` (
   `start_time` TIME NOT NULL,
   `end_time` TIME NOT NULL,
   `id_space` INT NULL,
-  `id_trainer` INT NOT NULL,
+  `id_trainer` INT NULL,
   `price` INT NOT NULL,
   INDEX `fk_courses_users_idx` (`id_trainer` ASC),
   PRIMARY KEY (`id_course`),
@@ -81,13 +81,13 @@ CREATE TABLE IF NOT EXISTS `academia`.`courses` (
   CONSTRAINT `fk_courses_users`
     FOREIGN KEY (`id_trainer`)
     REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_courses_spaces1`
     FOREIGN KEY (`id_space`)
     REFERENCES `academia`.`spaces` (`id_space`)
     ON DELETE SET NULL
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -99,21 +99,21 @@ CREATE TABLE IF NOT EXISTS `academia`.`courses_reservations` (
   `date` DATE NOT NULL,
   `time` TIME NOT NULL,
   `is_confirmed` INT NOT NULL,
-  `id_pupil` INT NOT NULL,
-  `id_course` INT NOT NULL,
+  `id_pupil` INT NULL,
+  `id_course` INT NULL,
   PRIMARY KEY (`id_reservation`),
   INDEX `fk_courses_reservations_users1_idx` (`id_pupil` ASC),
   INDEX `fk_courses_reservations_courses1_idx` (`id_course` ASC),
   CONSTRAINT `fk_courses_reservations_users1`
     FOREIGN KEY (`id_pupil`)
     REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_courses_reservations_courses1`
     FOREIGN KEY (`id_course`)
     REFERENCES `academia`.`courses` (`id_course`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `academia`.`events` (
     FOREIGN KEY (`id_space`)
     REFERENCES `academia`.`spaces` (`id_space`)
     ON DELETE SET NULL
-    ON UPDATE SET NULL)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -147,21 +147,21 @@ CREATE TABLE IF NOT EXISTS `academia`.`events_reservations` (
   `date` DATE NOT NULL,
   `time` TIME NOT NULL,
   `is_confirmed` VARCHAR(45) NOT NULL,
-  `id_event` INT NOT NULL,
-  `id_assistant` INT NOT NULL,
+  `id_event` INT NULL,
+  `id_assistant` INT NULL,
   PRIMARY KEY (`id_reservation`),
   INDEX `fk_events_reservations_events1_idx` (`id_event` ASC),
   INDEX `fk_events_reservations_users1_idx` (`id_assistant` ASC),
   CONSTRAINT `fk_events_reservations_events1`
     FOREIGN KEY (`id_event`)
     REFERENCES `academia`.`events` (`id_event`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_events_reservations_users1`
     FOREIGN KEY (`id_assistant`)
     REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -187,21 +187,21 @@ CREATE TABLE IF NOT EXISTS `academia`.`tournaments_reservations` (
   `date` DATE NOT NULL,
   `time` TIME NOT NULL,
   `is_confirmed` INT NOT NULL,
-  `id_tournament` INT NOT NULL,
-  `id_player` INT NOT NULL,
+  `id_tournament` INT NULL,
+  `id_player` INT NULL,
   PRIMARY KEY (`id_reservation`),
   INDEX `fk_tournaments_reservations_tournaments1_idx` (`id_tournament` ASC),
   INDEX `fk_tournaments_reservations_users1_idx` (`id_player` ASC),
   CONSTRAINT `fk_tournaments_reservations_tournaments1`
     FOREIGN KEY (`id_tournament`)
     REFERENCES `academia`.`tournaments` (`id_tournament`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_tournaments_reservations_users1`
     FOREIGN KEY (`id_player`)
     REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -212,16 +212,16 @@ CREATE TABLE IF NOT EXISTS `academia`.`draws` (
   `id_draw` INT NOT NULL AUTO_INCREMENT,
   `modality` ENUM('individual', 'double') NOT NULL,
   `gender` ENUM('male', 'female') NOT NULL,
-  `id_tournament` INT NOT NULL,
-  `category` ENUM('children', 'adult', 'veteran') NULL,
-  `type` ENUM('regular', 'consolation') NULL,
+  `category` ENUM('children', 'adult', 'veteran') NOT NULL,
+  `type` ENUM('regular', 'consolation') NOT NULL,
+  `id_tournament` INT NULL,
   PRIMARY KEY (`id_draw`),
   INDEX `fk_draws_tournaments1_idx` (`id_tournament` ASC),
   CONSTRAINT `fk_draws_tournaments1`
     FOREIGN KEY (`id_tournament`)
     REFERENCES `academia`.`tournaments` (`id_tournament`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -230,12 +230,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `academia`.`matches` (
   `id_match` INT NOT NULL AUTO_INCREMENT,
-  `rival1a` INT NOT NULL,
+  `rival1a` INT NULL,
   `rival1b` INT NULL,
-  `rival2a` INT NOT NULL,
+  `rival2a` INT NULL,
   `rival2b` INT NULL,
   `date` DATE NOT NULL,
-  `round` ENUM('champion', 'third place', 'final', 'consolation', 'semifinal', 'cuarterfinal', 'round of 16', 'round of 32') NOT NULL,
+  `time` TIME NULL,
+  `round` ENUM('champion', 'third place', 'final', 'consolation', 'semifinal', 'cuarterfinal', 'roundof16', 'roundof32') NOT NULL,
+  `cell` VARCHAR(45) NOT NULL,
   `set1a` INT NULL,
   `set1b` INT NULL,
   `set2a` INT NULL,
@@ -246,14 +248,21 @@ CREATE TABLE IF NOT EXISTS `academia`.`matches` (
   `set4b` INT NULL,
   `set5a` INT NULL,
   `set5b` INT NULL,
-  `id_draw` INT NOT NULL,
+  `id_draw` INT NULL,
+  `id_space` INT NULL,
   PRIMARY KEY (`id_match`),
   INDEX `fk_matches_draws1_idx` (`id_draw` ASC),
+  INDEX `fk_matches_spaces1_idx` (`id_space` ASC),
   CONSTRAINT `fk_matches_draws1`
     FOREIGN KEY (`id_draw`)
     REFERENCES `academia`.`draws` (`id_draw`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_matches_spaces1`
+    FOREIGN KEY (`id_space`)
+    REFERENCES `academia`.`spaces` (`id_space`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -264,37 +273,69 @@ CREATE TABLE IF NOT EXISTS `academia`.`notifications` (
   `id_notification` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(30) NOT NULL,
   `body` TEXT NOT NULL,
-  `sender` INT NOT NULL,
-  `receiver` INT NOT NULL,
+  `sender` INT NULL,
+  `receiver` INT NULL,
   PRIMARY KEY (`id_notification`),
   INDEX `fk_notifications_users1_idx` (`sender` ASC),
   INDEX `fk_notifications_users2_idx` (`receiver` ASC),
   CONSTRAINT `fk_notifications_users1`
     FOREIGN KEY (`sender`)
     REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_notifications_users2`
     FOREIGN KEY (`receiver`)
     REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id_user`, `name`, `surname`, `dni`, `email`, `password`, `telephone`, `birthdate`, `image`, `is_active`, `is_administrator`, `is_trainer`, `is_pupil`, `is_competitor`) VALUES
-(1, 'Brais', 'Domínguez Álvarez', '34273074S', 'braisda@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 662485513, '1991-06-10', 'multimedia/images/users/Foto Perfil2.PNG', 1, 1, NULL, NULL, NULL),
-(2, 'Francisco', 'Expósito Martínez', '34766251A', 'panocadas@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 666555444, '1984-02-06', 'multimedia/images/users/francisco.jpg', 1, NULL, 1, NULL, NULL),
-(3, 'Fátima', 'Rodríguez Souto', '40157844C', 'fatima@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 698659991, '2000-12-13', 'multimedia/images/users/fatima.jpg', 1, NULL, 1, NULL, NULL),
-(4, 'Laura', 'Méndez Ferreiro', '34695755P', 'laura@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 699422322, '1996-09-15', 'multimedia/images/users/laura.jpg', 1, NULL, NULL, 1, NULL),
-(5, 'Jaime', 'Vila López', '34352201S', 'jaime@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 632521141, '1977-02-25', 'multimedia/images/users/jaime.jpg', 1, NULL, NULL, 1, NULL),
-(6, 'Raúl', 'Gil Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(7, 'Alba', 'Torres Quiroga', '53228407H', 'alba@gmail.com', '85e820b214862278ef667ae4bb1d8608', 600912231, '1988-07-17', 'multimedia/images/users/alba.png', 1, NULL, NULL, NULL, 1),
-(8, 'Manuel', 'Alvarez Lopez', '34343434A', 'eliminado@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 659863111, '1970-01-30', 'multimedia/images/users/profile.png', 0, 1, NULL, NULL, NULL),
-(9, 'Javier', 'Rodeiro Iglesias', '34343434A', 'jrodeiro@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 666666666, '1980-10-28', 'multimedia/images/users/profile.png', 1, 1, NULL, NULL, NULL);
+(NULL, 'Brais', 'Domínguez Álvarez', '34273074S', 'braisda@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 662485513, '1991-06-10', 'multimedia/images/users/Foto Perfil2.PNG', 1, 1, NULL, NULL, NULL),
+(NULL, 'Francisco', 'Expósito Martínez', '34766251A', 'panocadas@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 666555444, '1984-02-06', 'multimedia/images/users/francisco.jpg', 1, NULL, 1, NULL, NULL),
+(NULL, 'Fátima', 'Rodríguez Souto', '40157844C', 'fatima@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 698659991, '2000-12-13', 'multimedia/images/users/fatima.jpg', 1, NULL, 1, NULL, NULL),
+(NULL, 'Laura', 'Méndez Ferreiro', '34695755P', 'laura@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 699422322, '1996-09-15', 'multimedia/images/users/laura.jpg', 1, NULL, NULL, 1, NULL),
+(NULL, 'Jaime', 'Vila López', '34352201S', 'jaime@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 632521141, '1977-02-25', 'multimedia/images/users/jaime.jpg', 1, NULL, NULL, 1, NULL),
+(NULL, 'Raúl', 'Gil Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Alba', 'Torres Quiroga', '53228407H', 'alba@gmail.com', '85e820b214862278ef667ae4bb1d8608', 600912231, '1988-07-17', 'multimedia/images/users/alba.png', 1, NULL, NULL, NULL, 1),
+(NULL, 'Marcos', 'Villa López', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Abel', 'Piñeiro Vila', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Mateo', 'Torres Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Zeus', 'Rajoy Jato', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Petete', 'Moreno Domínguez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Ulises', 'Feijoo Martínez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Carlos', 'Pernía Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Gabino', 'Llorente Mata', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Juan', 'Domínguez Alonso', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Bartolo', 'Navas Nos', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Gabriel', 'Cobo Souto', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Anxo', 'Quiroga Iglesias', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Galindo', 'Casado Vega', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Saúl', 'Gallego Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Ángel', 'Blanco Gutiérrez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Paco', 'Reina Domínguez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Matín', 'Villa Casillas', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Epi', 'Sánchez Borbón', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Mauro', 'Castañer Dafonte', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Gumersindo', 'Peixoto Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Artemio', 'Sotelo Cortés', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Manuel', 'Peña Moreno', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Ricardo', 'Veiga Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Nicanor', 'Álvarez Casas', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Telmo', 'Hernández Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Iker', 'Banderas Iglesias', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'David', 'López López', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Victor', 'Muñoz Vázquez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Andrés', 'Fernández Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Fernando', 'Gil Domínguez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Sergio', 'Verao Valdés', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Manuel', 'Alvarez Lopez', '34343434A', 'eliminado@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 659863111, '1970-01-30', 'multimedia/images/users/profile.png', 0, 1, NULL, NULL, NULL),
+(NULL, 'Javier', 'Rodeiro Iglesias', '34343434A', 'jrodeiro@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 666666666, '1980-10-28', 'multimedia/images/users/profile.png', 1, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -372,5 +413,47 @@ INSERT INTO `tournaments` (`id_tournament`, `name`, `description`, `start_date`,
 INSERT INTO `draws` (`id_draw`, `modality`, `gender`, `id_tournament`, `category`, `type`) VALUES
 (NULL, 'individual', 'male', '1', 'adult', 'regular'),
 (NULL, 'individual', 'female', '1', 'adult', 'regular');
+
+-- --------------------------------------------------------
+
+--
+-- Volcado de datos para la tabla `matches`
+--
+
+INSERT INTO `matches` (`id_match`, `rival1a`, `rival1b`, `rival2a`, `rival2b`, `date`, `round`, `cell`, `set1a`, `set1b`, `set2a`, `set2b`, `set3a`, `set3b`, `set4a`, `set4b`, `set5a`, `set5b`, `id_draw`, `id_space`) VALUES
+(NULL, 6, NULL, 10, NULL, '2018-05-13', 'roundof32', '0,0', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 11, NULL, 12, NULL, '2018-05-13', 'roundof32', '0,2', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 13, NULL, 14, NULL, '2018-05-13', 'roundof32', '0,4', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 15, NULL, 16, NULL, '2018-05-13', 'roundof32', '0,6', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 17, NULL, 18, NULL, '2018-05-13', 'roundof32', '0,8', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 19, NULL, 20, NULL, '2018-05-13', 'roundof32', '0,10', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 21, NULL, 22, NULL, '2018-05-13', 'roundof32', '0,12', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 23, NULL, 24, NULL, '2018-05-13', 'roundof32', '0,14', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 25, NULL, 26, NULL, '2018-05-13', 'roundof32', '0,16', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 27, NULL, 28, NULL, '2018-05-13', 'roundof32', '0,18', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 29, NULL, 30, NULL, '2018-05-13', 'roundof32', '0,20', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 31, NULL, 32, NULL, '2018-05-13', 'roundof32', '0,22', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 33, NULL, 34, NULL, '2018-05-13', 'roundof32', '0,24', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 35, NULL, 36, NULL, '2018-05-13', 'roundof32', '0,26', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 37, NULL, 38, NULL, '2018-05-13', 'roundof32', '0,28', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 39, NULL, 40, NULL, '2018-05-13', 'roundof32', '0,30', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 6, NULL, 11, NULL, '2018-05-13', 'roundof16', '1,1', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 13, NULL, 15, NULL, '2018-05-13', 'roundof16', '1,5', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 17, NULL, 19, NULL, '2018-05-13', 'roundof16', '1,9', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 21, NULL, 23, NULL, '2018-05-13', 'roundof16', '1,13', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 25, NULL, 27, NULL, '2018-05-13', 'roundof16', '1,17', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 29, NULL, 31, NULL, '2018-05-13', 'roundof16', '1,21', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 33, NULL, 35, NULL, '2018-05-13', 'roundof16', '1,25', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 37, NULL, 39, NULL, '2018-05-13', 'roundof16', '1,29', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 6, NULL, 13, NULL, '2018-05-13', 'cuarterfinal', '2,3', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 17, NULL, 21, NULL, '2018-05-13', 'cuarterfinal', '2,11', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 25, NULL, 29, NULL, '2018-05-13', 'cuarterfinal', '2,19', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 33, NULL, 37, NULL, '2018-05-13', 'cuarterfinal', '2,27', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 6, NULL, 17, NULL, '2018-05-13', 'semifinal', '3,7', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 25, NULL, 33, NULL, '2018-05-13', 'semifinal', '3,23', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 6, NULL, 25, NULL, '2018-05-13', 'final', '4,15', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 17, NULL, 33, NULL, '2018-05-13', 'consolation', '4,17', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 6, NULL, 0, NULL, '2018-05-13', 'champion', '5,15', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(NULL, 17, NULL, 0, NULL, '2018-05-13', 'third place', '5,17', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
 
 COMMIT;

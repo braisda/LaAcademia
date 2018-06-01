@@ -25,7 +25,7 @@ $view->setVariable("title", "View Tournament");
 
   <div class="row justify-content-center">
     <div id="card_event2" class="card">
-      <h4 id="card_body" class="card-header"><?= ucfirst(i18n($match->getRound())) ?>: <?= date("d-m-Y", strtotime($match->getdate())); ?></h4>
+      <h4 id="card_body" class="card-header"><?= ucfirst(i18n($match->getRound())) ?>: <?= date("d-m-Y", strtotime($match->getdate())); ?> <?= i18n("in") ?> <?= $match->getName_space()?></h4>
 
       <ul id="background_table2"  class="list-group list-group-flush">
         <table id="table_color" class="table table-sm table-dark">

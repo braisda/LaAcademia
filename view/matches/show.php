@@ -54,7 +54,7 @@ $view->setVariable("title", "Matches List");
                       $flag = false;
                       $id_match = "";
                       foreach ($matches as $match) {
-                        if($match->getRound() == "round of 32" && $match->getCell() == "0,0" && $match->getId_draw() == $draw){
+                        if($match->getRound() == "roundof32" && $match->getCell() == "0,0" && $match->getId_draw() == $draw){
                           $id_match = $match->getId_match();
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
@@ -79,7 +79,7 @@ $view->setVariable("title", "Matches List");
                       if($_SESSION["admin"]) {
                         if(!$flag){
                       ?>
-                          <a href="index.php?controller=matches&amp;action=add"><span class="oi oi-plus"></a>
+                          <a href="index.php?controller=matches&amp;action=add&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,0&amp;round=roundof32"><span class="oi oi-plus"></a>
                       <?php
                         }else{
                       ?>
@@ -103,7 +103,7 @@ $view->setVariable("title", "Matches List");
                     <?php
                       $flag = false;
                       foreach ($matches as $match) {
-                        if($match->getRound() == "round of 16" && $match->getCell() == "1,1" && $match->getId_draw() == $draw){
+                        if($match->getRound() == "roundof16" && $match->getCell() == "1,1" && $match->getId_draw() == $draw){
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
                               $name = $competitor->getName();
@@ -149,7 +149,7 @@ $view->setVariable("title", "Matches List");
                     <?php
                       $flag = false;
                       foreach ($matches as $match) {
-                        if($match->getRound() == "round of 32" && $match->getCell() == "0,2" && $match->getId_draw() == $draw){
+                        if($match->getRound() == "roundof32" && $match->getCell() == "0,2" && $match->getId_draw() == $draw){
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
                               $name = $competitor->getName();
@@ -243,7 +243,7 @@ $view->setVariable("title", "Matches List");
                     <?php
                       $flag = false;
                       foreach ($matches as $match) {
-                        if($match->getRound() == "round of 32" && $match->getCell() == "0,4" && $match->getId_draw() == $draw){
+                        if($match->getRound() == "roundof32" && $match->getCell() == "0,4" && $match->getId_draw() == $draw){
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
                               $name = $competitor->getName();
@@ -291,7 +291,7 @@ $view->setVariable("title", "Matches List");
                     <?php
                       $flag = false;
                       foreach ($matches as $match) {
-                        if($match->getRound() == "round of 16" && $match->getCell() == "1,5" && $match->getId_draw() == $draw){
+                        if($match->getRound() == "roundof16" && $match->getCell() == "1,5" && $match->getId_draw() == $draw){
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
                               $name = $competitor->getName();
@@ -337,7 +337,7 @@ $view->setVariable("title", "Matches List");
                     <?php
                       $flag = false;
                       foreach ($matches as $match) {
-                        if($match->getRound() == "round of 32" && $match->getCell() == "0,6" && $match->getId_draw() == $draw){
+                        if($match->getRound() == "roundof32" && $match->getCell() == "0,6" && $match->getId_draw() == $draw){
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
                               $name = $competitor->getName();
@@ -431,7 +431,7 @@ $view->setVariable("title", "Matches List");
                     <?php
                       $flag = false;
                       foreach ($matches as $match) {
-                        if($match->getRound() == "round of 32" && $match->getCell() == "0,8" && $match->getId_draw() == $draw){
+                        if($match->getRound() == "roundof32" && $match->getCell() == "0,8" && $match->getId_draw() == $draw){
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
                               $name = $competitor->getName();
@@ -479,7 +479,7 @@ $view->setVariable("title", "Matches List");
                     <?php
                       $flag = false;
                       foreach ($matches as $match) {
-                        if($match->getRound() == "round of 16" && $match->getCell() == "1,9" && $match->getId_draw() == $draw){
+                        if($match->getRound() == "roundof16" && $match->getCell() == "1,9" && $match->getId_draw() == $draw){
                           foreach ($competitors as $competitor) {
                             if($competitor->getId_user() == $match->getRival1a()){
                               $name = $competitor->getName();
@@ -525,7 +525,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,10" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,10" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -619,7 +619,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,12" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,12" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -667,7 +667,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 16" && $match->getCell() == "1,13" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof16" && $match->getCell() == "1,13" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -713,7 +713,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,14" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,14" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -845,7 +845,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,16" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,16" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -893,7 +893,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 16" && $match->getCell() == "1,17" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof16" && $match->getCell() == "1,17" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1011,7 +1011,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,18" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,18" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1097,7 +1097,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,20" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,20" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1141,7 +1141,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 16" && $match->getCell() == "1,21" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof16" && $match->getCell() == "1,21" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1183,7 +1183,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,22" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,22" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1269,7 +1269,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,24" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,24" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1313,7 +1313,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 16" && $match->getCell() == "1,25" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof16" && $match->getCell() == "1,25" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1355,7 +1355,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,26" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,26" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1441,7 +1441,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,28" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,28" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1485,7 +1485,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 16" && $match->getCell() == "1,29" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof16" && $match->getCell() == "1,29" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();
@@ -1527,7 +1527,7 @@ $view->setVariable("title", "Matches List");
                   <?php
                     $flag = false;
                     foreach ($matches as $match) {
-                      if($match->getRound() == "round of 32" && $match->getCell() == "0,30" && $match->getId_draw() == $draw){
+                      if($match->getRound() == "roundof32" && $match->getCell() == "0,30" && $match->getId_draw() == $draw){
                         foreach ($competitors as $competitor) {
                           if($competitor->getId_user() == $match->getRival1a()){
                             $name = $competitor->getName();

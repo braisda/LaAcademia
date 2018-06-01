@@ -45,6 +45,16 @@ class Match {
 	*/
 	private $date;
 
+	/**
+	* The time of the match
+	*/
+	private $time;
+
+	/**
+	* The space of the match
+	*/
+	private $id_space;
+
   /**
 	* The round of the match
 	*/
@@ -131,6 +141,11 @@ class Match {
 	private $rival2b_name;
 
 	/**
+	* The name of the space where the match is played
+	*/
+	private $space_name;
+
+	/**
 	* The constructor
 	*
 	* @param string $id_match The id of the match
@@ -139,6 +154,8 @@ class Match {
   * @param string $rival2a The rival2a of the match
   * @param string $rival2b The rival2b of the match
   * @param string $date The date of the match
+	* @param string $time The time of the match
+	* @param string $id_space The space of the match
   * @param string $round The round of the match
   * @param string $cell The cell of the match
   * @param string $set1a The set1a of the match
@@ -156,21 +173,24 @@ class Match {
 	* @param string $rival1b_name The name and surname of the rival1b
 	* @param string $rival2a_name The name and surname of the rival2a
 	* @param string $rival2b_name The name and surname of the rival2b
+	* @param string $space_name The name of the space where the match is played
   */
 	public function __construct($id_match=NULL, $rival1a=NULL, $rival1b=NULL,
-															$rival2a=NULL, $rival2b=NULL, $date=NULL,
+															$rival2a=NULL, $rival2b=NULL, $date=NULL, $time=NULL, $id_space=NULL,
                               $round=NULL, $cell=NULL, $set1a=NULL, $set1b=NULL,
                             	$set2a=NULL, $set2b=NULL, $set3a=NULL,
                               $set3b=NULL, $set4a=NULL, $set4b=NULL,
                               $set5a=NULL, $set5b=NULL, $id_draw=NULL,
 															$rival1a_name=NULL, $rival1b_name=NULL, $rival2a_name=NULL,
-															$rival2b_name=NULL) {
+															$rival2b_name=NULL, $space_name=NULL) {
 		$this->id_match = $id_match;
 		$this->rival1a = $rival1a;
 		$this->rival1b = $rival1b;
 		$this->rival2a = $rival2a;
 		$this->rival2b = $rival2b;
 		$this->date = $date;
+		$this->time = $time;
+		$this->id_space = $id_space;
     $this->round = $round;
     $this->cell = $cell;
 		$this->set1a = $set1a;
@@ -188,6 +208,7 @@ class Match {
 		$this->rival1b_name = $rival1b_name;
 		$this->rival2a_name = $rival2a_name;
 		$this->rival2b_name = $rival2b_name;
+		$this->space_name = $space_name;
 	}
 
 	/**
@@ -292,6 +313,44 @@ class Match {
 	*/
 	public function setDate($date) {
 		$this->date = $date;
+	}
+
+	/**
+	* Gets the time of this match
+	*
+	* @return string The time of this match
+	*/
+	public function getTime() {
+		return $this->time;
+	}
+
+	/**
+	* Sets the time of this match
+	*
+	* @param string $time The time of this match
+	* @return void
+	*/
+	public function setTime($time) {
+		$this->time = $time;
+	}
+
+	/**
+	* Gets the space id of this match
+	*
+	* @return string The space id of this match
+	*/
+	public function getId_space() {
+		return $this->id_space;
+	}
+
+	/**
+	* Sets the space id of this match
+	*
+	* @param string $id_space The space id of this match
+	* @return void
+	*/
+	public function setId_space($id_space) {
+		$this->id_space = $id_space;
 	}
 
   /**
@@ -578,6 +637,15 @@ class Match {
 	}
 
 	/**
+	* Gets the name of the space where the matchis played
+	*
+	* @return string The of the space where the matchis played
+	*/
+	public function getName_space() {
+		return $this->space_name;
+	}
+
+	/**
 	* Checks if the current instance is valid
 	* for being inserted in the database.
 	*
@@ -591,27 +659,28 @@ class Match {
 	public function validateMatch(){
 		$errors = array();
 
-		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
-		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚnÑ().,\"'¡!]+$/";
-
-		if($this->getName() == NULL){
-			$errors["name"] = "The name is wrong";
+		if($this->getRival1a() == ""){
+			$errors["rival1a"] = "The rival can not be empty";
 		}
 
-		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
-			$errors["name"] = "Name must have only letters and numbers";
+		if($this->getRival2a() == ""){
+			$errors["rival2a"] = "The rival can not be empty";
 		}
 
-		if($this->getDescription() == NULL){
-			$errors["description"] = "The description is wrong";
+		if($this->getDate() == ""){
+			$errors["date"] = "The date can not be empty";
 		}
 
-		if(!$this->getDescription() == NULL &&!preg_match($expDescrip, $this->getDescription())){
-			$errors["description"] = "Description must have only letters and numbers";
+		if($this->getTime() == NULL){
+			$errors["time"] = "The time can not be empty";
+		}
+
+		if($this->getId_space() == NULL){
+			$errors["space"] = "The space can not be empty";
 		}
 
 		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "Match is not valid");
+			throw new ValidationException($errors, "User is not valid");
 		}
 	}
 }

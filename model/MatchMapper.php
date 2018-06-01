@@ -28,9 +28,10 @@ class MatchMapper {
 	* @param string $name the name to check
 	* @return boolean true if the name exists, false otherwise
 	*/
-	public function matchExists($rival1a, $rival1b, $rival2a, $rival2b) {
-		$stmt = $this->db->prepare("SELECT count(name) FROM matches where rival1a=? AND rival1b=? AND rival2a=? AND rival2b=?");
-		$stmt->execute(array($rival1a, $rival1b, $rival2a, $rival2a));
+	public function matchExists($rival1a, $rival1b, $rival2a, $rival2b, $draw) {
+		$stmt = $this->db->prepare("SELECT count(rival1a) FROM matches where rival1a=?
+																AND rival1b=? AND rival2a=? AND rival2b=? And id_draw=?");
+		$stmt->execute(array($rival1a, $rival1b, $rival2a, $rival2b, $draw));
 
 		if ($stmt->fetchColumn() > 0) {
 			return true;
@@ -57,6 +58,8 @@ class MatchMapper {
 																			         $match ["rival2a"],
                                                $match ["rival2b"],
                                                $match ["date"],
+																							 $match ["time"],
+																							 $match ["id_space"],
                                                $match ["round"],
                                                $match ["cell"],
                                                $match ["set1a"],
@@ -69,7 +72,8 @@ class MatchMapper {
                                                $match ["set4b"],
                                                $match ["set5a"],
                                                $match ["set5b"],
-                                               $match ["id_draw"]));
+                                               $match ["id_draw"],
+																							 NULL,NULL,NULL,NULL,NULL));
 		}
 
 		return $matches;
@@ -135,6 +139,16 @@ class MatchMapper {
 
     $player2b_name = $player2b["name"]." ".$player2b["surname"];
 
+
+
+
+		$stmt6 = $this->db->prepare("SELECT name FROM spaces WHERE id_space=?");
+    $stmt6->execute(array($match["id_space"]));
+
+    $space = $stmt6->fetch ( PDO::FETCH_ASSOC );
+
+    $space_name = $space["name"];
+
 		if ($match != null) {
 			return new Match($match ["id_match"],
                        $match ["rival1a"],
@@ -142,6 +156,8 @@ class MatchMapper {
 											 $match ["rival2a"],
                        $match ["rival2b"],
                        $match ["date"],
+											 $match ["time"],
+											 $match ["id_space"],
                        $match ["round"],
 											 $match ["cell"],
                        $match ["set1a"],
@@ -158,10 +174,25 @@ class MatchMapper {
 										 	 $player1a_name,
 										 	 $player1b_name,
 									 	   $player2a_name,
-								 		 	 $player2b_name);
+								 		 	 $player2b_name,
+										   $space_name);
 		} else {
 			return NULL;
 		}
+	}
+
+	/**
+	* Retrieves the id and the name of all spaces
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of Space instances
+	*/
+	public function getSpaces() {
+		$stmt = $this->db->query("SELECT id_space, name FROM spaces");
+
+		$spaces = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $spaces;
 	}
 
 	/**
@@ -172,18 +203,23 @@ class MatchMapper {
 	* @return int The new match id
 	*/
 	public function add($match) {
-		$stmt = $this->db->prepare("INSERT INTO matches(rival1a, rival1b, rival2a, rival2b,
-                                                    date, round, cell set1a, set1b, set2a,
-                                                    set2b, set3a, set3b, set4a, set4b,
-                                                    set5a, set5b, id_draw)
-																values (?,?,?,?,?)");
-
+		$stmt = $this->db->prepare("INSERT INTO `matches` (`rival1a`, `rival1b`,
+																												`rival2a`, `rival2b`, `date`, `time`,
+																												`id_space`, `round`, `cell`, `set1a`,
+																												`set1b`, `set2a`, `set2b`, `set3a`,
+																												`set3b`, `set4a`, `set4b`, `set5a`,
+																												`set5b`, `id_draw`)
+																VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+ var_dump($stmt);
+ var_dump($match->getId_draw());
 		$stmt->execute(array($match->getRival1a(), $match->getRival1b(), $match->getRival2a(),
-												 $match->getRival2b(), $match->getDate(), $match->getRound(), $match->getCell(),
+												 $match->getRival2b(), $match->getDate(), $match->getTime(),
+												 $match->getId_space(), $match->getRound(), $match->getCell(),
                          $match->getSet1a(), $match->getSet1b(), $match->getSet2a(),
                      		 $match->getSet2b(), $match->getSet3a(), $match->getSet3b(),
                          $match->getSet4a(), $match->getSet4b(), $match->getSet5a(),
                          $match->getSet5b(), $match->getId_draw()));
+
 		return $this->db->lastInsertId();
 	}
 

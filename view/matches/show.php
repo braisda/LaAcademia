@@ -71,7 +71,7 @@ $view->setVariable("title", "Matches List");
                           <br/>
                           <?= $name2 ?> <?= $surname2 ?>
                           <br/>
-                        <a href="index.php?controller=matches&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>">V</a>
+                        <a href="index.php?controller=matches&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,0&amp;round=roundof32&amp;id_match=<?= $id_match ?>">V</a>
                     <?php
                           $flag = true;
                         }
@@ -83,7 +83,7 @@ $view->setVariable("title", "Matches List");
                       <?php
                         }else{
                       ?>
-                          <a href="index.php?controller=matches&amp;action=edit&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>">M</a>
+                          <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,0&amp;round=roundof32&amp;id_match=<?= $id_match ?>">M</a>
                           <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>">E</a>
                       <?php
                         }

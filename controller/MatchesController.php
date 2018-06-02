@@ -104,6 +104,14 @@ class MatchesController extends BaseController {
 			throw new Exception("match id is mandatory");
 		}
 
+		if (!isset($_REQUEST["cell"])) {
+			throw new Exception("cell id is mandatory");
+		}
+
+		if (!isset($_REQUEST["round"])) {
+			throw new Exception("round id is mandatory");
+		}
+
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View matches requires login");
 		}
@@ -128,6 +136,12 @@ class MatchesController extends BaseController {
 
 		// put the match object to the view
 		$this->view->setVariable("match", $match);
+
+		// Put the cell visible to the view
+		$this->view->setVariable("cell", $_REQUEST["cell"]);
+
+		// Put the round visible to the view
+		$this->view->setVariable("round", $_REQUEST["round"]);
 
 		// render the view (/view/matches/view.php)
 		$this->view->render("matches", "view");
@@ -242,25 +256,25 @@ class MatchesController extends BaseController {
 		// Put the space variable visible to the view
 		$this->view->setVariable("spaces", $spaces);
 
-		//Get the id and name of the trainers
+		//Get the id and name of the competitors
 		$competitors = $this->matchMapper->getCompetitors();
 
 		// Put the space variable visible to the view
 		$this->view->setVariable("competitors", $competitors);
 
-    // put the matches object to the view
+    // put the tournament id visible to the view
 		$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
 
-		// put the matches object to the view
+		// put the draw id visible to the view
 		$this->view->setVariable("draw", $_REQUEST["id_draw"]);
 
 		// Put the match object visible to the view
 		$this->view->setVariable("match", $match);
 
-		// Put the match object visible to the view
+		// Put the cell visible to the view
 		$this->view->setVariable("cell", $_REQUEST["cell"]);
 
-		// Put the match object visible to the view
+		// Put the round visible to the view
 		$this->view->setVariable("round", $_REQUEST["round"]);
 
 		// render the view (/view/matches/add.php)
@@ -293,6 +307,18 @@ class MatchesController extends BaseController {
 			throw new Exception("tournament id is mandatory");
 		}
 
+		if (!isset($_REQUEST["id_draw"])) {
+			throw new Exception("draw id is mandatory");
+		}
+
+		if (!isset($_REQUEST["cell"])) {
+			throw new Exception("cell id is mandatory");
+		}
+
+		if (!isset($_REQUEST["round"])) {
+			throw new Exception("round id is mandatory");
+		}
+
 		if (!isset($_REQUEST["id_match"])) {
 			throw new Exception("A match id is mandatory");
 		}
@@ -315,15 +341,49 @@ class MatchesController extends BaseController {
 		if(isset($_POST["submit"])) { // reaching via HTTP user...
 
 			// populate the match object with data form the form
-      $match->setModality($_POST["modality"]);
-			$match->setGender($_POST["gender"]);
-			$match->setCategory($_POST["category"]);
-			$match->setType($_POST["type"]);
-			$match->setId_tournament($_REQUEST["id_tournament"]);
+
+			// put the flag to true if the user changes the space name
+			$flag = false;
+			if($match->getRival1a() != $_POST["rival1a"] ||
+				 $match->getRival1b() != $_POST["rival1b"] ||
+			 	 $match->getRival2a() != $_POST["rival2a"] ||
+			 	 $match->getRival2b() != $_POST["rival2b"]){
+				$flag = true;
+			}
+
+			$match->setRival1a($_POST["rival1a"]);
+			$match->setRival1b($_POST["rival1b"]);
+			$match->setRival2a($_POST["rival2a"]);
+			$match->setRival2b($_POST["rival2b"]);
+			$match->setDate($_POST["date"]);
+			$match->setTime($_POST["time"]);
+			$match->setId_space($_POST["space"]);
+			$match->setRound($_POST["round"]);
+			$match->setCell($_POST["cell"]);
+			$match->setSet1a($_POST["set1a"]);
+			$match->setSet1b($_POST["set1b"]);
+			$match->setSet2a($_POST["set2a"]);
+			$match->setSet2b($_POST["set2b"]);
+			$match->setSet3a($_POST["set3a"]);
+			$match->setSet3b($_POST["set3b"]);
+			$match->setSet4a($_POST["set4a"]);
+			$match->setSet4b($_POST["set4b"]);
+			$match->setSet5a($_POST["set5a"]);
+			$match->setSet5b($_POST["set5b"]);
+			$match->setId_draw($_POST["id_draw"]);
+echo "<br/>".$_POST["rival1a"];
+echo "<br/>".$_POST["rival1b"];
+echo "<br/>".$_POST["rival2a"];
+echo "<br/>".$_POST["rival2b"];
+echo "<br/>";
+echo "<br/>".$match->getRival1a();
+echo "<br/>".$match->getRival1b();
+echo "<br/>".$match->getRival2a();
+echo "<br/>".$match->getRival2b();
 
 			try {
 				// check if match exists in the database
-				if(!$this->matchMapper->matchExists($_POST["rival1a"], $_POST["rival1b"], $_POST["rival2a"], $_POST["rival2b"])){
+				if(!$flag){
 					// validate match object
 					$match->validateMatch(); // if it fails, ValidationException
 
@@ -334,15 +394,33 @@ class MatchesController extends BaseController {
 					// We want to see a message after redirection, so we establish
 					// a "flash" message (which is simply a Session variable) to be
 					// get in the view after redirection.
-					$this->view->setFlash(sprintf(i18n("Match \"%s\" successfully updated."),i18n($match ->getModality())));
+					$this->view->setFlash(sprintf(i18n("Match \"%s\" successfully updated."),i18n($match ->getDate())));
 
 					// perform the redirection. More or less:
 					// header("Location: index.php?controller=matches&action=show")
 					// die();
-					$this->view->redirect("matches", "show", "id_tournament=".$_REQUEST["id_tournament"]);
-				} else {
+					$this->view->redirect("matches", "show", "id_tournament=".$_REQUEST["id_tournament"], "id_draw=".$_REQUEST["id_draw"]);
+				} else if($flag && !$this->matchMapper->matchExists($_POST["rival1a"], $_POST["rival1b"], $_POST["rival2a"], $_POST["rival2b"],
+																						$_REQUEST["id_draw"])) {
+					// validate match object
+					$match->validateMatch(); // if it fails, ValidationException
+
+					$this->matchMapper->update($match);
+
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Match \"%s\" successfully updated."),i18n($match ->getDate())));
+
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=matches&action=show")
+					// die();
+					$this->view->redirect("matches", "show", "id_tournament=".$_REQUEST["id_tournament"], "id_draw=".$_REQUEST["id_draw"]);
+				}else {
 					$errors = array();
-					$errors["modality"] = "Match already exists";
+					$errors["rival"] = "Match already exists";
 					$this->view->setVariable("errors", $errors);
 				}
 			}catch(ValidationException $ex) {
@@ -353,11 +431,32 @@ class MatchesController extends BaseController {
 			}
 		}
 
-    // put the matches object to the view
+		//Get the id and name of the spaces
+		$spaces = $this->matchMapper->getSpaces();
+		// Put the space variable visible to the view
+		$this->view->setVariable("spaces", $spaces);
+
+		//Get the id and name of the competitors
+		$competitors = $this->matchMapper->getCompetitors();
+
+		// Put the space variable visible to the view
+		$this->view->setVariable("competitors", $competitors);
+
+    // put the tournament id visible to the view
 		$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
 
-		// Put the user object visible to the view
+		// put the draw id visible to the view
+		$this->view->setVariable("draw", $_REQUEST["id_draw"]);
+
+		// Put the match object visible to the view
 		$this->view->setVariable("match", $match);
+
+		// Put the cell visible to the view
+		$this->view->setVariable("cell", $_REQUEST["cell"]);
+
+		// Put the round visible to the view
+		$this->view->setVariable("round", $_REQUEST["round"]);
+
 		// render the view (/view/users/add.php)
 		$this->view->render("matches", "update");
 	}

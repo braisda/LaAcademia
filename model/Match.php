@@ -679,6 +679,10 @@ class Match {
 			$errors["space"] = "The space can not be empty";
 		}
 
+		if($this->getSet1a() < 0){
+			$errors["set1a"] = "The set can not be negative";
+		}
+
 		if (sizeof($errors) > 0){
 			throw new ValidationException($errors, "User is not valid");
 		}

@@ -233,14 +233,16 @@ class MatchMapper {
 	public function update($match) {
 		$stmt = $this->db->prepare("UPDATE matches
 																set rival1a = ?, rival1b = ?, rival2a = ?,
-																		rival2b = ?, date = ?, round = ?, cell=?, set1a = ?,
+																		rival2b = ?, date = ?, time=?, id_space=?,
+																		round = ?, cell=?, set1a = ?,
                                     set1b = ? , set2a = ?, set2b = ?, set3a = ?,
                                     set3b = ?, set4a = ?, set4b=?, set5a = ?,
                                     set5b = ?, id_draw = ?
 																WHERE id_match = ?");
 
 		$stmt->execute(array($match->getRival1a(), $match->getRival1b(), $match->getRival2a(),
-												 $match->getRival2b(), $match->getDate(), $match->getRound(), $match->getCell(),
+												 $match->getRival2b(), $match->getDate(), $match->getTime(),
+												 $match->getId_space(), $match->getRound(), $match->getCell(),
                          $match->getSet1a(), $match->getSet1b(), $match->getSet2a(),
                      		 $match->getSet2b(), $match->getSet3a(), $match->getSet3b(),
                          $match->getSet4a(), $match->getSet4b(), $match->getSet5a(),

@@ -257,7 +257,7 @@ class CoursesController extends BaseController {
 
 			// populate the course object with data form the form
 
-			// put the flag to true if the user changes the space name
+			// put the flag to true if the user changes the course name
 			$flag = false;
 			if($course->getName() != $_POST["name"] || $course->getType() != $_POST["type"]){
 				$flag = true;

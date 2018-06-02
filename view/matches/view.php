@@ -5,6 +5,8 @@ $view = ViewManager::getInstance();
 $tournament = $view->getVariable("tournament");
 $draw = $view->getVariable("draw");
 $match = $view->getVariable("match");
+$cell = $view->getVariable("cell");
+$round = $view->getVariable("round");
 $view->setVariable("title", "View Tournament");
 ?>
 
@@ -25,7 +27,20 @@ $view->setVariable("title", "View Tournament");
 
   <div class="row justify-content-center">
     <div id="card_event2" class="card">
-      <h4 id="card_body" class="card-header"><?= ucfirst(i18n($match->getRound())) ?>: <?= date("d-m-Y", strtotime($match->getdate())); ?> <?= i18n("in") ?> <?= $match->getName_space()?></h4>
+      <?php
+        switch($match->getRound()){
+          case "roundof32":
+            $round = "round of 32";
+            break;
+          case "roundof16":
+            $round = "round of 16";
+            break;
+          default:
+            $round = $match->getRound();
+            break;
+        }
+      ?>
+      <h4 id="card_body" class="card-header"><?= ucfirst(i18n($round)) ?>: <?= date("d-m-Y", strtotime($match->getdate())); ?> <?= i18n("in") ?> <?= $match->getName_space()?> <?= i18n("at") ?> <?= $match->getTime()?></h4>
 
       <ul id="background_table2"  class="list-group list-group-flush">
         <table id="table_color" class="table table-sm table-dark">
@@ -67,7 +82,7 @@ $view->setVariable("title", "View Tournament");
                   <td><?php
                     if($_SESSION["admin"]){
                   ?>
-                    <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-loop"></span></a>
+                    <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=<?= $cell ?>&amp;round=<?= $round ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-loop"></span></a>
                     <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-trash"></a>
                   <?php
                 }

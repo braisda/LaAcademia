@@ -102,11 +102,6 @@ $errors = $view->getVariable("errors");
             </div>
         <?php } ?>
       </div>
-
-      <!--   <div class="form-group col-md-2">
-        <label for="inputZip">Foto</label>
-        <input type="file" id="inputZip">
-      </div>   -->
     </div>
     <br/>
     <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Update")?></button>

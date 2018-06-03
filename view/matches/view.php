@@ -35,6 +35,9 @@ $view->setVariable("title", "View Tournament");
           case "roundof16":
             $round = "round of 16";
             break;
+          case "thirdplace":
+            $round = "third place";
+            break;
           default:
             $round = $match->getRound();
             break;

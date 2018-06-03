@@ -195,6 +195,10 @@ li.breadcrumb-item>a {
 	border-color: #3c3a37;
 }
 
+.draw_td {
+	font-size: 0.725rem;
+}
+
 .input {
 	background: rgba(5, 53, 21, 0.73);
 	color:white;

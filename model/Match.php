@@ -663,10 +663,6 @@ class Match {
 			$errors["rival1a"] = "The rival can not be empty";
 		}
 
-		if($this->getRival2a() == ""){
-			$errors["rival2a"] = "The rival can not be empty";
-		}
-
 		if($this->getDate() == ""){
 			$errors["date"] = "The date can not be empty";
 		}

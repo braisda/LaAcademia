@@ -39,7 +39,7 @@ class Space {
 	/**
 	* The constructor
 	*
-	* @param string $id_space The name of the space
+	* @param string $id_space The space id
 	* @param string $name The name of the space
   * @param string $capacity The capacity of the space
   * @param string $image The image of the space
@@ -63,7 +63,7 @@ class Space {
 	/**
 	* Gets the name of this space
 	*
-	* @return string The name of this course
+	* @return string The name of this space
 	*/
 	public function getName() {
 		return $this->name;

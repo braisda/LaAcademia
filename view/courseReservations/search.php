@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $reservations = $view->getVariable("reservations");
 $pupils = $view->getVariable("pupils");
 $courses = $view->getVariable("courses");
-$view->setVariable("title", "Delete Course Reservation");
+$view->setVariable("title", i18n("Search Course Reservation"));
 ?>
 
 <ol class="breadcrumb">

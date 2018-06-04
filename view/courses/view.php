@@ -3,7 +3,7 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
 $course = $view->getVariable ( "course" );
-$view->setVariable ( "title", "View Course" );
+$view->setVariable ( "title", i18n("Course Information"));
 ?>
 
 <ol class="breadcrumb">

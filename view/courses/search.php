@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $course = $view->getVariable ("course");
 $spaces = $view->getVariable("spaces");
 $trainers = $view->getVariable("trainers");
-$view->setVariable("title", "Search Courses");
+$view->setVariable("title", i18n("Search Course"));
 $errors = $view->getVariable("errors");
 ?>
 

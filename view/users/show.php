@@ -1,5 +1,5 @@
 <?php
-// file: view/users/show.php
+// file: view/spaces/show.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $users = $view->getVariable("users");

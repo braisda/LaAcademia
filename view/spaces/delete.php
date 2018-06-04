@@ -1,9 +1,9 @@
 <?php
-// file: view/spaces/view.php
+// file: view/spaces/delete.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
 $space = $view->getVariable ( "space" );
-$view->setVariable ( "title", "Delete Space" );
+$view->setVariable ( "title", i18n("Delete Space"));
 ?>
 
 <ol class="breadcrumb">
@@ -23,7 +23,7 @@ $view->setVariable ( "title", "Delete Space" );
       <div id="card_body_spaces" class="card-body">
         <h5 class="card-title"><?= $space->getName() ?></h5>
       </div>
-      <ul id="background_table"  class="list-group list-group-flush">
+      <ul id="background_table2"  class="list-group list-group-flush">
         <li id="table_color" class="list-group-item"><?= i18n("Capacidad:") ?> <?= $space->getCapacity() ?></li>
       </ul>
       <br/>

@@ -3,7 +3,7 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $spaces = $view->getVariable("spaces");
-$view->setVariable ("title", "Show Spaces");
+$view->setVariable ("title", i18n("Spaces List"));
 ?>
 
 <ol class="breadcrumb">
@@ -22,13 +22,13 @@ $view->setVariable ("title", "Show Spaces");
   <div id="background_title">
     <h4 id="view_title"><?= i18n("Spaces List") ?></h4>
     <a href="index.php?controller=spaces&amp;action=search">
-      <span id="search_icon" class="oi oi-magnifying-glass">
+      <span id="search_icon" class="oi oi-magnifying-glass" title="<?= i18n("Search") ?>">
     </a>
     <?php
       if($_SESSION["admin"]){
     ?>
-    <a href="index.php?controller=spaces&amp;action=add"> 
-      <span class="oi oi-plus">
+    <a href="index.php?controller=spaces&amp;action=add">
+      <span class="oi oi-plus" title="<?= i18n("Add") ?>">
     </a>
     <?php
       }
@@ -56,12 +56,12 @@ $view->setVariable ("title", "Show Spaces");
         							<td><?= $space->getName() ?></td>
         							<td><?= $space->getCapacity() ?></td>
                       <td>
-                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-zoom-in"></span></a>
+                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-zoom-in" title="<?= i18n("View") ?>"></span></a>
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-loop"></span></a>
-                          <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-trash"></span></a>
+                          <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-loop" title="<?= i18n("Update") ?>"></span></a>
+                          <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
                         <?php
                           }
                         ?>

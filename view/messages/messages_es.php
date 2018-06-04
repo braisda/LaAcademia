@@ -279,7 +279,7 @@ array(
 	"Sender" => "Remitente",
 	"Issue" => "Asunto",
 	"Search User" => "Buscar Usuario",
-	"" => "",
+	"Event Information" => "Información del Evento",
 	"" => "",
 	"" => "",
 	"" => "",

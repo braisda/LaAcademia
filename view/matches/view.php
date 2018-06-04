@@ -7,7 +7,7 @@ $draw = $view->getVariable("draw");
 $match = $view->getVariable("match");
 $cell = $view->getVariable("cell");
 $round = $view->getVariable("round");
-$view->setVariable("title", "View Tournament");
+$view->setVariable("title", i18n("Match Information"));
 ?>
 
 <ol class="breadcrumb">

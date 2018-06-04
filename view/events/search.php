@@ -4,7 +4,7 @@ require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $event = $view->getVariable("event");
 $spaces = $view->getVariable("spaces");
-$view->setVariable("title", "Search Event");
+$view->setVariable("title", i18n("Search Event"));
 $errors = $view->getVariable("errors");
 ?>
 

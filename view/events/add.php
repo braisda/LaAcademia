@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $event = $view->getVariable("event");
 $spaces = $view->getVariable("spaces");
 
-$view->setVariable("title", "Add Event");
+$view->setVariable("title", i18n("Add Event"));
 $errors = $view->getVariable("errors");
 ?>
 

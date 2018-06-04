@@ -3,7 +3,7 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
 $event = $view->getVariable ( "event" );
-$view->setVariable ( "title", "View Event" );
+$view->setVariable ( "title", i18n("Event Information"));
 ?>
 
 <ol class="breadcrumb">

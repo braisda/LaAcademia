@@ -51,7 +51,7 @@ class TournamentReservationsController extends BaseController {
 		}
 
 		//Get the id, name and surname of the competitors
-		$competitors = $this->tournamentReservationMapper->getPupils();
+		$competitors = $this->tournamentReservationMapper->getCompetitors();
 
 		if($_SESSION["admin"]){
 			$reservations = $this->tournamentReservationMapper->show();
@@ -59,6 +59,8 @@ class TournamentReservationsController extends BaseController {
 			foreach ($competitors as $competitor) {
 				if($competitor["email"] == $_SESSION["currentuser"]){
 					$id_user = $competitor["id_user"];
+
+
 				}
 			}
 			$reservations = $this->tournamentReservationMapper->showMine($id_user);

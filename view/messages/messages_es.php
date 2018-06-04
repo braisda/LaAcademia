@@ -277,7 +277,7 @@ array(
 	"third place" => "tercer clasificado",
 	"Notifications List" => "Lista de Notificaciones",
 	"Sender" => "Remitente",
-	"" => "",
+	"Issue" => "Asunto",
 	"" => "",
 	"" => "",
 	"" => "",

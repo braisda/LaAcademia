@@ -90,12 +90,12 @@ class TournamentReservationMapper {
 	* @throws PDOException if a database error occurs
 	* @return mixed Array of users
 	*/
-  public function getPupils() {
+  public function getCompetitors() {
 		$stmt = $this->db->query("SELECT id_user, name, surname, email FROM users WHERE is_competitor = 1 ORDER BY name");
 
-		$competitorss = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$competitors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $competitorss;
+		return $competitors;
 	}
 
 	/**

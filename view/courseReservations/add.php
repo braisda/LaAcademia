@@ -21,7 +21,7 @@ $errors = $view->getVariable("errors");
   <div class="row justify-content-center">
     <div id="card_event" class="card">
       <h4 id="card_body" class="card-header"><?= $course->getName() ?></h4>
-      <ul id="background_table"  class="list-group list-group-flush">
+      <ul id="background_table2"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= $course->getDescription() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Place") ?>:</strong> <?= $course->getName_space() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Teached by") ?>:</strong> <?= $course->getName_trainer() ?></li>
@@ -37,9 +37,10 @@ $errors = $view->getVariable("errors");
             <strong><?= i18n("Error!") ?></strong> <?= isset($errors["reservation"])?i18n($errors["reservation"]):"" ?>
           </div>
       <?php } ?>
-      <br/>
+
       <form action="index.php?controller=courseReservations&amp;action=add" method="POST">
         <input type="hidden" name="id_course" value="<?= $course->getId_course() ?>">
+        <br/>
         <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Reserve")?></button>
       </form>
     </div>

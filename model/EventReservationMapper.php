@@ -261,9 +261,9 @@ class EventReservationMapper {
 	* @throws PDOException if a database error occurs
 	* @return void
 	*/
-	public function delete($event) {
+	public function delete($eventReservation) {
 		$stmt = $this->db->prepare("DELETE FROM events_reservations WHERE id_reservation=?");
-		$stmt->execute(array($event->getId_reservation()));
+		$stmt->execute(array($eventReservation->getId_reservation()));
 	}
 
 	/**

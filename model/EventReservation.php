@@ -8,7 +8,7 @@ require_once(__DIR__."/../core/ValidationException.php");
 *
 * Represents a EventReservation in the academy
 *
-* @author lipido <lipido@gmail.com>
+* @author braisda <braisda@gmail.com>
 */
 class EventReservation {
 
@@ -106,8 +106,8 @@ class EventReservation {
 	public function __construct($id_reservation=NULL, $dateReservation=NULL, $timeReservation=NULL,
 															$is_confirmed=NULL, $id_assistant=NULL, $id_event=NULL,
 															$name=NULL, $description=NULL,
-																													$price=NULL, $capacity=NULL, $date=NULL,
-														                              $time=NULL, $id_space=NULL, $name_space=NULL) {
+															$price=NULL, $capacity=NULL, $date=NULL,
+														  $time=NULL, $id_space=NULL, $name_space=NULL) {
 		$this->id_reservation = $id_reservation;
 		$this->dateReservation = $dateReservation;
 		$this->timeReservation = $timeReservation;
@@ -368,53 +368,5 @@ class EventReservation {
 	*/
 	public function getName_space() {
 		return $this->name_space;
-	}
-
-	public function validateevent(){
-		$errors = array();
-
-		/*if($this->getName() == NULL){
-			$errors["name"] = "The name is wrong";
-		}
-
-		if($this->getType() == NULL){
-			$errors["type"] = "The type is wrong";
-		}
-
-		if($this->getStart_time() == NULL){
-			$errors["start_time"] = "The start time is wrong";
-		}
-
-		if($this->getEnd_time() == NULL){
-			$errors["end_time"] = "The end time is wrong";
-		}
-
-		if($this->getDescription() == NULL){
-			$errors["description"] = "The description is wrong";
-		}
-
-		if($this->getDays() == NULL){
-			$errors["days"] = "The days are wrong";
-		}
-
-		if($this->getCapacity() == NULL){
-			$errors["capacity"] = "The capacity is wrong";
-		}
-
-		if($this->getId_space() == NULL){
-			$errors["space"] = "The space is wrong";
-		}
-
-		if($this->getId_trainer() == NULL){
-			$errors["trainer"] = "The trainer is wrong";
-		}
-
-		if($this->getPrice() == NULL){
-			$errors["price"] = "The price is wrong";
-		}
-
-		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "Event is not valid");
-		}*/
 	}
 }

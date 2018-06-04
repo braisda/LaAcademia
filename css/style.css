@@ -12,7 +12,7 @@
 }
 
 #logo_icon {
-	width: 80px;
+
 	margin-left: 70px;
 }
 
@@ -36,7 +36,6 @@
 
 #languagechooser {
 	order: 2;
-
 }
 
 #language_icons {
@@ -75,7 +74,10 @@
     background-color: #212529;
 }
 
-
+#div_home {
+	padding: 50px;
+	text-align: center;
+}
 
 /* end HEADER */
 
@@ -199,6 +201,15 @@ li.breadcrumb-item>a {
 	font-size: 0.725rem;
 }
 
+.p_home {
+	padding-top: 20px;
+}
+#carouselExampleIndicators {
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 20px;
+}
+
 .input {
 	background: rgba(5, 53, 21, 0.73);
 	color:white;
@@ -264,7 +275,8 @@ li.breadcrumb-item>a {
 	color:white;
 	border-color: #3c3a37;
 	font-style: italic;
-	white-space: pre !important;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
 }
 
 .table {
@@ -290,7 +302,7 @@ li.breadcrumb-item>a {
 
 .notRead {
 	font-weight: bold;
-	color: #ef7d7d;
+	color: #ff4d4d;
 }
 
 /*-------------------*/

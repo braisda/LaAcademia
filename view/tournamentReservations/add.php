@@ -21,7 +21,7 @@ $errors = $view->getVariable("errors");
   <div class="row justify-content-center">
     <div id="card_event" class="card">
       <h4 id="card_body" class="card-header"><?= $tournament->getName() ?></h4>
-      <ul id="background_table"  class="list-group list-group-flush">
+      <ul id="background_table2"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= $tournament->getDescription() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Start Date") ?>:</strong> <?= $tournament->getStart_date() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("End Date") ?>:</strong> <?= $tournament->getEnd_date() ?></li>
@@ -33,9 +33,10 @@ $errors = $view->getVariable("errors");
             <strong><?= i18n("Error!") ?></strong> <?= isset($errors["reservation"])?i18n($errors["reservation"]):"" ?>
           </div>
       <?php } ?>
-      <br/>
+
       <form action="index.php?controller=tournamentReservations&amp;action=add" method="POST">
         <input type="hidden" name="id_tournament" value="<?= $tournament->getId_tournament() ?>">
+        <br/>
         <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Reserve")?></button>
       </form>
     </div>

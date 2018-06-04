@@ -32,9 +32,9 @@ $currentuser = $view->getVariable("currentusername");
 	<header>
 		<div id="presentation">
 			<a href="index.php">
-				<img id="logo_icon" src="multimedia/images/escudo.png">
+				<img id="logo_icon" src="multimedia/images/logo.jpg">
 			</a>
-			<h3 id="page_title">La </br>Academia</h3>
+			<h3 id="page_title"></h3>
 			<div id="right_elements">
 			<?php if (isset($currentuser)): ?>
 				<div id="welcome">
@@ -56,16 +56,9 @@ $currentuser = $view->getVariable("currentusername");
 				 <?php if (isset($_SESSION["currentuser"])): ?>
 			   <ul class="navbar-nav ml-auto">
 
-		      <li class="nav-item dropdown">
-		        <a id="texto_menu" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<?= i18n("Academy") ?>
-		        </a>
-		        <div id="submenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("About us") ?></a>
-		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Facilities") ?></a>
-		          <a id="texto_menu" class="dropdown-item" href="#"><?= i18n("Technical Team") ?></a>
-		        </div>
-		      </li>
+					 <li class="nav-item">
+ 						<a id="texto_menu" class="nav-link" href="index.php"><?= i18n("Academy") ?></a>
+ 					</li>
 
 					<?php if ($_SESSION["admin"] || $_SESSION["trainer"]){ ?>
 						<li class="nav-item dropdown">

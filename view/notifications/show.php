@@ -46,7 +46,7 @@ $view->setVariable ("title", "Show Notifications");
                 <tr>
                   <th scope="col">#</th>
                   <th><?=i18n("Sender")?></th>
-                  <th><?=i18n("Title")?></th>
+                  <th><?=i18n("Issue")?></th>
                   <th><?=i18n("Operations")?></th>
                 </tr>
               </thead>

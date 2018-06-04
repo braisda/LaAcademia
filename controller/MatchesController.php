@@ -371,15 +371,6 @@ class MatchesController extends BaseController {
 			$match->setSet5a($_POST["set5a"]);
 			$match->setSet5b($_POST["set5b"]);
 			$match->setId_draw($_POST["id_draw"]);
-echo "<br/>".$_POST["rival1a"];
-echo "<br/>".$_POST["rival1b"];
-echo "<br/>".$_POST["rival2a"];
-echo "<br/>".$_POST["rival2b"];
-echo "<br/>";
-echo "<br/>".$match->getRival1a();
-echo "<br/>".$match->getRival1b();
-echo "<br/>".$match->getRival2a();
-echo "<br/>".$match->getRival2b();
 
 			try {
 				// check if match exists in the database
@@ -544,91 +535,5 @@ echo "<br/>".$match->getRival2b();
 		$this->view->setVariable("match", $match);
 		// render the view (/view/users/add.php)
 		$this->view->render("matches", "delete");
-	}
-
-	/**
-	* Action to list matches that match a search pattern
-	*
-	* This action should only be called via HTTP POST
-	*
-	* The expected HTTP parameters are:
-	* <ul>
-	* <li>name: Name of the match (via HTTP POST)</li>
-	* <li>desciption: Description of the match (via HTTP POST)</li>
-	* <li>start_adte: Start date of the match (via FILES POST)</li>
-	* <li>end_date: End date of the match (via FILES POST)</li>
-	* <li>price: Price of the match (via FILES POST)</li>
-	* </ul>
-	*
-	* @throws Exception if no user is in session
-	* @throws Exception if the type is not admin, trainer or competitor
-	* @return void
-	*/
-	public function search() {
-		if (!isset($_REQUEST["id_tournament"])) {
-			throw new Exception("tournament id is mandatory");
-		}
-
-		if(!isset($this->currentUser)){
-			throw new Exception("Not in session. Show matches requires login");
-		}
-
-		if($this->userMapper->findType() == "pupil"){
-			throw new Exception("You aren't an admin, a trainer or a competitor. See all matches requires be admin, trainer or competitor");
-		}
-
-		if (isset($_POST["submit"])) {
-			$query = "";
-			$flag = 0;
-
-			if ($_POST["modality"]){
-				if ($flag){
-					$query .= " AND ";
-				}
-				$query .= "modality='". $_POST["modality"]."'";
-				$flag = 1;
-			}
-
-			if ($_POST["gender"]){
-				if ($flag){
-					$query .= " AND ";
-				}
-				$query .= "gender='". $_POST["gender"]."'";
-				$flag = 1;
-			}
-
-			if ($_POST["category"]){
-				if ($flag){
-					$query .= " AND ";
-				}
-				$query .= "category='". $_POST["category"]."'";
-				$flag = 1;
-			}
-
-			if ($_POST["type"]){
-				if ($flag){
-					$query .= " AND ";
-				}
-				$query .= "type='". $_POST["type"]."'";
-				$flag = 1;
-			}
-
-			if(empty($query)) {
-				$matches = $this->matchMapper->show();
-			} else {
-				$matches = $this->matchMapper->search($query);
-			}
-			$this->view->setVariable("matches", $matches);
-			$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
-
-			$this->view->render("matches", "show");
-
-		}else {
-			// put the matches object to the view
-			$this->view->setVariable("tournament", $_REQUEST["id_tournament"]);
-
-			// render the view (/view/matches/search.php)
-			$this->view->render("matches", "search");
-		}
 	}
 }

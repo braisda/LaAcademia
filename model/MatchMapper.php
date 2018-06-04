@@ -210,8 +210,6 @@ class MatchMapper {
 																												`set3b`, `set4a`, `set4b`, `set5a`,
 																												`set5b`, `id_draw`)
 																VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
- var_dump($stmt);
- var_dump($match->getId_draw());
 		$stmt->execute(array($match->getRival1a(), $match->getRival1b(), $match->getRival2a(),
 												 $match->getRival2b(), $match->getDate(), $match->getTime(),
 												 $match->getId_space(), $match->getRound(), $match->getCell(),
@@ -262,44 +260,4 @@ class MatchMapper {
 		$stmt = $this->db->prepare("DELETE FROM matches WHERE id_match=?");
 		$stmt->execute(array($match->getId_match()));
 	}
-
-	/**
-	* Searhes a Match into the database
-	*
-	* @param string $query The query for the space to be searched
-	* @throws PDOException if a database error occurs
-	* @return mixed Array of Match instances that match the search parameter
-	*/
-	public function search($query) {
-        $search_query = "SELECT * FROM matches WHERE ". $query;
-        $stmt = $this->db->prepare($search_query);
-        $stmt->execute();
-        $matches_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $matches = array();
-
-				foreach ($matches_db as $match) {
-					array_push ($matches, new Match($match ["id_match"],
-                                                   $match ["rival1a"],
-                                                   $match ["rival1b"],
-    																			         $match ["rival2a"],
-                                                   $match ["rival2b"],
-                                                   $match ["date"],
-                                                   $match ["round"],
-																									 $match ["cell"],
-                                                   $match ["set1a"],
-                                                   $match ["set1b"],
-                                                   $match ["set2a"],
-                                                   $match ["set2b"],
-                                                   $match ["set3a"],
-                                                   $match ["set3b"],
-                                                   $match ["set4a"],
-                                                   $match ["set4b"],
-                                                   $match ["set5a"],
-                                                   $match ["set5b"],
-                                                   $match ["id_draw"]));
-				}
-
-				return $matches;
-    }
 }

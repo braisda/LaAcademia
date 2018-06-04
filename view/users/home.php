@@ -2,7 +2,7 @@
 // file: view/entry/home.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
-$view->setVariable ("title", "Home");
+$view->setVariable ("title", i18n("Home"));
 ?>
 
 <ol class="breadcrumb">

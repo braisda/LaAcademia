@@ -278,7 +278,7 @@ array(
 	"Notifications List" => "Lista de Notificaciones",
 	"Sender" => "Remitente",
 	"Issue" => "Asunto",
-	"" => "",
+	"Search User" => "Buscar Usuario",
 	"" => "",
 	"" => "",
 	"" => "",

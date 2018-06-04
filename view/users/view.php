@@ -1,10 +1,9 @@
 <?php
 // file: view/users/show.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
-$view = ViewManager::getInstance ();
-// $view->setLayout("welcome");
-$user = $view->getVariable ( "user" );
-$view->setVariable ( "title", "View User" );
+$view = ViewManager::getInstance();
+$user = $view->getVariable ("user");
+$view->setVariable("title", i18n("View User"));
 ?>
 
 <ol class="breadcrumb">

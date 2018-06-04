@@ -3,7 +3,7 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $users = $view->getVariable("users");
-$view->setVariable ("title", "Show Users");
+$view->setVariable ("title", i18n("Users List"));
 ?>
 
 <ol class="breadcrumb">
@@ -22,13 +22,13 @@ $view->setVariable ("title", "Show Users");
   <div id="background_title">
     <h4 id="view_title"><?= i18n("Users List") ?></h4>
     <a href="index.php?controller=users&amp;action=search">
-      <span id="search_icon" class="oi oi-magnifying-glass">
+      <span id="search_icon" class="oi oi-magnifying-glass" title="<?= i18n("Search") ?>">
     </a>
     <?php
       if($_SESSION["admin"]){
     ?>
     <a href="index.php?controller=users&amp;action=add">
-      <span class="oi oi-plus">
+      <span class="oi oi-plus" title="<?= i18n("Add") ?>">
     </a>
     <?php
       }
@@ -73,12 +73,12 @@ $view->setVariable ("title", "Show Users");
 
                       </td>
                       <td>
-                        <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-zoom-in"></span></a>
+                        <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-zoom-in" title="<?= i18n("View") ?>"></span></a>
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-loop"></span></a>
-                          <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-trash"></span></a>
+                          <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-loop" title="<?= i18n("Modify") ?>"></span></a>
+                          <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
                         <?php
                           }
                         ?>

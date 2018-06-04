@@ -1,10 +1,10 @@
 <?php
 // file: view/users/add.php
 require_once (__DIR__ . "/../../core/ViewManager.php");
-$view = ViewManager::getInstance ();
-$user = $view->getVariable ( "user" );
-$view->setVariable ( "title", "Edit User" );
-$errors = $view->getVariable ( "errors" );
+$view = ViewManager::getInstance();
+$user = $view->getVariable("user");
+$view->setVariable("title", i18n("Modify User"));
+$errors = $view->getVariable("errors");
 ?>
 
 <script type="text/javascript" src="js/validations.js"></script>

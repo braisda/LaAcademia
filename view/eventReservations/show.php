@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $reservations = $view->getVariable("eventReservation");
 $assistants = $view->getVariable("assistants");
 $events = $view->getVariable("events");
-$view->setVariable ("title", "Show Events Reservations");
+$view->setVariable ("title", i18n("Events Reservations List"));
 ?>
 
 <ol class="breadcrumb">
@@ -22,7 +22,7 @@ $view->setVariable ("title", "Show Events Reservations");
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Events Reservations List") ?></h4><a href="index.php?controller=eventReservations&amp;action=search"> <span id="search_icon" class="oi oi-magnifying-glass"></a>
+    <h4 id="view_title"><?= i18n("Events Reservations List") ?></h4><a href="index.php?controller=eventReservations&amp;action=search"> <span id="search_icon" class="oi oi-magnifying-glass" title="<?= i18n("Search") ?>"></a>
   </div>
   <div class="row justify-content-around">
 
@@ -79,25 +79,25 @@ $view->setVariable ("title", "Show Events Reservations");
 
                         <?= $name?></td>
                       <td>
-                        <a href="index.php?controller=eventReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in"></span></a>
+                        <a href="index.php?controller=eventReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in" title="<?= i18n("View") ?>"></span></a>
 
                         <?php
                           if($reservation->getIs_confirmed() == 0){
                             if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
-                          <a href="index.php?controller=eventReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check"></span></a>
+                          <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
+                          <a href="index.php?controller=eventReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check" title="<?= i18n("Confirm") ?>"></span></a>
                         <?php
                             }else{
                         ?>
-                              <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                              <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
                         <?php
                             }
                           }else{
                             if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
-                          <a href="index.php?controller=eventReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
+                          <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
+                          <a href="index.php?controller=eventReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x" title="<?= i18n("Cancel") ?>"></span></a>
                         <?php
                             }
                           }

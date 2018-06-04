@@ -5,7 +5,7 @@ $view = ViewManager::getInstance ();
 $reservations = $view->getVariable("reservations");
 $assistants = $view->getVariable("assistants");
 $events = $view->getVariable("events");
-$view->setVariable ( "title", "Search Event Reservation" );
+$view->setVariable ( "title", i18n("Search Event Reservation"));
 $errors = $view->getVariable ( "errors" );
 ?>
 

@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $reservation = $view->getVariable("eventReservation");
 $assistants = $view->getVariable("assistants");
 $events = $view->getVariable("events");
-$view->setVariable ( "title", "View Reservation" );
+$view->setVariable ( "title", i18n("Event Reservation Information"));
 ?>
 
 <ol class="breadcrumb">

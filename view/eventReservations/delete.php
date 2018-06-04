@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $reservation = $view->getVariable("eventReservation");
 $assistants = $view->getVariable("assistants");
 $events = $view->getVariable("events");
-$view->setVariable ( "title", "Delete Event Reservation" );
+$view->setVariable ( "title", i18n("Delete Event Reservation"));
 ?>
 
 <ol class="breadcrumb">
@@ -32,8 +32,8 @@ $view->setVariable ( "title", "Delete Event Reservation" );
 
         <?= $name ?></td>
       </h4>
-      <ul id="background_table" class="list-group list-group-flush">
-        <li id="event_decription" class="list-group-item">
+      <ul id="background_table2" class="list-group list-group-flush">
+
           <?php
             foreach ($assistants as $assistant) {
               if($assistant["id_user"] == $reservation->getId_assistant()){
@@ -43,8 +43,7 @@ $view->setVariable ( "title", "Delete Event Reservation" );
             }
           ?>
 
-          <?= $name." ".$surname ?></td>
-        </li>
+        <li id="event_decription" class="list-group-item"><?= $name." ".$surname ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $reservation->getDateReservation() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $reservation->getTimeReservation() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("State") ?>:</strong>

@@ -41,6 +41,29 @@ class NotificationMapper {
 		}
 	}
 
+	/**
+	* Checks if a given name is already in the database
+	*
+	* @param string $name the name to check
+	* @return boolean true if the name exists, false otherwise
+	*/
+	public function getSenderName($id_user) {
+		$stmt = $this->db->prepare("SELECT id_user, name, surname FROM users where id_user=?" );
+		$stmt->execute(array($id_user));
+
+		$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if ($user != null) {
+			return new User(NULL, $user["id_user"], $user["name"],
+											$user["surname"], NULL, NULL,
+											NULL, NULL, NULL,
+											NULL, NULL, NULL,
+											NULL, NULL);
+		} else {
+			return NULL;
+		}
+	}
+
   /**
 	* Retrieves all users
 	*
@@ -66,12 +89,12 @@ class NotificationMapper {
 	}
 
 	/**
-	* Retrieves all notifications
+	* Retrieves received notifications
 	*
 	* @throws PDOException if a database error occurs
 	* @return mixed Array of Notification instances
 	*/
-	public function show($receiver) {
+	public function showReceived($receiver) {
 		$stmt = $this->db->prepare("SELECT * FROM notifications WHERE receiver=? ORDER BY date ");
 
     $stmt->execute(array($receiver));
@@ -105,8 +128,9 @@ class NotificationMapper {
 		$notification = $stmt->fetch ( PDO::FETCH_ASSOC );
 
 		if ($notification != null) {
-			return new Notification($notification ["id_notification"], $notification ["name"],
-                       $notification ["capacity"], $notification ["image"]);
+			return new Notification($notification ["id_notification"], $notification ["title"],
+                       $notification ["body"], $notification ["sender"], $notification ["receiver"],
+										   $notification ["date"], $notification ["time"], $notification["is_read"]);
 		} else {
 			return NULL;
 		}
@@ -134,14 +158,13 @@ class NotificationMapper {
 	* @throws PDOException if a database error occurs
 	* @return int The modified id notification
 	*/
-	public function update($notification) {
+	public function setRead($id_notification) {
 		$stmt = $this->db->prepare("UPDATE notifications
-																set name = ?, capacity = ?, image = ?
+																set is_read = 1
 																WHERE id_notification = ?");
 
-		$stmt->execute(array($notification->getName(), $notification->getCapacity(),
-												 $notification->getImage(), $notification->getId_notification()));
-		return $this->db->lastInsertId();
+		$stmt->execute(array($id_notification));
+		//return $this->db->lastInsertId();
 	}
 
 	/**

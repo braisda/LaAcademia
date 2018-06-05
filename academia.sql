@@ -272,24 +272,25 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `academia`.`notifications` (
   `id_notification` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(30) NOT NULL,
-  `body` TEXT NOT NULL,
+  `body` TEXT NULL,
   `date` DATE NOT NULL,
   `time` TIME NOT NULL,
+  `is_read` INT NOT NULL,
   `sender` INT NULL,
   `receiver` INT NULL,
   PRIMARY KEY (`id_notification`),
-  INDEX `fk_notifications_users1_idx` (`sender` ASC),
-  INDEX `fk_notifications_users2_idx` (`receiver` ASC),
-  CONSTRAINT `fk_notifications_users1`
+  INDEX `fk_received_notifications_users1_idx` (`sender` ASC),
+  INDEX `fk_received_notifications_users2_idx` (`receiver` ASC),
+  CONSTRAINT `fk_received_notifications_users1`
     FOREIGN KEY (`sender`)
     REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_notifications_users2`
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_received_notifications_users2`
     FOREIGN KEY (`receiver`)
     REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -459,5 +460,18 @@ INSERT INTO `matches` (`id_match`, `rival1a`, `rival1b`, `rival2a`, `rival2b`, `
 (NULL, 17, NULL, 33, NULL, '2018-05-17', '18:00:00', 'consolation', '4,17', 6, 0, 6, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
 (NULL, 6, NULL, 0, NULL, '2018-05-17', '10:00:00', 'champion', '5,15', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
 (NULL, 17, NULL, 0, NULL, '2018-05-17', '10:00:00', 'thirdplace', '5,17', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+
+
+--
+-- Volcado de datos para la tabla `notifications`
+--
+
+INSERT INTO `notifications` (`id_notification`, `title`, `body`, `date`, `time`, `is_read`, `sender`, `receiver`) VALUES
+(NULL, 'Planificación Julio', 'Buenos días, la semana que viene me gustaría presentar el informe con la planificación del mes de Julio, ¿Sería posible? Un saludo', '2018-06-03', '08:00:00', 0, 3, 1),
+(NULL, 'Baja asistencia de mañana', 'Hola, las últimas semanas está bajando la asistencia a los cursos con horario de mañana, deberíamos revisar la situación', '2018-06-04', '10:00:00', 1, 3, 1),
+(NULL, 'Planificación Julio', 'Perfecto, el martes de la semana que viene lo miramos al acabar la jornada, saludos', '2018-05-14', '12:00:00', 0, 1, 3);
+
+
+
 
 COMMIT;

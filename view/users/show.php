@@ -73,11 +73,11 @@ $view->setVariable ("title", i18n("Users List"));
 
                       </td>
                       <td>
-                        <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-zoom-in" title="<?= i18n("View") ?>"></span></a>
+                        <a href="index.php?controller=users&amp;action=view&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-eye" title="<?= i18n("View") ?>"></span></a>
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-loop" title="<?= i18n("Modify") ?>"></span></a>
+                          <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-pencil" title="<?= i18n("Modify") ?>"></span></a>
                           <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
                         <?php
                           }

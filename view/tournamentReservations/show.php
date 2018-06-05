@@ -79,7 +79,7 @@ $view->setVariable ("title", "Show Tournaments Reservations");
 
                         <?= $name ?></td>
                         <td>
-                          <a href="index.php?controller=tournamentReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in"></span></a>
+                          <a href="index.php?controller=tournamentReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-eye"></span></a>
 
                           <?php
                             if($reservation->getIs_confirmed() == 0){

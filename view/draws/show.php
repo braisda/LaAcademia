@@ -63,11 +63,11 @@ $view->setVariable ("title", "Show Draws");
                       <td><?= i18n(ucfirst($draw->getCategory())) ?></td>
                       <td><?= i18n(ucfirst($draw->getType())) ?></td>
                       <td>
-                        <a href="index.php?controller=draws&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-zoom-in"></span></a>
+                        <a href="index.php?controller=draws&amp;action=view&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-eye"></span></a>
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=draws&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-loop"></span></a>
+                          <a href="index.php?controller=draws&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-pencil"></span></a>
                           <a href="index.php?controller=draws&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>"><span class="oi oi-trash"></span></a>
                         <?php
                           }

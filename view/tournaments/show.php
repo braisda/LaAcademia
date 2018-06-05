@@ -58,11 +58,11 @@ $view->setVariable ("title", "Show Tournaments");
                       <td><?= date("d-m-Y", strtotime($tournament->getStart_date())); ?></td>
                       <td><?= date("d-m-Y", strtotime($tournament->getStart_date())); ?></td>
                       <td>
-                        <a href="index.php?controller=tournaments&amp;action=view&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-zoom-in"></span></a>
+                        <a href="index.php?controller=tournaments&amp;action=view&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-eye"></span></a>
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=tournaments&amp;action=update&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-loop"></span></a>
+                          <a href="index.php?controller=tournaments&amp;action=update&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-pencil"></span></a>
                           <a href="index.php?controller=tournaments&amp;action=delete&amp;id_tournament=<?= $tournament->getId_tournament() ?>"><span class="oi oi-trash"></span></a>
                         <?php
                       }

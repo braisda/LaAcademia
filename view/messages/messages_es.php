@@ -282,7 +282,7 @@ array(
 	"Event Information" => "Información del Evento",
 	"Confirm" => "Confirmar",
 	"Cancel" => "Cancelar",
-	"" => "",
+	"User of type admin" => "Usuario de tipo administrador",
 	"" => "",
 	"" => "",
 	"" => "",

@@ -30,7 +30,7 @@ $view->setVariable("title", i18n("View User"));
         <li id="table_color" class="list-group-item"><?= i18n("Email:") ?> <?= $user->getUsername() ?></li>
         <li id="table_color" class="list-group-item"><?= i18n("Telephone:") ?> <?= $user->getTelephone() ?></li>
         <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>" class="card-link"><span class="oi oi-loop"></span></a>
+          <a href="index.php?controller=users&amp;action=update&amp;id_user=<?= $user->getId_user() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
           <a href="index.php?controller=users&amp;action=delete&amp;id_user=<?= $user->getId_user() ?>" class="card-link"><span class="oi oi-trash"></a>
         </li>
       </ul>

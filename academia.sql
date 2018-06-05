@@ -273,6 +273,8 @@ CREATE TABLE IF NOT EXISTS `academia`.`notifications` (
   `id_notification` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(30) NOT NULL,
   `body` TEXT NOT NULL,
+  `date` DATE NOT NULL,
+  `time` TIME NOT NULL,
   `sender` INT NULL,
   `receiver` INT NULL,
   PRIMARY KEY (`id_notification`),

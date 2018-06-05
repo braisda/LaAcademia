@@ -76,11 +76,11 @@ $view->setVariable ("title", i18n("Courses List"));
         							<td><?= $course->getStart_time() ?></td>
                       <td><?= $course->getEnd_time() ?></td>
                       <td>
-                        <a href="index.php?controller=courses&amp;action=view&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-zoom-in" title="<?= i18n("View") ?>"></span></a>
+                        <a href="index.php?controller=courses&amp;action=view&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-eye" title="<?= i18n("View") ?>"></span></a>
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                        <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-loop" title="<?= i18n("Update") ?>"></span></a>
+                        <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-pencil" title="<?= i18n("Update") ?>"></span></a>
                         <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
                         <?php
                           }

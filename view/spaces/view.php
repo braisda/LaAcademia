@@ -26,7 +26,7 @@ $view->setVariable ( "title", i18n("Space Information"));
       <ul id="background_table2"  class="list-group list-group-flush">
         <li id="table_color" class="list-group-item"><?= i18n("Capacidad:") ?> <?= $space->getCapacity() ?></li>
         <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>" class="card-link"><span class="oi oi-loop"></span></a>
+          <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
           <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>" class="card-link"><span class="oi oi-trash"></a>
         </li>
       </ul>

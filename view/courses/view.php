@@ -33,7 +33,7 @@ $view->setVariable ( "title", i18n("Course Information"));
           if($_SESSION["admin"]){
         ?>
         <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>" class="card-link"><span class="oi oi-loop"></span></a>
+          <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
           <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $course->getId_course() ?>" class="card-link"><span class="oi oi-trash"></a>
         </li>
         <?php

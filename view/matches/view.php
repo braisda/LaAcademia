@@ -85,7 +85,7 @@ $view->setVariable("title", i18n("Match Information"));
                   <td><?php
                     if($_SESSION["admin"]){
                   ?>
-                    <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=<?= $cell ?>&amp;round=<?= $round ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-loop"></span></a>
+                    <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=<?= $cell ?>&amp;round=<?= $round ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
                     <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-trash"></a>
                   <?php
                 }

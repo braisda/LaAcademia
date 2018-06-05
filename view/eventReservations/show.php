@@ -79,7 +79,7 @@ $view->setVariable ("title", i18n("Events Reservations List"));
 
                         <?= $name?></td>
                       <td>
-                        <a href="index.php?controller=eventReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-zoom-in" title="<?= i18n("View") ?>"></span></a>
+                        <a href="index.php?controller=eventReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-eye" title="<?= i18n("View") ?>"></span></a>
 
                         <?php
                           if($reservation->getIs_confirmed() == 0){

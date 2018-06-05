@@ -77,7 +77,7 @@ $view->setVariable ("title", "Show Notifications");
                         }
                       ?>
                       <td>
-                        <a href="index.php?controller=notifications&amp;action=view&amp;id_notification=<?= $notification->getId_notification() ?>"><span class="oi oi-zoom-in"></span></a>
+                        <a href="index.php?controller=notifications&amp;action=view&amp;id_notification=<?= $notification->getId_notification() ?>"><span class="oi oi-eye"></span></a>
                         <a href="index.php?controller=notifications&amp;action=delete&amp;id_notification=<?= $notification->getId_notification() ?>"><span class="oi oi-trash"></span></a>
                       </td>
         						</tr>

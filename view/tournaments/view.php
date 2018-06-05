@@ -29,7 +29,7 @@ $view->setVariable("title", "View Tournament");
           if($_SESSION["admin"]){
         ?>
         <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=tournaments&amp;action=update&amp;id_tournament=<?= $tournament->getId_tournament() ?>" class="card-link"><span class="oi oi-loop"></span></a>
+          <a href="index.php?controller=tournaments&amp;action=update&amp;id_tournament=<?= $tournament->getId_tournament() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
           <a href="index.php?controller=tournaments&amp;action=delete&amp;id_tournament=<?= $tournament->getId_tournament() ?>" class="card-link"><span class="oi oi-trash"></a>
         </li>
         <?php

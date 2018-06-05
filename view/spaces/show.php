@@ -37,7 +37,7 @@ $view->setVariable ("title", i18n("Spaces List"));
   </div>
   <div class="row justify-content-around">
 
-    <div id="background_table" class="col-12">
+    <div id="background_table" class="col-9">
       <div class="table-responsive">
         <br/>
             <table id="table_color" class="table table-sm table-dark">
@@ -56,11 +56,11 @@ $view->setVariable ("title", i18n("Spaces List"));
         							<td><?= $space->getName() ?></td>
         							<td><?= $space->getCapacity() ?></td>
                       <td>
-                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-zoom-in" title="<?= i18n("View") ?>"></span></a>
+                        <a href="index.php?controller=spaces&amp;action=view&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-eye" title="<?= i18n("View") ?>"></span></a>
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-loop" title="<?= i18n("Update") ?>"></span></a>
+                          <a href="index.php?controller=spaces&amp;action=update&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-pencil" title="<?= i18n("Update") ?>"></span></a>
                           <a href="index.php?controller=spaces&amp;action=delete&amp;id_space=<?= $space->getId_space() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
                         <?php
                           }

@@ -29,7 +29,7 @@ $view->setVariable ( "title", i18n("Event Information"));
         <li id="table_color" class="list-group-item"><strong><?= i18n("Capacity") ?>:</strong> <?= $event->getCapacity() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $event->getPrice() ?> €</li>
         <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=events&amp;action=update&amp;id_event=<?= $event->getId_event() ?>" class="card-link"><span class="oi oi-loop"></span></a>
+          <a href="index.php?controller=events&amp;action=update&amp;id_event=<?= $event->getId_event() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
           <a href="index.php?controller=events&amp;action=delete&amp;id_event=<?= $event->getId_event() ?>" class="card-link"><span class="oi oi-trash"></a>
         </li>
       </ul>

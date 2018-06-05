@@ -8,7 +8,6 @@
 	flex-flow: row wrap;
 
 	align-items: flex-end;
-
 }
 
 #logo_icon {
@@ -292,7 +291,7 @@ li.breadcrumb-item>a {
 	color: #053515;
 }
 
-.oi-zoom-in, .oi-trash, .oi-loop, .oi-circle-check, .oi-circle-x, .oi-task {
+.oi-zoom-in, .oi-trash, .oi-loop, .oi-pencil, .oi-eye, .oi-circle-check, .oi-circle-x, .oi-task {
 	color: white;
 }
 

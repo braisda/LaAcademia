@@ -216,13 +216,16 @@ var_dump($notification->getReceiver());
 	public function search($query) {
         $search_query = "SELECT * FROM notifications WHERE ". $query;
         $stmt = $this->db->prepare($search_query);
+				
         $stmt->execute();
         $notifications_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $notifications = array();
 
         foreach ($notifications_db as $notification) {
-            array_push ($notifications, new Notification($notification ["id_notification"], $notification ["name"], $notification["capacity"], $notification["image"]));
+            array_push ($notifications, new Notification($notification ["id_notification"], $notification ["title"],
+			                       $notification ["body"], $notification ["sender"], $notification ["receiver"],
+													   $notification ["date"], $notification ["time"], $notification["is_read"]));
         }
 
         return $notifications;

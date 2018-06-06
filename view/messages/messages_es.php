@@ -290,7 +290,7 @@ array(
 	"Image" => "Imagen",
 	"Message" => "Mensaje",
 	"Notification \"%s\" successfully added." => "Notificación \"%s\" añadida correctamente.",
-	"" => "",
+	"Search Notification" => "Buscar Notificación",
 	"" => "",
 	"" => "",
 	"" => "",

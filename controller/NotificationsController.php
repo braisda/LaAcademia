@@ -89,8 +89,9 @@ class NotificationsController extends BaseController {
 			throw new Exception("Not in session. View Notifications requires login");
 		}
 
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
-			throw new Exception("You aren't an admin or a trainer. See all notifications requires be admin or trainer");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"
+      && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't an admin, a trainer, a pupil or a competitor. See all notifications requires be admin, trainer, pupil or competitor");
 		}
 
 		$id_notification= $_GET["id_notification"];
@@ -139,8 +140,9 @@ class NotificationsController extends BaseController {
 			throw new Exception("Not in session. Adding notifications requires login");
 		}
 
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
-			throw new Exception("You aren't an admin or a trainer. See all notifications requires be admin or trainer");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"
+      && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't an admin, a trainer, a pupil or a competitor. See all notifications requires be admin, trainer, pupil or competitor");
 		}
 
 		$notification = new Notification();
@@ -218,8 +220,9 @@ class NotificationsController extends BaseController {
 			throw new Exception("Not in session. Adding notifications requires login");
 		}
 
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
-			throw new Exception("You aren't an admin or a trainer. See all notifications requires be admin or trainer");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"
+      && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't an admin, a trainer, a pupil or a competitor. See all notifications requires be admin, trainer, pupil or competitor");
 		}
 
 		// Get the Notification object from the database
@@ -288,23 +291,42 @@ class NotificationsController extends BaseController {
 			throw new Exception("Not in session. Show notifications requires login");
 		}
 
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
-			throw new Exception("You aren't an admin or a trainer. See all notifications requires be admin or trainer");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"
+      && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't an admin, a trainer, a pupil or a competitor. See all notifications requires be admin, trainer, pupil or competitor");
 		}
 
 		if(isset($_POST["submit"])) {
 			$query = "";
 			$flag = 0;
 
-			if ($_POST["name"]){
-				$query .= "name LIKE '%". $_POST["name"]."%'";
+			if ($_POST["title"]){
+				$query .= "title LIKE '%". $_POST["title"]."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["body"]){
+				$query .= "body LIKE '%". $_POST["body"]."%'";
+				$flag = 1;
+			}
+
+			if ($_POST["sender"]){
+				$id_receiver = $this->notificationMapper->getId_user($_POST["sender"])->getId_user();
+				$query .= "sender LIKE '%".$id_receiver."%'";
 				$flag = 1;
 			}
 
 			if (empty($query)) {
-				$notifications = $this->notificationMapper->show();
+				$id_user = $this->notificationMapper->getSender($this->currentUser->getUsername())["id_user"];
+				$notifications = $this->notificationMapper->show($id_user);
+				$users = $this->notificationMapper->getUsers();
+				// put the users object to the view
+				$this->view->setVariable("users", $users);
 			} else {
 				$notifications = $this->notificationMapper->search($query);
+				$users = $this->notificationMapper->getUsers();
+				// put the users object to the view
+				$this->view->setVariable("users", $users);
 			}
 			$this->view->setVariable("notifications", $notifications);
 			$this->view->render("notifications", "show");

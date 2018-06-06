@@ -55,7 +55,7 @@ function run() {
 		$controller->$actionName();
 	} catch(Exception $ex) {
 		//uniform treatment of exceptions
-		die("An exception occured!!!!!".$ex->getMessage());
+		die("An exception occured!!!!!".$ex->getMessage()."<br/>"."<br/>"."No database created, clic <a href='install.php'>HERE</a> for create database");
 	}
 }
 

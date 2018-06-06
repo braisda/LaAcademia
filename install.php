@@ -40,16 +40,13 @@ if (isset($_POST["submit"])){
       echo "<div class='center_install_msg'>";
       echo "File <b>' .$dbFile.'</b> successfully imported to database<br/>";
       echo "Database user 'academia' created with password 'academiapass'<br/>";
-      echo "Test user 'jrodeiro@gmail.com' created with password 'admin'<br />";
+      echo "Test user 'braisda@gmail.com' created with password 'admin'<br />";
       echo "<a href='index.php'>Proceed to Website</a><br />";
       echo "</div>";
       break;
   	case 1:
       echo "<div class='center_install_msg'>";
-      echo 'There was an error during import: User already Exists or You insert bad credentials<br/><br />';
-      echo "Database user 'academia' created with password 'academiapass'<br/>";
-      echo "Test user 'jrodeiro@gmail.com' created with password 'admin'<br />";
-      echo '<a href="index.php">Check if credentials are ok and Proceed to Website</a>';
+      echo 'There was an error during import: User already exists or you insert bad credentials<br/><br />';
       echo "</div>";
       break;
   }

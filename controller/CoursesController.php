@@ -150,11 +150,13 @@ class CoursesController extends BaseController {
 			}else{
 				$course->setDays(NULL);
 			}
+			$course->setStart_date($_POST["start_date"]);
+			$course->setEnd_date($_POST["end_date"]);
 			$course->setStart_time($_POST["start_time"]);
 			$course->setEnd_time($_POST["end_time"]);
 			$course->setId_space($_POST["space"]);
 			$course->setId_trainer($_POST["trainer"]);
-			$course->setPrice($_POST["price"]);
+			$course->setPrice($_POST["price"]);var_dump($course);
 
 			try {
 				// check if space exists in the database
@@ -259,7 +261,7 @@ class CoursesController extends BaseController {
 
 			// put the flag to true if the user changes the course name
 			$flag = false;
-			if($course->getName() != $_POST["name"] || $course->getType() != $_POST["type"]){
+			if($course->getName() != $_POST["name"] && $course->getType() != $_POST["type"]){
 				$flag = true;
 			}
 
@@ -268,6 +270,8 @@ class CoursesController extends BaseController {
 			$course->setDescription($_POST["description"]);
 			$course->setCapacity($_POST["capacity"]);
 			$course->setDays($_POST["days"]);
+			$course->setStart_date($_POST["start_date"]);
+			$course->setEnd_date($_POST["end_date"]);
 			$course->setStart_time($_POST["start_time"]);
 			$course->setEnd_time($_POST["end_time"]);
 			$course->setId_space($_POST["space"]);

@@ -38,13 +38,13 @@ $errors = $view->getVariable ( "errors" );
         <label for="type"><?=i18n("Type")?></label>
         <select name="type" class="form-control" id="select">
 
-          <?php if(strpos($course->getType(), 'Children') !== false){ ?>
+          <?php if($course->getType() == "Children"){ ?>
             <option value="children" selected><?=i18n("Children")?></option>
           <?php }else{ ?>
             <option value="children"><?=i18n("Children")?></option>
           <?php }?>
 
-          <?php if(strpos($course->getType(), 'Adults') !== false){ ?>
+          <?php if($course->getType() == 'Adults'){ ?>
             <option value="adults" selected><?=i18n("Adults")?></option>
           <?php }else{ ?>
             <option value="adults"><?=i18n("Adults")?></option>
@@ -195,6 +195,26 @@ $errors = $view->getVariable ( "errors" );
         <?php if(isset($errors["price"])){ ?>
             <div class="alert alert-danger" role="alert">
               <strong><?= i18n("Error!") ?></strong> <?= isset($errors["price"])?i18n($errors["price"]):"" ?>
+            </div>
+        <?php } ?>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="type"><?=i18n("Start Date")?></label>
+        <input class="form-control" type="date" id="date" value="<?= $course->getStart_date() ?>" name="start_date">
+        <?php if(isset($errors["start_date"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["start_date"])?i18n($errors["start_date"]):"" ?>
+            </div>
+        <?php } ?>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="type"><?=i18n("End Date")?></label>
+        <input class="form-control" type="date" id="date" value="<?= $course->getEnd_date() ?>" name="end_date">
+        <?php if(isset($errors["end_date"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["end_date"])?i18n($errors["end_date"]):"" ?>
             </div>
         <?php } ?>
       </div>

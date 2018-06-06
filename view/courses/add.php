@@ -143,6 +143,26 @@ $errors = $view->getVariable("errors");
             </div>
         <?php } ?>
       </div>
+      
+      <div class="form-group col-md-2">
+        <label for="type"><?=i18n("Start Date")?></label>
+        <input class="form-control" type="date" id="date" name="start_date">
+        <?php if(isset($errors["start_date"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["start_date"])?i18n($errors["start_date"]):"" ?>
+            </div>
+        <?php } ?>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="type"><?=i18n("End Date")?></label>
+        <input class="form-control" type="date" id="date" name="end_date">
+        <?php if(isset($errors["end_date"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["end_date"])?i18n($errors["end_date"]):"" ?>
+            </div>
+        <?php } ?>
+      </div>
 
     </div>
     <br/>

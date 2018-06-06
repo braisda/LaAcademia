@@ -49,6 +49,18 @@ class Course {
 	private $days;
 
 	/**
+	* The start date of the course
+	* @var string
+	*/
+	private $start_date;
+
+	/**
+	* The end date of the course
+	* @var string
+	*/
+	private $end_date;
+
+	/**
 	* The start time of the course
 	* @var string
 	*/
@@ -99,6 +111,8 @@ class Course {
   * @param string $description The description of the course
   * @param string $capacity The capacity of the course
   * @param string $days The days when the course is taught
+	* @param string $start_time The start time of the course
+  * @param string $end_time The end time of the course
   * @param string $start_time The start time of the course
   * @param string $end_time The end time of the course
 	* @param string $id_space The space of the course
@@ -109,6 +123,7 @@ class Course {
 	*/
 	public function __construct($id_course=NULL, $name=NULL, $type=NULL,
 															$description=NULL, $capacity=NULL, $days=NULL,
+															$start_date=NULL, $end_date=NULL,
                               $start_time=NULL, $end_time=NULL, $id_space=NULL,
 															$id_trainer=NULL, $name_space=NULL, $name_trainer=NULL, $price=NULL) {
 		$this->id_course = $id_course;
@@ -117,6 +132,8 @@ class Course {
 		$this->description = $description;
 		$this->capacity = $capacity;
 		$this->days = $days;
+		$this->start_date = $start_date;
+		$this->end_date = $end_date;
 		$this->start_time = $start_time;
 		$this->end_time = $end_time;
 		$this->id_space = $id_space;
@@ -228,6 +245,44 @@ class Course {
 	*/
 	public function setDays($days) {
 		$this->days = $days;
+	}
+
+	/**
+	* Gets the start date of this course
+	*
+	* @return string The start date of this course
+	*/
+	public function getStart_date() {
+		return $this->start_date;
+	}
+
+	/**
+	* Sets the start date of this course
+	*
+	* @param string $start_date The start date of this course
+	* @return void
+	*/
+	public function setStart_date($start_date) {
+		$this->start_date = $start_date;
+	}
+
+	/**
+	* Gets the end date of this course
+	*
+	* @return string The end date of this course
+	*/
+	public function getEnd_date() {
+		return $this->end_date;
+	}
+
+	/**
+	* Sets the end date of this course
+	*
+	* @param string $end_date The end date of this course
+	* @return void
+	*/
+	public function setEnd_date($end_date) {
+		$this->end_date = $end_date;
 	}
 
 	/**
@@ -377,6 +432,14 @@ class Course {
 
 		if($this->getType() == NULL){
 			$errors["type"] = "The type is wrong";
+		}
+
+		if($this->getStart_date() == NULL){
+			$errors["start_date"] = "The start date is wrong";
+		}
+
+		if($this->getEnd_date() == NULL){
+			$errors["end_date"] = "The end date is wrong";
 		}
 
 		if($this->getStart_time() == NULL){

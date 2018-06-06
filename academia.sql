@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS `academia`.`courses` (
   `description` VARCHAR(1000) NOT NULL,
   `capacity` INT NOT NULL,
   `days` SET('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') NOT NULL,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NOT NULL,
   `start_time` TIME NOT NULL,
   `end_time` TIME NOT NULL,
   `id_space` INT NULL,
@@ -363,10 +365,10 @@ INSERT INTO `spaces` (`id_space`, `name`, `capacity`, `image`) VALUES
 -- Volcado de datos para la tabla `courses`
 --
 
-INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `days`, `start_time`, `end_time`, `id_space`, `id_trainer`, `price`) VALUES
-(1, 'Iniciación', 'Children', 'Curso iniciación infantil', 10, 'Monday,Tuesday', '08:00:00', '10:00:00', 1, 2, 30),
-(2, 'Iniciación', 'Adults', 'Curso iniciación adultos', 10, 'Wednesday,Thursday', '08:00:00', '10:00:00', 1, 3, 40),
-(3, 'Avanzado', 'Children', 'Curso avanzado infantil', 6, 'Friday,Saturday', '10:00:00', '12:00:00', 2, 3, 35);
+INSERT INTO `courses` (`id_course`, `name`, `type`, `description`, `capacity`, `days`, `start_date`, `end_date`, `start_time`, `end_time`, `id_space`, `id_trainer`, `price`) VALUES
+(1, 'Iniciación', 'Children', 'Curso iniciación infantil', 10, 'Monday,Tuesday', '2017-09-14', '2018-06-14', '08:00:00', '10:00:00', 1, 2, 30),
+(2, 'Iniciación', 'Adults', 'Curso iniciación adultos', 10, 'Wednesday,Thursday', '2017-09-14', '2018-06-14',  '08:00:00', '10:00:00', 1, 3, 40),
+(3, 'Avanzado', 'Children', 'Curso avanzado infantil', 6, 'Friday,Saturday', '2017-09-14', '2018-06-14',  '10:00:00', '12:00:00', 2, 3, 35);
 
 -- --------------------------------------------------------
 

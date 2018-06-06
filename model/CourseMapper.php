@@ -54,8 +54,9 @@ class CourseMapper {
 		foreach ($courses_db as $course) {
 			array_push ($courses, new Course($course ["id_course"], $course ["name"], $course ["type"],
 																			 $course ["description"], $course ["capacity"], $course ["days"],
+																			 $course ["start_date"], $course ["end_date"],
 																			 $course ["start_time"], $course ["end_time"], $course ["id_space"],
-																			 $course ["id_trainer"], $course["price"]));
+																			 $course ["id_trainer"], $course["price"], NULL, NULL));
 		}
 
 		return $courses;
@@ -92,6 +93,7 @@ class CourseMapper {
 		if ($course != null) {
 			return new Course($course ["id_course"], $course ["name"], $course ["type"],
 												$course ["description"], $course ["capacity"], $course ["days"],
+												$course ["start_date"], $course ["end_date"],
 												$course ["start_time"], $course ["end_time"], $course ["id_space"],
 												$course ["id_trainer"], $space_name, $trainer_name, $course ["price"]);
 		} else {
@@ -135,8 +137,8 @@ class CourseMapper {
 	* @return void
 	*/
 	public function add($course) {
-		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_time, end_time, id_space, id_trainer, price)
-																values (?,?,?,?,?,?,?,?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO courses(name, type, description, capacity, days, start_date, end_date, start_time, end_time, id_space, id_trainer, price)
+																values (?,?,?,?,?,?,?,?,?,?,?,?)");
 
     $days = "";
     for($i=0; $i<count($course->getDays()); $i++){
@@ -146,8 +148,9 @@ class CourseMapper {
     $days = substr($days, 0, $size-1);
 
 		$stmt->execute(array($course->getName(), $course->getType(), $course->getDescription(),
-												 $course->getCapacity(), $days, $course->getStart_time(),
-												 $course->getEnd_time(), $course->getId_space(), $course->getId_trainer(),
+												 $course->getCapacity(), $days, $course->getStart_date(), $course->getEnd_date(),
+												 $course->getStart_time(), $course->getEnd_time(),
+												 $course->getId_space(), $course->getId_trainer(),
 											   $course->getPrice()));
 		return $this->db->lastInsertId();
 	}
@@ -162,7 +165,8 @@ class CourseMapper {
 	public function update($course) {
 		$stmt = $this->db->prepare("UPDATE courses
 																set name = ?, type = ?, description = ?,
-																		capacity = ?, days = ?, start_time = ?,
+																		capacity = ?, days = ?, start_date = ?,
+																		end_date = ?, start_time = ?,
 																		end_time = ?, id_space = ?, id_trainer= ?,
 																		price = ?
 																WHERE id_course = ?");
@@ -176,6 +180,7 @@ class CourseMapper {
 
 		$stmt->execute(array($course->getName(), $course->getType(),
 												 $course->getDescription(), $course->getCapacity(), $days,
+												 $course->getStart_date(), $course->getEnd_date(),
 												 $course->getStart_time(), $course->getEnd_time(),
 												 $course->getId_space(), $course->getId_trainer(),
 												 $course->getPrice(), $course->getId_course()));

@@ -26,7 +26,7 @@ $view->setVariable("title", "View Tournament");
         <?= i18n(ucfirst($draw->getModality())) ?>
         <?= i18n($draw->getGender())?>
         <a href="index.php?controller=matches&amp;action=show&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw->getId_draw() ?>" class="card-link">
-          <span class="oi oi-zoom-in"></span>
+          <button type="submit" name="submit" class="btn btn-primary"><?=i18n("View Draw Matches")?></button>
         </a>
       </h4>
       <ul id="background_table2"  class="list-group list-group-flush">

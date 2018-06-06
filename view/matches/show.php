@@ -48,7 +48,7 @@ $view->setVariable("title", "Matches List");
               </thead>
               <tbody>
                 <tr>
-                  <td class="draw_td">
+                  <td class="draw_td right">
                     <?php
                       $flag = false;
                       $id_match = NULL;
@@ -105,16 +105,16 @@ $view->setVariable("title", "Matches List");
                       }
                     ?>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td"></td>
-                  <td class="draw_td">
+                  <td class="draw_td none"></td>
+                  <td class="draw_td both_side">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -172,14 +172,14 @@ $view->setVariable("title", "Matches List");
                           ?>
                         </td>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td">
+                  <td class="draw_td right">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -237,17 +237,17 @@ $view->setVariable("title", "Matches List");
                           ?>
                         </td>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td">
+                  <td class="draw_td none"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td right">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -305,13 +305,13 @@ $view->setVariable("title", "Matches List");
                           ?>
                         </td>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td">
+                  <td class="draw_td right">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -369,16 +369,16 @@ $view->setVariable("title", "Matches List");
                           ?>
                         </td>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td"></td>
-                  <td class="draw_td">
+                  <td class="draw_td right"></td>
+                  <td class="draw_td right">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -436,14 +436,14 @@ $view->setVariable("title", "Matches List");
                           ?>
                         </td>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td">
+                  <td class="draw_td right">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -501,18 +501,18 @@ $view->setVariable("title", "Matches List");
                           ?>
                         </td>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td">
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td right">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -569,12 +569,12 @@ $view->setVariable("title", "Matches List");
                             }
                           ?>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td">
+                  <td class="draw_td right">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -631,16 +631,16 @@ $view->setVariable("title", "Matches List");
                       }
                     ?>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
                 <tr>
-                  <td class="draw_td"></td>
-                  <td class="draw_td">
+                  <td class="draw_td right"></td>
+                  <td class="draw_td right">
                     <?php
                     $flag = false;
                     $id_match = NULL;
@@ -697,14 +697,14 @@ $view->setVariable("title", "Matches List");
                             }
                           ?>
                   </td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
-                  <td class="draw_td"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td right"></td>
+                  <td class="draw_td none"></td>
+                  <td class="draw_td none"></td>
                 </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                   $flag = false;
                   $id_match = NULL;
@@ -761,17 +761,17 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                   $flag = false;
                   $id_match = NULL;
@@ -828,13 +828,13 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                   $flag = false;
                   $id_match = NULL;
@@ -891,16 +891,16 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -957,14 +957,14 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1021,19 +1021,19 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none gold">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1090,7 +1090,7 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td">
+                <td class="draw_td none champion">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1150,7 +1150,7 @@ $view->setVariable("title", "Matches List");
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1207,16 +1207,16 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td top"></td>
+                <td class="draw_td top"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1273,9 +1273,9 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none silver">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1332,7 +1332,7 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td">
+                <td class="draw_td none third">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1392,7 +1392,7 @@ $view->setVariable("title", "Matches List");
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1449,17 +1449,17 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td top"></td>
+                <td class="draw_td top"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1516,13 +1516,13 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1579,16 +1579,16 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1645,14 +1645,14 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1709,18 +1709,18 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1777,12 +1777,12 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1839,16 +1839,16 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1905,14 +1905,14 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -1969,17 +1969,17 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td none"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -2036,13 +2036,13 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -2099,16 +2099,16 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td"></td>
-                <td class="draw_td">
+                <td class="draw_td right"></td>
+                <td class="draw_td right">
                   <?php
                     $flag = false;
                     $id_match = NULL;
@@ -2165,14 +2165,14 @@ $view->setVariable("title", "Matches List");
                           }
                         ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td right"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               <tr>
-                <td class="draw_td">
+                <td class="draw_td right">
                   <?php
                   $flag = false;
                   $id_match = NULL;
@@ -2222,11 +2222,11 @@ $view->setVariable("title", "Matches List");
                         }
                       ?>
                 </td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
-                <td class="draw_td"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
+                <td class="draw_td none"></td>
               </tr>
 
               </tbody>

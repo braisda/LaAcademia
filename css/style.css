@@ -200,9 +200,61 @@ li.breadcrumb-item>a {
 	font-size: 0.725rem;
 }
 
+.draw_td.none {
+	border: 0px;
+}
+
+.draw_td.none.gold {
+	border: 0px;
+	color: gold;
+}
+
+.draw_td.none.champion {
+	border: 0px;
+	color: gold;
+	font-weight: bold;
+}
+
+.draw_td.none.silver {
+	border: 0px;
+	color: silver;
+}
+
+.draw_td.none.third {
+	border: 0px;
+	color: silver;
+	font-weight: bold;
+}
+
+.draw_td.left {
+	border-top: 0px;
+	border-left: 1px solid #32383e;
+}
+
+.draw_td.right {
+	border-top: 0px;
+	border-right: 1px solid #32383e;
+}
+
+.draw_td.both_side {
+	border-top: 0px;
+	border-right: 1px solid #32383e;
+	border-left: 1px solid #32383e;
+}
+
+.draw_td.left {
+	border-top: 1px solid #32383e;
+}
+
+.draw_td.bottom {
+	border-top: 0px;
+	border-bottom: 1px solid #32383e;
+}
+
 .p_home {
 	padding-top: 20px;
 }
+
 #carouselExampleIndicators {
 	margin-left: auto;
 	margin-right: auto;

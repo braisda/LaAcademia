@@ -447,7 +447,7 @@ class EventReservationsController extends BaseController {
 			throw new Exception("Not in session. Show users requires login");
 		}
 
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "pupil"){
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
 			throw new Exception("You aren't an admin or a trainer. Search reservations requires be admin or trainer");
 		}
 

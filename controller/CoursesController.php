@@ -442,8 +442,8 @@ class CoursesController extends BaseController {
 			throw new Exception("Not in session. Show users requires login");
 		}
 
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
-			throw new Exception("You aren't an admin or a trainer. See all spaces requires be admin or trainer");
+		if($this->userMapper->findType() == "competitor"){
+			throw new Exception("You aren't an admin, trainer or pupil. See all spaces requires be admin, trainer or pupil");
 		}
 
 		if (isset($_POST["submit"])) {

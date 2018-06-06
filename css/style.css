@@ -190,7 +190,7 @@ li.breadcrumb-item>a {
 	margin-bottom: 0px;
 }
 
-#table_color, #name, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd, #date, #price, #set {
+#table_color, #name, #title, #message, #surname, #dni, #birthdate, #telephone, #username, #password, #repeatpassword, #select, #description, #capacity, #time, #passwd, #date, #price, #set {
 	background: rgba(5, 53, 21, 0.73);
 	color:white;
 	border-color: #3c3a37;
@@ -205,23 +205,23 @@ li.breadcrumb-item>a {
 }
 
 .draw_td.none.gold {
-	border: 0px;
+	border-bottom: 1px dashed gold;
 	color: gold;
 }
 
 .draw_td.none.champion {
-	border: 0px;
+	border-bottom: 1px dashed gold;
 	color: gold;
 	font-weight: bold;
 }
 
 .draw_td.none.silver {
-	border: 0px;
+	border-bottom: 1px dashed silver;
 	color: silver;
 }
 
 .draw_td.none.third {
-	border: 0px;
+	border-bottom: 1px dashed silver;
 	color: silver;
 	font-weight: bold;
 }
@@ -343,7 +343,7 @@ li.breadcrumb-item>a {
 	color: #053515;
 }
 
-.oi-zoom-in, .oi-trash, .oi-loop, .oi-pencil, .oi-eye, .oi-circle-check, .oi-circle-x, .oi-task {
+.oi-zoom-in, .oi-trash, .oi-loop, .oi-pencil, .oi-eye, .oi-circle-check, .oi-circle-x, .oi-task, .oi-plus.match {
 	color: white;
 }
 

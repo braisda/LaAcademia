@@ -467,9 +467,12 @@ INSERT INTO `matches` (`id_match`, `rival1a`, `rival1b`, `rival2a`, `rival2b`, `
 --
 
 INSERT INTO `notifications` (`id_notification`, `title`, `body`, `date`, `time`, `is_read`, `sender`, `receiver`) VALUES
-(NULL, 'Planificación Julio', 'Buenos días, la semana que viene me gustaría presentar el informe con la planificación del mes de Julio, ¿Sería posible? Un saludo', '2018-06-03', '08:00:00', 0, 3, 1),
-(NULL, 'Baja asistencia de mañana', 'Hola, las últimas semanas está bajando la asistencia a los cursos con horario de mañana, deberíamos revisar la situación', '2018-06-04', '10:00:00', 1, 3, 1),
-(NULL, 'Planificación Julio', 'Perfecto, el martes de la semana que viene lo miramos al acabar la jornada, saludos', '2018-05-14', '12:00:00', 0, 1, 3);
+(NULL, 'Planificación Julio', 'Buenos días, la semana que viene me gustaría presentar el informe con la planificación del mes de Julio, ¿Sería posible? Un saludo', '2018-06-01', '08:00:00', 1, 3, 1),
+(NULL, 'Baja asistencia de mañana', 'Hola, las últimas semanas está bajando la asistencia a los cursos con horario de mañana, deberíamos revisar la situación', '2018-06-02', '10:00:00', 1, 3, 1),
+(NULL, 'Baños sucios', 'Los baños estaban muy sucios ayer y daban asco, exijo la hoja de reclamaciones', '2018-06-03', '18:00:00', 0, 4, 1),
+(NULL, 'Est mes no pago', 'Este mes voy justo de dinero, os pago el mes que viene los dos juntos, gracias', '2018-06-04', '18:00:00', 0, 4, 1),
+(NULL, 'Información cursos', 'Me gustaría apuntarme a algún curso, puedes enviarme información sobre alguno que me pueda interesar?', '2018-06-05', '18:00:00', 0, 6, 1),
+(NULL, 'Planificación Julio', 'Perfecto, el martes de la semana que viene lo miramos al acabar la jornada, saludos', '2018-06-02', '12:00:00', 0, 1, 3);
 
 
 

@@ -54,7 +54,7 @@ class NotificationsController extends BaseController {
     $users = $this->notificationMapper->getUsers();
     $id_user = $this->notificationMapper->getSender($this->currentUser->getUsername())["id_user"];
 
-		$notifications = $this->notificationMapper->showReceived($id_user);
+		$notifications = $this->notificationMapper->show($id_user);
 
 		// put the notifications object to the view
 		$this->view->setVariable("notifications", $notifications);
@@ -135,13 +135,12 @@ class NotificationsController extends BaseController {
 	* @return void
 	*/
 	public function add(){
-
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. Adding notifications requires login");
 		}
 
-		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an notification requires be admin");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all notifications requires be admin or trainer");
 		}
 
 		$notification = new Notification();
@@ -149,44 +148,36 @@ class NotificationsController extends BaseController {
 		if(isset($_POST["submit"])) { // reaching via HTTP notification...
 
 			// populate the notification object with data form the form
-			$notification->setName($_POST["name"]);
-			$notification->setCapacity($_POST["capacity"]);
-			$directory = 'multimedia/images/';
-
-			$imageType = $_FILES['image']['type'];
-			$imageName = $_FILES['image']['name'];
-			$imageSize = $_FILES['image']['size'];
-			$notification->setImage($directory.$_FILES['image']['name']);
+			$notification->setTitle($_POST["title"]);
+			$notification->setBody($_POST["body"]);
+			$notification->setDate(date("Y"."-"."m"."-"."d"));
+			$notification->setTime(date("H".":"."i".":"."s"));
+			$notification->setIs_read(0);
+			$id_sender = $this->notificationMapper->getId_user($this->currentUser->getUsername())->getId_user();
+			$notification->setSender($id_sender);
+			$id_receiver = $this->notificationMapper->getId_user($_POST["receiver"])->getId_user();
+			$notification->setReceiver($id_receiver);
 
 
 			try {
-			 	// check if notification exists in the database
-				if(!$this->notificationMapper->notificationExists($_POST["name"])){
-					//validate notification object
-					$notification->validateNotification($imageName, $imageType, $imageSize, true); // if it fails, ValidationException
+				//validate notification object
+				$notification->validateNotification(); // if it fails, ValidationException
 
-					//up the image to the server
-					move_uploaded_file($_FILES['image']['tmp_name'],$directory.$imageName);
+				//save the user object into the database
+				$this->notificationMapper->add($notification);
 
-					//save the user object into the database
-					$this->notificationMapper->add($notification);
+				// POST-REDIRECT-GET
+				// Everything OK, we will redirect the user to the list of posts
+				// We want to see a message after redirection, so we establish
+				// a "flash" message (which is simply a Session variable) to be
+				// get in the view after redirection.
+				$this->view->setFlash(sprintf(i18n("Notification \"%s\" successfully added."),$notification ->getTitle()));
 
-					// POST-REDIRECT-GET
-					// Everything OK, we will redirect the user to the list of posts
-					// We want to see a message after redirection, so we establish
-					// a "flash" message (which is simply a Session variable) to be
-					// get in the view after redirection.
-					$this->view->setFlash(sprintf(i18n("Notification \"%s\" successfully added."),$notification ->getName()));
+				// perform the redirection. More or less:
+				// header("Location: index.php?controller=notifications&action=show")
+				// die();
+				$this->view->redirect("notifications", "show");
 
-					// perform the redirection. More or less:
-					// header("Location: index.php?controller=notifications&action=show")
-					// die();
-					$this->view->redirect("notifications", "show");
-				} else {
-					$errors = array();
-					$errors["name"] = "Name already exists";
-					$this->view->setVariable("errors", $errors);
-				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();
@@ -227,8 +218,8 @@ class NotificationsController extends BaseController {
 			throw new Exception("Not in session. Adding notifications requires login");
 		}
 
-		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding a notification requires be admin");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or a trainer. See all notifications requires be admin or trainer");
 		}
 
 		// Get the Notification object from the database

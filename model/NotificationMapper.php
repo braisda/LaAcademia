@@ -42,10 +42,10 @@ class NotificationMapper {
 	}
 
 	/**
-	* Checks if a given name is already in the database
+	* Gets an user
 	*
-	* @param string $name the name to check
-	* @return boolean true if the name exists, false otherwise
+	* @param string $id_user the user id
+	* @return User an user object
 	*/
 	public function getSenderName($id_user) {
 		$stmt = $this->db->prepare("SELECT id_user, name, surname FROM users where id_user=?" );
@@ -56,6 +56,29 @@ class NotificationMapper {
 		if ($user != null) {
 			return new User(NULL, $user["id_user"], $user["name"],
 											$user["surname"], NULL, NULL,
+											NULL, NULL, NULL,
+											NULL, NULL, NULL,
+											NULL, NULL);
+		} else {
+			return NULL;
+		}
+	}
+
+	/**
+	* Gets a id of a user
+	*
+	* @param string $username the username of the user
+	* @return string the user id
+	*/
+	public function getId_user($username) {
+		$stmt = $this->db->prepare("SELECT id_user FROM users where email=?" );
+		$stmt->execute(array($username));
+
+		$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if ($user != null) {
+			return new User(NULL, $user["id_user"], NULL,
+											NULL, NULL, NULL,
 											NULL, NULL, NULL,
 											NULL, NULL, NULL,
 											NULL, NULL);
@@ -94,8 +117,8 @@ class NotificationMapper {
 	* @throws PDOException if a database error occurs
 	* @return mixed Array of Notification instances
 	*/
-	public function showReceived($receiver) {
-		$stmt = $this->db->prepare("SELECT * FROM notifications WHERE receiver=? ORDER BY date ");
+	public function show($receiver) {
+		$stmt = $this->db->prepare("SELECT * FROM notifications WHERE receiver=? ORDER BY date DESC");
 
     $stmt->execute(array($receiver));
 
@@ -144,10 +167,13 @@ class NotificationMapper {
 	* @return int The new user id
 	*/
 	public function add($notification) {
-		$stmt = $this->db->prepare("INSERT INTO notifications(name, capacity, image)
-																values (?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO notifications(title, body, date, time, is_read, sender, receiver)
+																values (?,?,?,?,?,?,?)");
 
-		$stmt->execute(array($notification->getName(), $notification->getCapacity(), $notification->getImage()));
+var_dump($notification->getSender());
+var_dump($notification->getReceiver());
+		$stmt->execute(array($notification->getTitle(), $notification->getbody(), $notification->getDate(),
+												 $notification->getTime(), $notification->getIs_read(), $notification->getSender(), $notification->getReceiver()));
 		return $this->db->lastInsertId();
 	}
 

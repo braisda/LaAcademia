@@ -237,44 +237,31 @@ class Notification {
 	*
 	* @return void
 	*/
-	public function validateNotification($senderTitle, $senderType, $senderSize, $checkSender){
+	public function validateNotification(){
 		$errors = array();
 
 		$expTitle = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
-		$expBody = '/^\d+$/';
+		$expBody = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
 
 		if($this->getTitle() == NULL){
 			$errors["title"] = "The title is wrong";
 		}
 
-		if(!$this->getTitle() == NULL &&!preg_notification($expTitle, $this->getTitle())){
+		if(!$this->getTitle() == NULL &&!preg_match($expTitle, $this->getTitle())){
 			$errors["title"] = "Title must have only letters and numbers";
 		}
 
 		if($this->getBody() == NULL){
-			$errors["body"] = "The body is wrong";
+			$errors["message"] = "The message is wrong";
 		}
 
-		if(!$this->getBody() == NULL &&!preg_notification($expBody, $this->getBody())){
-			$errors["title"] = "Body must have only numbers";
+		if(!$this->getBody() == NULL &&!preg_match($expBody, $this->getBody())){
+			$errors["message"] = "Message must have only letters and numbers";
 		}
 
-		if($checkSender){
-			if($senderSize < 5242880){
-				if($checkSender){
-					if ($senderTitle == NULL){
-						$errors["sendertype"] = "Not sender selected";
-					}
-				}
-
-				if ($senderTitle != NULL and $senderType != "sender/gif" and $senderType != "sender/jpeg" and $senderType != "sender/jpg" and $senderType != "sender/png"){
-					$errors["sendertype"] = "The sender is not valid";
-				}
-			}else{
-				$errors["sendertype"] = "The sender is too big";
-			}
+		if($this->getReceiver() == NULL){
+			$errors["email"] = "The username is wrong";
 		}
-
 
 		if (sizeof($errors) > 0){
 			throw new ValidationException($errors, "Notification is not valid");

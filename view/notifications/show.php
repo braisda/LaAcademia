@@ -25,15 +25,9 @@ $view->setVariable ("title", "Show Notifications");
     <a href="index.php?controller=notifications&amp;action=search">
       <span id="search_icon" class="oi oi-magnifying-glass">
     </a>
-    <?php
-      if($_SESSION["admin"]){
-    ?>
     <a href="index.php?controller=notifications&amp;action=add">
       <span class="oi oi-plus">
     </a>
-    <?php
-      }
-    ?>
 
   </div>
   <div class="row justify-content-around">

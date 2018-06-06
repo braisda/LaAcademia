@@ -27,7 +27,7 @@ $view->setVariable("title", i18n("Notification Information"));
         <li id="table_color" class="list-group-item"><?= $notification->getBody() ?></li>
         <li id="table_color" class="list-group-item"><?= $notification->getDate() ?> <?= i18n("at") ?> <?= $notification->getTime() ?></li>
         <li id="table_color" class="list-group-item">
-          <a href="index.php?controller=notifications&amp;action=delete" class="card-link"><span class="oi oi-trash"></a>
+            <a href="index.php?controller=notifications&amp;action=delete&amp;id_notification=<?= $notification->getId_notification() ?>"><span class="oi oi-trash"></span></a>
         </li>
       </ul>
     </div>

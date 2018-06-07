@@ -3,7 +3,7 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $notification = $view->getVariable("notification");
-$view->setVariable("title", i18n("Add Notification"));
+$view->setVariable("title", i18n("Send Notification"));
 $errors = $view->getVariable("errors");
 ?>
 
@@ -12,14 +12,14 @@ $errors = $view->getVariable("errors");
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=notifications&amp;action=show"><?= i18n("Notifications List") ?></a></li>
-  <li class="breadcrumb-item active"><?= i18n("Add Notification") ?></li>
+  <li class="breadcrumb-item active"><?= i18n("Send Notification") ?></li>
 </ol>
 
 <div class="container" id="container">
 
   <div id="background_title">
 
-    <h4 id="view_title"><?= i18n("Add Notification") ?></h4>
+    <h4 id="view_title"><?= i18n("Send Notification") ?></h4>
   </div>
 
   <form enctype="multipart/form-data" action="index.php?controller=notifications&amp;action=add" method="POST">
@@ -56,6 +56,6 @@ $errors = $view->getVariable("errors");
 
     </div>
     <br/>
-    <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Add")?></button>
+    <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Send")?></button>
   </form>
 </div>

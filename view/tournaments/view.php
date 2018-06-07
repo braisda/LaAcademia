@@ -22,8 +22,8 @@ $view->setVariable("title", "View Tournament");
       <h4 id="card_body" class="card-header"><?= $tournament->getName() ?> <a href="index.php?controller=draws&amp;action=show&amp;id_tournament=<?= $tournament->getId_tournament() ?>" class="card-link"><button type="submit" name="submit" class="btn btn-primary"><?=i18n("View Tournament Draws")?></button></a></h4>
       <ul id="background_table2"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= $tournament->getDescription() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Start Time") ?>:</strong> <?= $tournament->getStart_date() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("End Time") ?>:</strong> <?= $tournament->getEnd_date() ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Start Date") ?>:</strong> <?= date("d-m-Y", strtotime($tournament->getStart_date())) ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("End Date") ?>:</strong> <?= date("d-m-Y", strtotime($tournament->getEnd_date())) ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $tournament->getPrice() ?> €</li>
         <?php
           if($_SESSION["admin"]){

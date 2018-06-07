@@ -20,11 +20,10 @@ $view->setVariable("title", "Delete Tournament");
   <div class="row justify-content-center">
     <div id="card_event" class="card">
       <h4 id="card_body" class="card-header"><?= $tournament->getName() ?></h4>
-      <ul id="background_table"  class="list-group list-group-flush">
+      <ul id="background_table2"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= $tournament->getDescription() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Start Time") ?>:</strong> <?= $tournament->getStart_date() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("End Time") ?>:</strong> <?= $tournament->getEnd_date() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $tournament->getPrice() ?> €</li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Start Date") ?>:</strong> <?= date("d-m-Y", strtotime($tournament->getStart_date())) ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("End Date") ?>:</strong> <?= date("d-m-Y", strtotime($tournament->getEnd_date())) ?></li><li id="table_color" class="list-group-item"><strong><?= i18n("Price") ?>:</strong> <?= $tournament->getPrice() ?> €</li>
       </ul>
       <br/>
       <form action="index.php?controller=tournaments&amp;action=delete" method="POST">

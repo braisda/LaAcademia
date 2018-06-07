@@ -32,8 +32,8 @@ $view->setVariable ( "title", "Delete Tournament Reservation" );
 
         <?= $name ?></td>
       </h4>
-      <ul id="background_table" class="list-group list-group-flush">
-        <li id="event_decription" class="list-group-item">
+      <ul id="background_table2" class="list-group list-group-flush">
+
           <?php
             foreach ($competitors as $competitor) {
               if($competitor["id_user"] == $reservation->getId_competitor()){
@@ -43,8 +43,7 @@ $view->setVariable ( "title", "Delete Tournament Reservation" );
             }
           ?>
 
-          <?= $name." ".$surname ?></td>
-        </li>
+          <li id="event_decription" class="list-group-item"><?= $name." ".$surname ?></td></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $reservation->getDate() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $reservation->getTime() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("State") ?>:</strong>

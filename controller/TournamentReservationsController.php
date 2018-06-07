@@ -119,7 +119,7 @@ class TournamentReservationsController extends BaseController {
 		}
 
     //Get the id, name and surname of the competitors
-		$competitors = $this->tournamentReservationMapper->getPupils();
+		$competitors = $this->tournamentReservationMapper->getCompetitors();
 
 		// Put the space variable visible to the view
 		$this->view->setVariable("competitors", $competitors);
@@ -406,7 +406,7 @@ class TournamentReservationsController extends BaseController {
 		}
 
     //Get the id, name and surname of the competitors
-		$competitors = $this->tournamentReservationMapper->getPupils();
+		$competitors = $this->tournamentReservationMapper->getCompetitors();
 
 		// Put the space variable visible to the view
 		$this->view->setVariable("competitors", $competitors);
@@ -514,7 +514,7 @@ class TournamentReservationsController extends BaseController {
 				$reservations = $this->tournamentReservationMapper->search($query);
 			}
 			//Get the id, name and surname of the competitors
-			$competitors = $this->tournamentReservationMapper->getPupils();
+			$competitors = $this->tournamentReservationMapper->getCompetitors();
 
 			// Put the space variable visible to the view
 			$this->view->setVariable("competitors", $competitors);
@@ -529,7 +529,7 @@ class TournamentReservationsController extends BaseController {
 			$this->view->render("tournamentReservations", "show");
 		}else {
 			//Get the id, name and surname of the competitors
-			$competitors = $this->tournamentReservationMapper->getPupils();
+			$competitors = $this->tournamentReservationMapper->getCompetitors();
 
 			// Put the space variable visible to the view
 			$this->view->setVariable("competitors", $competitors);

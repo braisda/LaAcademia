@@ -45,7 +45,7 @@ $view->setVariable ("title", "Show Tournaments Reservations");
                 <?php $n=1; foreach ($reservations as $reservation): ?>
         						<tr>
                       <td><?= $n++ ?></td>
-        							<td><?= $reservation->getDate() ?></td>
+        							<td><?= date("d-m-Y", strtotime($reservation->getDate())) ?></td>
         							<td><?= $reservation->getTime() ?></td>
         							<td>
                         <?php

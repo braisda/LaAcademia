@@ -21,19 +21,16 @@ $view->setVariable ( "title", "View Reservation" );
 
   <div class="row justify-content-center">
     <div id="card_event" class="card">
-      <h4 id="card_body" class="card-header">
-        <?php
-          foreach ($tournaments as $tournament) {
-            if($tournament["id_tournament"] == $reservation->getId_tournament()){
-              $name = $tournament["name"];
-            }
+      <?php
+        foreach ($tournaments as $tournament) {
+          if($tournament["id_tournament"] == $reservation->getId_tournament()){
+            $name = $tournament["name"];
           }
-        ?>
-
-        <?= $name ?></td>
-      </h4>
+        }
+      ?>
+      <h4 id="card_body" class="card-header"><?= $name ?></td></h4>
       <ul id="background_table2" class="list-group list-group-flush">
-        <li id="event_decription" class="list-group-item">
+
           <?php
             foreach ($competitors as $competitor) {
               if($competitor["id_user"] == $reservation->getId_competitor()){
@@ -43,8 +40,7 @@ $view->setVariable ( "title", "View Reservation" );
             }
           ?>
 
-          <?= $name." ".$surname ?></td>
-        </li>
+          <li id="event_decription" class="list-group-item"><?= $name." ".$surname ?></td></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $reservation->getDate() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $reservation->getTime() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("State") ?>:</strong>

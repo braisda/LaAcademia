@@ -7,7 +7,8 @@
   </head>
   <body>
     <div class="center_install">
-      <h4>INSTALL</h4>
+      <h4>NO DATABASE FOUND</h4>
+      <h5>PLEASE, INSTALL THE DATABASE</h5>
     </div>
     <form action="install.php" method="POST">
       <div id="background_install" class="form-row">

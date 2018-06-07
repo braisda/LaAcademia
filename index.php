@@ -55,7 +55,14 @@ function run() {
 		$controller->$actionName();
 	} catch(Exception $ex) {
 		//uniform treatment of exceptions
-		die("An exception occured!!!!!".$ex->getMessage()."<br/>"."<br/>"."No database created, clic <a href='install.php'>HERE</a> for create database");
+		//var_dump($ex->getMessage());
+		if(strpos($ex->getMessage(), "Access denied for user")){
+			header("Location: install.php");
+			die();
+		}else{
+			die("An exception occured!!!!!".$ex->getMessage());
+		}
+
 	}
 }
 

@@ -25,7 +25,25 @@ $view->setVariable("title", "View Tournament");
 
   <div class="row justify-content-center">
     <div id="card_event2" class="card">
-      <h4 id="card_body" class="card-header"><?= ucfirst(i18n($match->getRound())) ?>: <?= date("d-m-Y", strtotime($match->getdate())); ?></h4>
+
+      <?php
+        switch($match->getRound()){
+          case "roundof32":
+            $round = "round of 32";
+            break;
+          case "roundof16":
+            $round = "round of 16";
+            break;
+          case "thirdplace":
+            $round = "third place";
+            break;
+          default:
+            $round = $match->getRound();
+            break;
+        }
+      ?>
+
+      <h4 id="card_body" class="card-header"><?= ucfirst(i18n($round)) ?>: <?= date("d-m-Y", strtotime($match->getdate())); ?></h4>
 
       <ul id="background_table2"  class="list-group list-group-flush">
         <table id="table_color" class="table table-sm table-dark">

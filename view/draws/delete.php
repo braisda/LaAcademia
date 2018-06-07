@@ -4,7 +4,7 @@ require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
 $draw = $view->getVariable("draw");
 $tournament = $view->getVariable("tournament");
-$view->setVariable("title", "View Tournament");
+$view->setVariable("title", "Delete Draw");
 ?>
 
 <ol class="breadcrumb">
@@ -12,18 +12,18 @@ $view->setVariable("title", "View Tournament");
   <li class="breadcrumb-item"><a href="index.php?controller=tournaments&amp;action=show"><?= i18n("Tournaments List") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=tournaments&amp;action=view&amp;id_tournament=<?= $tournament ?>"><?= i18n("Tournament Information") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=draws&amp;action=show&amp;id_tournament=<?= $tournament ?>"><?= i18n("Draws List") ?></a></li>
-  <li class="breadcrumb-item active"><?= i18n("Draw Information") ?></li>
+  <li class="breadcrumb-item active"><?= i18n("Delete Draw") ?></li>
 </ol>
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Draw Information") ?></h4>
+    <h4 id="view_title"><?= i18n("Delete Draw") ?></h4>
   </div>
 
   <div class="row justify-content-center">
     <div id="card_event" class="card">
       <h4 id="card_body" class="card-header"><?= i18n(ucfirst($draw->getModality())) ?> <?= i18n($draw->getGender())?><a href="index.php?controller=matches&amp;action=show&amp;id_tournament=<?= $tournament ?>" class="card-link"> <span class="oi oi-zoom-in"></span></a></h4>
-      <ul id="background_table"  class="list-group list-group-flush">
+      <ul id="background_table2"  class="list-group list-group-flush">
         <li id="event_decription" class="list-group-item"><?= i18n("Category") ?>: <?= i18n(ucfirst($draw->getCategory())) ?></li>
         <li id="event_decription" class="list-group-item"><?= i18n("Type") ?>: <?= i18n(ucfirst($draw->getType())) ?></li>
       </ul>

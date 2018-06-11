@@ -4,18 +4,18 @@ require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
 $notification = $view->getVariable("notification");
 $senderName = $view->getVariable("senderName");
-$view->setVariable("title", i18n("Notification Information"));
+$view->setVariable("title", i18n("Delete Notification"));
 ?>
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="index.php"><?= i18n("Home") ?></a></li>
   <li class="breadcrumb-item"><a href="index.php?controller=notifications&amp;action=show"><?= i18n("Notifications List") ?></a></li>
-  <li class="breadcrumb-item active"><?= i18n("Notification Information") ?></li>
+  <li class="breadcrumb-item active"><?= i18n("Delete Notification") ?></li>
 </ol>
 
 <div id="container" class="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Notification Information") ?></h4>
+    <h4 id="view_title"><?= i18n("Delete Notification") ?></h4>
   </div>
 
   <div class="row justify-content-center">

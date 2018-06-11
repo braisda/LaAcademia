@@ -475,5 +475,5 @@ INSERT INTO `notifications` (`id_notification`, `title`, `body`, `date`, `time`,
 (NULL, 'Este mes no pago', 'Este mes voy justo de dinero, os pago el mes que viene los dos juntos, gracias', '2018-06-04', '18:00:00', 0, 4, 1),
 (NULL, 'Información cursos', 'Me gustaría apuntarme a algún curso, puedes enviarme información sobre alguno que me pueda interesar?', '2018-06-05', '18:00:00', 0, 6, 1),
 (NULL, 'Planificación Julio', 'Perfecto, el martes de la semana que viene lo miramos al acabar la jornada, saludos', '2018-06-02', '12:00:00', 0, 1, 3);
-s
+
 COMMIT;

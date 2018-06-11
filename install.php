@@ -34,7 +34,7 @@ if (isset($_POST["submit"])){
   $mysqlUserName = $_POST["username"];
   $mysqlPasswd = $_POST["passwd"];
   $dbFile = "academia.sql";
-  $command='mysql -u' .$mysqlUserName .' -p' .$mysqlPasswd . ' < ' .$dbFile;
+  $command='mysql -u' .$mysqlUserName .' -p' .$mysqlPasswd . ' < ' .$dbFile." 2>&1";
   exec($command, $output, $worked);
   switch($worked){
     case 0:
@@ -47,7 +47,7 @@ if (isset($_POST["submit"])){
       break;
   	case 1:
       echo "<div class='center_install_msg'>";
-      echo 'There was an error during import: User already exists or you insert bad credentials<br/><br />';
+      echo 'There was an error during import: User already exists, you insert bad credentials or script sql has errors<br/><br />';
       echo "</div>";
       break;
   }

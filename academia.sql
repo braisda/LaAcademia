@@ -182,32 +182,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `academia`.`tournaments_reservations`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `academia`.`tournaments_reservations` (
-  `id_reservation` INT NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
-  `time` TIME NOT NULL,
-  `is_confirmed` INT NOT NULL,
-  `id_tournament` INT NULL,
-  `id_player` INT NULL,
-  PRIMARY KEY (`id_reservation`),
-  INDEX `fk_tournaments_reservations_tournaments1_idx` (`id_tournament` ASC),
-  INDEX `fk_tournaments_reservations_users1_idx` (`id_player` ASC),
-  CONSTRAINT `fk_tournaments_reservations_tournaments1`
-    FOREIGN KEY (`id_tournament`)
-    REFERENCES `academia`.`tournaments` (`id_tournament`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_tournaments_reservations_users1`
-    FOREIGN KEY (`id_player`)
-    REFERENCES `academia`.`users` (`id_user`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `academia`.`draws`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `academia`.`draws` (
@@ -222,6 +196,39 @@ CREATE TABLE IF NOT EXISTS `academia`.`draws` (
   CONSTRAINT `fk_draws_tournaments1`
     FOREIGN KEY (`id_tournament`)
     REFERENCES `academia`.`tournaments` (`id_tournament`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `academia`.`tournaments_reservations`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `academia`.`tournaments_reservations` (
+  `id_reservation` INT NOT NULL AUTO_INCREMENT,
+  `date` DATE NOT NULL,
+  `time` TIME NOT NULL,
+  `is_confirmed` INT NOT NULL,
+  `id_tournament` INT NULL,
+  `id_player` INT NULL,
+  `id_draw` INT NULL,
+  PRIMARY KEY (`id_reservation`),
+  INDEX `fk_tournaments_reservations_tournaments1_idx` (`id_tournament` ASC),
+  INDEX `fk_tournaments_reservations_users1_idx` (`id_player` ASC),
+  INDEX `fk_tournaments_reservations_draws1_idx` (`id_draw` ASC),
+  CONSTRAINT `fk_tournaments_reservations_tournaments1`
+    FOREIGN KEY (`id_tournament`)
+    REFERENCES `academia`.`tournaments` (`id_tournament`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_tournaments_reservations_users1`
+    FOREIGN KEY (`id_player`)
+    REFERENCES `academia`.`users` (`id_user`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_tournaments_reservations_draws1`
+    FOREIGN KEY (`id_draw`)
+    REFERENCES `academia`.`draws` (`id_draw`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -302,47 +309,47 @@ ENGINE = InnoDB;
 
 INSERT INTO `users` (`id_user`, `name`, `surname`, `dni`, `email`, `password`, `telephone`, `birthdate`, `image`, `is_active`, `is_administrator`, `is_trainer`, `is_pupil`, `is_competitor`) VALUES
 (NULL, 'Brais', 'Domínguez Álvarez', '34273074S', 'braisda@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 662485513, '1991-06-10', 'multimedia/images/users/Foto Perfil2.PNG', 1, 1, NULL, NULL, NULL),
-(NULL, 'Francisco', 'Expósito Martínez', '34766251A', 'panocadas@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 666555444, '1984-02-06', 'multimedia/images/users/francisco.jpg', 1, NULL, 1, NULL, NULL),
-(NULL, 'Fátima', 'Rodríguez Souto', '40157844C', 'fatima@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 698659991, '2000-12-13', 'multimedia/images/users/fatima.jpg', 1, NULL, 1, NULL, NULL),
-(NULL, 'Laura', 'Méndez Ferreiro', '34695755P', 'laura@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 699422322, '1996-09-15', 'multimedia/images/users/laura.jpg', 1, NULL, NULL, 1, NULL),
-(NULL, 'Jaime', 'Vila López', '34352201S', 'jaime@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 632521141, '1977-02-25', 'multimedia/images/users/jaime.jpg', 1, NULL, NULL, 1, NULL),
-(NULL, 'Raúl', 'Gil Pérez', '35667134U', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Alba', 'Torres Quiroga', '53228407H', 'alba@gmail.com', '85e820b214862278ef667ae4bb1d8608', 600912231, '1988-07-17', 'multimedia/images/users/alba.png', 1, NULL, NULL, NULL, 1),
-(NULL, 'Marcos', 'Villa López', '35667134U', 'marcos@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Abel', 'Piñeiro Vila', '35667134U', 'abel@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Mateo', 'Torres Pérez', '35667134U', 'mateo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Zeus', 'Rajoy Jato', '35667134U', 'zeus@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Petete', 'Moreno Domínguez', '35667134U', 'petete@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Ulises', 'Feijoo Martínez', '35667134U', 'ulises@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Carlos', 'Pernía Pérez', '35667134U', 'carlos@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Gabino', 'Llorente Mata', '35667134U', 'gabino@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Juan', 'Domínguez Alonso', '35667134U', 'juan@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Bartolo', 'Navas Nos', '35667134U', 'bartolo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Gabriel', 'Cobo Souto', '35667134U', 'gabriel@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Anxo', 'Quiroga Iglesias', '35667134U', 'anxo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Galindo', 'Casado Vega', '35667134U', 'galindo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Saúl', 'Gallego Pérez', '35667134U', 'saul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Ángel', 'Blanco Gutiérrez', '35667134U', 'angel@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Paco', 'Reina Domínguez', '35667134U', 'paco@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Matín', 'Villa Casillas', '35667134U', 'martin@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Epi', 'Sánchez Borbón', '35667134U', 'epi@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Mauro', 'Castañer Dafonte', '35667134U', 'mauro@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Gumersindo', 'Peixoto Pérez', '35667134U', 'gumersindo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Artemio', 'Sotelo Cortés', '35667134U', 'artemio@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Manuel', 'Peña Moreno', '35667134U', 'manuel@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Ricardo', 'Veiga Pérez', '35667134U', 'ricardo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Nicanor', 'Álvarez Casas', '35667134U', 'nicanor@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Telmo', 'Hernández Pérez', '35667134U', 'telmo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Iker', 'Banderas Iglesias', '35667134U', 'iker@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'David', 'López López', '35667134U', 'david@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Victor', 'Muñoz Vázquez', '35667134U', 'victor@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Andrés', 'Fernández Pérez', '35667134U', 'andres@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Fernando', 'Gil Domínguez', '35667134U', 'fer@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Sergio', 'Verao Valdés', '35667134U', 'sergio@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Unay', 'Quiroga Verne', '35667134U', 'unay@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Pablo', 'Lemos Quijote', '35667134U', 'pablo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
-(NULL, 'Manuel', 'Alvarez Lopez', '34343434A', 'eliminado@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 659863111, '1970-01-30', 'multimedia/images/users/profile.png', 0, 1, NULL, NULL, NULL),
-(NULL, 'Javier', 'Rodeiro Iglesias', '34343434A', 'jrodeiro@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 666666666, '1980-10-28', 'multimedia/images/users/profile.png', 1, 1, NULL, NULL, NULL);
+(NULL, 'Francisco', 'Expósito Martínez', '66892653M', 'panocadas@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 666555444, '1984-02-06', 'multimedia/images/users/francisco.jpg', 1, NULL, 1, NULL, NULL),
+(NULL, 'Fátima', 'Rodríguez Souto', '44083137A', 'fatima@gmail.com', 'a990ba8861d2b344810851e7e6b49104', 698659991, '2000-12-13', 'multimedia/images/users/fatima.jpg', 1, NULL, 1, NULL, NULL),
+(NULL, 'Laura', 'Méndez Ferreiro', '37723942D', 'laura@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 699422322, '1996-09-15', 'multimedia/images/users/laura.jpg', 1, NULL, NULL, 1, NULL),
+(NULL, 'Jaime', 'Vila López', '53319547G', 'jaime@gmail.com', 'c6865cf98b133f1f3de596a4a2894630', 632521141, '1977-02-25', 'multimedia/images/users/jaime.jpg', 1, NULL, NULL, 1, NULL),
+(NULL, 'Raúl', 'Gil Pérez', '52301077C', 'raul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Alba', 'Torres Quiroga', '90600220T', 'alba@gmail.com', '85e820b214862278ef667ae4bb1d8608', 600912231, '1988-07-17', 'multimedia/images/users/alba.png', 1, NULL, NULL, NULL, 1),
+(NULL, 'Marcos', 'Villa López', '29576885N', 'marcos@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Abel', 'Piñeiro Vila', '69670767H', 'abel@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Mateo', 'Torres Pérez', '57061875W', 'mateo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Zeus', 'Rajoy Jato', '15242725G', 'zeus@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Petete', 'Moreno Domínguez', '34038784A', 'petete@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Ulises', 'Feijoo Martínez', '82511304T', 'ulises@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Carlos', 'Pernía Pérez', '08976280R', 'carlos@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Gabino', 'Llorente Mata', '52784680W', 'gabino@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Juan', 'Domínguez Alonso', '06378301X', 'juan@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Bartolo', 'Navas Nos', '08573032N', 'bartolo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Gabriel', 'Cobo Souto', '31624639F', 'gabriel@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Anxo', 'Quiroga Iglesias', '10896329X', 'anxo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Galindo', 'Casado Vega', '62210701W', 'galindo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Saúl', 'Gallego Pérez', '33469779H', 'saul@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Ángel', 'Blanco Gutiérrez', '79750696J', 'angel@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Paco', 'Reina Domínguez', '01420697X', 'paco@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Matín', 'Villa Casillas', '32945070P', 'martin@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Epi', 'Sánchez Borbón', '62040921P', 'epi@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Mauro', 'Castañer Dafonte', '76635464Q', 'mauro@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Gumersindo', 'Peixoto Pérez', '98011697A', 'gumersindo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Artemio', 'Sotelo Cortés', '29624603M', 'artemio@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Manuel', 'Peña Moreno', '20652110L', 'manuel@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Ricardo', 'Veiga Pérez', '10680490A', 'ricardo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Nicanor', 'Álvarez Casas', '91488287Z', 'nicanor@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Telmo', 'Hernández Pérez', '98723272G', 'telmo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Iker', 'Banderas Iglesias', '44059127M', 'iker@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'David', 'López López', '86430841S', 'david@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Victor', 'Muñoz Vázquez', '09257688G', 'victor@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Andrés', 'Fernández Pérez', '55899604J', 'andres@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Fernando', 'Gil Domínguez', '51543163W', 'fer@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Sergio', 'Verao Valdés', '50037266F', 'sergio@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Unay', 'Quiroga Verne', '82817568L', 'unay@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Pablo', 'Lemos Quijote', '42674299F', 'pablo@gmail.com', '85e820b214862278ef667ae4bb1d8608', 676543334, '1981-05-28', 'multimedia/images/users/raul.jpg', 1, NULL, NULL, NULL, 1),
+(NULL, 'Manuel', 'Alvarez Lopez', '02769362R', 'eliminado@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 659863111, '1970-01-30', 'multimedia/images/users/profile.png', 0, 1, NULL, NULL, NULL),
+(NULL, 'Javier', 'Rodeiro Iglesias', '15197362C', 'jrodeiro@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 666666666, '1980-10-28', 'multimedia/images/users/profile.png', 1, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

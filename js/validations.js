@@ -4,8 +4,8 @@ function validateName(){
   var name = document.getElementById("name");
   var res = /^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$/.test(name.value);
 
-  if(!res){
-      document.getElementById("name").style.borderColor = "red";
+  if(!res || name.value.length > 20){
+    document.getElementById("name").style.borderColor = "red";
   }else{
     document.getElementById("name").style.borderColor = "#3c3a37";
   }
@@ -16,8 +16,8 @@ function validateSurname(){
   var surname = document.getElementById("surname");
   var res = /^[A-Za-zñÑáéíóúÁÉÍÓÚ]+ [A-Za-zñÑáéíóúÁÉÍÓÚ]+$/.test(surname.value);
 
-  if(!res){
-      document.getElementById("surname").style.borderColor = "red";
+  if(!res || surname.value.length > 60){
+    document.getElementById("surname").style.borderColor = "red";
   }else{
     document.getElementById("surname").style.borderColor = "#3c3a37";
   }
@@ -71,7 +71,7 @@ function validateUsername(){
   var username = document.getElementById("username");
   var res = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(username.value);
 
-  if(!res){
+  if(!res || username.value.length > 25){
       document.getElementById("username").style.borderColor = "red";
   }else{
     document.getElementById("username").style.borderColor = "#3c3a37";
@@ -81,7 +81,7 @@ function validateUsername(){
 // validates a password
 function validatePassword(){
   var password = document.getElementById("password");
-  var res = /^[A-Za-zñÑáéíóúÁÉÍÓÚ0-9\.]{5,20}$/.test(password.value);
+  var res = /^[A-Za-zñÑáéíóúÁÉÍÓÚ0-9\.]{5,15}$/.test(password.value);
 
   if(!res){
     document.getElementById("password").style.borderColor = "red";
@@ -93,7 +93,7 @@ function validatePassword(){
 // validates a password
 function validateRepeatPassword(){
   var repeatPassword = document.getElementById("repeatpassword");
-  var res = /^[A-Za-zñÑáéíóúÁÉÍÓÚ0-9\.]{5,20}$/.test(repeatPassword.value);
+  var res = /^[A-Za-zñÑáéíóúÁÉÍÓÚ0-9\.]{5,15}$/.test(repeatPassword.value);
 
   if(!res){
     document.getElementById("repeatpassword").style.borderColor = "red";

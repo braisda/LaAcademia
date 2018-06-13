@@ -420,6 +420,10 @@ class User {
 			$errors["email"] = "The email can not be empty";
 		}
 
+		if(strlen($this->getUsername()) > 25){
+			$errors["email"] = "The email can not be longer than 25 characters";
+		}
+
 		if(!$this->getUsername() == NULL && !$this->validate_email($this->getUsername())){
 			$errors["email"] = "The email is wrong";
 		}
@@ -469,8 +473,8 @@ class User {
 				$errors["password"] = "Password must be at least 5 characters length";
 			}
 
-			if (strlen($password) > 20) {
-				$errors["password"] = "Password must not be more than 20 characters length";
+			if (strlen($password) > 15) {
+				$errors["password"] = "Password must not be more than 15 characters length";
 			}
 
 			if(!preg_match($expPass, $password) && !strlen($password) < 5){

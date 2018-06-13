@@ -79,25 +79,25 @@ $view->setVariable ("title", "Show Tournaments Reservations");
 
                         <?= $name ?></td>
                         <td>
-                          <a href="index.php?controller=tournamentReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-eye"></span></a>
+                          <a href="index.php?controller=tournamentReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-eye" title="<?= i18n("View") ?>"></span></a>
 
                           <?php
                             if($reservation->getIs_confirmed() == 0){
                               if($_SESSION["admin"]){
                           ?>
-                            <a href="index.php?controller=tournamentReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
-                            <a href="index.php?controller=tournamentReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check"></span></a>
+                            <a href="index.php?controller=tournamentReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash title="<?= i18n("Delete") ?>"></span></a>
+                            <a href="index.php?controller=tournamentReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check" title="<?= i18n("Confirm") ?>"></span></a>
                           <?php
                               }else{
                           ?>
-                                <a href="index.php?controller=tournamentReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                                <a href="index.php?controller=tournamentReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
                           <?php
                               }
                             }else{
                               if($_SESSION["admin"]){
                           ?>
-                            <a href="index.php?controller=tournamentReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
-                            <a href="index.php?controller=tournamentReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
+                            <a href="index.php?controller=tournamentReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
+                            <a href="index.php?controller=tournamentReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x" title="<?= i18n("Cancel") ?>"></span></a>
                           <?php
                               }
                             }

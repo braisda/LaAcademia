@@ -5,6 +5,7 @@ $view = ViewManager::getInstance();
 $reservation = $view->getVariable("tournamentReservation");
 $competitors = $view->getVariable("competitors");
 $tournaments = $view->getVariable("tournaments");
+$draws = $view->getVariable("draws");
 $view->setVariable ( "title", "View Reservation" );
 ?>
 
@@ -28,7 +29,18 @@ $view->setVariable ( "title", "View Reservation" );
           }
         }
       ?>
-      <h4 id="card_body" class="card-header"><?= $name ?></td></h4>
+
+      <?php
+      foreach ($draws as $draw) {
+        if($draw["id_draw"] == $reservation->getId_draw()){
+          $modality = $draw["modality"];
+          $gender = $draw["gender"];
+          $category = $draw["category"];
+        }
+      }
+      ?>
+
+      <h4 id="card_body" class="card-header"><?= $name ?> - <?= ucwords(i18n($modality)) ?> <?= i18n($gender) ?> <?= i18n($category) ?></td></h4>
       <ul id="background_table2" class="list-group list-group-flush">
 
           <?php

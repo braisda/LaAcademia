@@ -29,9 +29,9 @@ class TournamentReservationMapper {
 	* @param string $tournament the tournament of the reservation to check
 	* @return boolean true if the name exists, false otherwise
 	*/
-	public function reservationExists($competitors, $tournament) {
-		$stmt = $this->db->prepare("SELECT count(id_player) FROM tournaments_reservations where id_player=? AND id_tournament=?");
-		$stmt->execute(array($competitors, $tournament));
+	public function reservationExists($competitors, $tournament, $draw) {
+		$stmt = $this->db->prepare("SELECT count(id_player) FROM tournaments_reservations where id_player=? AND id_tournament=? AND id_draw");
+		$stmt->execute(array($competitors, $tournament, $draw));
 
 		if ($stmt->fetchColumn() > 0) {
 			return true;
@@ -55,7 +55,7 @@ class TournamentReservationMapper {
 			array_push ($reservations, new TournamentReservation($reservation ["id_reservation"],
                                        $reservation ["date"], $reservation ["time"],
 																			 $reservation ["is_confirmed"], $reservation ["id_player"],
-                                       $reservation ["id_tournament"]));
+                                       $reservation ["id_tournament"], $reservation ["id_draw"]));
 		}
 
 		return $reservations;
@@ -78,7 +78,7 @@ class TournamentReservationMapper {
 			array_push($reservations, new TournamentReservation($reservation ["id_reservation"],
 	                                     $reservation ["date"], $reservation ["time"],
 																			 $reservation ["is_confirmed"], $reservation ["id_player"],
-	                                     $reservation ["id_tournament"]));
+	                                     $reservation ["id_tournament"], $reservation ["id_draw"]));
 		}
 
 		return $reservations;
@@ -96,6 +96,20 @@ class TournamentReservationMapper {
 		$competitors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		return $competitors;
+	}
+
+	/**
+	* Retrieves modality, gender and type from all draws
+	*
+	* @throws PDOException if a database error occurs
+	* @return mixed Array of users
+	*/
+  public function getDraws() {
+		$stmt = $this->db->query("SELECT id_draw, modality, gender, category FROM draws ORDER BY id_draw");
+
+		$draws = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $draws;
 	}
 
 	/**
@@ -128,7 +142,8 @@ class TournamentReservationMapper {
 
 		if ($reservation != null) {
 			return new TournamentReservation($reservation["id_reservation"], $reservation["date"], $reservation["time"],
-												$reservation["is_confirmed"], $reservation["id_player"], $reservation["id_tournament"]);
+												$reservation["is_confirmed"], $reservation["id_player"],
+												$reservation["id_tournament"], $reservation["id_draw"]);
 		} else {
 			return NULL;
 		}
@@ -182,12 +197,12 @@ class TournamentReservationMapper {
 	* @return int The new reservation id
 	*/
 	public function add($tournamentReservation) {
-		$stmt = $this->db->prepare("INSERT INTO tournaments_reservations(date, time, is_confirmed, id_player, id_tournament)
-																values (?,?,?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO tournaments_reservations(date, time, is_confirmed, id_player, id_tournament, id_draw)
+																values (?,?,?,?,?,?)");
 
 		$stmt->execute(array($tournamentReservation->getDate(), $tournamentReservation->getTime(),
 												 $tournamentReservation->getIs_confirmed(), $tournamentReservation->getId_competitor(),
-												 $tournamentReservation->getId_tournament()));
+												 $tournamentReservation->getId_tournament(), $tournamentReservation->getId_draw()));
 		return $this->db->lastInsertId();
 	}
 
@@ -206,7 +221,7 @@ class TournamentReservationMapper {
 		$tournament = $stmt->fetch ( PDO::FETCH_ASSOC );
 
 		if ($tournament != null) {
-			return new TournamentReservation(NULL, NULL, NULL, NULL, NULL,$tournament ["id_tournament"], $tournament ["name"],
+			return new TournamentReservation(NULL, NULL, NULL, NULL, NULL, $tournament ["id_tournament"], NULL, $tournament ["name"],
 												$tournament ["description"], $tournament ["start_date"], $tournament ["end_date"],
 												$tournament ["price"]);
 		} else {

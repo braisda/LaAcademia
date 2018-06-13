@@ -66,8 +66,14 @@ class TournamentReservationsController extends BaseController {
 			$reservations = $this->tournamentReservationMapper->showMine($id_user);
 		}
 
-		// Put the space variable visible to the view
+		// Put the competitors variable visible to the view
 		$this->view->setVariable("competitors", $competitors);
+
+		//Get the name of the competitors
+		$draws = $this->tournamentReservationMapper->getDraws();
+
+		// Put the draw variable visible to the view
+		$this->view->setVariable("draws", $draws);
 
     //Get the id, name and type of the tournaments
 		$tournaments = $this->tournamentReservationMapper->getTournaments();
@@ -124,6 +130,12 @@ class TournamentReservationsController extends BaseController {
 		// Put the space variable visible to the view
 		$this->view->setVariable("competitors", $competitors);
 
+		//Get the name of the competitors
+		$draws = $this->tournamentReservationMapper->getDraws();
+
+		// Put the draw variable visible to the view
+		$this->view->setVariable("draws", $draws);
+
     //Get the id, name and type of the tournaments
 		$tournaments = $this->tournamentReservationMapper->getTournaments();
 
@@ -174,21 +186,22 @@ class TournamentReservationsController extends BaseController {
 
 		$reservation = new TournamentReservation();
 		// find the Tournament object in the database
-		$tournament = $this->tournamentReservationMapper->getTournament($id_tournament);
+		$tournament = $this->tournamentReservationMapper->getTournament($id_tournament);//var_dump($tournament);
 		$id_user = $this->tournamentReservationMapper->getId_user($_SESSION["currentuser"]);
 
 		if(isset($_POST["submit"])) { // reaching via HTTP tournament...
 
 			// populate the tournament reservation object with data
 			$reservation->setDate(date("Y/m/d"));
-			$reservation->setTime(date("h:i:sa"));
+			$reservation->setTime(date("H:i:sa"));
 			$reservation->setIs_confirmed(0);
 			$reservation->setId_competitor($id_user);
 			$reservation->setId_tournament($id_tournament);
+			$reservation->setId_draw($_POST["draw"]);
 
 			try {
 				// check if reservation exists in the database
-				if(!$this->tournamentReservationMapper->reservationExists($id_user, $id_tournament)){
+				if(!$this->tournamentReservationMapper->reservationExists($id_user, $id_tournament, $_POST["draw"])){
 					//save the tournament object into the database
 					$this->tournamentReservationMapper->add($reservation);
 
@@ -215,6 +228,13 @@ class TournamentReservationsController extends BaseController {
 				$this->view->setVariable("errors", $errors);
 			}
 		}
+
+		//Get the name of the competitors
+		$draws = $this->tournamentReservationMapper->getDraws();
+
+		// Put the draw variable visible to the view
+		$this->view->setVariable("draws", $draws);
+
 		// put the tournament object to the view
 		$this->view->setVariable("tournament", $tournament);
 
@@ -410,6 +430,12 @@ class TournamentReservationsController extends BaseController {
 
 		// Put the space variable visible to the view
 		$this->view->setVariable("competitors", $competitors);
+
+		//Get the name of the competitors
+		$draws = $this->tournamentReservationMapper->getDraws();
+
+		// Put the draw variable visible to the view
+		$this->view->setVariable("draws", $draws);
 
     //Get the id, name and type of the tournaments
 		$tournaments = $this->tournamentReservationMapper->getTournaments();

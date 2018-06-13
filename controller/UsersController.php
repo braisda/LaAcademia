@@ -476,9 +476,6 @@ class UsersController extends BaseController {
 
 			try {
 				if(!$flag){
-					echo "No cambia username ";
-					echo " viejo: ".$oldUsername;
-					echo " nuevo: ".$_POST["username"];
 					// validate user object
 					$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
 
@@ -500,12 +497,8 @@ class UsersController extends BaseController {
 					// die();
 					$this->view->redirect("users", "show");
 				}else if ($flag) {
-					echo "Cambia username";
-					echo " viejo: ".$oldUsername;
-					echo " nuevo: ".$_POST["username"];
 					// validate user object
 					if(!$flagCurrent && !$this->userMapper->usernameExists($_POST["username"])){
-						echo " No es el mio y SÍ compruebo si existe";
 						$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
 
 						//up the image to the server
@@ -527,7 +520,6 @@ class UsersController extends BaseController {
 						// die();
 						$this->view->redirect("users", "show");
 					}else if($flagCurrent) {
-						echo " Es el mio y NO compruebo si existe";
 						$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
 
 						//up the image to the server

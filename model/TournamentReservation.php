@@ -49,6 +49,12 @@ class TournamentReservation {
 	private $id_tournament;
 
 	/**
+	* The draw which will be reserved
+	* @var string
+	*/
+	private $id_draw;
+
+	/**
 	* The name of the tournament
 	* @var string
 	*/
@@ -87,6 +93,7 @@ class TournamentReservation {
   * @param string $is_confirmed The state of the reservation
   * @param string $id_competitor The competitor who send the reservation
   * @param string $id_tournament The tournament which will be reserved
+	* @param string $id_draw The draw which will be reserved
 	* @param string $name The name of the tournament
   * @param string $description The description of the tournament
   * @param string $start_date The date time of the tournament
@@ -94,7 +101,8 @@ class TournamentReservation {
 	* @param string $price The price of the tournament
 	*/
 	public function __construct($id_reservation=NULL, $date=NULL, $time=NULL,
-															$is_confirmed=NULL, $id_competitor=NULL, $id_tournament=NULL, $name=NULL,
+															$is_confirmed=NULL, $id_competitor=NULL, $id_tournament=NULL,
+															$id_draw=NULL, $name=NULL,
 															$description=NULL, $start_date=NULL, $end_date=NULL, $price=NULL) {
 		$this->id_reservation = $id_reservation;
 		$this->date = $date;
@@ -102,6 +110,7 @@ class TournamentReservation {
 		$this->is_confirmed = $is_confirmed;
 		$this->id_competitor = $id_competitor;
     $this->id_tournament = $id_tournament;
+		$this->id_draw = $id_draw;
 		$this->name = $name;
 		$this->description = $description;
 		$this->start_date = $start_date;
@@ -211,6 +220,25 @@ class TournamentReservation {
 	*/
 	public function setId_tournament($id_tournament) {
 		$this->id_tournament = $id_tournament;
+	}
+
+	/**
+	* Gets the draw which will be reserved
+	*
+	* @return string The draw which will be reserved
+	*/
+	public function getId_draw() {
+		return $this->id_draw;
+	}
+
+	/**
+	* Sets the draw which will be reserved
+	*
+	* @param string $id_draw The draw which will be reserved
+	* @return void
+	*/
+	public function setId_draw($id_draw) {
+		$this->id_draw = $id_draw;
 	}
 
 	/**

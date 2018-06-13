@@ -179,7 +179,7 @@ class CourseReservationsController extends BaseController {
 
 			// populate the course reservation object with data
 			$reservation->setDate(date("Y/m/d"));
-			$reservation->setTime(date("h:i:sa"));
+			$reservation->setTime(date("H:i:sa"));
 			$reservation->setIs_confirmed(0);
 			$reservation->setId_pupil($id_user);
 			$reservation->setId_course($id_course);

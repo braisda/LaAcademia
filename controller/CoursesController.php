@@ -156,7 +156,7 @@ class CoursesController extends BaseController {
 			$course->setEnd_time($_POST["end_time"]);
 			$course->setId_space($_POST["space"]);
 			$course->setId_trainer($_POST["trainer"]);
-			$course->setPrice($_POST["price"]);var_dump($course);
+			$course->setPrice($_POST["price"]);
 
 			try {
 				// check if space exists in the database
@@ -261,7 +261,7 @@ class CoursesController extends BaseController {
 
 			// put the flag to true if the user changes the course name
 			$flag = false;
-			if($course->getName() != $_POST["name"] && $course->getType() != $_POST["type"]){
+			if($course->getName() != $_POST["name"] || $course->getType() != $_POST["type"]){
 				$flag = true;
 			}
 
@@ -472,14 +472,12 @@ class CoursesController extends BaseController {
 			}
 
 			if (isset($_POST["days"])){
-				var_dump($_POST["days"]);
 				$days = "";
-				var_dump($days);
+
 				foreach ($_POST["days"] as $day) {
 					$days = $days.",".$day;
 				}
 				$days = substr($days, 1);
-				var_dump($days);
 
 				if ($flag){
 					$query .= " AND ";

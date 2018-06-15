@@ -170,8 +170,6 @@ class NotificationMapper {
 		$stmt = $this->db->prepare("INSERT INTO notifications(title, body, date, time, is_read, sender, receiver)
 																values (?,?,?,?,?,?,?)");
 
-var_dump($notification->getSender());
-var_dump($notification->getReceiver());
 		$stmt->execute(array($notification->getTitle(), $notification->getbody(), $notification->getDate(),
 												 $notification->getTime(), $notification->getIs_read(), $notification->getSender(), $notification->getReceiver()));
 		return $this->db->lastInsertId();
@@ -216,7 +214,7 @@ var_dump($notification->getReceiver());
 	public function search($query) {
         $search_query = "SELECT * FROM notifications WHERE ". $query;
         $stmt = $this->db->prepare($search_query);
-				
+
         $stmt->execute();
         $notifications_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

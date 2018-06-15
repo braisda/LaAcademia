@@ -55,7 +55,6 @@ function run() {
 		$controller->$actionName();
 	} catch(Exception $ex) {
 		//uniform treatment of exceptions
-		//var_dump($ex->getMessage());
 		if(strpos($ex->getMessage(), "Access denied for user")){
 			header("Location: install.php");
 			die();

@@ -186,7 +186,7 @@ class TournamentReservationsController extends BaseController {
 
 		$reservation = new TournamentReservation();
 		// find the Tournament object in the database
-		$tournament = $this->tournamentReservationMapper->getTournament($id_tournament);//var_dump($tournament);
+		$tournament = $this->tournamentReservationMapper->getTournament($id_tournament);
 		$id_user = $this->tournamentReservationMapper->getId_user($_SESSION["currentuser"]);
 
 		if(isset($_POST["submit"])) { // reaching via HTTP tournament...

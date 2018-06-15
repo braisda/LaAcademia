@@ -107,7 +107,7 @@ function validateDescription(){
   var description = document.getElementById("description");
   var res = /^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ()ºª.:,"'¡!\-\+/]+$/.test(description.value);
 
-  if(!res){
+  if(!res || description.value.length > 1000){
     document.getElementById("description").style.borderColor = "red";
   }else{
     document.getElementById("description").style.borderColor = "#3c3a37";

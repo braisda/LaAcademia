@@ -27,7 +27,12 @@ $errors = $view->getVariable("errors");
       </div>
       <div class="form-group col-md-6">
         <label for="Password"><?=i18n("Password")?></label>
-    		<input type="password" class="form-control" id="passwd" name="passwd" placeholder="<?= i18n("Password")?>" />
+    		<input type="password" class="form-control" id="password" onblur="validatePassword()" name="passwd" placeholder="<?= i18n("Password")?>" />
+        <?php if(isset($errors["password"])){ ?>
+            <div class="alert alert-danger" role="alert">
+              <strong><?= i18n("Error!") ?></strong> <?= isset($errors["password"])?i18n($errors["password"]):"" ?>
+            </div>
+        <?php } ?>
       </div>
     </div>
     <br/>

@@ -419,15 +419,19 @@ class Course {
 	public function validateCourse(){
 		$errors = array();
 
-		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
+		$expName = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$/';
 		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ()ºª.:,\"'¡!\-\+\/]+$/";
 
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
 		}
 
+		if(strlen($this->getName()) > 20){
+			$errors["name"] = "The name can not be longer than 20 characters";
+		}
+
 		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
-			$errors["name"] = "Name must have only letters and numbers";
+			$errors["name"] = "Name must have only letters";
 		}
 
 		if($this->getType() == NULL){
@@ -454,6 +458,10 @@ class Course {
 			$errors["description"] = "The description is wrong";
 		}
 
+		if(strlen($this->getDescription()) > 1000){
+			$errors["description"] = "Description too long";
+		}
+
 		if(!$this->getDescription() == NULL &&!preg_match($expDescrip, $this->getDescription())){
 			$errors["description"] = "Description must have only letters and numbers";
 		}
@@ -464,6 +472,10 @@ class Course {
 
 		if($this->getCapacity() == NULL){
 			$errors["capacity"] = "The capacity is wrong";
+		}
+
+		if($this->getCapacity() > 999){
+			$errors["capacity"] = "The capacity is too big";
 		}
 
 		if($this->getId_space() == NULL){

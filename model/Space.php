@@ -134,18 +134,26 @@ class Space {
 	public function validateSpace($imageName, $imageType, $imageSize, $checkImage){
 		$errors = array();
 
-		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
+		$expName = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$/';
 		$expCapacity = '/^\d+$/';
 
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
 		}
 
+		if(strlen($this->getName()) > 20){
+			$errors["name"] = "The name can not be longer than 20 characters";
+		}
+
 		if(!$this->getName() == NULL &&!preg_match($expName, $this->getName())){
-			$errors["name"] = "Name must have only letters and numbers";
+			$errors["name"] = "Name must have only letters";
 		}
 
 		if($this->getCapacity() == NULL){
+			$errors["capacity"] = "The capacity is wrong";
+		}
+
+		if($this->getCapacity() > 999){
 			$errors["capacity"] = "The capacity is wrong";
 		}
 

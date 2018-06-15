@@ -39,15 +39,15 @@ $errors = $view->getVariable ( "errors" );
         <select name="type" class="form-control" id="select">
 
           <?php if($course->getType() == "Children"){ ?>
-            <option value="children" selected><?=i18n("Children")?></option>
+            <option value="Children" selected><?=i18n("Children")?></option>
           <?php }else{ ?>
-            <option value="children"><?=i18n("Children")?></option>
+            <option value="Children"><?=i18n("Children")?></option>
           <?php }?>
 
           <?php if($course->getType() == 'Adults'){ ?>
-            <option value="adults" selected><?=i18n("Adults")?></option>
+            <option value="Adults" selected><?=i18n("Adults")?></option>
           <?php }else{ ?>
-            <option value="adults"><?=i18n("Adults")?></option>
+            <option value="Adults"><?=i18n("Adults")?></option>
           <?php }?>
 
         </select>

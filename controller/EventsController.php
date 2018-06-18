@@ -46,6 +46,11 @@ class EventsController extends BaseController {
 			throw new Exception("Not in session. Show events requires login");
 		}
 
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"
+      && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't an admin, a trainer, a pupil or a competitor. See all notifications requires be admin, trainer, pupil or competitor");
+		}
+
 		$events = $this->eventMapper->show();
 
 		// put the events object to the view
@@ -76,6 +81,11 @@ class EventsController extends BaseController {
 
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View Events requires login");
+		}
+
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"
+      && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't an admin, a trainer, a pupil or a competitor. See all notifications requires be admin, trainer, pupil or competitor");
 		}
 
 		$id_event = $_GET["id_event"];
@@ -139,22 +149,28 @@ class EventsController extends BaseController {
 			$event->setPrice($_POST["price"]);
 
 			try {
-				// validate event object
-				$event->validateEvent(); // if it fails, ValidationException
+				// check if space exists in the database
+				if(!$this->eventMapper->eventExists($_POST["name"])){
+					// validate event object
+					$event->validateEvent(); // if it fails, ValidationException
 
-				$this->eventMapper->add($event);
-				// POST-REDIRECT-GET
-				// Everything OK, we will redirect the user to the list of posts
-				// We want to see a message after redirection, so we establish
-				// a "flash" message (which is simply a Session variable) to be
-				// get in the view after redirection.
-				$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully added."),$event ->getName()));
+					$this->eventMapper->add($event);
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash(sprintf(i18n("Event \"%s\" successfully added."),$event ->getName()));
 
-				// perform the redirection. More or less:
-				// header("Location: index.php?controller=events&action=show")
-				// die();
-				$this->view->redirect("events", "show");
-
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=events&action=show")
+					// die();
+					$this->view->redirect("events", "show");
+				} else {
+					$errors = array();
+					$errors["name"] = "Event already exists";
+					$this->view->setVariable("errors", $errors);
+				}
 			}catch(ValidationException $ex) {
 				// Get the errors array inside the exepction...
 				$errors = $ex->getErrors();
@@ -391,8 +407,9 @@ class EventsController extends BaseController {
 			throw new Exception("Not in session. Show users requires login");
 		}
 
-		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
-			throw new Exception("You aren't an admin or a trainer. See all users requires be admin or trainer");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"
+      && $this->userMapper->findType() != "pupil" && $this->userMapper->findType() != "competitor"){
+			throw new Exception("You aren't an admin, a trainer, a pupil or a competitor. See all notifications requires be admin, trainer, pupil or competitor");
 		}
 
 		if (isset($_POST["submit"])) {

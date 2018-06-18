@@ -89,8 +89,6 @@ class DrawsController extends BaseController {
 			throw new Exception("draw id is mandatory");
 		}
 
-
-
 		if (!isset($this->currentUser)) {
 			throw new Exception("Not in session. View draws requires login");
 		}

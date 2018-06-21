@@ -22,7 +22,7 @@ class EventReservation {
 	* The date of the reservation
 	* @var string
 	*/
-	private $dateReservationReservation;
+	private $dateReservation;
 
 	/**
 	* The time of the reservation

@@ -3,7 +3,7 @@
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $tournament = $view->getVariable("tournament");
-$view->setVariable("title", "Update Tournament");
+$view->setVariable("title", i18n("Update Tournament"));
 $errors = $view->getVariable("errors");
 ?>
 

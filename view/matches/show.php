@@ -6,7 +6,7 @@ $competitors = $view->getVariable("competitors");
 $matches = $view->getVariable("matches");
 $tournament = $view->getVariable("tournament");
 $draw = $view->getVariable("draw");
-$view->setVariable("title", "Matches List");
+$view->setVariable("title", i18n("Matches List"));
 ?>
 
 <ol class="breadcrumb">

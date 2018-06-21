@@ -4,7 +4,7 @@ require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance ();
 $draw = $view->getVariable("draw");
 $tournament = $view->getVariable("tournament");
-$view->setVariable("title", "View Tournament");
+$view->setVariable("title", i18n("Draw Information"));
 ?>
 
 <ol class="breadcrumb">

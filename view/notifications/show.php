@@ -4,7 +4,7 @@ require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $notifications = $view->getVariable("notifications");
 $users = $view->getVariable("users");
-$view->setVariable ("title", "Show Notifications");
+$view->setVariable ("title", i18n("Notifications List"));
 ?>
 
 <ol class="breadcrumb">

@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $reservation = $view->getVariable("tournamentReservation");
 $competitors = $view->getVariable("competitors");
 $tournaments = $view->getVariable("tournaments");
-$view->setVariable ( "title", "Delete Tournament Reservation" );
+$view->setVariable ( "title", i18n("Delete Tournament Reservation") );
 ?>
 
 <ol class="breadcrumb">

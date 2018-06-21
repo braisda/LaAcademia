@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $tournament = $view->getVariable("tournament");
 $draw = $view->getVariable("draw");
 $match = $view->getVariable("match");
-$view->setVariable("title", "View Tournament");
+$view->setVariable("title", i18n("Delete Match"));
 ?>
 
 <ol class="breadcrumb">

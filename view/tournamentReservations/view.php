@@ -6,7 +6,7 @@ $reservation = $view->getVariable("tournamentReservation");
 $competitors = $view->getVariable("competitors");
 $tournaments = $view->getVariable("tournaments");
 $draws = $view->getVariable("draws");
-$view->setVariable ( "title", "View Reservation" );
+$view->setVariable ( "title", i18n("Tournament Reservation Information"));
 ?>
 
 <ol class="breadcrumb">

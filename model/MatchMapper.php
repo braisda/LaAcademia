@@ -139,9 +139,6 @@ class MatchMapper {
 
     $player2b_name = $player2b["name"]." ".$player2b["surname"];
 
-
-
-
 		$stmt6 = $this->db->prepare("SELECT name FROM spaces WHERE id_space=?");
     $stmt6->execute(array($match["id_space"]));
 

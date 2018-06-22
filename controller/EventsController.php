@@ -222,8 +222,8 @@ class EventsController extends BaseController {
 			throw new Exception("Not in session. Adding users requires login");
 		}
 
-		if($this->userMapper->findType() != "admin"){
-			throw new Exception("You aren't an admin. Adding an user requires be admin");
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
+			throw new Exception("You aren't an admin or trainer. Adding an user requires be admin or trainer");
 		}
 
 		$id_event = $_REQUEST["id_event"];

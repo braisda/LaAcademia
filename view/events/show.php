@@ -64,16 +64,21 @@ $view->setVariable ("title", i18n("Events List"));
                         <?php
                           if($_SESSION["admin"]){
                         ?>
-                          <a href="index.php?controller=events&amp;action=update&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-pencil" title="<?= i18n("Update") ?>"></span></a>
-                          <a href="index.php?controller=events&amp;action=delete&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
-                          <?php
-                            }
-                            if($_SESSION["pupil"] || $_SESSION["competitor"]){
-                          ?>
-                            <a href="index.php?controller=eventReservations&amp;action=add&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-task" title="<?= i18n("Reserve") ?>"></span></span></a>
-                          <?php
-                            }
-                          ?>
+                            <a href="index.php?controller=events&amp;action=update&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-pencil" title="<?= i18n("Update") ?>"></span></a>
+                            <a href="index.php?controller=events&amp;action=delete&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
+                        <?php
+                          }
+                          if($_SESSION["trainer"]){
+                        ?>
+                            <a href="index.php?controller=events&amp;action=update&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-pencil" title="<?= i18n("Update") ?>"></span></a>
+                        <?php
+                          }
+                          if($_SESSION["pupil"] || $_SESSION["competitor"]){
+                        ?>
+                          <a href="index.php?controller=eventReservations&amp;action=add&amp;id_event=<?= $event->getId_event() ?>"><span class="oi oi-task" title="<?= i18n("Reserve") ?>"></span></span></a>
+                        <?php
+                          }
+                        ?>
                       </td>
         						</tr>
         				<?php endforeach; ?>

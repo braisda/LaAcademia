@@ -308,7 +308,7 @@ array(
 	"The end date is wrong" => "La fecha de fin es incorrecta",
 	"Course \"%s\" successfully deleted." => "Curso \"%s\" eliminado correctamente.",
 	"Event already exists" => "El evento ya existe",
-	"" => "",
+	"Event \"%s\" successfully updated." => "Evento \"%s\" actualizado correctamente.",
 	"" => "",
 	"" => "",
 	"" => "",

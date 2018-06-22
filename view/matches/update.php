@@ -11,7 +11,7 @@ $cell = $view->getVariable("cell");
 $round = $view->getVariable("round");
 $match = $view->getVariable("match");
 $view->setVariable("title", i18n("Update Match"));
-$errors = $view->getVariable("errors"); 
+$errors = $view->getVariable("errors");
 ?>
 
 <ol class="breadcrumb">
@@ -26,7 +26,7 @@ $errors = $view->getVariable("errors");
 
 <div class="container" id="container">
   <div id="background_title">
-    <h4 id="view_title"><?= i18n("Add Match") ?></h4>
+    <h4 id="view_title"><?= i18n("Update Match") ?></h4>
   </div>
   <form action="index.php?controller=matches&amp;action=update" method="POST">
     <input type="hidden" name="id_tournament" value="<?= $tournament ?>">

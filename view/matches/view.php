@@ -30,7 +30,7 @@ $view->setVariable("title", i18n("Match Information"));
       <?php
         switch($match->getRound()){
           case "roundof32":
-            $round = "roundof 32";
+            $round = "round of 32";
             break;
           case "roundof16":
             $round = "round of 16";
@@ -82,15 +82,24 @@ $view->setVariable("title", i18n("Match Information"));
                   <td><?= $match->getSet5b()?></td>
                 </tr>
                 <tr>
-                  <td><?php
-                    if($_SESSION["admin"]){
-                  ?>
-                    <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=<?= $cell ?>&amp;round=<?= $match->getRound() ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
-                    <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-trash"></a>
-                  <?php
-                }
-                  ?>
-                </td>
+                  <td>
+                    <?php
+                      if($_SESSION["admin"]){
+                    ?>
+                      <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=<?= $cell ?>&amp;round=<?= $match->getRound() ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
+                      <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-trash"></a>
+                    <?php
+                      }
+                    ?>
+
+                    <?php
+                      if($_SESSION["trainer"]){
+                    ?>
+                      <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=<?= $cell ?>&amp;round=<?= $match->getRound() ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
+                    <?php
+                      }
+                    ?>
+                  </td>
                   <td></td>
                   <td></td>
                   <td></td>

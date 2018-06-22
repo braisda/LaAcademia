@@ -50,7 +50,7 @@ $view->setVariable("title", i18n("Matches List"));
                 <tr>
                   <td class="draw_td right">
                     <?php
-                      $flag = false;
+                      $flag = false; //true if exists a match to show update and delete icons || false if match doesn't exist to show the add icon
                       $id_match = NULL;
                       $name1a = NULL;
                       $surname1a = NULL;
@@ -100,6 +100,14 @@ $view->setVariable("title", i18n("Matches List"));
                       ?>
                           <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,0&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                      <?php
+                        }
+                      }
+
+                      if($_SESSION["trainer"]) {
+                        if($flag){
+                      ?>
+                        <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,0&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                       <?php
                         }
                       }
@@ -169,6 +177,14 @@ $view->setVariable("title", i18n("Matches List"));
                             <?php
                               }
                             }
+
+                            if($_SESSION["trainer"]) {
+                              if($flag){
+                            ?>
+                              <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=1,1&amp;round=roundof16&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                            <?php
+                              }
+                            }
                           ?>
                         </td>
                   </td>
@@ -231,6 +247,14 @@ $view->setVariable("title", i18n("Matches List"));
                             ?>
                                 <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,2&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                                 <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                            <?php
+                              }
+                            }
+
+                            if($_SESSION["trainer"]) {
+                              if($flag){
+                            ?>
+                              <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,2&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                             <?php
                               }
                             }
@@ -302,6 +326,14 @@ $view->setVariable("title", i18n("Matches List"));
                             <?php
                               }
                             }
+
+                            if($_SESSION["trainer"]) {
+                              if($flag){
+                            ?>
+                              <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=2,3&amp;round=cuarterfinal&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                            <?php
+                              }
+                            }
                           ?>
                         </td>
                   </td>
@@ -363,6 +395,14 @@ $view->setVariable("title", i18n("Matches List"));
                             ?>
                                 <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,4&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                                 <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                            <?php
+                              }
+                            }
+
+                            if($_SESSION["trainer"]) {
+                              if($flag){
+                            ?>
+                              <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,4&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                             <?php
                               }
                             }
@@ -433,6 +473,14 @@ $view->setVariable("title", i18n("Matches List"));
                             <?php
                               }
                             }
+
+                            if($_SESSION["trainer"]) {
+                              if($flag){
+                            ?>
+                              <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=1,5&amp;round=roundof16&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                            <?php
+                              }
+                            }
                           ?>
                         </td>
                   </td>
@@ -495,6 +543,14 @@ $view->setVariable("title", i18n("Matches List"));
                             ?>
                                 <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,6&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                                 <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                            <?php
+                              }
+                            }
+
+                            if($_SESSION["trainer"]) {
+                              if($flag){
+                            ?>
+                              <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,6&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                             <?php
                               }
                             }
@@ -567,6 +623,14 @@ $view->setVariable("title", i18n("Matches List"));
                             <?php
                               }
                             }
+
+                            if($_SESSION["trainer"]) {
+                              if($flag){
+                            ?>
+                              <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=3,7&amp;round=semifinal&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                            <?php
+                              }
+                            }
                           ?>
                   </td>
                   <td class="draw_td none"></td>
@@ -626,6 +690,14 @@ $view->setVariable("title", i18n("Matches List"));
                       ?>
                           <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,8&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                      <?php
+                        }
+                      }
+
+                      if($_SESSION["trainer"]) {
+                        if($flag){
+                      ?>
+                        <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,8&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                       <?php
                         }
                       }
@@ -695,6 +767,14 @@ $view->setVariable("title", i18n("Matches List"));
                             <?php
                               }
                             }
+
+                            if($_SESSION["trainer"]) {
+                              if($flag){
+                            ?>
+                              <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=1,9&amp;round=roundof16&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                            <?php
+                              }
+                            }
                           ?>
                   </td>
                   <td class="draw_td right"></td>
@@ -756,6 +836,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,10&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,10&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -826,6 +914,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=2,11&amp;round=cuarterfinal&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td right"></td>
@@ -886,6 +982,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,12&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,12&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -955,6 +1059,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=1,13&amp;round=roundof16&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td none"></td>
@@ -1016,6 +1128,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,14&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,14&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -1088,6 +1208,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=4,15&amp;round=final&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td none champion">
@@ -1142,6 +1270,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=5,15&amp;round=champion&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=5,15&amp;round=champion&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -1202,6 +1338,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,16&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,16&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -1271,6 +1415,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=1,17&amp;round=roundof16&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td none"></td>
@@ -1327,6 +1479,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=4,17&amp;round=consolation&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=4,17&amp;round=consolation&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -1387,6 +1547,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=5,17&amp;round=thirdplace&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
               </tr>
@@ -1444,6 +1612,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,18&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,18&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -1514,6 +1690,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=2,19&amp;round=cuarterfinal&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td right"></td>
@@ -1574,6 +1758,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,20&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,20&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -1643,6 +1835,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,21&amp;round=roundof16&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td right"></td>
@@ -1704,6 +1904,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,22&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,22&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -1775,6 +1983,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=3,23&amp;round=semifinal&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td none"></td>
@@ -1834,6 +2050,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,24&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,24&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -1903,6 +2127,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=1,25&amp;round=roundof16&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td right"></td>
@@ -1964,6 +2196,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,26&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,26&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -2034,6 +2274,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=2,27&amp;round=cuarterfinal&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td none"></td>
@@ -2094,6 +2342,14 @@ $view->setVariable("title", i18n("Matches List"));
                           ?>
                               <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,28&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                               <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                          <?php
+                            }
+                          }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,28&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                           <?php
                             }
                           }
@@ -2163,6 +2419,14 @@ $view->setVariable("title", i18n("Matches List"));
                           <?php
                             }
                           }
+
+                          if($_SESSION["trainer"]) {
+                            if($flag){
+                          ?>
+                            <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=1,29&amp;round=roundof16&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
+                          <?php
+                            }
+                          }
                         ?>
                 </td>
                 <td class="draw_td none"></td>
@@ -2217,6 +2481,14 @@ $view->setVariable("title", i18n("Matches List"));
                         ?>
                             <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,30&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                             <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $id_match ?>"><span class="oi oi-trash" title="<?=i18n("Delete")?>"></span></a>
+                        <?php
+                          }
+                        }
+
+                        if($_SESSION["trainer"]) {
+                          if($flag){
+                        ?>
+                          <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=0,30&amp;round=roundof32&amp;id_match=<?= $id_match ?>"><span class="oi oi-pencil" title="<?=i18n("Modificar")?>"></span></a>
                         <?php
                           }
                         }

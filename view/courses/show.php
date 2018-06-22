@@ -84,6 +84,13 @@ $view->setVariable ("title", i18n("Courses List"));
                         <a href="index.php?controller=courses&amp;action=delete&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-trash" title="<?= i18n("Delete") ?>"></span></a>
                         <?php
                           }
+
+                          if($_SESSION["trainer"]){
+                        ?>
+                        <a href="index.php?controller=courses&amp;action=update&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-pencil" title="<?= i18n("Update") ?>"></span></a>
+                        <?php
+                          }
+
                           if($_SESSION["pupil"]){
                         ?>
                           <a href="index.php?controller=courseReservations&amp;action=add&amp;id_course=<?= $course->getId_course() ?>"><span class="oi oi-task" title="<?= i18n("Reserve") ?>"></span></span></a>

@@ -244,7 +244,7 @@ class CoursesController extends BaseController {
 			throw new Exception("Not in session. Update a course requires login");
 		}
 
-		if($this->userMapper->findType() != "admin"){
+		if($this->userMapper->findType() != "admin" && $this->userMapper->findType() != "trainer"){
 			throw new Exception("You aren't an admin. Adding an user requires be admin");
 		}
 

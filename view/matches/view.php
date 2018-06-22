@@ -30,7 +30,7 @@ $view->setVariable("title", i18n("Match Information"));
       <?php
         switch($match->getRound()){
           case "roundof32":
-            $round = "round of 32";
+            $round = "roundof 32";
             break;
           case "roundof16":
             $round = "round of 16";
@@ -85,7 +85,7 @@ $view->setVariable("title", i18n("Match Information"));
                   <td><?php
                     if($_SESSION["admin"]){
                   ?>
-                    <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=<?= $cell ?>&amp;round=<?= $round ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
+                    <a href="index.php?controller=matches&amp;action=update&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;cell=<?= $cell ?>&amp;round=<?= $match->getRound() ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-pencil"></span></a>
                     <a href="index.php?controller=matches&amp;action=delete&amp;id_tournament=<?= $tournament ?>&amp;id_draw=<?= $draw ?>&amp;id_match=<?= $match->getId_match() ?>" class="card-link"><span class="oi oi-trash"></a>
                   <?php
                 }

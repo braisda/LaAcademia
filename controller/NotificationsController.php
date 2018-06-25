@@ -311,7 +311,13 @@ class NotificationsController extends BaseController {
 			}
 
 			if ($_POST["sender"]){
-				$id_receiver = $this->notificationMapper->getId_user($_POST["sender"])->getId_user();
+				$us = $this->notificationMapper->getId_user($_POST["sender"]);
+
+				if($us == null){
+					$id_receiver = "";
+				}else{
+					$id_receiver = $us->getId_user();
+				}
 				$query .= "sender LIKE '%".$id_receiver."%'";
 				$flag = 1;
 			}

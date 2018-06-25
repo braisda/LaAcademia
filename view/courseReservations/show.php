@@ -75,13 +75,13 @@ $view->setVariable ("title", i18n("Courses Reservations List"));
                         <?php
                           foreach ($courses as $course) {
                             if($course["id_course"] == $reservation->getId_course()){
-                              $name = $course["name"];
+                              $courseName = $course["name"];
                               $type = $course["type"];
                             }
                           }
                         ?>
 
-                        <?= $name." ".i18n($type) ?></td>
+                        <?= $courseName." ".i18n($type) ?></td>
                         <td>
                           <a href="index.php?controller=courseReservations&amp;action=view&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-eye" title="<?= i18n("View") ?>"></span></a>
 

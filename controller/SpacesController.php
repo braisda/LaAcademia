@@ -138,7 +138,7 @@ class SpacesController extends BaseController {
 			// populate the space object with data form the form
 			$space->setName($_POST["name"]);
 			$space->setCapacity($_POST["capacity"]);
-			$directory = 'multimedia/images/';
+			$directory = 'multimedia/images/spaces/';
 
 			$imageType = $_FILES['image']['type'];
 			$imageName = $_FILES['image']['name'];
@@ -243,7 +243,7 @@ class SpacesController extends BaseController {
 			$space->setName($_POST["name"]);
 
 			$space->setCapacity($_POST["capacity"]);
-			$directory = 'multimedia/images/';
+			$directory = 'multimedia/images/spaces/';
 			$imageType = $_FILES['image']['type'];
 			$imageName = $_FILES['image']['name'];
 			$imageSize = $_FILES['image']['size'];

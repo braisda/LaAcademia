@@ -58,9 +58,8 @@ $view->setVariable ( "title", i18n("Delete Event Reservation"));
           <?= i18n($toret) ?></td>
         </li>
       </ul>
-      <br/>
       <form action="index.php?controller=eventReservations&amp;action=delete" method="POST">
-        <input type="hidden" name="id_reservation" value="<?= $reservation->getId_reservation() ?>">
+        <input type="hidden" name="id_reservation" value="<?= $reservation->getId_reservation() ?>"><br/>
         <button type="submit" name="submit" class="btn btn-primary"><?=i18n("Delete")?></button>
       </form>
     </div>

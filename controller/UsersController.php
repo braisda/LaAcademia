@@ -417,8 +417,9 @@ class UsersController extends BaseController {
 			$user->setSurname($_POST["surname"]);
 			$user->setDni($_POST["dni"]);
 
-			// put the flag to true if the current user wants to change his own email
+			// put the flag to true if the user wants to change the email
 			$flag = false;
+			// put the flag to true if the user wants to change his own email
 			$flagCurrent = false;
 			$oldUsername = $user->getUsername();
 			if($user->getUsername() != $_POST["username"]){
@@ -519,7 +520,7 @@ class UsersController extends BaseController {
 						// header("Location: index.php?controller=users&action=show")
 						// die();
 						$this->view->redirect("users", "show");
-					}else if($flagCurrent) {
+					}else if($flagCurrent && !$this->userMapper->usernameExists($_POST["username"])) {
 						$user->validateUser($_POST["password"], $_POST["repeatpassword"], $imageName, $imageType, $imageSize, $checkPassword, $checkImage); // if it fails, ValidationException
 
 						//up the image to the server

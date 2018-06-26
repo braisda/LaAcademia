@@ -414,9 +414,9 @@ INSERT INTO `events_reservations` (`id_reservation`, `date`, `time`, `is_confirm
 --
 
 INSERT INTO `tournaments` (`id_tournament`, `name`, `description`, `start_date`, `end_date`, `price`) VALUES
-(NULL, 'I Torneo La Academia', 'I Torneo de Tenis La Academia celebrado en las instalaciones del club.\r\n\r\nModalidades:\r\nMasculino/Femenino individual adultos (+16 años)\r\n\r\nPremios: \r\n1º - Trofeo + 800 euros\r\n2º - Trofeo + 300 euros\r\n\r\nObsequio para todos los participantes', '2016-06-04', '2016-06-15', 20),
-(NULL, 'II Torneo La Academia', 'II Torneo de Tenis La Academia celebrado en las instalaciones del club.\r\n\r\nModalidades:\r\nMasculino/Femenino individual adultos (+16 años)\r\n\r\nPremios: \r\n1º - Trofeo + 900 euros\r\n2º - Trofeo + 300 euros\r\n\r\nObsequio para todos los participantes', '2017-06-04', '2017-06-15', 20),
-(NULL, 'III Torneo La Academia', 'III Torneo de Tenis La Academia celebrado en las instalaciones del club.\r\n\r\nModalidades:\r\nMasculino/Femenino individual adultos (+16 años)\r\n\r\nPremios: \r\n1º - Trofeo + 1000 euros\r\n2º - Trofeo + 300 euros\r\n\r\nObsequio para todos los participantes', '2018-06-04', '2018-06-15', 20);
+(NULL, 'I Torneo de Verano', 'I Torneo de Tenis La Academia celebrado en las instalaciones del club.\r\n\r\nModalidades:\r\nMasculino/Femenino individual adultos (+16 años)\r\n\r\nPremios: \r\n1º - Trofeo + 800 euros\r\n2º - Trofeo + 300 euros\r\n\r\nObsequio para todos los participantes', '2016-06-04', '2016-06-15', 20),
+(NULL, 'II Torneo de Verano', 'II Torneo de Tenis La Academia celebrado en las instalaciones del club.\r\n\r\nModalidades:\r\nMasculino/Femenino individual adultos (+16 años)\r\n\r\nPremios: \r\n1º - Trofeo + 900 euros\r\n2º - Trofeo + 300 euros\r\n\r\nObsequio para todos los participantes', '2017-06-04', '2017-06-15', 20),
+(NULL, 'III Torneo de Verano', 'III Torneo de Tenis La Academia celebrado en las instalaciones del club.\r\n\r\nModalidades:\r\nMasculino/Femenino individual adultos (+16 años)\r\n\r\nPremios: \r\n1º - Trofeo + 1000 euros\r\n2º - Trofeo + 300 euros\r\n\r\nObsequio para todos los participantes', '2018-06-04', '2018-06-15', 20);
 
 -- --------------------------------------------------------
 

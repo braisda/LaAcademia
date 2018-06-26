@@ -182,11 +182,15 @@ class Tournament {
 	public function validateTournament(){
 		$errors = array();
 
-		$expName = '/^[A-Za-z0-9\sáéíóúÁÉÍÓÚ]+$/';
+		$expName = '/^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$/';
 		$expDescrip ="/^[A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ()ºª.:,\"'¡!\-\+\/]+$/";
 
 		if($this->getName() == NULL){
 			$errors["name"] = "The name is wrong";
+		}
+
+		if(strlen($this->getName()) > 20){
+			$errors["name"] = "The name can not be longer than 20 characters";
 		}
 
 		if(!$this->getName() == NULL && !preg_match($expName, $this->getName())){
@@ -195,6 +199,10 @@ class Tournament {
 
 		if($this->getDescription() == NULL){
 			$errors["description"] = "The description is wrong";
+		}
+
+		if(strlen($this->getDescription()) > 1000){
+			$errors["description"] = "Description too long";
 		}
 
 		if(!$this->getDescription() == NULL && !preg_match($expDescrip, $this->getDescription())){

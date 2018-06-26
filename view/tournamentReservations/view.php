@@ -72,7 +72,7 @@ $view->setVariable ( "title", i18n("Tournament Reservation Information"));
           <?php
               if($reservation->getIs_confirmed() == 0){
           ?>
-                <a href="index.php?controller=eventReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check"></span></a>
+                <a href="index.php?controller=tournamentReservations&amp;action=confirm&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-check"></span></a>
           <?php
               }else{
           ?>
@@ -80,14 +80,14 @@ $view->setVariable ( "title", i18n("Tournament Reservation Information"));
           <?php
               }
           ?>
-              <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+              <a href="index.php?controller=tournamentReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
               </li>
           <?php
             }else{
               if($reservation->getIs_confirmed() == 0){
           ?>
               <li id="table_color" class="list-group-item">
-                <a href="index.php?controller=eventReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
+                <a href="index.php?controller=tournamentReservations&amp;action=delete&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-trash"></span></a>
               </li>
           <?php
               }

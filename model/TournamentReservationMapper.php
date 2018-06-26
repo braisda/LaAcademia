@@ -25,13 +25,13 @@ class TournamentReservationMapper {
 	/**
 	* Checks if a given reservation is already in the database
 	*
-	* @param string $competitors the competitors of the reservation to check
+	* @param string $competitor the competitor of the reservation to check
 	* @param string $tournament the tournament of the reservation to check
 	* @return boolean true if the name exists, false otherwise
 	*/
-	public function reservationExists($competitors, $tournament, $draw) {
-		$stmt = $this->db->prepare("SELECT count(id_player) FROM tournaments_reservations where id_player=? AND id_tournament=? AND id_draw");
-		$stmt->execute(array($competitors, $tournament, $draw));
+	public function reservationExists($competitor, $tournament, $draw) {
+		$stmt = $this->db->prepare("SELECT count(id_reservation) FROM tournaments_reservations where id_player=? AND id_tournament=? AND id_draw=?");
+		$stmt->execute(array($competitor, $tournament, $draw));
 
 		if ($stmt->fetchColumn() > 0) {
 			return true;

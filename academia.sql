@@ -358,13 +358,13 @@ INSERT INTO `users` (`id_user`, `name`, `surname`, `dni`, `email`, `password`, `
 --
 
 INSERT INTO `spaces` (`id_space`, `name`, `capacity`, `image`) VALUES
-(1, 'Pista A', 350, 'multimedia/images/pista1.jpg'),
-(2, 'Pista B', 120, 'multimedia/images/pista2.jpg'),
-(3, 'Cafetería', 90, 'multimedia/images/cafeteria.jpg'),
-(4, 'Vestuario A', 20, 'multimedia/images/vestuario.jpg'),
-(5, 'Vestuario B', 15, 'multimedia/images/vestuario2.jpg'),
-(6, 'Salón de Actos', 400, 'multimedia/images/salon.jpg'),
-(7, 'Oficina A', 30, 'multimedia/images/oficina.png');
+(1, 'Pista A', 350, 'multimedia/images/spaces/pista1.jpg'),
+(2, 'Pista B', 120, 'multimedia/images/spaces/pista2.jpg'),
+(3, 'Cafetería', 90, 'multimedia/images/spaces/cafeteria.jpg'),
+(4, 'Vestuario A', 20, 'multimedia/images/spaces/vestuario.jpg'),
+(5, 'Vestuario B', 15, 'multimedia/images/spaces/vestuario2.jpg'),
+(6, 'Salón de Actos', 400, 'multimedia/images/spaces/salon.jpg'),
+(7, 'Oficina A', 30, 'multimedia/images/spaces/oficina.png');
 
 -- --------------------------------------------------------
 

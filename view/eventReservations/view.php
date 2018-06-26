@@ -44,7 +44,7 @@ $view->setVariable ( "title", i18n("Event Reservation Information"));
           ?>
 
           <li id="event_decription" class="list-group-item"><?= $name." ".$surname ?></td></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $reservation->getDateReservation() ?></li>
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= date("d-m-Y", strtotime($reservation->getDateReservation())) ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Time") ?>:</strong> <?= $reservation->getTimeReservation() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("State") ?>:</strong>
           <?php
@@ -67,7 +67,7 @@ $view->setVariable ( "title", i18n("Event Reservation Information"));
           <?php
               }else{
           ?>
-                <a href="index.php?controller=courseReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
+                <a href="index.php?controller=eventReservations&amp;action=cancel&amp;id_reservation=<?= $reservation->getId_reservation() ?>"><span class="oi oi-circle-x"></span></a>
           <?php
               }
           ?>

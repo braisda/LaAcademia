@@ -83,7 +83,7 @@
 /* start MAIN */
 
 #main {
-	background-image: url("../multimedia/images/fondo4.jpg");
+	background-image: url("../multimedia/images/fondo.jpg");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -410,6 +410,32 @@ li.breadcrumb-item>a {
 	margin: 15px;
 }
 
+.footer_icons {
+	width: 90px;
+	margin: 5px;
+}
+
+.footer_icons2 {
+	width: 70px;
+	margin: 5px;
+}
+
+.footer_icons3 {
+	width: 24px;
+	margin: 2px;
+}
+
+.footer_icons4 {
+	width: 100px;
+}
+
+.footer_icons5 {
+	width: 142px;
+}
+
+.footer_list {
+	list-style:none;
+}
 
 
 

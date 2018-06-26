@@ -154,28 +154,28 @@ $currentuser = $view->getVariable("currentusername");
 	<footer id="footer">
 		<div id="sponsors">
 			<h4><?= i18n("Sponsors") ?></h4>
-			<ul>
-				<li><a href="#">Patrocinador 1</a></li>
-				<li><a href="#">Patrocinador 2</a></li>
-				<li><a href="#">Patrocinador 3</a></li>
+			<ul class="footer_list" >
+				<li><a href="https://www.head.com/en-IC/home/" target="_blank"><img class="footer_icons" src="multimedia/images/sponsors/head_logo.png"></a></li>
+				<li><a href="http://domiweb.esy.es/" target="_blank"><img class="footer_icons" src="multimedia/images/sponsors/domiweb_logo.png"></a></li>
+				<li><a href="https://www.mapfre.es/seguros/particulares/" target="_blank"><img class="footer_icons4" src="multimedia/images/sponsors/mapfre_logo.jpg"></a></li>
 			</ul>
 		</div>
 
 		<div id="providers">
 			<h4><?= i18n("Providers") ?></h4>
-			<ul>
-				<li><a href="#">Proveedor 1</a></li>
-				<li><a href="#">Proveedor 2</a></li>
-				<li><a href="#">Proveedor 3</a></li>
+			<ul class="footer_list">
+				<li><a href="https://www.joma-sport.com/" target="_blank"><img class="footer_icons2" src="multimedia/images/providers/joma_logo.png"></a></li>
+				<li><a href="https://www.cocacola.es/powerade/es/home/" target="_blank"><img class="footer_icons5" src="multimedia/images/providers/powerade_logo.png"></a></li>
+				<li><a href="https://www.wilson.com/es-es" target="_blank"><img class="footer_icons2" src="multimedia/images/providers/wilson_logo.png"></a></li>
 			</ul>
 		</div>
 
 		<div id="social_networks">
 			<h4><?= i18n("Social Networks") ?></h4>
-			<ul>
-				<li><a href="#">Facebook</a></li>
-				<li><a href="#">Twitter</a></li>
-				<li><a href="#">Instagram</a></li>
+			<ul class="footer_list">
+				<li><a href="https://www.facebook.com/" target="_blank"><img class="footer_icons3" src="multimedia/images/socialNetworks/facebook_icon.png"></a></li>
+				<li><a href="https://www.instagram.com/" target="_blank"><img class="footer_icons3" src="multimedia/images/socialNetworks/instagram_icon.png"></a></li>
+				<li><a href="https://twitter.com/" target="_blank"><img class="footer_icons3" src="multimedia/images/socialNetworks/twitter_icon.png"></a></li>
 			</ul>
 	</footer>
 </body>

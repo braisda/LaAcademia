@@ -66,19 +66,19 @@ ofrecemos programas de corta o larga duración durante todo el año y además de
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img class="d-block w-100" src="multimedia/images/cafeteria.jpg" alt="cafetería">
+                <img class="d-block w-100" src="multimedia/images/spaces/cafeteria.jpg" alt="cafetería">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Cafetería</h5>
                 </div>
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="multimedia/images/oficina.png" alt="oficina">
+                <img class="d-block w-100" src="multimedia/images/spaces/oficina.png" alt="oficina">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Sala de reuniones</h5>
                 </div>
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="multimedia/images/pista1.jpg" alt="pista1">
+                <img class="d-block w-100" src="multimedia/images/spaces/pista1.jpg" alt="pista1">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Pista Central</h5>
                 </div>

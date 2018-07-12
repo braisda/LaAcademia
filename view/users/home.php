@@ -53,16 +53,15 @@ ofrecemos programas de corta o larga duración durante todo el año y además de
 
           <h2>¿Quieres conocer nuestras instalaciones?</h2>
           <p class="p_home">Para conseguir llegar a tu mejor nivel, necesitas un entorno a la altura, en La Academia, contarás con todo tipo instalaciones de primer nivel para hacer qu te encuentres lo más cómodo posible con nosotros, esta será tu segunda casa.</p>
-          <div id="carouselExampleIndicators" class="carousel slide col-6" data-ride="carousel">
+          <div id="carouselExampleIndicators2" class="carousel slide col-6" data-ride="carousel">
             <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="3"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="4"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="5"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="6"></li>
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -84,35 +83,35 @@ ofrecemos programas de corta o larga duración durante todo el año y además de
                 </div>
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="multimedia/images/pista2.jpg" alt="pista2">
+                <img class="d-block w-100" src="multimedia/images/spaces/pista2.jpg" alt="pista2">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Pista 2</h5>
                 </div>
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="multimedia/images/salon.jpg" alt="salon">
+                <img class="d-block w-100" src="multimedia/images/spaces/salon.jpg" alt="salon">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Salón de Actos</h5>
                 </div>
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="multimedia/images/vestuario.jpg" alt="vestuario1">
+                <img class="d-block w-100" src="multimedia/images/spaces/vestuario.jpg" alt="vestuario1">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Vestuario A</h5>
                 </div>
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="multimedia/images/vestuario.jpg" alt="vestuario2">
+                <img class="d-block w-100" src="multimedia/images/spaces/vestuario2.jpg" alt="vestuario2">
                 <div class="carousel-caption d-none d-md-block">
                   <h5>Vestuario B</h5>
                 </div>
               </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>

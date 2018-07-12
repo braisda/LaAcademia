@@ -255,7 +255,7 @@ li.breadcrumb-item>a {
 	padding-top: 20px;
 }
 
-#carouselExampleIndicators {
+#carouselExampleIndicators, #carouselExampleIndicators2 {
 	margin-left: auto;
 	margin-right: auto;
 	padding-bottom: 20px;

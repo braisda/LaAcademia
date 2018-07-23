@@ -25,7 +25,19 @@ $errors = $view->getVariable("errors");
         <li id="event_decription" class="list-group-item"><?= $course->getDescription() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Place") ?>:</strong> <?= $course->getName_space() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Teached by") ?>:</strong> <?= $course->getName_trainer() ?></li>
-        <li id="table_color" class="list-group-item"><strong><?= i18n("Date") ?>:</strong> <?= $course->getDays() ?></li>
+
+        <?php
+          $arrayDays = explode(',' , $course->getDays());
+          $stringDays="";
+          for($i=0; $i<count($arrayDays); $i++){
+            $stringDays = $stringDays.i18n($arrayDays[$i]).", ";
+          }
+          $size = strlen($stringDays);
+          $stringDays = substr($stringDays, 0, $size-2);
+         ?>
+
+        <li id="table_color" class="list-group-item"><strong><?= i18n("Days") ?>:</strong> <?=$stringDays?></li>
+
         <li id="table_color" class="list-group-item"><strong><?= i18n("Start Time") ?>:</strong> <?= $course->getStart_time() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("End Time") ?>:</strong> <?= $course->getEnd_time() ?></li>
         <li id="table_color" class="list-group-item"><strong><?= i18n("Capacity") ?>:</strong> <?= $course->getCapacity() ?></li>
